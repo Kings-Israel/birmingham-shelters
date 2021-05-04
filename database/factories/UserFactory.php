@@ -53,4 +53,13 @@ class UserFactory extends Factory
             ];
         });
     }
+
+    public function asUserType(UserTypeEnum $userType): Factory
+    {
+        return $this->state(function (array $attributes) use ($userType) {
+            return [
+                'user_type' => $userType->value,
+            ];
+        });
+    }
 }
