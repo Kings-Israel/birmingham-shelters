@@ -19,6 +19,8 @@
     <!-- Custom Color Option -->
     <link href="assets/css/colors.css" rel="stylesheet">
 
+    @livewireScripts()
+
     @stack('styles')
 </head>
 
@@ -57,6 +59,8 @@
     <script src="assets/js/imagesloaded.js"></script>
 
     <script src="assets/js/custom.js"></script>
+
+    @livewireScripts()
 
     <!-- ============================================================== -->
     <!-- This page plugins -->
