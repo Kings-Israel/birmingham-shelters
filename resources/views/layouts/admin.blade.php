@@ -19,6 +19,8 @@
     <!-- Custom Color Option -->
     <link href="/assets/css/colors.css" rel="stylesheet">
 
+    @livewireScripts()
+
     @stack('styles')
 </head>
 
@@ -31,13 +33,30 @@
     </div>
 
     <div id="main-wrapper">
-        @include('partials.navigation')
+        @include('partials.admin-navigation')
 
         {{ $slot }}
 
-        @include('partials.footer')
+        <footer class="dark-footer skin-dark-footer">
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-md-6">
+                            <p class="mb-0">&copy; {{ date('Y') }} Sheltered Birmingham. All Rights Reserved</p>
+                        </div>
+                        <div class="text-right col-lg-6 col-md-6">
+                            <ul class="footer-bottom-social">
+                                <li><a href="#"><i class="ti-facebook"></i></a></li>
+                                <li><a href="#"><i class="ti-twitter"></i></a></li>
+                                <li><a href="#"><i class="ti-instagram"></i></a></li>
+                                <li><a href="#"><i class="ti-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
-        <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
     </div>
 
     @stack('modals')
@@ -57,6 +76,8 @@
     <script src="/assets/js/imagesloaded.js"></script>
 
     <script src="/assets/js/custom.js"></script>
+
+    @livewireScripts()
 
     <!-- ============================================================== -->
     <!-- This page plugins -->
