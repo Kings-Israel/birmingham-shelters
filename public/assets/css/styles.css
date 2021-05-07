@@ -271,6 +271,11 @@ p, ul, ol, dl, dt, dd, blockquote, address {
 .shadow-0{
 	box-shadow:none !important;
 }
+
+[id*="Error"] {
+    color: rgb(252, 3, 3);
+}
+
 /*------------ GLobal Settings: Heading-------------*/ 
 h1,
 h2,
