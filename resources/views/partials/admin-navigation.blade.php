@@ -13,7 +13,7 @@
                         <a href="#">User Management<span class="submenu-indicator"></span></a>
 
                         <ul class="nav-dropdown nav-submenu">
-                            <li><a class="active" href="#">Admins</a></li>
+                            <li><a class="active" href="{{ route('admins.index') }}">Admins</a></li>
                             <li><a href="#">Users</a></li>
                             <li><a href="#">Landlords</a></li>
                             <li><a href="#">Volunteers</a></li>

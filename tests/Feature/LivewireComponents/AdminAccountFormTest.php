@@ -5,6 +5,7 @@ namespace Tests\Feature\LivewireComponents;
 use App\Enums\UserTypeEnum;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -21,7 +22,7 @@ class AdminAccountFormTest extends TestCase
             ->set('admin.first_name', 'Test')
             ->set('admin.last_name', 'Admin')
             ->set('admin.email', 'admin@mail.com')
-            ->set('admin.phone_number', '254723457198')
+            ->set('admin.phone_number', '444723457198')
             ->call('create_account');
 
         $this->assertInstanceOf(User::class, $record = User::whereEmail('admin@mail.com')->first());
@@ -45,7 +46,7 @@ class AdminAccountFormTest extends TestCase
             ->set('admin.first_name', 'Test')
             ->set('admin.last_name', 'Admin')
             ->set('admin.email', 'invalidemail.com')
-            ->set('admin.phone_number', '254723457198')
+            ->set('admin.phone_number', '444723457198')
             ->call('create_account');
 
         $component->assertHasErrors('admin.email');
@@ -60,7 +61,7 @@ class AdminAccountFormTest extends TestCase
             ->set('admin.first_name', 'Test')
             ->set('admin.last_name', 'Admin')
             ->set('admin.email', 'admin@email.com')
-            ->set('admin.phone_number', '2549483')
+            ->set('admin.phone_number', '4449483')
             ->call('create_account');
 
         $component->assertHasErrors('admin.phone_number');
@@ -72,7 +73,7 @@ class AdminAccountFormTest extends TestCase
 
         User::factory()->create([
             'email' => 'existing@mail.com',
-            'phone_number' => '254712345678'
+            'phone_number' => '444723457198'
         ]);
 
         $component = Livewire::test('admin-account-form')
@@ -80,12 +81,12 @@ class AdminAccountFormTest extends TestCase
             ->set('admin.first_name', 'Test')
             ->set('admin.last_name', 'Admin')
             ->set('admin.email', 'existing@mail.com')
-            ->set('admin.phone_number', '254712345678')
+            ->set('admin.phone_number', '444723457198')
             ->call('create_account');
 
         $component->assertHasErrors(['admin.email', 'admin.phone_number']);
 
-        $this->assertCount(1, User::whereEmail('existing@mail.com')->wherePhoneNumber('254712345678')->get());
+        $this->assertCount(1, User::whereEmail('existing@mail.com')->wherePhoneNumber('444723457198')->get());
     }
 
     public function test_dispatch_admin_registered_event_on_account_creation(): void
