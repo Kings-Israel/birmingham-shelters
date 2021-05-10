@@ -23,7 +23,7 @@ class AdminAccountFormTest extends TestCase
             ->set('admin.last_name', 'Admin')
             ->set('admin.email', 'admin@mail.com')
             ->set('admin.phone_number', '444723457198')
-            ->call('create_account');
+            ->call('save_details');
 
         $this->assertInstanceOf(User::class, $record = User::whereEmail('admin@mail.com')->first());
 
@@ -47,7 +47,7 @@ class AdminAccountFormTest extends TestCase
             ->set('admin.last_name', 'Admin')
             ->set('admin.email', 'invalidemail.com')
             ->set('admin.phone_number', '444723457198')
-            ->call('create_account');
+            ->call('save_details');
 
         $component->assertHasErrors('admin.email');
     }
@@ -62,7 +62,7 @@ class AdminAccountFormTest extends TestCase
             ->set('admin.last_name', 'Admin')
             ->set('admin.email', 'admin@email.com')
             ->set('admin.phone_number', '4449483')
-            ->call('create_account');
+            ->call('save_details');
 
         $component->assertHasErrors('admin.phone_number');
     }
@@ -82,7 +82,7 @@ class AdminAccountFormTest extends TestCase
             ->set('admin.last_name', 'Admin')
             ->set('admin.email', 'existing@mail.com')
             ->set('admin.phone_number', '444723457198')
-            ->call('create_account');
+            ->call('save_details');
 
         $component->assertHasErrors(['admin.email', 'admin.phone_number']);
 
@@ -93,5 +93,30 @@ class AdminAccountFormTest extends TestCase
     {
         $this->markTestIncomplete("Pending AdminRegistered event with email and phone number verification listeners");
     }
+
+    public function test_can_edit_admin_record(): void
+    {
+        $this->actingAs(User::factory()->asUserType(UserTypeEnum::super_admin())->create());
+
+        $existing_admin = User::factory()->asUserType(UserTypeEnum::admin())->create();
+
+        $component = Livewire::test('admin-account-form', ['admin' => $existing_admin])
+            ->assertSet('editingMode', true)
+            ->assertSet('admin.first_name', $existing_admin->first_name)
+            ->set('admin.first_name', 'UpdatedFirst')
+            ->set('admin.last_name', 'UpdatedLast')
+            ->call('save_details');
+
+        $existing_admin->refresh();
+
+        $this->assertSame('UpdatedFirst', $existing_admin->first_name);
+        $this->assertSame('UpdatedLast', $existing_admin->last_name);
+
+        $component->assertRedirect(route('admins.index'));
+
+        $component->assertSessionHas('banner', 'Admin account updated successfully.');
+        $component->assertSessionHas('bannerStyle', 'success');
+    }
+
 
 }

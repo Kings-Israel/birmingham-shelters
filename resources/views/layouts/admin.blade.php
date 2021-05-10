@@ -24,7 +24,7 @@
     @stack('styles')
 </head>
 
-<body class="blue-skin">
+<body class="blue-skin min-vh-100 d-flex flex-column">
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -32,32 +32,31 @@
         <div class="preloader"><span></span><span></span></div>
     </div>
 
-    <div id="main-wrapper">
+    <div id="main-wrapper" style="flex: 1; min-height: 0;">
         @include('partials.admin-navigation')
 
         {{ $slot }}
+    </div>
 
-        <footer class="dark-footer skin-dark-footer">
-            <div class="footer-bottom">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6 col-md-6">
-                            <p class="mb-0">&copy; {{ date('Y') }} Sheltered Birmingham. All Rights Reserved</p>
-                        </div>
-                        <div class="text-right col-lg-6 col-md-6">
-                            <ul class="footer-bottom-social">
-                                <li><a href="#"><i class="ti-facebook"></i></a></li>
-                                <li><a href="#"><i class="ti-twitter"></i></a></li>
-                                <li><a href="#"><i class="ti-instagram"></i></a></li>
-                                <li><a href="#"><i class="ti-linkedin"></i></a></li>
-                            </ul>
-                        </div>
+    <footer class="dark-footer skin-dark-footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-6">
+                        <p class="mb-0">&copy; {{ date('Y') }} Sheltered Birmingham. All Rights Reserved</p>
+                    </div>
+                    <div class="text-right col-lg-6 col-md-6">
+                        <ul class="footer-bottom-social">
+                            <li><a href="#"><i class="ti-facebook"></i></a></li>
+                            <li><a href="#"><i class="ti-twitter"></i></a></li>
+                            <li><a href="#"><i class="ti-instagram"></i></a></li>
+                            <li><a href="#"><i class="ti-linkedin"></i></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </footer>
-
-    </div>
+        </div>
+    </footer>
 
     @stack('modals')
 

@@ -14,41 +14,63 @@ class AdminAccountForm extends Component
 {
     public User $admin;
 
-    public function mount()
+    public bool $editingMode = false;
+
+    public function mount(User $admin): void
     {
-        $this->admin = new User();
-        $this->admin->user_type = UserTypeEnum::admin();
+        $this->admin = $admin;
+
+        $this->editingMode = $this->admin->exists;
+
+        if (! $this->editingMode) {
+            $this->admin->user_type = UserTypeEnum::admin();
+        }
     }
 
     protected function rules(): array
     {
-        return [
+        $rules = [
             'admin.first_name' => ['required'],
             'admin.last_name' => ['required'],
-            'admin.email' => ['required', 'email:rfc,dns', Rule::unique('users', 'email')],
-            'admin.phone_number' => ['required' ,new PhoneNumber, Rule::unique('users', 'phone_number')],
+            'admin.email' => ['required', 'email:rfc,dns'],
+            'admin.phone_number' => ['required', new PhoneNumber],
             'admin.user_type' => ['required'],
         ];
+
+        $rules['admin.email'][] = $this->editingMode ?
+            Rule::unique('users', 'email')->ignore($this->admin->id) :
+            Rule::unique('users', 'email');
+
+        $rules['admin.phone_number'][] = $this->editingMode ?
+            Rule::unique('users', 'phone_number')->ignore($this->admin->id) :
+            Rule::unique('users', 'phone_number');
+
+        return $rules;
     }
 
     public function updatedAdmin(): void
     {
-        $this->admin->phone_number = str_replace(" ", "", $this->admin->phone_number);
+        $this->admin->phone_number = str_replace(' ', '', $this->admin->phone_number);
     }
 
-    public function create_account()
+    public function save_details()
     {
         $this->validate();
 
-        $generated_password = Str::random(12);
-        $this->admin->password = Hash::make($generated_password);
+        if (!$this->editingMode) {
+            $generated_password = Str::random(12);
+            $this->admin->password = Hash::make($generated_password);
+        }
 
         $this->admin->save();
 
-        session()->flash('banner', 'Admin account created successfully.');
         session()->flash('bannerStyle', 'success');
+        session()->flash(
+            'banner',
+            $this->editingMode ? 'Admin account updated successfully.' : 'Admin account created successfully.'
+        );
 
-        // TODO: dispatch AdminRegistered event, pass model and generated password
+        // TODO: dispatch AdminRegistered event, pass model and generated password only on creation.
 
         return redirect()->route('admins.index');
     }

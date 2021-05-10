@@ -2,8 +2,8 @@
     <div class="container">
         <nav id="navigation" class="navigation navigation-landscape">
             <div class="nav-header">
-                <a class="nav-brand" href="#">
-                   <p class="fw-bold fs-4 text-uppercase">Sheltered Birmingham</p>
+                <a class="nav-brand" href="/" title="Sheltered Birmingham">
+                    <p class="fw-bold fs-4 text-uppercase">SB</p>
                 </a>
                 <div class="nav-toggle"></div>
             </div>
@@ -22,12 +22,19 @@
                 </ul>
 
                 <ul class="nav-menu nav-menu-social align-to-right">
+                    @guest
                     <li><a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#signup">Sign Up</a></li>
 
                     <li class="add-listing">
-                        <a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#login"><img
-                                src="/assets/img/user-light.svg" width="12" alt="" class="mr-2" />Sign In</a>
+                        <a href="{{ route('temp-salogin')}}">
+                            <img src="/assets/img/user-light.svg" width="12" alt="" class="mr-2" />Sign In</a>
                     </li>
+                    @else
+                    <li>
+                        <a href="{{ route('temp-logout') }}"><img src="/assets/img/off.svg" class="mr-2" width="17"
+                                alt="">Sign Out</a>
+                    </li>
+                    @endguest
                 </ul>
             </div>
         </nav>

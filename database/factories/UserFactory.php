@@ -29,7 +29,7 @@ class UserFactory extends Factory
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'email' => $this->faker->unique()->freeEmail(),
             'phone_number' => $this->faker->unique()->regexify('44\d{10}'),
             'email_verified_at' => now(),
             'phone_number_verified_at' => now(),

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Enums\UserTypeEnum;
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -35,6 +37,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Route::bind('admin', function ($value) {
+            return User::whereUserType(UserTypeEnum::admin()->value)
+                ->whereId($value)->firstOrFail();
+        });
+
         $this->configureRateLimiting();
 
         $this->routes(function () {

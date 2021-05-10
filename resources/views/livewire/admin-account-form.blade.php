@@ -1,10 +1,12 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12 col-md-12">
-            <form class="submit-page" wire:submit.prevent="create_account">
+            <form class="submit-page" wire:submit.prevent="save_details">
+                @if(!$editingMode)
                 <div class="alert alert-info" role="alert">
                     The admin will receive an email with a generated password to access their account.
                 </div>
+                @endif
 
                 <div class="form-submit">
                     <div class="submit-section">

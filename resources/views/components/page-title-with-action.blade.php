@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-sm-12">
-                <h2 class="ipt-title">{{ $title }}s</h2>
+                <h2 class="ipt-title">{{ $title }}</h2>
                 <span class="ipn-subtitle">{{ $description }}</span>
             </div>
 
