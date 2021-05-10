@@ -6,36 +6,30 @@
             <div class="modal-body">
                 <h4 class="modal-header-title">Log In</h4>
                 <div class="login-form">
-                    <form>
-
+                    <form method="POST" id="login-form" action="{{ route('login') }}">
+                        @csrf
                         <div class="form-group">
-                            <label>User Name</label>
+                            <label>Email</label>
                             <div class="input-with-icon">
-                                <input type="text" class="form-control" placeholder="Username">
+                                <input type="text" name="email" id="email" class="form-control" placeholder="Email">
                                 <i class="ti-user"></i>
                             </div>
                         </div>
-
+                        
                         <div class="form-group">
                             <label>Password</label>
                             <div class="input-with-icon">
-                                <input type="password" class="form-control" placeholder="*******">
+                                <input type="password" name="password" id="password" class="form-control" placeholder="*******">
                                 <i class="ti-unlock"></i>
                             </div>
                         </div>
-
+                        
                         <div class="form-group">
-                            <button type="submit" class="btn btn-md full-width btn-theme-light-2 rounded">Login</button>
+                            <button type="submit" id="login-button" class="btn btn-md full-width btn-theme-light-2 rounded">Login</button>
                         </div>
-
+                        
                     </form>
-                </div>
-                <div class="modal-divider"><span>Or login via</span></div>
-                <div class="social-login mb-3">
-                    <ul>
-                        <li><a href="#" class="btn connect-fb"><i class="ti-facebook"></i>Facebook</a></li>
-                        <li><a href="#" class="btn connect-google"><i class="ti-google"></i>Google+</a></li>
-                    </ul>
+                    <h5 id="error-message" style="color: red; display: none">Invalid Credentials</h5>
                 </div>
                 <div class="text-center">
                     <p class="mt-5"><a href="#" class="link">Forgot password?</a></p>
@@ -44,4 +38,5 @@
         </div>
     </div>
 </div>
+
 <!-- End Modal -->
