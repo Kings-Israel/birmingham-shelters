@@ -12,7 +12,7 @@
         {{ config('app.name') }}
         @endif
     </title>
-    
+
     <!-- Template Theme CSS -->
     <link href="/assets/css/styles.css" rel="stylesheet">
 
@@ -55,9 +55,8 @@
     <script src="/assets/js/slider-bg.js"></script>
     <script src="/assets/js/lightbox.js"></script>
     <script src="/assets/js/imagesloaded.js"></script>
-
     <script src="/assets/js/custom.js"></script>
-    
+
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->

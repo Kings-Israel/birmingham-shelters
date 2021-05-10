@@ -26,7 +26,6 @@
                 @else
                     <ul class="nav-menu nav-menu-social align-to-right">
                         <li><a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#signup">Sign Up</a></li>
-
                         <li class="add-listing">
                             <a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#login"><img
                                     src="assets/img/user-light.svg" width="12" alt="" class="mr-2" />Sign In</a>
