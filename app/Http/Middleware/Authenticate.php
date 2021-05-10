@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use App\Providers\RouteServiceProvider;
 
 class Authenticate extends Middleware
 {
