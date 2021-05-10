@@ -29,8 +29,8 @@ class UserFactory extends Factory
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'phone_number' => $this->faker->unique()->phoneNumber(),
+            'email' => $this->faker->unique()->freeEmail(),
+            'phone_number' => $this->faker->unique()->regexify('44\d{10}'),
             'email_verified_at' => now(),
             'phone_number_verified_at' => now(),
             'user_type' => $this->faker->randomEnumValue(UserTypeEnum::class),
@@ -50,6 +50,15 @@ class UserFactory extends Factory
             return [
                 'email_verified_at' => null,
                 'phone_number_verified_at' => null,
+            ];
+        });
+    }
+
+    public function asUserType(UserTypeEnum $userType): Factory
+    {
+        return $this->state(function (array $attributes) use ($userType) {
+            return [
+                'user_type' => $userType->value,
             ];
         });
     }
