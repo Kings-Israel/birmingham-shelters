@@ -21,20 +21,15 @@
                     </li>
                 </ul>
 
-                <ul class="nav-menu nav-menu-social align-to-right">
-                    @guest
-                    <li><a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#signup">Sign Up</a></li>
-
-                    <li class="add-listing">
-                        <a href="{{ route('temp-salogin')}}">
-                            <img src="/assets/img/user-light.svg" width="12" alt="" class="mr-2" />Sign In</a>
-                    </li>
-                    @else
+                <ul class="nav-menu align-to-right">
                     <li>
-                        <a href="{{ route('temp-logout') }}"><img src="/assets/img/off.svg" class="mr-2" width="17"
-                                alt="">Sign Out</a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="btn text-dark" style="padding: 30px 12px;">
+                                <img src="{{ asset('/assets/img/off.svg') }}" class="mr-2" width="17"alt="">Sign Out
+                            </button>
+                        </form>
                     </li>
-                    @endguest
                 </ul>
             </div>
         </nav>
