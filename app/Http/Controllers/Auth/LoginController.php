@@ -23,13 +23,21 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
+     * Create a new controller instance.
      *
-     * @var string
+     * @return void
      */
-    // protected $redirectTo = RouteServiceProvider::HOME;
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
+
     protected function redirectTo()
     {
+        if (Auth::user()->isAdministrator()) {
+            return route('admin-dashboard');
+        }
+
         $role = Auth::user()->user_type;
 
         if ($role == 'user') {
@@ -39,15 +47,5 @@ class LoginController extends Controller
         } elseif($role == 'volunteer') {
             return RouteServiceProvider::VOLUNTEER_HOME;
         }
-    }
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
     }
 }

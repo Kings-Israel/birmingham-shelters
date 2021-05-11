@@ -1,8 +1,8 @@
-<div class="header header-light head-shadow">
+<div class="header header-light head-shadow no-sticky">
     <div class="container">
         <nav id="navigation" class="navigation navigation-landscape">
             <div class="nav-header">
-                <a class="nav-brand" href="/" title="Sheltered Birmingham">
+                <a class="nav-brand" href="{{ route('admin-dashboard') }}" title="Sheltered Birmingham">
                     <p class="fw-bold fs-4 text-uppercase">SB</p>
                 </a>
                 <div class="nav-toggle"></div>

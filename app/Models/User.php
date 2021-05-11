@@ -38,6 +38,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->whereUserType(UserTypeEnum::admin()->value);
     }
 
+    public function getFullNameAttribute(): string
+    {
+        return $this->first_name." ".$this->last_name;
+    }
+
     public function isEmailVerified(): bool
     {
         return isset($this->email_verified_at);

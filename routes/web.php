@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminsManagementController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,10 @@ Route::get('/volunteer/home', [App\Http\Controllers\HomeController::class, 'volu
 
 // Admin routes
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
+
+    Route::get('/', AdminDashboardController::class)->name('admin-dashboard');
+
+    // Admins Resource Routes
     Route::prefix('admins')->name('admins.')->group(function () {
         Route::get('/', [AdminsManagementController::class, 'all_admins'])->name('index');
         Route::get('/create', [AdminsManagementController::class, 'create_admin'])->name('create');

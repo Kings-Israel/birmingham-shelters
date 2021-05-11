@@ -16,6 +16,10 @@ class PostAjaxRedirect extends Controller
     // Method to redirect user to respective page after auth from ajax call
     public function ajaxRedirect(Request $request)
     {
+        if (Auth::user()->isAdministrator()) {
+            return redirect()->route('admin-dashboard');
+        }
+
         $role = Auth::user()->user_type;
 
         if ($role == 'user') {
