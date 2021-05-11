@@ -37,4 +37,19 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $query->whereUserType(UserTypeEnum::admin()->value);
     }
+
+    public function isEmailVerified(): bool
+    {
+        return isset($this->email_verified_at);
+    }
+
+    public function isPhoneNumberVerified(): bool
+    {
+        return isset($this->phone_number_verified_at);
+    }
+
+    public function isAdministrator(): bool
+    {
+        return in_array($this->user_type, [UserTypeEnum::admin(), UserTypeEnum::super_admin()]);
+    }
 }
