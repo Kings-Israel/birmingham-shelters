@@ -19,10 +19,12 @@
     <!-- Custom Color Option -->
     <link href="/assets/css/colors.css" rel="stylesheet">
 
+    @livewireScripts()
+
     @stack('styles')
 </head>
 
-<body class="blue-skin">
+<body class="blue-skin min-vh-100 d-flex flex-column">
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -30,15 +32,31 @@
         <div class="preloader"><span></span><span></span></div>
     </div>
 
-    <div id="main-wrapper">
-        @include('partials.navigation')
+    <div id="main-wrapper" style="flex: 1; min-height: 0;">
+        @include('partials.admin-navigation')
 
         {{ $slot }}
-
-        @include('partials.footer')
-
-        <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
     </div>
+
+    <footer class="dark-footer skin-dark-footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-6">
+                        <p class="mb-0">&copy; {{ date('Y') }} Sheltered Birmingham. All Rights Reserved</p>
+                    </div>
+                    <div class="text-right col-lg-6 col-md-6">
+                        <ul class="footer-bottom-social">
+                            <li><a href="#"><i class="ti-facebook"></i></a></li>
+                            <li><a href="#"><i class="ti-twitter"></i></a></li>
+                            <li><a href="#"><i class="ti-instagram"></i></a></li>
+                            <li><a href="#"><i class="ti-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     @stack('modals')
 
@@ -55,21 +73,15 @@
     <script src="/assets/js/slider-bg.js"></script>
     <script src="/assets/js/lightbox.js"></script>
     <script src="/assets/js/imagesloaded.js"></script>
+
     <script src="/assets/js/custom.js"></script>
-    <script src="/assets/js/dropzone.js"></script>
-    
+
+    @livewireScripts()
+
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->
     @stack('scripts')
-    <script>
-        function openFilterSearch() {
-            document.getElementById("filter_search").style.display = "block";
-        }
-        function closeFilterSearch() {
-            document.getElementById("filter_search").style.display = "none";
-        }
-    </script>
 </body>
 
 </html>

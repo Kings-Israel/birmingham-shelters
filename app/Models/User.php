@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\UserTypeEnum;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -40,5 +41,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function document()
     {
         return $this->hasMany(Document::class);
+    }
+
+    public function scopeAdmins(Builder $query): Builder
+    {
+        return $query->whereUserType(UserTypeEnum::admin()->value);
     }
 }
