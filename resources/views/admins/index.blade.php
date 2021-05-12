@@ -21,7 +21,7 @@
                     <a href="{{ route('admins.create') }}" class="text-decoration-underline">Create one now</a>
                 </p>
                 @else
-                <table class="table table-striped">
+                <table id="admins-datatable" class="table table-striped">
                     <thead class="table-dark">
                         <tr>
                             <th scope="col">First</th>
@@ -73,5 +73,13 @@
 
     @push('modals')
        @livewire('delete-user-modal', ['redirect_route_name' => "admins.index"])
+    @endpush
+
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                $('#admins-datatable').DataTable();
+            });
+        </script>
     @endpush
 </x-admin-layout>

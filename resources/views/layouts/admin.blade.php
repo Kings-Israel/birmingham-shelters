@@ -19,15 +19,16 @@
     <!-- Custom Color Option -->
     <link href="{{ asset('assets/css/colors.css') }}" rel="stylesheet">
 
+    <!-- Datatables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+
+
     @livewireScripts()
 
     @stack('styles')
 </head>
 
 <body class="blue-skin min-vh-100 d-flex flex-column">
-    <!-- ============================================================== -->
-    <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
     <div id="preloader">
         <div class="preloader"><span></span><span></span></div>
     </div>
@@ -60,9 +61,9 @@
 
     @stack('modals')
 
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
+    <!-- ==============================================================
+        All Jquery
+    ============================================================== -->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
@@ -74,13 +75,13 @@
     <script src="{{ asset('assets/js/lightbox.js') }}"></script>
     <script src="{{ asset('assets/js/imagesloaded.js') }}"></script>
 
+    <!-- Datatables -->
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
     <script src="{{ asset('assets/js/custom.js') }}"></script>
 
     @livewireScripts()
 
-    <!-- ============================================================== -->
-    <!-- This page plugins -->
-    <!-- ============================================================== -->
     @stack('scripts')
 </body>
 
