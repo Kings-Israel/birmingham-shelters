@@ -33,6 +33,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone_number_verified_at' => 'datetime',
     ];
 
+    /**
+     * Get all of the document for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function document()
+    {
+        return $this->hasMany(Document::class);
+    }
+
     public function scopeAdmins(Builder $query): Builder
     {
         return $query->whereUserType(UserTypeEnum::admin()->value);
