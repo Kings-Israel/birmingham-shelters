@@ -22,12 +22,6 @@
     @livewireScripts()
 
     @stack('styles')
-
-    <style>
-        .header.no-sticky {
-            position: relative;
-        }
-    </style>
 </head>
 
 <body class="blue-skin min-vh-100 d-flex flex-column">
