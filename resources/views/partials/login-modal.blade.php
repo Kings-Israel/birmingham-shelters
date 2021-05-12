@@ -63,33 +63,6 @@
                     }
                 })
             });
-            $('#register-form').on('submit', function (e) {
-                e.preventDefault();
-                let formData = $(this).serializeArray();
-                $("#register-button").attr('disabled', 'disabled')
-                $("#register-button").text('Please Wait...')
-                $.ajax({
-                    method: "POST",
-                    headers: {
-                        Accept: "application/json"
-                    },
-                    url: "{{ route('register') }}",
-                    data: formData,
-                    success: () => window.location.assign("{{ route('loggedIn') }}"),
-                    error: (response) => {
-                        if(response.status === 422) {
-                            let errors = response.responseJSON.errors;
-                            Object.keys(errors).forEach(function (key) {
-                                $("#" + key + "Error").children("strong").text(errors[key][0]);
-                            });
-                            $("#register-button").removeAttr('disabled')
-                            $("#register-button").text('Sign Up')
-                        } else {
-                            window.location.reload();
-                        }
-                    }
-                })
-            });
         })
     </script>
     @endpush
