@@ -55,8 +55,8 @@
     <script src="{{ asset('assets/js/slider-bg.js') }}"></script>
     <script src="{{ asset('assets/js/lightbox.js') }}"></script>
     <script src="{{ asset('assets/js/imagesloaded.js') }}"></script>
+    <script src="{{ asset('assets/js/dropzone.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-    <script src="/assets/js/dropzone.js"></script>
 
     <!-- ============================================================== -->
     <!-- This page plugins -->
