@@ -3,29 +3,40 @@
 namespace Tests\Feature\LivewireComponents;
 
 use App\Enums\UserTypeEnum;
+use App\Events\AdminAccountRegistered;
 use App\Models\User;
+use App\Notifications\AdminAccountRegisteredNotification;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class AdminAccountFormTest extends TestCase
 {
     use RefreshDatabase;
+    use WithFaker;
 
     public function test_can_create_admin_account(): void
     {
+        Notification::fake();
+
         $this->actingAs(User::factory()->asUserType(UserTypeEnum::super_admin())->create());
 
         $component = Livewire::test('admin-account-form')
             ->assertSet('admin.user_type', UserTypeEnum::admin())
             ->set('admin.first_name', 'Test')
             ->set('admin.last_name', 'Admin')
-            ->set('admin.email', 'admin@mail.com')
+            ->set('admin.email', $email = "admin@gmail.com")
             ->set('admin.phone_number', '444723457198')
             ->call('save_details');
 
-        $this->assertInstanceOf(User::class, $record = User::whereEmail('admin@mail.com')->first());
+        $component->assertHasNoErrors();
+
+        $this->assertInstanceOf(User::class, $record = User::whereEmail($email)->first());
 
         $this->assertEquals(UserTypeEnum::admin(), $record->user_type);
         $this->assertEquals('Test', $record->first_name);
@@ -35,6 +46,10 @@ class AdminAccountFormTest extends TestCase
 
         $component->assertSessionHas('banner', 'Admin account created successfully.');
         $component->assertSessionHas('bannerStyle', 'success');
+
+        Notification::assertSentTo($record, VerifyEmail::class);
+
+        Notification::assertSentTo($record, AdminAccountRegisteredNotification::class);
     }
 
     public function test_ensures_a_valid_email_is_provided(): void
@@ -87,11 +102,6 @@ class AdminAccountFormTest extends TestCase
         $component->assertHasErrors(['admin.email', 'admin.phone_number']);
 
         $this->assertCount(1, User::whereEmail('existing@mail.com')->wherePhoneNumber('444723457198')->get());
-    }
-
-    public function test_dispatch_admin_registered_event_on_account_creation(): void
-    {
-        $this->markTestIncomplete("Pending AdminRegistered event with email and phone number verification listeners");
     }
 
     public function test_can_edit_admin_record(): void

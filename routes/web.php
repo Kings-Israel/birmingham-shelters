@@ -10,9 +10,7 @@ Route::view('/', 'index')->name('home');
 
 Auth::routes(['verify' => true]);
 
-Route::get('/email/verify', function () {
-    return view('verify');
-})->middleware('auth')->name('verification.notice');
+Route::view('/email/verify', 'verify')->middleware('auth')->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
@@ -25,6 +23,8 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
         return redirect('/landlord/home');
     } elseif ($role == 'volunteer') {
         return redirect('/volunteer/home');
+    } else {
+        return redirect('/');
     }
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
@@ -36,7 +36,6 @@ Route::get('/volunteer/home', [App\Http\Controllers\HomeController::class, 'volu
 
 // Admin routes
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
-
     Route::get('/', AdminDashboardController::class)->name('admin-dashboard');
 
     // Admins Resource Routes
