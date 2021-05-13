@@ -1,4 +1,4 @@
- @props(['title', 'description'])
+ @props(['title' => null, 'description' => null])
 
  <div class="page-title">
     <div class="container">

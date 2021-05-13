@@ -3,8 +3,10 @@
 namespace App\Http\Livewire;
 
 use App\Enums\UserTypeEnum;
+use App\Events\AdminAccountRegistered;
 use App\Models\User;
 use App\Rules\PhoneNumber;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -32,7 +34,7 @@ class AdminAccountForm extends Component
         $rules = [
             'admin.first_name' => ['required'],
             'admin.last_name' => ['required'],
-            'admin.email' => ['required', 'email:rfc,dns'],
+            'admin.email' => ['required', 'email:rfc'],
             'admin.phone_number' => ['required', new PhoneNumber],
             'admin.user_type' => ['required'],
         ];
@@ -64,13 +66,17 @@ class AdminAccountForm extends Component
 
         $this->admin->save();
 
+        if (!$this->editingMode) {
+            event(new Registered($this->admin));
+
+            event(new AdminAccountRegistered($this->admin, $generated_password));
+        }
+
         session()->flash('bannerStyle', 'success');
         session()->flash(
             'banner',
             $this->editingMode ? 'Admin account updated successfully.' : 'Admin account created successfully.'
         );
-
-        // TODO: dispatch AdminRegistered event, pass model and generated password only on creation.
 
         return redirect()->route('admins.index');
     }

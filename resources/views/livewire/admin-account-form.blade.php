@@ -43,7 +43,9 @@
                 </div>
 
                 <div class="form-group col-lg-12 col-md-12 d-flex justify-content-end">
-                    <button class="rounded btn btn-theme" type="submit">Add New Admin Account</button>
+                    <button class="rounded btn btn-theme" type="submit">
+                        {{ $this->editingMode ? "Update" : "Add New" }} Admin Account
+                    </button>
                 </div>
 
             </form>
