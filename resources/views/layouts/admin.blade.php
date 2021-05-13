@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 
 
-    @livewireScripts()
+    @livewireStyles
 
     @stack('styles')
 </head>
@@ -80,7 +80,7 @@
 
     <script src="{{ asset('assets/js/custom.js') }}"></script>
 
-    @livewireScripts()
+    @livewireScripts
 
     @stack('scripts')
 </body>
