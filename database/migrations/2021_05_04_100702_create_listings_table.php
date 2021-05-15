@@ -12,13 +12,20 @@ class CreateListingsTable extends Migration
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
-            $table->string('map_location');
             $table->bigInteger('service_charge');
+            $table->bigInteger('area')->nullable();
+            $table->integer('bedrooms');
+            $table->integer('bathrooms');
+            $table->text('address');
+            $table->string('state');
+            $table->text('zip_code');
+            $table->string('city');
+            $table->text('description');
             $table->text('features');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('listingimage_id')->nullable();
+            $table->boolean('is_available')->default(true);
             $table->timestamp('verified_at')->nullable();
-            $table->boolean('is_available');
-            $table->foreignId('landlord_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

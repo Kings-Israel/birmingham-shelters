@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminsManagementController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ListingController;
 use App\Http\Controllers\PostAjaxRedirect;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
@@ -40,6 +41,9 @@ Route::get('/volunteer/home', [HomeController::class, 'volunteer'])->name('volun
 // Statutory Documents Route
 Route::post('/statutory/store', [DocumentController::class, 'store'])->name('statutory.store');
 Route::delete('/statutory/delete/{id}', [DocumentController::class, 'delete'])->name('statutory.delete');
+
+// Listing Controller
+Route::resources(['listing' => ListingController::class]);
 
 // Admin routes
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
