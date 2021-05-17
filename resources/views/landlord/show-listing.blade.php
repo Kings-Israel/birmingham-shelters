@@ -127,28 +127,40 @@
                         
                         <div id="clSev" class="panel-collapse collapse" aria-expanded="true">
                             <div class="block-body">
-                                <ul class="list-gallery-inline">
-                                    <li>
-                                        <a href="https://via.placeholder.com/1200x800" class="mfp-gallery"><img src="https://via.placeholder.com/1200x800" class="img-fluid mx-auto" alt="" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="https://via.placeholder.com/1200x800" class="mfp-gallery"><img src="https://via.placeholder.com/1200x800" class="img-fluid mx-auto" alt="" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="https://via.placeholder.com/1200x800" class="mfp-gallery"><img src="https://via.placeholder.com/1200x800" class="img-fluid mx-auto" alt="" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="https://via.placeholder.com/1200x800" class="mfp-gallery"><img src="https://via.placeholder.com/1200x800" class="img-fluid mx-auto" alt="" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="https://via.placeholder.com/1200x800" class="mfp-gallery"><img src="https://via.placeholder.com/1200x800" class="img-fluid mx-auto" alt="" /></a>
-                                    </li>
-                                    <li>
-                                        <a href="https://via.placeholder.com/1200x800" class="mfp-gallery"><img src="https://via.placeholder.com/1200x800" class="img-fluid mx-auto" alt="" /></a>
-                                    </li>
-                                </ul>
+                                @if (count($listing->listingimage) <= 0)
+                                    <h4>No Images Uploaded for this listing</h4>
+                                @else
+                                    <ul class="list-gallery-inline">
+                                    @foreach ($listing->listingimage as $image)
+                                        <li>
+                                            <a href="https://via.placeholder.com/1200x800" class="mfp-gallery"><img src="{{ asset('storage/listing/images/'.$image->image_name) }}" class="img-fluid mx-auto" alt="" /></a>
+                                        </li>
+                                    @endforeach
+                                    </ul>
+                                @endif
                             </div>
                         </div>
+
+                        {{-- Listing Images Upload Section --}}
+                        <div class="dashboard-wraper">
+                            <h3>Upload Listing Images</h3>
+                            <div class="submit-section">
+                                <div class="row">
+                                
+                                    <div class="form-group col-md-12">
+                                        <form action="{{ route('listing.images.save') }}" method="POST" enctype="multipart/form-data" class="dropzone dz-clickable primary-dropzone" id="images-dropzone">
+                                            @csrf
+                                            <input type="hidden" name="listing_id" value="{{ $listing->id }}">
+                                            <div class="dz-default dz-message">
+                                                <i class="ti-files"></i>
+                                                <span>Drag & Drop or Click to Select</span>
+                                            </div>
+                                        </form>
+                                    </div>                                
+                                </div>
+                            </div>
+                        </div>
+                        {{-- End of Upload Section --}}
                         
                     </div>
                     
@@ -285,5 +297,18 @@
             </div>
         </div>
     </section>
+
+    @push('scripts')
+        <script>
+            Dropzone.options.imagesDropzone = {
+            init: function(){
+                this.on('complete', function(file) {
+                    location.reload();
+                });
+            },
+            acceptedFiles: ".png, .jpg, .jpeg"
+        };
+        </script>
+    @endpush
 
 </x-app-layout>

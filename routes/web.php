@@ -44,6 +44,7 @@ Route::delete('/statutory/delete/{id}', [DocumentController::class, 'delete'])->
 
 // Listing Controller
 Route::resources(['listing' => ListingController::class]);
+Route::post('/listing/image', [ListingController::class, 'store_image'])->name('listing.images.save');
 
 // Admin routes
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {

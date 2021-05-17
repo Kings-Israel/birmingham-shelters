@@ -30,7 +30,7 @@ class Listing extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function listingimage(): HasMany
+    public function listingimage()
     {
         return $this->hasMany(ListingImage::class);
     }
