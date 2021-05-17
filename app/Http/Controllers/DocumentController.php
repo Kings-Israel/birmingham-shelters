@@ -24,7 +24,7 @@ class DocumentController extends Controller
 
         if ($request->file()) {
             $filename = $request->file->getClientOriginalName();
-            $filepath = $request->file('file')->storeAs('files', $filename);
+            $filepath = $request->file('file')->storeAs('public/statutory/files', $filename);
 
             $storeFile->user_id = $request->user()->id;
             $storeFile->filename = $filename;
@@ -42,7 +42,7 @@ class DocumentController extends Controller
             return redirect()->route('landlord.index')->with('error', 'Unauthorized Action');
         }
 
-        Storage::delete('files/'.$file->filename);
+        Storage::delete('public/statutory/files/'.$file->filename);
 
         if ($file->destroy($id)) {
             return redirect()->route('landlord.index')->with('success', 'File has been deleted');

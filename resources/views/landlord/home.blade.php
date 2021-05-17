@@ -194,11 +194,11 @@
 @push('scripts')
     <script>
         Dropzone.options.statutoryDropzone = {
-            init: function(){
-                this.on('complete', function(file) {
-                    location.reload();
-                });
-            },
+            // init: function(){
+            //     this.on('complete', function(file) {
+            //         location.reload();
+            //     });
+            // },
             acceptedFiles: ".doc, .docx, .pdf"
         };
         $(function () {
