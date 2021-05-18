@@ -39,7 +39,7 @@
                     @endif
 
                     <div>
-                        <button type="submit" class="btn btn-theme-light-2">Save Changes</button>
+                        <button type="submit" class="btn btn-dark">Save Changes</button>
                     </div>
                 </div>
             </div>
