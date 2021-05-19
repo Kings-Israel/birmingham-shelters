@@ -330,16 +330,16 @@ $(function() {
 	});
 	
 	// Select Bedrooms
-	$('#bedrooms').select2({
-		placeholder: "No Min",
-		allowClear: true
-	});
+	// $('#bedrooms').select2({
+	// 	placeholder: "No Min",
+	// 	allowClear: true
+	// });
 	
 	// Select Bathrooms
-	$('#bathrooms').select2({
-		placeholder: "Bathrooms",
-		allowClear: true
-	});
+	// $('#bathrooms').select2({
+	// 	placeholder: "Bathrooms",
+	// 	allowClear: true
+	// });
 	
 	// Select Property Types
 	$('#ptypes').select2({

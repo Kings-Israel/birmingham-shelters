@@ -42,28 +42,52 @@
                                 <div class="col-md-12 col-sm-12 col-md-12">
                                     <div class="singles-dashboard-list">
                                         <div class="sd-list-left">
-                                            <img src="https://via.placeholder.com/1200x800" class="img-fluid" alt="" />
+                                            <img src="/storage/listing/images/{{ $listing->listingimage[0]->image_name }}" class="img-fluid" alt="" />
                                         </div>
                                         <div class="sd-list-right">
                                             <h4 class="listing_dashboard_title"><a href="/listing/{{ $listing->id }}" class="theme-cl">{{ $listing->name }}</a></h4>
                                             <div class="user_dashboard_listed">
-                                                Price: from ${{ $listing->service_charge }} month
+                                                Address: {{ $listing->address }}
                                             </div>
                                             <div class="user_dashboard_listed">
-                                                Listed in <a href="javascript:void(0);" class="theme-cl">Rentals</a> and <a href="javascript:void(0);" class="theme-cl">Apartments</a>
+                                                Postcode: {{ $listing->postcode }}
                                             </div>
                                             <div class="user_dashboard_listed">
-                                                City: <a href="javascript:void(0);" class="theme-cl">{{ $listing->city }}</a> , Area:{{ $listing->area }} sq ft
+                                                Local Authority Area: {{ $listing->local_authority_area }}
                                             </div>
                                             <div class="action">
                                                 <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti-pencil"></i></a>
                                                 <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="202 User View"><i class="ti-eye"></i></a>
-                                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Property" class="delete"><i class="ti-close"></i></a>
+                                                <a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#delete_listing" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Property" class="delete"><i class="ti-close"></i></a>
                                                 <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Make Featured" class="delete"><i class="ti-star"></i></a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Delete Listing Form Modal -->
+                                <div class="modal fade signup" id="delete_listing" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+                                        <div class="modal-content" id="sign-up">
+                                            <span class="mod-close" data-bs-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+                                            <div class="modal-body">
+                                                <h4 class="text-center">Are you Sure you Want to delete this listing?</h4>
+                                                <div class="login-form">
+                                                    <form method="POST" id="register-form" action="{{ route('listing.delete', $listing->id) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <div class="form-group">
+                                                            <button type="submit" id="register-button" class="btn btn-md full-width btn-primary rounded">Delete</button>
+                                                        </div>
+
+                                                    </form>
+                                                    <button type="submit" id="register-button" data-bs-dismiss="modal" class="btn btn-md full-width btn-theme-light-2 rounded">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Modal -->
                             @endforeach
                                 
                         </div>
@@ -75,6 +99,8 @@
             
         </div>
     </div>
+    
+
 </section>
 <!-- ============================ User Dashboard End ================================== -->
 @push('scripts')
