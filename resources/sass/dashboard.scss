@@ -171,6 +171,10 @@ $base-spacing: 0.25rem;
                 background-color: $gray-700;
                 color: $white;
             }
+
+            &:focus {
+                border: 1px solid $gray-50;
+            }
         }
 
         nav>h3 {

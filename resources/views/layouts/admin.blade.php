@@ -42,12 +42,12 @@
         <div class="preloader"><span></span><span></span></div>
     </div>
 
-    <div id="dashboard-wrapper" class="bg-light" x-data="{ open: false}">
+    <div id="dashboard-wrapper" class="bg-light" x-data="{ open: false}"  @keydown.escape="open=false">
         <!-- Off canvas mobile menu -->
         <div x-cloak x-show="open" class="mobile sidebar" role="dialog" aria-modal="true">
             <div x-show.transition.opacity="open" class="overlay" aria-hidden="true"></div>
 
-            <div x-show.transition="open" class="sidebar-content-wrapper">
+            <div x-show.transition="open" @click.away="open=false" class="sidebar-content-wrapper">
 
                 <div class="close-btn-wrapper">
                     <button @click="open=false">
@@ -100,20 +100,16 @@
 
                 <div class="nav-menus-wrapper d-flex align-items-center justify-content-end">
                     <ul class="nav-menu">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle"
-                                id="user-profile-menu-link"
-                                role="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <i class="ti-user"></i> Account
-
-                                <ul class="dropdown-menu" aria-labelledby="user-profile-menu-link">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                  </ul>
-                            </a>
+                        <li class="{{ Route::is('user-profile') ? 'active' : '' }}">
+                            <a href="{{ route('user-profile') }}"><i class="ti-user mr-1"></i>My Profile </a>
+                        </li>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="btn text-dark" style="padding: 30px 12px; border: 0; font-family: 'Jost', sans-serif;">
+                                    <i class="ti-power-off mr-1"></i>Sign Out
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </div>
