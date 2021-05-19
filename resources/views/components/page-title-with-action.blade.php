@@ -1,7 +1,7 @@
  @props(['title', 'description'])
 
  <div class="page-title">
-    <div class="container">
+    <div class="container px-5">
         <div class="row">
             <div class="col-md-8 col-sm-12">
                 <h2 class="ipt-title">{{ $title }}</h2>

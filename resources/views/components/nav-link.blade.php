@@ -1,5 +1,5 @@
 @props(['active' => false])
 
-<li {{ $attributes->class(['active' => $active]) }}>
+<a {{ $attributes->class([ 'nav-item', 'active' => $active ]) }}>
     {{ $slot }}
-</li>
+</a>
