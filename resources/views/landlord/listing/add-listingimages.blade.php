@@ -49,10 +49,13 @@
                                                 <span>Drag & Drop or Click to Select</span>
                                             </div>
                                             @error('file')
-                                                <strong class="error-message images-upload"></strong>
+                                                <strong class="error-message"></strong>
                                             @enderror
                                         </form>
-                                    </div>                                
+                                    </div>
+                                    <div>
+                                        <p class="file-upload-message" style="float: right"></p>
+                                    </div>                            
                                 </div>
                             </div>
                         </div>
@@ -70,10 +73,13 @@
         Dropzone.options.listingDropzone = {
             init: function(){
                 this.on('error', function(errorMessage) {
-                    $(".images-upload").text(errorMessage)
+                    $('.file-upload-message').css('color', 'red');
+                    $(".file-upload-message").text(errorMessage);
                 });
                 this.on('success', function(file, response) {
                     this.removeFile(file);
+                    $('.file-upload-message').css('color', 'green');
+                    $('.file-upload-message').text('File(s) Uploaded Successfully');
                     $('.redirect-home-button').removeAttr('hidden');
                 });
             },

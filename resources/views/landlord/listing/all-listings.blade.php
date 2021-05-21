@@ -42,7 +42,7 @@
                                 <div class="col-md-12 col-sm-12 col-md-12">
                                     <div class="singles-dashboard-list">
                                         <div class="sd-list-left">
-                                            <img src="/storage/listing/images/{{ $listing->listingimage[0]->image_name }}" class="img-fluid" alt="" />
+                                            <img src="{{ asset('storage/listing/images/'.$listing->listingimage[0]->image_name) }}" class="img-fluid" alt="" />
                                         </div>
                                         <div class="sd-list-right">
                                             <h4 class="listing_dashboard_title"><a href="/listing/{{ $listing->id }}" class="theme-cl">{{ $listing->name }}</a></h4>
@@ -58,14 +58,14 @@
                                             <div class="action">
                                                 <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti-pencil"></i></a>
                                                 <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="202 User View"><i class="ti-eye"></i></a>
-                                                <a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#delete_listing" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Property" class="delete"><i class="ti-close"></i></a>
+                                                <a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#delete_listing_<?php echo $listing->id ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Property" class="delete"><i class="ti-close"></i></a>
                                                 <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Make Featured" class="delete"><i class="ti-star"></i></a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Delete Listing Form Modal -->
-                                <div class="modal fade signup" id="delete_listing" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
+                                <div class="modal fade signup" id="delete_listing_<?php echo $listing->id ?>" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
                                         <div class="modal-content" id="sign-up">
                                             <span class="mod-close" data-bs-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
