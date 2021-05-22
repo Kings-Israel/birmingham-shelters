@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <br>
-                    <a href="{{ route('listing.index') }}" hidden class="redirect-home-button">
+                    <a href="{{ route('listing.view.all') }}" hidden class="redirect-home-button">
                         <button class="btn btn-theme-light-2 rounded" type="submit">Finish</button>
                     </a>
             </div>

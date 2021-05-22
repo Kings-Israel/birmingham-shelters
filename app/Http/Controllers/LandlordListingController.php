@@ -10,6 +10,7 @@ use App\Models\ListingImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 
 class LandlordListingController extends Controller
 {
@@ -42,6 +43,45 @@ class LandlordListingController extends Controller
     public function listing_images($id)
     {
         return view('landlord.listing.add-listingimages')->with('id', $id);
+    }
+
+    public function view_listing($id)
+    {
+        // Get Listing
+        $listing = Listing::find($id);
+
+        // Get Listing Client Groups
+        $clientGroup = Listing::find($id)->clientgroup;
+        $clientGroup->client_group = explode(',', $clientGroup->client_group);
+        $client_group = $clientGroup->client_group;
+        // Get Other field's key if it exists
+        if($key = array_search("Other", $clientGroup->client_group) !== false)
+        {
+            // Delete 'Other' from the client_group array
+            unset($client_group[$key + 1]);
+            $clientGroup->client_group = $client_group;
+
+            // Change the other_types field to array
+            $other_types = explode(',', $clientGroup->other_types);
+
+            // Add the 'other_types' array to client_group array
+            $clientGroup->client_group = array_merge($clientGroup->client_group, $other_types);
+        }
+
+        // Get listing Documents
+        $listingDocuments = Listing::find($id)->listingdocuments;
+
+        // Get Listing Images
+        $listingImages = Listing::find($id)->listingimage;
+
+        // Return listing in image
+        return view('landlord.listing.show-listing')
+            ->with([
+                'listing' => $listing, 
+                'client_group' => $clientGroup,
+                'listing_documents' => $listingDocuments,
+                'listing_images' => $listingImages
+            ]);
     }
 
     public function submit_basic_info(Request $request)
@@ -141,8 +181,8 @@ class LandlordListingController extends Controller
             $client_group->client_group = $request->client_group;
         }
 
-        if($request->has('other_types')) {
-            $client_group->other_types = $request->other_types;
+        if($request->has('other_support_types')) {
+            $client_group->other_types = $request->other_support_types;
         }
 
         $client_group->support_description = $request->support_description;

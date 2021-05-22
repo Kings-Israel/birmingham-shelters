@@ -43,7 +43,8 @@ Route::post('/statutory/store', [DocumentController::class, 'store'])->name('sta
 Route::delete('/statutory/delete/{id}', [DocumentController::class, 'delete'])->name('statutory.delete');
 
 // Listing Controller
-Route::get('listing/all-landlordlisting', [LandlordListingController::class, 'all_listings'])->name('listing.index');
+Route::get('listing/all', [LandlordListingController::class, 'all_listings'])->name('listing.view.all');
+Route::get('listing/{id}', [LandlordListingController::class, 'view_listing'])->name('listing.view.one');
 Route::get('listing/add/basicinfo', [LandlordListingController::class, 'basic_info'])->name('listing.add.basic_info');
 Route::get('listing/add/clientgroupinfo/{id}', [LandlordListingController::class, 'client_info'])->name('listing.add.client_info');
 Route::get('listing/add/listingdocuments/{id}', [LandlordListingController::class, 'listing_documents'])->name('listing.add.listing_documents');

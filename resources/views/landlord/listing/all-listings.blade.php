@@ -47,13 +47,21 @@
                                         <div class="sd-list-right">
                                             <h4 class="listing_dashboard_title"><a href="/listing/{{ $listing->id }}" class="theme-cl">{{ $listing->name }}</a></h4>
                                             <div class="user_dashboard_listed">
-                                                Address: {{ $listing->address }}
+                                                Address: <strong>{{ $listing->address }}</strong>
                                             </div>
                                             <div class="user_dashboard_listed">
-                                                Postcode: {{ $listing->postcode }}
+                                                Postcode: <strong>{{ $listing->postcode }}</strong>
                                             </div>
                                             <div class="user_dashboard_listed">
-                                                Local Authority Area: {{ $listing->local_authority_area }}
+                                                Local Authority Area: <strong>{{ $listing->local_authority_area }}</strong>
+                                            </div>
+                                            <div class="user_dashboard_listed">
+                                                Status: 
+                                                @if ($listing->is_verified == '')
+                                                    <strong> Not Verified </strong>
+                                                @else
+                                                    <strong>Verified</strong>
+                                                @endif
                                             </div>
                                             <div class="action">
                                                 <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti-pencil"></i></a>

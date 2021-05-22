@@ -19,7 +19,7 @@
                     <li class="@if(request()->routeIs('landlord*')) active @else '' @endif"><a href="{{ route('landlord.index') }}"><i class="ti-dashboard"></i>Dashboard</a></li>
                     <li><a href="my-profile.html"><i class="ti-user"></i>My Profile</a></li>
                     <li><a href="bookmark-list.html"><i class="ti-bookmark"></i>Bookmarked Listings</a></li>
-                    <li class="@if(request()->routeIs('listing.index')) active @else '' @endif"><a href="{{ route('listing.index') }}"><i class="ti-layers"></i>My Properties</a></li>
+                    <li class="@if(request()->routeIs('listing.view.*')) active @else '' @endif"><a href="{{ route('listing.view.all') }}"><i class="ti-layers"></i>My Properties</a></li>
                     <li class="@if(request()->routeIs('listing.add.*')) active @else '' @endif"><a href="{{ route('listing.add.basic_info') }}"><i class="ti-pencil-alt"></i>Submit New Property</a></li>
                     <li><a href="change-password.html"><i class="ti-unlock"></i>Change Password</a></li>
                     <li>
