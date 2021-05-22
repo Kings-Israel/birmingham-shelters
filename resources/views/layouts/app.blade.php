@@ -70,6 +70,9 @@
         function closeFilterSearch() {
             document.getElementById("filter_search").style.display = "none";
         }
+        $(function () {
+            $(".alert").delay(5000).slideUp(300);
+        })
     </script>
 </body>
 

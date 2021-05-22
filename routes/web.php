@@ -4,7 +4,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminsManagementController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ListingController;
+use App\Http\Controllers\LandlordListingController;
 use App\Http\Controllers\PostAjaxRedirect;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
@@ -43,8 +43,17 @@ Route::post('/statutory/store', [DocumentController::class, 'store'])->name('sta
 Route::delete('/statutory/delete/{id}', [DocumentController::class, 'delete'])->name('statutory.delete');
 
 // Listing Controller
-Route::resources(['listing' => ListingController::class]);
-Route::post('/listing/image', [ListingController::class, 'store_image'])->name('listing.images.save');
+Route::get('listing/all', [LandlordListingController::class, 'all_listings'])->name('listing.view.all');
+Route::get('listing/{id}', [LandlordListingController::class, 'view_listing'])->name('listing.view.one');
+Route::get('listing/add/basicinfo', [LandlordListingController::class, 'basic_info'])->name('listing.add.basic_info');
+Route::get('listing/add/clientgroupinfo/{id}', [LandlordListingController::class, 'client_info'])->name('listing.add.client_info');
+Route::get('listing/add/listingdocuments/{id}', [LandlordListingController::class, 'listing_documents'])->name('listing.add.listing_documents');
+Route::get('listing/add/listingimages/{id}', [LandlordListingController::class, 'listing_images'])->name('listing.add.listing_images');
+Route::post('listing/add/basicinfo', [LandlordListingController::class, 'submit_basic_info'])->name('listing.add.submit_basic_info');
+Route::post('listing/add/clientinfo', [LandlordListingController::class, 'submit_clientgroup_info'])->name('listing.add.submit_client_info');
+Route::post('listing/add/listingdocuments', [LandlordListingController::class, 'submit_listing_documents'])->name('listing.add.submit_documents');
+Route::post('listing/add/listingimages', [LandlordListingController::class, 'submit_listing_images'])->name('listing.add.submit_images');
+Route::delete('listing/delete/listing/{id}', [LandlordListingController::class, 'delete_listing'])->name('listing.delete');
 
 // Admin routes
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {

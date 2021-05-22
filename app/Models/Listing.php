@@ -11,6 +11,10 @@ class Listing extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [
+        'name', 'address', 'postcode', 'local_authority-area', 'description', 'living_rooms', 'toilets', 'bedsitting_rooms', 'bedrooms', 'bathrooms', 'kitchen', 'other_rooms', 'features', 'user_id', 'contact_name', 'contact_email', 'contact_number'
+    ];
+
     protected $casts = [
         'verified_at' => 'datetime',
     ];
@@ -33,5 +37,15 @@ class Listing extends Model
     public function listingimage()
     {
         return $this->hasMany(ListingImage::class);
+    }
+
+    /**
+     * Get the clientgroup associated with the Listing
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function clientgroup()
+    {
+        return $this->hasOne(ClientGroup::class);
     }
 }

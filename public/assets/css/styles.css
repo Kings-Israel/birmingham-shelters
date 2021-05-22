@@ -11885,3 +11885,12 @@ a.blue2-theme {
     color: #333;
     flex: 1;
   }
+
+  #listing-buttons {
+      display: flex;
+      justify-content: space-between;
+  }
+
+  .error-message {
+      color: red;
+  }

@@ -33,10 +33,18 @@
                         
                                 <div class="property_block_wrap style-4">
                                     <div class="prt-detail-title-desc">
-                                        <h3 class="text-light">{{ $listing->name }}, {{ $listing->city }}</h3>
-                                        <span><i class="lni-map-marker"></i> 778 Country St. Panama City, FL</span>
-                                        <h3 class="prt-price-fix">${{ $listing->service_charge }}<sub>/month</sub></h3>
+                                        <h3 class="text-light">{{ $listing->name }}</h3>
+                                        <span><i class="lni-map-marker"></i> {{ $listing->address }}, {{ $listing->local_authority_area }}</span>
+                                        <p class="prt-price-fix">Postcode: <strong>{{ $listing->postcode }}</strong></p>
                                     </div>
+                                    <p style="margin-bottom: 0;">
+                                        Status: 
+                                        @if ($listing->is_verified == '')
+                                            <strong> Not Verified </strong>
+                                        @else
+                                            <strong>Verified</strong>
+                                        @endif
+                                    </p>
                                 </div>
                                 
                             </div>	
@@ -58,12 +66,20 @@
                         <div id="clOne" class="panel-collapse collapse show" aria-labelledby="clOne" aria-expanded="true">
                             <div class="block-body">
                                 <ul class="deatil_features">
+                                    <li><strong>Living Rooms:</strong>{{ $listing->living_rooms }}</li>
+                                    <li><strong>Bedsitting Rooms:</strong>{{ $listing->bedsitting_rooms }}</li>
                                     <li><strong>Bedrooms:</strong>{{ $listing->bedrooms }}</li>
                                     <li><strong>Bathrooms:</strong>{{ $listing->bathrooms }}</li>
-                                    <li><strong>Areas:</strong>{{ $listing->area }} sq ft</li>
-                                    <li><strong>Status:</strong>Active</li>
+                                    <li><strong>Toilets:</strong>{{ $listing->toilets }}</li>
+                                    <li><strong>Kitchen:</strong>{{ $listing->kitchen }}</li>
+                                    
+                                    {{-- <li><strong>Status:</strong>Active</li> --}}
                                     
                                 </ul>
+                                @if ($listing->other_rooms)
+                                    <h6 class="property_block_title">Other Rooms:</h6>
+                                    <p>{{ $listing->other_rooms }}</p>
+                                @endif
                             </div>
                         </div>
                         
@@ -86,14 +102,14 @@
                     <div class="property_block_wrap style-2">
                         
                         <div class="property_block_wrap_header">
-                            <a data-bs-toggle="collapse" data-parent="#amen"  data-bs-target="#clThree" aria-controls="clThree" href="javascript:void(0);" aria-expanded="true"><h4 class="property_block_title">Ameneties</h4></a>
+                            <a data-bs-toggle="collapse" data-parent="#amen"  data-bs-target="#clThree" aria-controls="clThree" href="javascript:void(0);" aria-expanded="true"><h4 class="property_block_title">Client Groups</h4></a>
                         </div>
                         
                         <div id="clThree" class="panel-collapse collapse show" aria-expanded="true">
                             <div class="block-body">
                                 <ul class="avl-features third color">
-                                    @foreach ($features as $feature)
-                                        <li>{{ $feature }}</li>
+                                    @foreach ($client_group->client_group as $client)
+                                        <li>{{ $client }}</li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -127,17 +143,13 @@
                         
                         <div id="clSev" class="panel-collapse collapse" aria-expanded="true">
                             <div class="block-body">
-                                @if (count($listing->listingimage) <= 0)
-                                    <h4>No Images Uploaded for this listing</h4>
-                                @else
-                                    <ul class="list-gallery-inline">
-                                    @foreach ($listing->listingimage as $image)
+                                <ul class="list-gallery-inline">
+                                    @foreach ($listing_images as $image)
                                         <li>
-                                            <a href="https://via.placeholder.com/1200x800" class="mfp-gallery"><img src="{{ asset('storage/listing/images/'.$image->image_name) }}" class="img-fluid mx-auto" alt="" /></a>
+                                            <a href="{{ asset('/storage/listing/images/'.$image->image_name) }}" class="mfp-gallery"><img src="{{ asset('/storage/listing/images/'.$image->image_name) }}" class="img-fluid mx-auto" alt="" /></a>
                                         </li>
                                     @endforeach
-                                    </ul>
-                                @endif
+                                </ul>
                             </div>
                         </div>
 
