@@ -22,7 +22,7 @@
     <!-- Datatables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 
-    <link rel="stylesheet" href="{{ mix('css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset(mix('css/dashboard.css')) }}">
 
     @livewireStyles
 
