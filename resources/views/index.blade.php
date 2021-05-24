@@ -1,4 +1,4 @@
-<x-app-layout pageTitle="Home">
+<x-app-layout>
     @include('partials.hero-banner')
 
     <!-- ============================ Step How To Use Start ================================== -->
@@ -63,10 +63,5 @@
     </section>
     <div class="clearfix"></div>
     <!-- ============================ Step How To Use End ====================== -->
-
-    @push('modals')
-        @include('partials.login-modal')
-        @include('partials.signup-modal')
-    @endpush
 </x-app-layout>
 

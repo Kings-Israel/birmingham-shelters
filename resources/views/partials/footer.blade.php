@@ -5,7 +5,7 @@
 
                 <div class="col-lg-3 col-md-4">
                     <div class="footer-widget">
-                        <img src="assets/img/logo-light.png" class="img-footer" alt="" />
+                        <img src="{{ asset('img/sb-mock-logo.png') }}" class="img-footer" alt="" />
                         <div class="footer-add">
                             <p>Collins Street West, Victoria 8007, Australia.</p>
                             <p>+1 246-345-0695</p>
@@ -14,44 +14,29 @@
 
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4">
+                <div class="col-lg-3 col-md-4">
                     <div class="footer-widget">
                         <h4 class="widget-title">Navigations</h4>
                         <ul class="footer-menu">
-                            <li><a href="about-us.html">About Us</a></li>
-                            <li><a href="faq.html">FAQs Page</a></li>
-                            <li><a href="checkout.html">Checkout</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="{{ url('/about') }}">About Us</a></li>
+                            <li><a href="{{ url('/faq') }}">FAQs Page</a></li>
+                            <li><a href="{{ url('/contact') }}">Contact</a></li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="col-lg-2 col-md-4">
-                    <div class="footer-widget">
-                        <h4 class="widget-title">The Highlights</h4>
-                        <ul class="footer-menu">
-                            <li><a href="#">Apartment</a></li>
-                            <li><a href="#">My Houses</a></li>
-                            <li><a href="#">Restaurant</a></li>
-                            <li><a href="#">Nightlife</a></li>
-                            <li><a href="#">Villas</a></li>
-                        </ul>
+                @auth
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h4 class="widget-title">My Account</h4>
+                            <ul class="footer-menu">
+                                <li><a href="#">My Profile</a></li>
+                                <li><a href="#">My Property</a></li>
+                                <li><a href="#">Favorites</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-lg-2 col-md-6">
-                    <div class="footer-widget">
-                        <h4 class="widget-title">My Account</h4>
-                        <ul class="footer-menu">
-                            <li><a href="#">My Profile</a></li>
-                            <li><a href="#">My account</a></li>
-                            <li><a href="#">My Property</a></li>
-                            <li><a href="#">Favorites</a></li>
-                            <li><a href="#">Cart</a></li>
-                        </ul>
-                    </div>
-                </div>
+                @endauth
 
             </div>
         </div>

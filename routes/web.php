@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index')->name('home');
 
+Route::view('/contact', 'pages.contact');
+Route::view('/faq', 'pages.faq');
+
 Auth::routes(['verify' => true]);
 
 Route::view('/email/verify', 'verify')->middleware('auth')->name('verification.notice');
