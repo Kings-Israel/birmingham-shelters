@@ -152,28 +152,6 @@
                                 </ul>
                             </div>
                         </div>
-
-                        {{-- Listing Images Upload Section --}}
-                        <div class="dashboard-wraper">
-                            <h3>Upload Listing Images</h3>
-                            <div class="submit-section">
-                                <div class="row">
-                                
-                                    <div class="form-group col-md-12">
-                                        <form action="{{ route('listing.images.save') }}" method="POST" enctype="multipart/form-data" class="dropzone dz-clickable primary-dropzone" id="images-dropzone">
-                                            @csrf
-                                            <input type="hidden" name="listing_id" value="{{ $listing->id }}">
-                                            <div class="dz-default dz-message">
-                                                <i class="ti-files"></i>
-                                                <span>Drag & Drop or Click to Select</span>
-                                            </div>
-                                        </form>
-                                    </div>                                
-                                </div>
-                            </div>
-                        </div>
-                        {{-- End of Upload Section --}}
-                        
                     </div>
                     
                     <!-- Single Block Wrap -->
@@ -309,18 +287,5 @@
             </div>
         </div>
     </section>
-
-    @push('scripts')
-        <script>
-            Dropzone.options.imagesDropzone = {
-            init: function(){
-                this.on('complete', function(file) {
-                    location.reload();
-                });
-            },
-            acceptedFiles: ".png, .jpg, .jpeg"
-        };
-        </script>
-    @endpush
 
 </x-app-layout>

@@ -21,7 +21,7 @@ class LandlordListingController extends Controller
 
     public function all_listings()
     {
-        $listings = Listing::where('user_id', '=', Auth::user()->id)->get();
+        $listings = Listing::where('user_id', '=', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
         return view('landlord.listing.all-listings')->with('listings', $listings);
     }
 
@@ -74,7 +74,7 @@ class LandlordListingController extends Controller
         // Get Listing Images
         $listingImages = Listing::find($id)->listingimage;
 
-        // Return listing in image
+        // Return listing
         return view('landlord.listing.show-listing')
             ->with([
                 'listing' => $listing, 

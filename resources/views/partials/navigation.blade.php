@@ -3,7 +3,8 @@
         <nav id="navigation" class="navigation navigation-landscape">
             <div class="nav-header">
                 <a class="nav-brand" href="#">
-                    <img src="/assets/img/logo.png" class="logo" alt="" />
+                    {{-- <img src="/assets/img/logo.png" class="logo" alt="" /> --}}
+                    <h3 class="mt-2">Sheltered Housing Ltd.</h3>
                 </a>
                 <div class="nav-toggle"></div>
             </div>
