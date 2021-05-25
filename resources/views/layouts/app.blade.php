@@ -19,6 +19,11 @@
     <!-- Custom Color Option -->
     <link href="{{ asset('assets/css/colors.css') }}" rel="stylesheet">
 
+    <style>
+        .h-full {
+            height: 100%;
+        }
+    </style>
     @stack('styles')
 </head>
 
