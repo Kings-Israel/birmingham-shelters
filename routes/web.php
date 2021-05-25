@@ -38,11 +38,7 @@ Route::get('/user/home', [HomeController::class, 'user'])->name('user.index');
 Route::get('/landlord/home', [HomeController::class, 'landlord'])->name('landlord.index');
 Route::get('/volunteer/home', [HomeController::class, 'volunteer'])->name('volunteer.index');
 
-// Statutory Documents Route
-Route::post('/statutory/store', [DocumentController::class, 'store'])->name('statutory.store');
-Route::delete('/statutory/delete/{id}', [DocumentController::class, 'delete'])->name('statutory.delete');
-
-// Listing Controller
+// Landlord Listing Controller
 Route::get('listing/all', [LandlordListingController::class, 'all_listings'])->name('listing.view.all');
 Route::get('listing/{id}', [LandlordListingController::class, 'view_listing'])->name('listing.view.one');
 Route::get('listing/add/basicinfo', [LandlordListingController::class, 'basic_info'])->name('listing.add.basic_info');
