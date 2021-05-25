@@ -11894,3 +11894,11 @@ a.blue2-theme {
   .error-message {
       color: red;
   }
+
+  .index-page-text {
+      color: #fff;
+  }
+
+  p > .index-page-text {
+      font-size: 20px;
+  }

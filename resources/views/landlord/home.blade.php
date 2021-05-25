@@ -139,53 +139,6 @@
                     </div>
                     
                 </div>
-                <br>
-                <div class="dashboard-wraper">
-                    <h3>Upload Statutory Documents</h3>
-                    <div class="submit-section">
-                        <div class="row">
-                        
-                            <div class="form-group col-md-12">
-                                <form action="{{ route('statutory.store') }}" method="POST" enctype="multipart/form-data" class="dropzone dz-clickable primary-dropzone" id="statutory-dropzone">
-                                    @csrf
-                                    <div class="dz-default dz-message">
-                                        <i class="ti-files"></i>
-                                        <span>Drag & Drop or Click to Select</span>
-                                    </div>
-                                </form>
-                            </div>                                
-                        </div>
-                    </div>
-                </div>
-
-                <br>
-                @if (count(Auth::user()->document) > 0)
-                    <div class="dashboard-wraper">
-                        <h3>My Documents</h3>
-                        <table class="table table-dark"> 
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (Auth::user()->document as $document)
-                                    <tr>
-                                        <td>{{ $document->filename }}</td>
-                                        <td>
-                                            <form action="{{ route('statutory.delete', $document->id) }}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger btn-rounded">Delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                @endif
             
         </div>
     </div>

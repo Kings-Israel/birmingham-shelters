@@ -26,9 +26,9 @@
                 </ul>
 
                 <ul class="nav-menu align-to-right">
-                    <li>
-                        <a href="#"><i class="ti-user mr-1"></i>My Profile</a>
-                    </li>
+                    <x-nav-link :active="Route::is('user-profile')">
+                        <a href="{{ route('user-profile') }}"><i class="ti-user mr-1"></i>My Profile</a>
+                    </x-nav-link>
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

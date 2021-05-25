@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index')->name('home');
 
+Route::view('/contact', 'pages.contact');
+Route::view('/about', 'pages.about');
+Route::view('/faq', 'pages.faq');
+
 Auth::routes(['verify' => true]);
 
 Route::view('/email/verify', 'verify')->middleware('auth')->name('verification.notice');
@@ -38,11 +42,7 @@ Route::get('/user/home', [HomeController::class, 'user'])->name('user.index');
 Route::get('/landlord/home', [HomeController::class, 'landlord'])->name('landlord.index');
 Route::get('/volunteer/home', [HomeController::class, 'volunteer'])->name('volunteer.index');
 
-// Statutory Documents Route
-Route::post('/statutory/store', [DocumentController::class, 'store'])->name('statutory.store');
-Route::delete('/statutory/delete/{id}', [DocumentController::class, 'delete'])->name('statutory.delete');
-
-// Listing Controller
+// Landlord Listing Controller
 Route::get('listing/all', [LandlordListingController::class, 'all_listings'])->name('listing.view.all');
 Route::get('listing/{id}', [LandlordListingController::class, 'view_listing'])->name('listing.view.one');
 Route::get('listing/add/basicinfo', [LandlordListingController::class, 'basic_info'])->name('listing.add.basic_info');
@@ -66,3 +66,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
         Route::get('/{admin}/edit', [AdminsManagementController::class, 'edit_admin'])->name('edit');
     });
 });
+
+// User Profile Route
+Route::view('/profile', 'user-profile')->middleware(['auth', 'verified'])->name('user-profile');
