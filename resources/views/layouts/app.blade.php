@@ -41,6 +41,8 @@
         <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
     </div>
 
+    @include('partials.login-modal')
+    @include('partials.signup-modal')
     @stack('modals')
 
     <!-- ============================================================== -->

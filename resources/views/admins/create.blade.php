@@ -5,7 +5,7 @@
         </x-slot>
     </x-page-title-with-action>
 
-    <section class="bg-light">
+    <section class="bg-light min">
         @livewire('admin-account-form')
     </section>
 </x-admin-layout>

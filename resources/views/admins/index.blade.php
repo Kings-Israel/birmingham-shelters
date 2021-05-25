@@ -14,7 +14,7 @@
         </div>
         @endif
 
-        <div class="py-5">
+        <div class="py-5 px-4">
             <div class="bg-white container-lg p-3 shadow rounded-3">
                 @if($admins->isEmpty())
                 <p class="text-center fs-4 p-5">No admin account records found.

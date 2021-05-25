@@ -51,7 +51,7 @@ class LandlordListingController extends Controller
         $listing = Listing::find($id);
 
         // Get Listing Client Groups
-        $clientGroup = Listing::find($id)->clientgroup;
+        $clientGroup = $listing->clientgroup;
         $clientGroup->client_group = explode(',', $clientGroup->client_group);
         $client_group = $clientGroup->client_group;
         // Get Other field's key if it exists
@@ -69,10 +69,10 @@ class LandlordListingController extends Controller
         }
 
         // Get listing Documents
-        $listingDocuments = Listing::find($id)->listingdocuments;
+        $listingDocuments = $listing->listingdocuments;
 
         // Get Listing Images
-        $listingImages = Listing::find($id)->listingimage;
+        $listingImages = $listing->listingimage;
 
         // Return listing
         return view('landlord.listing.show-listing')
