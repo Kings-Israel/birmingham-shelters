@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index')->name('home');
 
+Route::view('/contact', 'pages.contact');
+Route::view('/about', 'pages.about');
+Route::view('/faq', 'pages.faq');
+
 Auth::routes(['verify' => true]);
 
 Route::view('/email/verify', 'verify')->middleware('auth')->name('verification.notice');
@@ -62,3 +66,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
         Route::get('/{admin}/edit', [AdminsManagementController::class, 'edit_admin'])->name('edit');
     });
 });
+
+// User Profile Route
+Route::view('/profile', 'user-profile')->middleware(['auth', 'verified'])->name('user-profile');

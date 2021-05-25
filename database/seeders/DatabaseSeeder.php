@@ -22,5 +22,26 @@ class DatabaseSeeder extends Seeder
                 'first_name' => 'Super',
                 'last_name' => 'Admin'
             ]);
+
+        User::factory()->asUserType(UserTypeEnum::admin())
+            ->create([
+                'email' => 'admin@test.com',
+                'first_name' => 'Admin',
+                'last_name' => 'Test'
+            ]);
+
+        User::factory()->asUserType(UserTypeEnum::landlord())
+            ->create([
+                'email' => 'landlord@test.com',
+                'first_name' => 'Landlord',
+                'last_name' => 'Test'
+            ]);
+
+        User::factory()->asUserType(UserTypeEnum::volunteer())
+            ->create([
+                'email' => 'volunteer@test.com',
+                'first_name' => 'Volunteer',
+                'last_name' => 'Test'
+            ]);
     }
 }

@@ -1,62 +1,21 @@
-<!-- ============================ Step How To Use Start ================================== -->
-<section>
+
+<div class="image-cover hero-banner" style="background:#2540a2 url({{ asset('assets/img/banner-6.png') }}) no-repeat;">
     <div class="container">
-
-        <div class="row justify-content-center">
-            <div class="col-lg-7 col-md-10 text-center">
-                <div class="sec-heading center">
-                    <h2>How It Works?</h2>
-                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-                        voluptatum deleniti atque corrupti quos dolores</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-4 col-md-4">
-                <div class="middle-icon-features-item">
-                    <div class="icon-features-wrap">
-                        <div class="middle-icon-large-features-box f-light-success"><i
-                                class="ti-receipt text-success"></i></div>
-                    </div>
-                    <div class="middle-icon-features-content">
-                        <h4>Evaluate Property</h4>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                            Ipsum available.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4">
-                <div class="middle-icon-features-item">
-                    <div class="icon-features-wrap">
-                        <div class="middle-icon-large-features-box f-light-warning"><i
-                                class="ti-user text-warning"></i></div>
-                    </div>
-                    <div class="middle-icon-features-content">
-                        <h4>Meet Your Agent</h4>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                            Ipsum available.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4">
-                <div class="middle-icon-features-item remove">
-                    <div class="icon-features-wrap">
-                        <div class="middle-icon-large-features-box f-light-blue"><i class="ti-shield text-blue"></i>
-                        </div>
-                    </div>
-                    <div class="middle-icon-features-content">
-                        <h4>Close The Deal</h4>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                            Ipsum available.</p>
-                    </div>
+        <div class="simple-search-wrap">
+            <div class="hero-search-2">
+                <h2 class="text-light mb-4">Birmingham Shelters</h2>
+                <p class="lead-i text-light">
+                    Where we link those impacted by homelessness with quality-assured supported accommodation. Join the platform as either a landlord or a room seeker.
+                <p>
+                <div class="mt-4">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signup">Get started</button>
+                    <p class="text-light mt-2">
+                        Already registred? <a class="text-light" href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#login">Sign In</a>
+                    </p>
                 </div>
             </div>
         </div>
 
     </div>
-</section>
-<div class="clearfix"></div>
-<!-- ============================ Step How To Use End ====================== -->
+</div>
+<!-- ============================ Hero Banner End ================================== -->
