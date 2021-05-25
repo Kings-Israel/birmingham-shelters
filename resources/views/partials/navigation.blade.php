@@ -16,8 +16,6 @@
                         <a href="{{ url('/about') }}">About</a>
                     </x-site-nav-link>
 
-                    <li><a href="#">Participation</a></li>
-
                     <x-site-nav-link :active="Request::is('/contact')">
                         <a href="{{ url('/contact') }}">Contact Us</a>
                     </x-site-nav-link>

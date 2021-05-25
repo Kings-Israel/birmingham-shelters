@@ -19,8 +19,9 @@
                         <h4 class="widget-title">Navigations</h4>
                         <ul class="footer-menu">
                             <li><a href="{{ url('/about') }}">About Us</a></li>
-                            <li><a href="{{ url('/faq') }}">FAQs Page</a></li>
                             <li><a href="{{ url('/contact') }}">Contact</a></li>
+                            <li><a href="{{ url('/faq') }}">FAQs Page</a></li>
+                            <li><a href="{{ url('/privacy') }}">Privacy Policy</a></li>
                         </ul>
                     </div>
                 </div>
@@ -47,7 +48,7 @@
             <div class="row align-items-center">
 
                 <div class="col-lg-6 col-md-6">
-                    <p class="mb-0">© 2021 Resido. Designd By <a href="https://themezhub.com">Themez Hub</a> All Rights Reserved</p>
+                    <p class="mb-0">© 2021 {{ config('app.name') }}. All Rights Reserved</p>
                 </div>
 
                 <div class="text-right col-lg-6 col-md-6">
