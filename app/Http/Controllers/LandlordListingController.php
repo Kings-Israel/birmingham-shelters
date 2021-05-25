@@ -53,13 +53,13 @@ class LandlordListingController extends Controller
         // Get Listing Client Groups
         $clientGroup = $listing->clientgroup;
         $clientGroup->client_group = explode(',', $clientGroup->client_group);
-        $client_group = $clientGroup->client_group;
+        $client_group_array = $clientGroup->client_group;
         // Get Other field's key if it exists
-        if($key = array_search("Other", $clientGroup->client_group) !== false)
+        if($key = array_search("Other", $clientGroup->client_group))
         {
             // Delete 'Other' from the client_group array
-            unset($client_group[$key + 1]);
-            $clientGroup->client_group = $client_group;
+            unset($client_group_array[$key]);
+            $clientGroup->client_group = $client_group_array;
 
             // Change the other_types field to array
             $other_types = explode(',', $clientGroup->other_types);
