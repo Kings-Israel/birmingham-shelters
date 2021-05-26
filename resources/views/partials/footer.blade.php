@@ -20,7 +20,6 @@
                         <ul class="footer-menu">
                             <li><a href="{{ url('/about') }}">About Us</a></li>
                             <li><a href="{{ url('/contact') }}">Contact</a></li>
-                            <li><a href="{{ url('/faq') }}">FAQs Page</a></li>
                             <li><a href="{{ url('/privacy') }}">Privacy Policy</a></li>
                         </ul>
                     </div>

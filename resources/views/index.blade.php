@@ -8,4 +8,7 @@
     @include('partials.social-landlords-section')
 
     @include('partials.homeless-section')
+
+    @include('partials.faq');
+
 </x-app-layout>

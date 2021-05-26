@@ -2,7 +2,7 @@
     <div class="container">
         <nav id="navigation" class="navigation navigation-landscape">
             <div class="nav-header">
-                <a class="nav-brand" href="#">
+                <a class="nav-brand" href="{{ url('/') }}">
                     <img src="{{ asset('img/sb-mock-logo.png') }}" class="logo" alt="" />
                 </a>
                 <div class="nav-toggle"></div>
@@ -13,7 +13,7 @@
                         <a href="{{ url('/') }}">Home</a>
                     </x-site-nav-link>
                     <x-site-nav-link :active="Request::is('/about')">
-                        <a href="{{ url('/about') }}">About</a>
+                        <a href="{{ url('/about') }}">About Us</a>
                     </x-site-nav-link>
 
                     <x-site-nav-link :active="Request::is('/contact')">

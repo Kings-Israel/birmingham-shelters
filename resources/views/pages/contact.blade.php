@@ -2,7 +2,7 @@
     <x-page-title title="Contact Us" description="How to find or reach us" />
 
     <!-- ============================ Agency List Start ================================== -->
-    <section>
+    <section class="bg-light">
 
         <div class="container">
 

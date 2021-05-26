@@ -2,7 +2,7 @@
     <x-page-title title="About Us" description="Who we are and what we are about" />
 
     <!-- ============================ Our Story Start ================================== -->
-    <section>
+    <section class="gray-bg">
 
         <div class="container">
 
@@ -10,19 +10,20 @@
             <div class="row align-items-center">
 
                 <div class="col-lg-6 col-md-6">
-                    <img src="https://via.placeholder.com/700x850" class="img-fluid" alt="" />
+                    <img src="{{ asset('img/select-house.svg')}}" class="img-fluid" alt="" />
                 </div>
 
                 <div class="col-lg-6 col-md-6">
                     <div class="story-wrap explore-content">
 
-                        <h2>Our Story</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip.</p>
+                        <h2>What We Do</h2>
+                        <p>Everything we do is about people – whether that is ensuring we link the homeless persons with
+                            a good quality, safe home or helping this vulnerable group of people to live an independent
+                            life. Birmingham Shelters links the various accommodation to homeless persons of all ages
+                            and difficulties or diagnoses in all sections of the Birmingham community. We provide a
+                            safe, secure platform to match-up Birmingham’s empty supported accommodation rooms with
+                            those who need them. We intend to help fill empty rooms as these rooms were not properly
+                            advertised before.</p>
 
                     </div>
                 </div>
@@ -35,235 +36,214 @@
     </section>
     <!-- ============================ Our Story End ================================== -->
 
-    <!-- ================= Our Team================= -->
+    <!-- Vision and Mission -->
+    <section>
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="icon-mi-left">
+                        <i class="ti-flag-alt-2 theme-cl"></i>
+                        <div class="icon-mi-left-content">
+                            <h2 class="fs-4">Our Mission</h2>
+                            <p>Birmingham Shelters provides a service that has been designed to address the homelessness
+                                crisis in the UK by linking persons impacted by homelessness with quality-assured
+                                supported accommodation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="icon-mi-left">
+                        <i class="ti-eye theme-cl"></i>
+                        <div class="icon-mi-left-content">
+                            <h2 class="fs-4">Our Vision</h2>
+                            <p>To become the best link up for homeless persons with rightly suited accommodation that
+                                meets the needs of the homeless and empower them to become more independent within the
+                                community.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END Vision and Mission -->
+
+    <!-- Values -->
     <section class="gray-bg">
         <div class="container">
 
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="sec-heading center">
-                        <h2>Meet Our Team</h2>
-                        <p>Professional & Dedicated Team</p>
+                        <h2>Our Values</h2>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12">
-
-                    <div class="team-slide item-slide">
-
-                        <!-- Single Teamm -->
-                        <div class="single-team">
-                            <div class="team-grid">
-
-                                <div class="teamgrid-user">
-                                    <img src="https://via.placeholder.com/400x400" alt="" class="img-fluid" />
-                                </div>
-
-                                <div class="teamgrid-content">
-                                    <h4>Shaurya Preet</h4>
-                                    <span>Co-Founder</span>
-                                </div>
-
-                                <div class="teamgrid-social">
-                                    <ul>
-                                        <li><a href="#" class="f-cl"><i class="ti-facebook"></i></a></li>
-                                        <li><a href="#" class="t-cl"><i class="ti-twitter"></i></a></li>
-                                        <li><a href="#" class="i-cl"><i class="ti-instagram"></i></a></li>
-                                        <li><a href="#" class="l-cl"><i class="ti-linkedin"></i></a></li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Single Teamm -->
-                        <div class="single-team">
-                            <div class="team-grid">
-
-                                <div class="teamgrid-user">
-                                    <img src="https://via.placeholder.com/400x400" alt="" class="img-fluid" />
-                                </div>
-
-                                <div class="teamgrid-content">
-                                    <h4>Shivangi Preet</h4>
-                                    <span>Content Writer</span>
-                                </div>
-
-                                <div class="teamgrid-social">
-                                    <ul>
-                                        <li><a href="#" class="f-cl"><i class="ti-facebook"></i></a></li>
-                                        <li><a href="#" class="t-cl"><i class="ti-twitter"></i></a></li>
-                                        <li><a href="#" class="i-cl"><i class="ti-instagram"></i></a></li>
-                                        <li><a href="#" class="l-cl"><i class="ti-linkedin"></i></a></li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Single Teamm -->
-                        <div class="single-team">
-                            <div class="team-grid">
-
-                                <div class="teamgrid-user">
-                                    <img src="https://via.placeholder.com/400x400" alt="" class="img-fluid" />
-                                </div>
-
-                                <div class="teamgrid-content">
-                                    <h4>Yash Preet</h4>
-                                    <span>Content Writer</span>
-                                </div>
-
-                                <div class="teamgrid-social">
-                                    <ul>
-                                        <li><a href="#" class="f-cl"><i class="ti-facebook"></i></a></li>
-                                        <li><a href="#" class="t-cl"><i class="ti-twitter"></i></a></li>
-                                        <li><a href="#" class="i-cl"><i class="ti-instagram"></i></a></li>
-                                        <li><a href="#" class="l-cl"><i class="ti-linkedin"></i></a></li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Single Teamm -->
-                        <div class="single-team">
-                            <div class="team-grid">
-
-                                <div class="teamgrid-user">
-                                    <img src="https://via.placeholder.com/400x400" alt="" class="img-fluid" />
-                                </div>
-
-                                <div class="teamgrid-content">
-                                    <h4>Dhananjay Preet</h4>
-                                    <span>CEO & Manager</span>
-                                </div>
-
-                                <div class="teamgrid-social">
-                                    <ul>
-                                        <li><a href="#" class="f-cl"><i class="ti-facebook"></i></a></li>
-                                        <li><a href="#" class="t-cl"><i class="ti-twitter"></i></a></li>
-                                        <li><a href="#" class="i-cl"><i class="ti-instagram"></i></a></li>
-                                        <li><a href="#" class="l-cl"><i class="ti-linkedin"></i></a></li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Single Teamm -->
-                        <div class="single-team">
-                            <div class="team-grid">
-
-                                <div class="teamgrid-user">
-                                    <img src="https://via.placeholder.com/400x400" alt="" class="img-fluid" />
-                                </div>
-
-                                <div class="teamgrid-content">
-                                    <h4>Rahul Gilkrist</h4>
-                                    <span>App Designer</span>
-                                </div>
-
-                                <div class="teamgrid-social">
-                                    <ul>
-                                        <li><a href="#" class="f-cl"><i class="ti-facebook"></i></a></li>
-                                        <li><a href="#" class="t-cl"><i class="ti-twitter"></i></a></li>
-                                        <li><a href="#" class="i-cl"><i class="ti-instagram"></i></a></li>
-                                        <li><a href="#" class="l-cl"><i class="ti-linkedin"></i></a></li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Single Teamm -->
-                        <div class="single-team">
-                            <div class="team-grid">
-
-                                <div class="teamgrid-user">
-                                    <img src="https://via.placeholder.com/400x400" alt="" class="img-fluid" />
-                                </div>
-
-                                <div class="teamgrid-content">
-                                    <h4>Adam Wilcard</h4>
-                                    <span>Web Developer</span>
-                                </div>
-
-                                <div class="teamgrid-social">
-                                    <ul>
-                                        <li><a href="#" class="f-cl"><i class="ti-facebook"></i></a></li>
-                                        <li><a href="#" class="t-cl"><i class="ti-twitter"></i></a></li>
-                                        <li><a href="#" class="i-cl"><i class="ti-instagram"></i></a></li>
-                                        <li><a href="#" class="l-cl"><i class="ti-linkedin"></i></a></li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-
+            <div class="row gx-3 gy-4">
+                <div class="col-md-6 col-lg-6">
+                    <div class="bg-white px-5 py-4 shadow rounded-3 h-full">
+                        <h4>Integrity</h4>
+                        <p>Being honest and truthful with carrying out our tasks as we are working to meet the interests
+                            of the homeless persons and the social landlords.</p>
                     </div>
-
                 </div>
-            </div>
 
+                <div class="col-md-6 col-lg-6">
+                    <div class="bg-white px-5 py-4 rounded-3 shadow h-full">
+                        <h4>Teamwork</h4>
+                        <p>Bringing skilled people from various backgrounds together to attain the goal of reducing
+                            homelessness in Birmingham City.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-6">
+                    <div class="bg-white px-5 py-4 rounded-3 shadow h-full">
+                        <h4>Empowerment</h4>
+                        <p>Empowering the homeless persons by matching them with the right accommodations that will seek
+                            to focus on their needs.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-6">
+                    <div class="bg-white px-5 py-4 rounded-3 shadow h-full">
+                        <h4>Commitment</h4>
+                        <p>Devoting ourselves to the great social goals that we want to attain within the community with
+                            regards to reduction of homelessness within the community.</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
-    <!-- =============================== Our Team ================================== -->
+    <!-- END Values -->
 
-    <!-- ================= Our Mission ================= -->
+    <!-- Objectives -->
     <section>
         <div class="container">
 
+            <div class="row align-items-center">
+                <div class="col-md-6 col-lg-6">
+                    <h2 class="mb-4">Our Objectives</h2>
+                    <ul class="list-style lead">
+                        <li class="">
+                            Register a significant number of social Landlords to offer more rooms to homeless people.
+                        </li>
+                        <li class="">
+                            Place homeless individuals in quality supported accommodation that uphold the Charter of
+                            Rights.
+                        </li>
+                        <li class="">
+                            Ensure that all the social landlords on our website meet our required quality standards.
+                            Only list rooms from trusted Registered Social Landlords and those used by Birmingham City
+                            Council, so that we can be sure we will provide quality accommodation to those who use our
+                            site.
+                        </li>
+                        <li class="">
+                            Employ an additional multi-disciplinary team of inspectors and social workers to carry out
+                            more inspections on properties to ensure that those living there are not being exploited and
+                            are receiving the support they need.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6 col-lg-6">
+                    <img src="{{ asset('img/good-team.svg') }}" alt="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END Objectives -->
+
+    <!-- Team -->
+    <section class="gray-bg">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="sec-heading center">
-                        <h2>Our Mission & Work Process</h2>
+                        <h2>Meet the Team</h2>
                         <p>Professional & Dedicated Team</p>
                     </div>
                 </div>
             </div>
 
-            <div class="row align-items-center">
-
-                <div class="col-lg-6 col-md-6">
-
-                    <div class="icon-mi-left">
-                        <i class="ti-lock theme-cl"></i>
-                        <div class="icon-mi-left-content">
-                            <h4>Fully Secure & 24x7 Dedicated Support</h4>
-                            <p>If you are an individual client, or just a business startup looking for good backlinks
-                                for your website.</p>
-                        </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Executive Board</h2>
+                    <h4>Christopher Kirui <span class="theme-cl">– Chief Administrator</span> </h4>
+                    <div class="lead">
+                        <p>
+                            Christopher is passionate about the importance of housing and care & support services, having more than 10 years working with the vulnerable group in the society- the elderly.
+                        </p>
+                        <p>
+                            A highly experienced leader, Christopher has held senior managerial positions in various companies, and he will be an important member of the Sheltered Housing Ltd team as he will effectively lead a team to meet the objectives of the company.
+                        </p>
+                        <p>
+                            Christopher’s experience working in elderly care and support homes has enabled him to spearhead major programmes to improve the service delivery of housing associations including the development of new corporate strategy, the transformation of financial and operational performance and the redesign and refocus of customer services.
+                        </p>
+                        <p>
+                            Christopher is passionate about delivering quality and person centered care and support to vulnerable people. He is a strong advocate of those who work in the sector and proud of the contribution, care and support they make to the society. Christopher believes all persons deserve the inalienable right to human dignity and that comes with having a roof over one’s head.
+                        </p>
+                        <p>
+                            <strong>Email:</strong>
+                            <a href="mailto:chris@birminghamshelters.co.uk" class="link link-primary">chris@birminghamshelters.co.uk</a>
+                        </p>
                     </div>
-
-                    <div class="icon-mi-left">
-                        <i class="ti-twitter theme-cl"></i>
-                        <div class="icon-mi-left-content">
-                            <h4>Manage your Social & Busness Account Carefully</h4>
-                            <p>If you are an individual client, or just a business startup looking for good backlinks
-                                for your website.</p>
-                        </div>
-                    </div>
-
-                    <div class="icon-mi-left">
-                        <i class="ti-layers theme-cl"></i>
-                        <div class="icon-mi-left-content">
-                            <h4>We are Very Hard Worker and loving</h4>
-                            <p>If you are an individual client, or just a business startup looking for good backlinks
-                                for your website.</p>
-                        </div>
-                    </div>
-
                 </div>
-
-                <div class="col-lg-6 col-md-6">
+                <div class="col-md-6">
                     <img src="https://via.placeholder.com/700x850" class="img-fluid" alt="" />
                 </div>
-
             </div>
         </div>
     </section>
-    <!-- ================= Our Mission ================= -->
+    <!-- END Team -->
+
+    <!-- Get Involved -->
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="sec-heading center">
+                        <h2>Get Involved</h2>
+                        <p>Other ways you can be part of the team</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6 col-lg-6">
+                    <div class="bg-white px-5 py-4 shadow rounded-3 h-full">
+                        <h4>Become a donor</h4>
+                        <p>You can assist us in our cause of reducing homelessness by donating to Sheltered Housing Ltd. Your gift directly supports our work to connect vulnerable people with the most suitable accommodation for them.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-6">
+                    <div class="bg-white px-5 py-4 shadow rounded-3 h-full">
+                        <h4>Become a volunteer</h4>
+                        <p>You can assist us to attain a mission by becoming a volunteer in our organization in handling social work. If you're interested in joining the team, please email <a href="mailto:info@birminghamshelters.co.uk">info@birminghamshelters.co.uk</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-6">
+                    <div class="bg-white px-5 py-4 shadow rounded-3 h-full">
+                        <h4>Become a Birmingham Shelters advocate</h4>
+                        <p>You can help get the word out there about our business and most importantly our social cause. You can find us on Facebook and Twitter. We understand that the more people who know about Sheltered Housing Ltd, the more people we will be able to assist.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-6">
+                    <div class="bg-white px-5 py-4 shadow rounded-3 h-full">
+                        <h4>Other general ways</h4>
+                        <p>Volunteer in the wider homelessness sector, by finding charities to approach for opportunities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END Get Involved -->
+
 </x-app-layout>

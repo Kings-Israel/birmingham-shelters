@@ -1,8 +1,37 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins/breakpoints';
 
-// Variables
 @import 'variables';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import 'functions';
+@import 'mixins';
+
+.h-full {
+    height: 100%;
+}
+
+.faq-list {
+    max-width: spacing(320);
+    margin: 0 auto;
+    padding: 0 spacing(4);
+
+    &>*+* {
+        margin-top: spacing(8);
+        margin-bottom: spacing(8);
+    }
+
+    @include media-breakpoint-up(lg) {
+        padding: 0 spacing(8);
+    }
+
+    dt {
+        font-size: spacing(5);
+        line-height: spacing(7);
+        color: $gray-900;
+    }
+
+    dd {
+        font-size: 18px;
+    }
+}

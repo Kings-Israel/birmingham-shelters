@@ -2,39 +2,10 @@
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins/breakpoints';
 
-// Variables
-$white: #FFF;
+@import 'variables';
 
-$gray-50: rgba(248, 250, 252, var(--tw-bg-opacity, 1));
-$gray-100: rgba(241, 245, 249, var(--tw-bg-opacity, 1));
-$gray-200: rgba(226, 232, 240, var(--tw-bg-opacity, 1));
-$gray-300: rgba(203, 213, 225, var(--tw-bg-opacity, 1));
-$gray-400: rgba(148, 163, 184, var(--tw-bg-opacity, 1));
-$gray-500: rgba(100, 116, 139, var(--tw-bg-opacity, 1));
-$gray-600: rgba(71, 85, 105, var(--tw-bg-opacity, 1));
-$gray-700: rgba(55, 65, 81, var(--tw-bg-opacity, 1));
-$gray-800: rgba(31, 41, 55, var(--tw-bg-opacity, 1));
-$gray-900: rgba(17, 24, 39, var(--tw-bg-opacity, 1));
-
-$base-spacing: 0.25rem;
-
-// Functions
-@function spacing($multiplier) {
-    @return $base-spacing * $multiplier;
-}
-
-// Mixins
-@mixin text-sm {
-    font-size: spacing(3.5);
-    line-height: spacing(5);
-}
-
-@mixin transition {
-    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-}
-
+@import 'functions';
+@import 'mixins';
 
 #dashboard-wrapper {
     min-height: 100vh;
@@ -228,5 +199,5 @@ $base-spacing: 0.25rem;
 }
 
 .max-w-7xl {
-    max-width: spacing(20);
+    max-width: spacing(320);
 }
