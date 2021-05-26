@@ -36,6 +36,7 @@
     </section>
     <!-- ============================ Our Story End ================================== -->
 
+    <!-- Vision and Mission -->
     <section>
         <div class="container">
 
@@ -67,7 +68,9 @@
             </div>
         </div>
     </section>
+    <!-- END Vision and Mission -->
 
+    <!-- Values -->
     <section class="gray-bg">
         <div class="container">
 
@@ -115,19 +118,15 @@
             </div>
         </div>
     </section>
+    <!-- END Values -->
 
+    <!-- Objectives -->
     <section>
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <div class="sec-heading center">
-                        <h2>Our Objectives</h2>
-                    </div>
-                </div>
-            </div>
 
             <div class="row align-items-center">
                 <div class="col-md-6 col-lg-6">
+                    <h2 class="mb-4">Our Objectives</h2>
                     <ul class="list-style lead">
                         <li class="">
                             Register a significant number of social Landlords to offer more rooms to homeless people.
@@ -156,4 +155,95 @@
             </div>
         </div>
     </section>
+    <!-- END Objectives -->
+
+    <!-- Team -->
+    <section class="gray-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="sec-heading center">
+                        <h2>Meet the Team</h2>
+                        <p>Professional & Dedicated Team</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Executive Board</h2>
+                    <h4>Christopher Kirui <span class="theme-cl">– Chief Administrator</span> </h4>
+                    <div class="lead">
+                        <p>
+                            Christopher is passionate about the importance of housing and care & support services, having more than 10 years working with the vulnerable group in the society- the elderly.
+                        </p>
+                        <p>
+                            A highly experienced leader, Christopher has held senior managerial positions in various companies, and he will be an important member of the Sheltered Housing Ltd team as he will effectively lead a team to meet the objectives of the company.
+                        </p>
+                        <p>
+                            Christopher’s experience working in elderly care and support homes has enabled him to spearhead major programmes to improve the service delivery of housing associations including the development of new corporate strategy, the transformation of financial and operational performance and the redesign and refocus of customer services.
+                        </p>
+                        <p>
+                            Christopher is passionate about delivering quality and person centered care and support to vulnerable people. He is a strong advocate of those who work in the sector and proud of the contribution, care and support they make to the society. Christopher believes all persons deserve the inalienable right to human dignity and that comes with having a roof over one’s head.
+                        </p>
+                        <p>
+                            <strong>Email:</strong>
+                            <a href="mailto:chris@birminghamshelters.co.uk" class="link link-primary">chris@birminghamshelters.co.uk</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="https://via.placeholder.com/700x850" class="img-fluid" alt="" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END Team -->
+
+    <!-- Get Involved -->
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="sec-heading center">
+                        <h2>Get Involved</h2>
+                        <p>Other ways you can be part of the team</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6 col-lg-6">
+                    <div class="bg-white px-5 py-4 shadow rounded-3 h-full">
+                        <h4>Become a donor</h4>
+                        <p>You can assist us in our cause of reducing homelessness by donating to Sheltered Housing Ltd. Your gift directly supports our work to connect vulnerable people with the most suitable accommodation for them.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-6">
+                    <div class="bg-white px-5 py-4 shadow rounded-3 h-full">
+                        <h4>Become a volunteer</h4>
+                        <p>You can assist us to attain a mission by becoming a volunteer in our organization in handling social work. If you're interested in joining the team, please email <a href="mailto:info@birminghamshelters.co.uk">info@birminghamshelters.co.uk</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-6">
+                    <div class="bg-white px-5 py-4 shadow rounded-3 h-full">
+                        <h4>Become a Birmingham Shelters advocate</h4>
+                        <p>You can help get the word out there about our business and most importantly our social cause. You can find us on Facebook and Twitter. We understand that the more people who know about Sheltered Housing Ltd, the more people we will be able to assist.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-6">
+                    <div class="bg-white px-5 py-4 shadow rounded-3 h-full">
+                        <h4>Other general ways</h4>
+                        <p>Volunteer in the wider homelessness sector, by finding charities to approach for opportunities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END Get Involved -->
+
 </x-app-layout>

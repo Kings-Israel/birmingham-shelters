@@ -13,7 +13,7 @@
                         <a href="{{ url('/') }}">Home</a>
                     </x-site-nav-link>
                     <x-site-nav-link :active="Request::is('/about')">
-                        <a href="{{ url('/about') }}">About</a>
+                        <a href="{{ url('/about') }}">About Us</a>
                     </x-site-nav-link>
 
                     <x-site-nav-link :active="Request::is('/contact')">
