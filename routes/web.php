@@ -13,6 +13,7 @@ Route::view('/', 'index')->name('home');
 
 Route::view('/contact', 'pages.contact');
 Route::view('/about', 'pages.about');
+Route::view('/privacy', 'pages.privacy-policy');
 
 Auth::routes(['verify' => true]);
 
