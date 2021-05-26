@@ -1,0 +1,10 @@
+@mixin text-sm {
+    font-size: spacing(3.5);
+    line-height: spacing(5);
+}
+
+@mixin transition {
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}

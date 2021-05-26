@@ -9,4 +9,6 @@
 
     @include('partials.homeless-section')
 
+    @include('partials.faq');
+
 </x-app-layout>
