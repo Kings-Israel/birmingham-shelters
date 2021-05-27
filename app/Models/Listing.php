@@ -4,7 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Listing extends Model
 {
@@ -17,34 +21,30 @@ class Listing extends Model
 
     protected $casts = [
         'verified_at' => 'datetime',
+        'is_available' => 'bool',
     ];
 
-    /**
-     * Get the user that owns the Listing
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
+    public function getIsVerifiedAttribute(): bool
+    {
+        return isset($this->verified_at);
+    }
+
+    public function coverImageUrl(): string
+    {
+        return Storage::disk('listing')->url('images/'.$this->listingimage->first()->image_name);
+    }
+
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Get all of the listingimage for the Listing
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function listingimage()
+    public function listingimage(): HasMany
     {
         return $this->hasMany(ListingImage::class);
     }
 
-    /**
-     * Get the clientgroup associated with the Listing
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function clientgroup()
+    public function clientgroup(): HasOne
     {
         return $this->hasOne(ClientGroup::class);
     }

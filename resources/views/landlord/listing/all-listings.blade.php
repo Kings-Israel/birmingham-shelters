@@ -12,7 +12,7 @@
    <!-- ============================ User Dashboard ================================== -->
    <section class="bg-light">
     <div class="container-fluid">
-                    
+
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="filter_search_opt">
@@ -20,15 +20,15 @@
                 </div>
             </div>
         </div>
-                    
+
         <div class="row">
-            
+
             <div class="col-lg-3 col-md-12">
                 @include('partials.landlord-sidenav')
             </div>
-            
+
             <div class="col-lg-9 col-md-12">
-        
+
                 <div class="dashboard-wraper">
                    <div class="form-submit">
                         @if (count($listings) <= 0)
@@ -56,8 +56,8 @@
                                                 Local Authority Area: <strong>{{ $listing->local_authority_area }}</strong>
                                             </div>
                                             <div class="user_dashboard_listed">
-                                                Status: 
-                                                @if ($listing->is_verified == '')
+                                                Status:
+                                                @if ($listing->is_verified)
                                                     <strong> Not Verified </strong>
                                                 @else
                                                     <strong>Verified</strong>
@@ -85,11 +85,11 @@
                                                         @method('DELETE')
 
                                                         <div class="form-group">
-                                                            <button type="submit" id="register-button" class="btn btn-md full-width btn-primary rounded">Delete</button>
+                                                            <button type="submit" class="btn btn-md full-width btn-primary rounded">Delete</button>
                                                         </div>
 
                                                     </form>
-                                                    <button type="submit" id="register-button" data-bs-dismiss="modal" class="btn btn-md full-width btn-theme-light-2 rounded">Cancel</button>
+                                                    <button type="submit" data-bs-dismiss="modal" class="btn btn-md full-width btn-theme-light-2 rounded">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -97,23 +97,23 @@
                                 </div>
                                 <!-- End Modal -->
                             @endforeach
-                                
+
                         </div>
-                   </div>	
+                   </div>
                 </div>
-                    
+
                 </div>
             </div>
-            
+
         </div>
     </div>
-    
+
 
 </section>
 <!-- ============================ User Dashboard End ================================== -->
 @push('scripts')
     <script>
-        
+
     </script>
 @endpush
 </x-app-layout>

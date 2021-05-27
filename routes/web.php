@@ -6,6 +6,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandlordListingController;
 use App\Http\Controllers\PostAjaxRedirect;
+use App\Http\Livewire\AdminListingManagement;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -64,6 +65,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
         Route::get('/', [AdminsManagementController::class, 'all_admins'])->name('index');
         Route::get('/create', [AdminsManagementController::class, 'create_admin'])->name('create');
         Route::get('/{admin}/edit', [AdminsManagementController::class, 'edit_admin'])->name('edit');
+    });
+
+    // Listing management
+    Route::prefix('listings')->name('admin.listings.')->group(function () {
+        Route::view("/", 'admin.listings.index')->name('index');
+        Route::view("/{listing}", 'admin.listings.show')->name('show');
+
     });
 });
 
