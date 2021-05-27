@@ -1,4 +1,4 @@
-<x-admin-layout pageTitle="My Profile">
+<x-dynamic-component :component="auth()->user()->isAdministrator() ? 'admin-layout' : 'app-dashboard-layout'" pageTitle="My Profile">
     <x-page-title title="My Profile" description="View and update your details" />
 
     <section class="bg-light">
@@ -10,4 +10,4 @@
             </div>
         </div>
     </section>
-</x-admin-layout>
+</x-dynamic-component>

@@ -23,6 +23,8 @@
     <!-- Custom  CSS -->
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
 
+    @livewireStyles
+
     @stack('styles')
 </head>
 
@@ -79,6 +81,8 @@
             $(".alert").delay(5000).slideUp(300);
         })
     </script>
+
+    @livewireScripts
 </body>
 
 </html>

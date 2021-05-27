@@ -18,8 +18,8 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" class="form-control" name="email"
+                    <label for="account-email">Email</label>
+                    <input type="email" id="account-email" class="form-control" name="email"
                         wire:model.defer="user.email" required>
                     <x-input-error class="m-t-2" for="user.email" />
                 </div>

@@ -11,8 +11,8 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label for="password">New Password</label>
-                    <input type="password" id="password" class="form-control" name="password"
+                    <label for="account-password">New Password</label>
+                    <input type="password" id="account-password" class="form-control" name="password"
                         wire:model.defer="password" autocomplete="new-password" required>
                     <x-input-error class="m-t-2" for="password" />
                 </div>
