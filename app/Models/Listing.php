@@ -49,4 +49,9 @@ class Listing extends Model
     {
         return $this->hasOne(ClientGroup::class);
     }
+
+    public function documents(): HasOne
+    {
+        return $this->HasOne(ListingDocuments::class);
+    }
 }

@@ -6,7 +6,7 @@ use App\Models\Listing;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class AdminListingManagement extends Component
+class AdminListingsList extends Component
 {
     use WithPagination;
 
@@ -17,6 +17,6 @@ class AdminListingManagement extends Component
 
     public function render()
     {
-        return view('livewire.admin-listing-management');
+        return view('livewire.admin-listings-list')->layout('layouts.admin', ['pageTitle' => "Property Listings"]);
     }
 }
