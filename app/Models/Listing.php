@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
 class Listing extends Model
@@ -31,7 +32,7 @@ class Listing extends Model
 
     public function coverImageUrl(): string
     {
-        return Storage::disk('listing')->url('images/'.$this->listingimage->first()->image_name);
+        return $this->listingimage->first()->url();
     }
 
     public function user(): BelongsTo

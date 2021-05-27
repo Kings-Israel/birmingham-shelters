@@ -30,8 +30,8 @@
                         <div class="footer-widget">
                             <h4 class="widget-title">My Account</h4>
                             <ul class="footer-menu">
-                                <li><a href="#">My Profile</a></li>
-                                <li><a href="#">My Property</a></li>
+                                <li><a href="{{ route('user-profile') }}">My Profile</a></li>
+                                <li><a href="#">My Properties</a></li>
                                 <li><a href="#">Favorites</a></li>
                             </ul>
                         </div>

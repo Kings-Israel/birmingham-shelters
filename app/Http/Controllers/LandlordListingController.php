@@ -45,43 +45,11 @@ class LandlordListingController extends Controller
         return view('landlord.listing.add-listingimages')->with('id', $id);
     }
 
-    public function view_listing($id)
+    public function view_listing(Listing $listing)
     {
-        // Get Listing
-        $listing = Listing::find($id);
-
-        // Get Listing Client Groups
-        $clientGroup = $listing->clientgroup;
-        $clientGroup->client_group = explode(',', $clientGroup->client_group);
-        $client_group_array = $clientGroup->client_group;
-        // Get Other field's key if it exists
-        if($key = array_search("Other", $clientGroup->client_group))
-        {
-            // Delete 'Other' from the client_group array
-            unset($client_group_array[$key]);
-            $clientGroup->client_group = $client_group_array;
-
-            // Change the other_types field to array
-            $other_types = explode(',', $clientGroup->other_types);
-
-            // Add the 'other_types' array to client_group array
-            $clientGroup->client_group = array_merge($clientGroup->client_group, $other_types);
-        }
-
-        // Get listing Documents
-        $listingDocuments = $listing->listingdocuments;
-
-        // Get Listing Images
-        $listingImages = $listing->listingimage;
-
-        // Return listing
-        return view('landlord.listing.show-listing')
-            ->with([
-                'listing' => $listing, 
-                'client_group' => $clientGroup,
-                'listing_documents' => $listingDocuments,
-                'listing_images' => $listingImages
-            ]);
+        return view('landlord.listing.show-listing', [
+            'listing' => $listing->load('clientgroup', 'listingimage'),
+        ]);
     }
 
     public function submit_basic_info(Request $request)
@@ -123,14 +91,14 @@ class LandlordListingController extends Controller
         if ($request->has('other_rooms')) {
             $listing->other_rooms = $request->other_rooms;
         }
-        
+
         if ($request->has('feature')) {
             $request->merge(['feature' => implode(',', (array)$request->get('feature'))]);
             $listing->features = $request->feature;
         }
 
         $listing->user_id = $request->user()->id;
-        
+
         $listing->contact_name = $request->contact_name;
         $listing->contact_email = $request->contact_email;
         if($request->has('contact_phoneNumber')) {
@@ -320,7 +288,7 @@ class LandlordListingController extends Controller
         }
 
         return redirect()->route('listing.add.submit_images')->withErrors('An error occurred. Please try again.');
-        
+
     }
 
     public function delete_listing($id)
@@ -329,7 +297,7 @@ class LandlordListingController extends Controller
         foreach ($listingImages as $image) {
             unlink(public_path('storage/listing/images/'.$image->image_name));
         }
-            
+
         $listingDocuments = ListingDocuments::where('listing_id', '=', $id)->get();
         foreach ($listingDocuments as $document) {
             unlink(public_path('storage/listing/documents/'.$document->gas_certificate));

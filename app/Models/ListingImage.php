@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class ListingImage extends Model
 {
@@ -13,6 +14,11 @@ class ListingImage extends Model
     protected $fillable = [
         'listing_id', 'image_name'
     ];
+
+    public function url(): string
+    {
+        return Storage::disk('listing')->url('images/'. $this->image_name);
+    }
 
     public function listing(): BelongsTo
     {
