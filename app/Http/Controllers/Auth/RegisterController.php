@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Rules\PhoneNumber;
 use App\Models\User;
 use Auth;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -69,7 +70,7 @@ class RegisterController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone_number' => ['required', 'unique:users'],
+            'phone_number' => ['required', 'unique:users', new PhoneNumber],
             'user_type' => new EnumRule(UserTypeEnum::class),
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);

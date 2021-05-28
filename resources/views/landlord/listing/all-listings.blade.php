@@ -30,12 +30,11 @@
             <div class="col-lg-9 col-md-12">
 
                 <div class="dashboard-wraper">
-                   <div class="form-submit">
-                        @if (count($listings) <= 0)
-                            <h4>Add Your Property to see them here</h4>
-                        @else
-                            <h4>My Property</h4>
-                        @endif
+                    @if (count($listings) <= 0)
+                        <h4>Add Your Property to see them here</h4>
+                    @else
+                        <h4>My Property</h4>
+                    @endif
                         <div class="row">
                             @foreach ($listings as $listing)
                                 <!-- Single Property -->
@@ -73,7 +72,7 @@
                                     </div>
                                 </div>
                                 <!-- Delete Listing Form Modal -->
-                                <div class="modal fade signup" id="delete_listing_<?php echo $listing->id ?>" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
+                                <div class="modal fade signup" id="delete_listing_{{ $listing->id }}>" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
                                         <div class="modal-content" id="sign-up">
                                             <span class="mod-close" data-bs-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>

@@ -105,13 +105,6 @@
 
                     </form>
                 </div>
-                {{-- <div class="modal-divider"><span>Or login via</span></div>
-                <div class="social-login mb-3">
-                    <ul>
-                        <li><a href="#" class="btn connect-fb"><i class="ti-facebook"></i>Facebook</a></li>
-                        <li><a href="#" class="btn connect-google"><i class="ti-google"></i>Google+</a></li>
-                    </ul>
-                </div> --}}
                 <div class="text-center">
                     <p class="mt-5"><i class="ti-user mr-1"></i>Already Have An Account? <a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#login" class="link">Go For
                             LogIn</a></p>

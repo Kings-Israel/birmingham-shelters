@@ -3,6 +3,9 @@
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminShowListingController;
 use App\Http\Controllers\AdminsManagementController;
+use App\Http\Controllers\UserListingController;
+use App\Http\Controllers\UserMetadataController;
+use App\Http\Controllers\ListingInquiryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandlordListingController;
 use App\Http\Controllers\PostAjaxRedirect;
@@ -55,6 +58,21 @@ Route::post('listing/add/clientinfo', [LandlordListingController::class, 'submit
 Route::post('listing/add/listingdocuments', [LandlordListingController::class, 'submit_listing_documents'])->name('listing.add.submit_documents');
 Route::post('listing/add/listingimages', [LandlordListingController::class, 'submit_listing_images'])->name('listing.add.submit_images');
 Route::delete('listing/delete/listing/{id}', [LandlordListingController::class, 'delete_listing'])->name('listing.delete');
+
+// User listing controller
+Route::get('/user/listing/all', [UserListingController::class, 'listings'])->name('user.listing.all');
+Route::get('/user/listing/{id}', [UserListingController::class, 'listing'])->name('user.listing.one');
+
+// Listing enquiry routes
+Route::post('/user/inquiry', [ListingInquiryController::class, 'submit_inquiry'])->name('user.submit.inquiry');
+
+// Accomodation referral forms wizard
+Route::get('/user/referral', [UserMetadataController::class, 'show_select_referral_type_form'])->name('referral-form.show');
+Route::get('/user/referral/self', [UserMetadataController::class, 'self_referral'])->name('referral.self-referral');
+Route::get('/user/referral/agency', [UserMetadataController::class, 'agency_referral'])->name('referral.agency-referral');
+Route::get('/user/referral/income', [UserMetadataController::class, 'add_income_info'])->name('referral.add.incomce-info');
+Route::get('/user/referral/address-history', [UserMetadataController::class, 'add_address_history_info'])->name('referral.add.address-history-info');
+Route::post('/user/referral/submit', [UserMetadataController::class, 'submit_form'])->name('referral-form.submit');
 
 // Admin routes
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {

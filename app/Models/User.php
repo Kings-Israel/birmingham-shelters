@@ -33,6 +33,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone_number_verified_at' => 'datetime',
     ];
 
+    /**
+     * Get the usermetadata associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function usermetadata(): HasOne
+    {
+        return $this->hasOne(UserMetadata::class);
+    }
 
     public function scopeAdmins(Builder $query): Builder
     {

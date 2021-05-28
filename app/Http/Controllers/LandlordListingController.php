@@ -7,6 +7,7 @@ use App\Models\Listing;
 use App\Models\ListingDocuments;
 use App\Models\ListingImage;
 use Auth;
+use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -65,8 +66,9 @@ class LandlordListingController extends Controller
             'bathrooms' => 'required|numeric',
             'toilets' => 'required|numeric',
             'kitchen' => 'required|numeric',
-            'contact_name' => 'required|string',
-            'contact_email' => 'required|email'
+            'contact_name' => "required|string",
+            'contact_email' => 'required|email',
+            'contact_phoneNumber' => new PhoneNumber,
         ];
 
         $message = [
@@ -169,88 +171,93 @@ class LandlordListingController extends Controller
 
     public function submit_listing_documents(Request $request)
     {
-        $rules = [
-            'listing_id' => 'required',
-            'gas_certificate' => 'required|mimes:pdf|max:4096',
-            'gas_certificate_expiry_date' => 'required|date',
-            'electrical_certificate' => 'required|mimes:pdf|max:4096',
-            'electrical_certificate_expiry_date' => 'required|date',
-            'detectors_certificate' => 'required|mimes:pdf|max:4096',
-            'detectors_certificate_expiry_date' => 'required|date',
-            'emergency_lighting_certificate' => 'required|mimes:pdf|max:4096',
-            'emergency_lighting_certificate_expiry_date' => 'required|date',
-            'fire_risk_certificate' => 'required|mimes:pdf|max:4096',
-            'fire_risk_certificate_expiry_date' => 'required|date',
-            'pat_certificate' => 'required|mimes:pdf|max:4096',
-            'pat_certificate_expiry_date' => 'required|date',
-            'insurance_certificate' => 'required|mimes:pdf|max:4096',
-            'insurance_certificate_expiry_date' => 'required|date',
-            'ownership_certificate' => 'required|mimes:pdf|max:4096',
-            'ownership_certificate_expiry_date' => 'required|date'
-        ];
+        $counter = 0;
 
-        $message = [
-            'required' => 'This field is required',
-            'mimes:pdf' => 'This file should be in pdf format',
-            'date' => 'The input in this field should be a date',
-        ];
-
-        Validator::make($request->all(), $rules, $message)->validate();
-
-        $listingDocument = new ListingDocuments;
-        $listingDocument->listing_id = $request->listing_id;
-
-        // Format and store file to storage
-        $gasCertificate = $this->_changeFileName($request, $request->file('gas_certificate')->getClientOriginalName());
-        $listingDocument->gas_certificate = $gasCertificate;
-        $request->file('gas_certificate')->storeAs('public/listing/documents', $gasCertificate);
-        $listingDocument->gas_certificate_expiry_date = $request->gas_certificate_expiry_date;
-
-        $electricalCertificate = $this->_changeFileName($request, $request->file('electrical_certificate')->getClientOriginalName());
-        $listingDocument->electrical_certificate = $electricalCertificate;
-        $request->file('electrical_certificate')->storeAs('public/listing/documents', $electricalCertificate);
-        $listingDocument->electrical_certificate_expiry_date = $request->electrical_certificate_expiry_date;
-
-        $detectorsCertificate = $this->_changeFileName($request, $request->file('detectors_certificate')->getClientOriginalName());
-        $listingDocument->detectors_certificate = $detectorsCertificate;
-        $request->file('detectors_certificate')->storeAs('public/listing/documents', $detectorsCertificate);
-        $listingDocument->detectors_certificate_expiry_date = $request->detectors_certificate_expiry_date;
-
-        $emergency_lightingCertificate = $this->_changeFileName($request, $request->file('emergency_lighting_certificate')->getClientOriginalName());
-        $listingDocument->emergency_lighting_certificate = $emergency_lightingCertificate;
-        $request->file('emergency_lighting_certificate')->storeAs('public/listing/documents', $emergency_lightingCertificate);
-        $listingDocument->emergency_lighting_certificate_expiry_date = $request->emergency_lighting_certificate_expiry_date;
-
-        $fire_riskCertificate = $this->_changeFileName($request, $request->file('fire_risk_certificate')->getClientOriginalName());
-        $listingDocument->fire_risk_certificate = $fire_riskCertificate;
-        $request->file('fire_risk_certificate')->storeAs('public/listing/documents', $fire_riskCertificate);
-        $listingDocument->fire_risk_certificate_expiry_date = $request->fire_risk_certificate_expiry_date;
-
-        $patCertificate = $this->_changeFileName($request, $request->file('pat_certificate')->getClientOriginalName());
-        $listingDocument->pat_certificate = $patCertificate;
-        $request->file('pat_certificate')->storeAs('public/listing/documents', $patCertificate);
-        $listingDocument->pat_certificate_expiry_date = $request->pat_certificate_expiry_date;
-
-        $insuranceCertificate = $this->_changeFileName($request, $request->file('insurance_certificate')->getClientOriginalName());
-        $listingDocument->insurance_certificate = $insuranceCertificate;
-        $request->file('insurance_certificate')->storeAs('public/listing/documents', $insuranceCertificate);
-        $listingDocument->insurance_certificate_expiry_date = $request->insurance_certificate_expiry_date;
-
-        $ownershipCertificate = $this->_changeFileName($request, $request->file('ownership_certificate')->getClientOriginalName());
-        $listingDocument->ownership_certificate = $ownershipCertificate;
-        $request->file('ownership_certificate')->storeAs('public/listing/documents', $ownershipCertificate);
-        $listingDocument->ownership_certificate_expiry_date = $request->ownership_certificate_expiry_date;
-
-        if ($request->has('proof')) {
-            $request->merge(['proof' => implode(',', (array)$request->get('proof'))]);
-            $listingDocument->proofs = $request->proof;
+        // Save the file to DB and storage
+        foreach($request->listing_document as $document => $file)
+        {
+            $filenameToStore = $this->_changeFileName($request, $file->getClientOriginalName());
+            $file->storeAs('public/listing/documents', $filenameToStore);
+            $document_to_save = new ListingDocuments;
+            $document_to_save->listing_id = $request->listing_id;
+            $document_to_save->document_type = $document;
+            $document_to_save->filename = $filenameToStore;
+            $document_to_save->expiry_date = $request->expiry_date[$counter];
+            $document_to_save->save();
+            $counter++;
         }
 
-        if ($listingDocument->save()) {
-            return redirect()->route('listing.add.listing_images', $request->listing_id);
+        if (count($request->proof) > 0) {
+            $listing = Listing::find($request->listing_id);
+    
+            if($request->has('proof.0."Proof of Fire Blanket"')) {
+                $listing->update(['fire_blanket' => true]);
+            } elseif($request->has('proof.1."Proof of CO monitors"')) {
+                $listing->update(['co_monitors' => true]);
+            } elseif($request->has('proof.2."Proof of Flame Retardant Spray"')) {
+                $listing->update(['flame_retardant_spray' => true]);
+            }
+            $listing->save();
         }
 
-        return redirect('listing/add-listingdocuments', $request->listing_id)->withError('An error occured. Please try again.');
+        return redirect()->route('listing.add.listing_images', $request->listing_id);
+
+        // $listingDocument = new ListingDocuments;
+
+
+        // $listingDocument->listing_id = $request->listing_id;
+
+        // // Format and store file to storage
+        // $gasCertificate = $this->_changeFileName($request, $request->file('gas_certificate')->getClientOriginalName());
+        // $listingDocument->gas_certificate = $gasCertificate;
+        // $request->file('gas_certificate')->storeAs('public/listing/documents', $gasCertificate);
+        // $listingDocument->gas_certificate_expiry_date = $request->gas_certificate_expiry_date;
+
+        // $electricalCertificate = $this->_changeFileName($request, $request->file('electrical_certificate')->getClientOriginalName());
+        // $listingDocument->electrical_certificate = $electricalCertificate;
+        // $request->file('electrical_certificate')->storeAs('public/listing/documents', $electricalCertificate);
+        // $listingDocument->electrical_certificate_expiry_date = $request->electrical_certificate_expiry_date;
+
+        // $detectorsCertificate = $this->_changeFileName($request, $request->file('detectors_certificate')->getClientOriginalName());
+        // $listingDocument->detectors_certificate = $detectorsCertificate;
+        // $request->file('detectors_certificate')->storeAs('public/listing/documents', $detectorsCertificate);
+        // $listingDocument->detectors_certificate_expiry_date = $request->detectors_certificate_expiry_date;
+
+        // $emergency_lightingCertificate = $this->_changeFileName($request, $request->file('emergency_lighting_certificate')->getClientOriginalName());
+        // $listingDocument->emergency_lighting_certificate = $emergency_lightingCertificate;
+        // $request->file('emergency_lighting_certificate')->storeAs('public/listing/documents', $emergency_lightingCertificate);
+        // $listingDocument->emergency_lighting_certificate_expiry_date = $request->emergency_lighting_certificate_expiry_date;
+
+        // $fire_riskCertificate = $this->_changeFileName($request, $request->file('fire_risk_certificate')->getClientOriginalName());
+        // $listingDocument->fire_risk_certificate = $fire_riskCertificate;
+        // $request->file('fire_risk_certificate')->storeAs('public/listing/documents', $fire_riskCertificate);
+        // $listingDocument->fire_risk_certificate_expiry_date = $request->fire_risk_certificate_expiry_date;
+
+        // $patCertificate = $this->_changeFileName($request, $request->file('pat_certificate')->getClientOriginalName());
+        // $listingDocument->pat_certificate = $patCertificate;
+        // $request->file('pat_certificate')->storeAs('public/listing/documents', $patCertificate);
+        // $listingDocument->pat_certificate_expiry_date = $request->pat_certificate_expiry_date;
+
+        // $insuranceCertificate = $this->_changeFileName($request, $request->file('insurance_certificate')->getClientOriginalName());
+        // $listingDocument->insurance_certificate = $insuranceCertificate;
+        // $request->file('insurance_certificate')->storeAs('public/listing/documents', $insuranceCertificate);
+        // $listingDocument->insurance_certificate_expiry_date = $request->insurance_certificate_expiry_date;
+
+        // $ownershipCertificate = $this->_changeFileName($request, $request->file('ownership_certificate')->getClientOriginalName());
+        // $listingDocument->ownership_certificate = $ownershipCertificate;
+        // $request->file('ownership_certificate')->storeAs('public/listing/documents', $ownershipCertificate);
+        // $listingDocument->ownership_certificate_expiry_date = $request->ownership_certificate_expiry_date;
+
+        // if ($request->has('proof')) {
+        //     $request->merge(['proof' => implode(',', (array)$request->get('proof'))]);
+        //     $listingDocument->proofs = $request->proof;
+        // }
+
+        // if ($listingDocument->save()) {
+        //     return redirect()->route('listing.add.listing_images', $request->listing_id);
+        // }
+
+        // return redirect('listing/add-listingdocuments', $request->listing_id)->withError('An error occured. Please try again.');
     }
 
     public function submit_listing_images(Request $request)
@@ -295,14 +302,7 @@ class LandlordListingController extends Controller
 
         $listingDocuments = ListingDocuments::where('listing_id', '=', $id)->get();
         foreach ($listingDocuments as $document) {
-            unlink(public_path('storage/listing/documents/'.$document->gas_certificate));
-            unlink(public_path('storage/listing/documents/'.$document->electrical_certificate));
-            unlink(public_path('storage/listing/documents/'.$document->detectors_certificate));
-            unlink(public_path('storage/listing/documents/'.$document->emergency_lighting_certificate));
-            unlink(public_path('storage/listing/documents/'.$document->fire_risk_certificate));
-            unlink(public_path('storage/listing/documents/'.$document->pat_certificate));
-            unlink(public_path('storage/listing/documents/'.$document->insurance_certificate));
-            unlink(public_path('storage/listing/documents/'.$document->ownership_certificate));
+            unlink(public_path('storage/listing/documents/'.$document->filename));
         }
         if (ListingImage::where('listing_id', '=', $id)->delete()) {
             if (ListingDocuments::where('listing_id', '=', $id)->delete()) {
