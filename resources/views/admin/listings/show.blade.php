@@ -4,7 +4,19 @@
     <!-- ============================ Property Header Info Start================================== -->
     <div class="bg-title">
         <div class="container px-4 py-3">
+            @if($listing->is_available)
+            <span class="badge rounded-pill fw-bold text-success bg-light-success m-l-4">Available</span>
+            @else
+            <span class="badge rounded-pill fw-bold text-warning bg-light-warning m-l-4">Not Available</span>
+            @endif
             <h3 class="text-light">{{ $listing->name }}</h3>
+            <div class="text-light fw-bold d-flex">
+                <span><i class="ti ti-pin m-r-5"></i> {{$listing->address}} ({{ $listing->postcode }})</span>
+                <span class="m-l-15"><i class="ti ti-user m-r-5"></i> {{ $listing->user->full_name }}</span>
+            </div>
+            <div class="m-t-10">
+                <livewire:admin-verify-listing :listing="$listing"/>
+            </div>
         </div>
     </div>
     <!-- ============================ Property Header Info Start================================== -->
@@ -19,12 +31,13 @@
                     <div class="property_block_wrap style-2">
 
                         <div class="property_block_wrap_header">
-                            <a data-bs-toggle="collapse" data-parent="#features" data-bs-target="#clOne" aria-controls="clOne"
-                                href="javascript:void(0);" aria-expanded="false">
+                            <a data-bs-toggle="collapse" data-parent="#features" data-bs-target="#clOne"
+                                aria-controls="clOne" href="javascript:void(0);" aria-expanded="false">
                                 <h4 class="property_block_title">Detail & Features</h4>
                             </a>
                         </div>
-                        <div id="clOne" class="panel-collapse collapse show" aria-labelledby="clOne" aria-expanded="true">
+                        <div id="clOne" class="panel-collapse collapse show" aria-labelledby="clOne"
+                            aria-expanded="true">
                             <div class="block-body">
                                 <ul class="deatil_features">
                                     <li><strong>Living Rooms:</strong>{{ $listing->living_rooms }}</li>
@@ -50,8 +63,8 @@
                     <div class="property_block_wrap style-2">
 
                         <div class="property_block_wrap_header">
-                            <a data-bs-toggle="collapse" data-parent="#dsrp" data-bs-target="#clTwo" aria-controls="clTwo"
-                                href="javascript:void(0);" aria-expanded="true">
+                            <a data-bs-toggle="collapse" data-parent="#dsrp" data-bs-target="#clTwo"
+                                aria-controls="clTwo" href="javascript:void(0);" aria-expanded="true">
                                 <h4 class="property_block_title">Description</h4>
                             </a>
                         </div>
@@ -66,8 +79,8 @@
                     <div class="property_block_wrap style-2">
 
                         <div class="property_block_wrap_header">
-                            <a data-bs-toggle="collapse" data-parent="#amen" data-bs-target="#clThree" aria-controls="clThree"
-                                href="javascript:void(0);" aria-expanded="true">
+                            <a data-bs-toggle="collapse" data-parent="#amen" data-bs-target="#clThree"
+                                aria-controls="clThree" href="javascript:void(0);" aria-expanded="true">
                                 <h4 class="property_block_title">Client Groups</h4>
                             </a>
                         </div>
@@ -87,8 +100,8 @@
                     <div class="property_block_wrap style-2">
 
                         <div class="property_block_wrap_header">
-                            <a data-bs-toggle="collapse" data-parent="#loca" data-bs-target="#clSix" aria-controls="clSix"
-                                href="javascript:void(0);" aria-expanded="true" class="collapsed">
+                            <a data-bs-toggle="collapse" data-parent="#loca" data-bs-target="#clSix"
+                                aria-controls="clSix" href="javascript:void(0);" aria-expanded="true" class="collapsed">
                                 <h4 class="property_block_title">Location</h4>
                             </a>
                         </div>
@@ -109,8 +122,8 @@
                     <div class="property_block_wrap style-2">
 
                         <div class="property_block_wrap_header">
-                            <a data-bs-toggle="collapse" data-parent="#clSev" data-bs-target="#clSev" aria-controls="clOne"
-                                href="javascript:void(0);" aria-expanded="true" class="collapsed">
+                            <a data-bs-toggle="collapse" data-parent="#clSev" data-bs-target="#clSev"
+                                aria-controls="clOne" href="javascript:void(0);" aria-expanded="true" class="collapsed">
                                 <h4 class="property_block_title">Gallery</h4>
                             </a>
                         </div>
@@ -120,8 +133,8 @@
                                 <ul class="list-gallery-inline">
                                     @foreach ($listing->listingimage as $image)
                                     <li>
-                                        <a href="{!! $image->url() !!}" class="mfp-gallery"><img src="{!! $image->url() !!}"
-                                                class="img-fluid mx-auto" alt="" /></a>
+                                        <a href="{!! $image->url() !!}" class="mfp-gallery"><img
+                                                src="{!! $image->url() !!}" class="img-fluid mx-auto" alt="" /></a>
                                     </li>
                                     @endforeach
                                 </ul>
@@ -133,8 +146,8 @@
                     <div class="property_block_wrap style-2">
 
                         <div class="property_block_wrap_header">
-                            <a data-bs-toggle="collapse" data-parent="#loca" data-bs-target="#clSix" aria-controls="clSix"
-                                href="javascript:void(0);" aria-expanded="true" class="collapsed">
+                            <a data-bs-toggle="collapse" data-parent="#loca" data-bs-target="#clSix"
+                                aria-controls="clSix" href="javascript:void(0);" aria-expanded="true" class="collapsed">
                                 <h4 class="property_block_title">Related Documents</h4>
                             </a>
                         </div>

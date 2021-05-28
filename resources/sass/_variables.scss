@@ -14,15 +14,23 @@ $teal: #4dc0b5;
 $cyan: #6cb2eb;
 $white: #FFF;
 
-$gray-50: rgba(248, 250, 252, var(--tw-bg-opacity, 1));
-$gray-100: rgba(241, 245, 249, var(--tw-bg-opacity, 1));
-$gray-200: rgba(226, 232, 240, var(--tw-bg-opacity, 1));
-$gray-300: rgba(203, 213, 225, var(--tw-bg-opacity, 1));
-$gray-400: rgba(148, 163, 184, var(--tw-bg-opacity, 1));
-$gray-500: rgba(100, 116, 139, var(--tw-bg-opacity, 1));
-$gray-600: rgba(71, 85, 105, var(--tw-bg-opacity, 1));
-$gray-700: rgba(55, 65, 81, var(--tw-bg-opacity, 1));
-$gray-800: rgba(31, 41, 55, var(--tw-bg-opacity, 1));
-$gray-900: rgba(17, 24, 39, var(--tw-bg-opacity, 1));
+$tw-grays: (
+    "50": rgba(248, 250, 252, var(--tw-bg-opacity, 1)),
+    "100": rgba(241, 245, 249, var(--tw-bg-opacity, 1)),
+    "200": rgba(226, 232, 240, var(--tw-bg-opacity, 1)),
+    "300": rgba(203, 213, 225, var(--tw-bg-opacity, 1)),
+    "400": rgba(148, 163, 184, var(--tw-bg-opacity, 1)),
+    "500": rgba(100, 116, 139, var(--tw-bg-opacity, 1)),
+    "600": rgba(71, 85, 105, var(--tw-bg-opacity, 1)),
+    "700": rgba(55, 65, 81, var(--tw-bg-opacity, 1)),
+    "800": rgba(31, 41, 55, var(--tw-bg-opacity, 1)),
+    "900": rgba(17, 24, 39, var(--tw-bg-opacity, 1))
+);
 
 $base-spacing: 0.25rem;
+
+:root {
+    @each $name, $value in $tw-grays {
+        @include cssvar($name, $value, tw-gray);
+    }
+}

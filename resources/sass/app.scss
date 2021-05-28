@@ -2,10 +2,9 @@
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins/breakpoints';
 
-@import 'variables';
-
 @import 'functions';
 @import 'mixins';
+@import 'variables';
 
 .h-full {
     height: 100%;
@@ -28,7 +27,7 @@
     dt {
         font-size: spacing(5);
         line-height: spacing(7);
-        color: $gray-900;
+        color: map-get($map: $tw-grays, $key: "900");
     }
 
     dd {

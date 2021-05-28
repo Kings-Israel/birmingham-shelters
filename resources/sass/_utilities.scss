@@ -1,0 +1,12 @@
+@each $name, $value in $tw-grays {
+    // Text colors
+    .text-gray-#{$name} {
+        color: $value;
+    }
+    // Background colors
+    .bg-gray-#{$name} {
+        background-color: $value;
+    }
+}
+
+

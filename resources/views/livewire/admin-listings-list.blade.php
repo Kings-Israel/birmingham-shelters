@@ -113,9 +113,9 @@
                                                         @endif
 
                                                         @if($listing->is_available)
-                                                            <span class="badge rounded-pill fw-bold text-success bg-light-success m-l-4">Available</span>
+                                                            <span class="badge rounded-pill fw-bold text-success bg-light-success m-l-5">Available</span>
                                                         @else
-                                                            <span class="badge rounded-pill fw-bold text-warning bg-light-warning m-l-4">Not Available</span>
+                                                            <span class="badge rounded-pill fw-bold text-warning bg-light-warning m-l-5">Not Available</span>
                                                         @endif
                                                     </div>
                                                 </div>

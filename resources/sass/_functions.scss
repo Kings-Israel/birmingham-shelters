@@ -1,3 +1,8 @@
 @function spacing($multiplier) {
     @return $base-spacing * $multiplier;
 }
+
+// Retrieve CSS custom property
+@function cssvar($name, $prefix: sb) {
+    @return var(--#{$prefix}-#{$name});
+}

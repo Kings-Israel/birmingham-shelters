@@ -2,10 +2,10 @@
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins/breakpoints';
 
-@import 'variables';
-
 @import 'functions';
 @import 'mixins';
+@import 'variables';
+@import 'utilities';
 
 #dashboard-wrapper {
     height: 100vh;
@@ -30,7 +30,7 @@
             left: 0;
             right: 0;
             --tw-bg-opacity: 0.75;
-            background-color: $gray-600;
+            background-color: cssvar(gray-600, tw);
         }
 
         &>.sidebar-content-wrapper {
@@ -40,7 +40,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            background-color: $gray-800;
+            background-color: cssvar(gray-800, tw);
 
             &>.close-btn-wrapper {
                 position: absolute;
@@ -92,7 +92,7 @@
     }
 
     & header {
-        background-color: $gray-900;
+        background-color: cssvar(gray-900, tw);
         height: spacing(16);
 
         &>img {
@@ -103,7 +103,7 @@
 
     & .sidebar-content {
         flex: 1;
-        background-color: $gray-800;
+        background-color: cssvar(gray-800, tw);
         overflow-y: auto;
         display: flex;
         height: 0;
@@ -125,22 +125,22 @@
             padding: spacing(2);
             border-radius: spacing(1.5);
             font-weight: 600;
-            color: $gray-300;
+            color: cssvar(gray-300, tw);
 
             @include transition;
 
             &.active {
-                background-color: $gray-900;
+                background-color: cssvar(gray-900, tw);
                 color: $white;
             }
 
             &:not(.active):hover {
-                background-color: $gray-700;
+                background-color: cssvar(gray-700, tw);
                 color: $white;
             }
 
             &:focus {
-                border: 1px solid $gray-50;
+                border: 1px solid cssvar(gray-500, tw);
             }
         }
 
@@ -150,7 +150,7 @@
             font-weight: 500;
             padding: 0 spacing(2);
             margin-top: spacing(4);
-            color: $gray-500;
+            color: cssvar(gray-500, tw);
         }
     }
 }
@@ -169,10 +169,10 @@
 
         &>.btn-toggle-sidebar {
             padding: 0 spacing(4);
-            color: $gray-500;
+            color: cssvar(gray-500, tw);
             background-color: inherit;
             border: none;
-            border-right: 1px solid $gray-200;
+            border-right: 1px solid cssvar(gray-200, tw);
 
             @include media-breakpoint-up(lg) {
                 display: none;
@@ -224,18 +224,18 @@
 
         a {
             font-weight: 500;
-            color: $gray-500;
+            color: cssvar(gray-500, tw);
             @include text-sm;
 
             &:hover {
-                color: $gray-700;
+                color: cssvar(gray-700, tw);
             }
         }
     }
 
     li:not(:first-child) {
         .heroicon-chevron-right {
-            color: $gray-400;
+            color: cssvar(gray-400, tw);
             flex-shrink: 0;
             height: spacing(5);
             width: spacing(5);

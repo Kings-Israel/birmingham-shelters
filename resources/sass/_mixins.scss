@@ -8,3 +8,17 @@
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
 }
+
+// Define Global CSS Custom properties
+@mixin cssvars($css_variables, $prefix: sb) {
+    :root {
+        @each $name, $value in $css_variables {
+            --#{$prefix}-#{$name}: #{$value};
+        }
+    }
+}
+
+// Update CSS Custom property
+@mixin cssvar($name, $value: '', $prefix: sb) {
+    --#{$prefix}-#{$name}: #{$value};
+}

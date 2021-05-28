@@ -54,4 +54,11 @@ class Listing extends Model
     {
         return $this->HasOne(ListingDocuments::class);
     }
+
+    public function markAsVerified(): Listing
+    {
+        $this->verified_at = now();
+
+        return $this;
+    }
 }
