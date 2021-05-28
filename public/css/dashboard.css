@@ -171,3 +171,41 @@
 .max-w-7xl {
   max-width: 80rem;
 }
+
+.breadcrumb-nav {
+  display: flex;
+  padding: 0 1.5rem;
+}
+.breadcrumb-nav ol {
+  padding: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+}
+.breadcrumb-nav ol > * + * {
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+.breadcrumb-nav li {
+  display: flex;
+  align-items: center;
+}
+.breadcrumb-nav li a {
+  font-weight: 500;
+  color: rgba(100, 116, 139, var(--tw-bg-opacity, 1));
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.breadcrumb-nav li a:hover {
+  color: rgba(55, 65, 81, var(--tw-bg-opacity, 1));
+}
+.breadcrumb-nav li:not(:first-child) .heroicon-chevron-right {
+  color: rgba(148, 163, 184, var(--tw-bg-opacity, 1));
+  flex-shrink: 0;
+  height: 1.25rem;
+  width: 1.25rem;
+}
+.breadcrumb-nav li:not(:first-child) a {
+  margin-left: 1rem;
+}

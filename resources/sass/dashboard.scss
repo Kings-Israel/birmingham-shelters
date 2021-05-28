@@ -199,3 +199,50 @@
 .max-w-7xl {
     max-width: spacing(320);
 }
+
+// Breadcrumb styling
+.breadcrumb-nav {
+    display: flex;
+    padding: 0 spacing(6);
+
+    ol {
+        padding: 0;
+        margin-bottom: 0;
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+
+        &>*+* {
+            margin-right: spacing(4);
+            margin-left: spacing(4);
+        }
+    }
+
+    li {
+        display: flex;
+        align-items: center;
+
+        a {
+            font-weight: 500;
+            color: $gray-500;
+            @include text-sm;
+
+            &:hover {
+                color: $gray-700;
+            }
+        }
+    }
+
+    li:not(:first-child) {
+        .heroicon-chevron-right {
+            color: $gray-400;
+            flex-shrink: 0;
+            height: spacing(5);
+            width: spacing(5);
+        }
+
+        a {
+            margin-left: spacing(4);
+        }
+    }
+}

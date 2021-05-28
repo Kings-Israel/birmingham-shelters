@@ -3,12 +3,23 @@
 namespace App\Http\Livewire;
 
 use App\Models\Listing;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class AdminListingsList extends Component
 {
     use WithPagination;
+
+    public array $breadcrumb;
+
+    public function mount(): void
+    {
+        $this->breadcrumb = [
+            'Listings' => route('admin.listings.index'),
+        ];
+    }
 
     public function getListingsProperty()
     {
