@@ -30,12 +30,11 @@
             <div class="col-lg-9 col-md-12">
         
                 <div class="dashboard-wraper">
-                   <div class="form-submit">
-                        @if (count($listings) <= 0)
-                            <h4>Add Your Property to see them here</h4>
-                        @else
-                            <h4>My Property</h4>
-                        @endif
+                    @if (count($listings) <= 0)
+                        <h4>Add Your Property to see them here</h4>
+                    @else
+                        <h4>My Property</h4>
+                    @endif
                         <div class="row">
                             @foreach ($listings as $listing)
                                 <!-- Single Property -->
@@ -99,7 +98,6 @@
                             @endforeach
                                 
                         </div>
-                   </div>	
                 </div>
                     
                 </div>

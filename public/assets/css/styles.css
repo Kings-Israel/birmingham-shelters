@@ -6629,6 +6629,10 @@ span.property-type.elt_rent{
     margin-bottom:1.5rem;
 }
 
+.fr-grid-info p {
+    padding: 0.1rem 1.5rem;
+}
+
 .fr-grid-info ul{
 	margin:0;
 	padding:0;
@@ -6973,6 +6977,12 @@ ul.fr-grid-social li a{
 }
 .mfp-ready .mfp-figure {
     opacity: 1 !important;
+}
+
+.mfp-gallery img {
+    height: 500px;
+    width: 800px;
+    object-fit: cover;
 }
 /*----- Single Advance Slider -----*/
 .single-advance-property .item-slick.slick-slide.slick-current.slick-active{
@@ -10871,6 +10881,12 @@ ul.packages-lists-list li {
     display: block;
     margin-bottom: 2px;
 }
+.listing-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
 .sd-list-right .action {
     margin-top: 1rem;
 }
@@ -11902,3 +11918,5 @@ a.blue2-theme {
   p > .index-page-text {
       font-size: 20px;
   }
+
+  .user

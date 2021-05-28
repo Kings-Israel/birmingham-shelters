@@ -19,6 +19,11 @@
                     <x-site-nav-link :active="Request::is('/contact')">
                         <a href="{{ url('/contact') }}">Contact Us</a>
                     </x-site-nav-link>
+                    @auth
+                        <x-site-nav-link :active="Request::is('/user/referralt')">
+                            <a href="{{ url('/user/referral') }}">Fill/Update Referral Form</a>
+                        </x-site-nav-link>
+                    @endauth
                 </ul>
                 @auth
                     <ul class="nav-menu nav-menu-social align-to-right">

@@ -34,13 +34,13 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * Get all of the document for the User
+     * Get the usermetadata associated with the User
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function document()
+    public function usermetadata(): HasOne
     {
-        return $this->hasMany(Document::class);
+        return $this->hasOne(UserMetadata::class);
     }
 
     public function scopeAdmins(Builder $query): Builder
