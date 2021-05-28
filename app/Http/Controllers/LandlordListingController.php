@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use App\Models\Listing;
 use App\Models\ClientGroup;
+use App\Models\Listing;
 use App\Models\ListingDocuments;
 use App\Models\ListingImage;
+use Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 
 class LandlordListingController extends Controller
 {
@@ -66,7 +65,7 @@ class LandlordListingController extends Controller
             'bathrooms' => 'required|numeric',
             'toilets' => 'required|numeric',
             'kitchen' => 'required|numeric',
-            'contact_name' => "required|string",
+            'contact_name' => 'required|string',
             'contact_email' => 'required|email'
         ];
 
@@ -101,24 +100,21 @@ class LandlordListingController extends Controller
 
         $listing->contact_name = $request->contact_name;
         $listing->contact_email = $request->contact_email;
-        if($request->has('contact_phoneNumber')) {
+        if ($request->has('contact_phoneNumber')) {
             $listing->contact_number = $request->contact_phoneNumber;
         }
 
-        if($listing->save())
-        {
+        if ($listing->save()) {
             return redirect()->route('listing.add.client_info', $listing->id);
         }
 
         return redirect('listing/add-basicinfo')->withError('An error occured. Please try again.');
-
-
     }
 
     private function _checkOtherClientGroup(Request $request, string $value)
     {
         if ($request->has('client_group')) {
-            return in_array($value, $request->input("client_group"));
+            return in_array($value, $request->input('client_group'));
         }
 
         return false;
@@ -136,8 +132,8 @@ class LandlordListingController extends Controller
 
         $message = [
             'client_group.required' => 'Please pick at least one option.',
-            'string' => "The input value must be text.",
-            'numeric' => "The input value must be a number."
+            'string' => 'The input value must be text.',
+            'numeric' => 'The input value must be a number.'
         ];
 
         Validator::make($request->all(), $rules, $message)->validate();
@@ -149,7 +145,7 @@ class LandlordListingController extends Controller
             $client_group->client_group = $request->client_group;
         }
 
-        if($request->has('other_support_types')) {
+        if ($request->has('other_support_types')) {
             $client_group->other_types = $request->other_support_types;
         }
 
@@ -288,7 +284,6 @@ class LandlordListingController extends Controller
         }
 
         return redirect()->route('listing.add.submit_images')->withErrors('An error occurred. Please try again.');
-
     }
 
     public function delete_listing($id)
@@ -311,14 +306,13 @@ class LandlordListingController extends Controller
         }
         if (ListingImage::where('listing_id', '=', $id)->delete()) {
             if (ListingDocuments::where('listing_id', '=', $id)->delete()) {
-                if(ClientGroup::where('listing_id', '=', $id)->delete()) {
-                    if(Listing::destroy($id)) {
+                if (ClientGroup::where('listing_id', '=', $id)->delete()) {
+                    if (Listing::destroy($id)) {
                         return redirect()->route('listing.index')->with('success', 'Listing has been deleted successfully');
                     }
                 }
             }
         }
-
 
         return redirect()->route('listing.index')->withErrors('An error occured. Please try again');
     }

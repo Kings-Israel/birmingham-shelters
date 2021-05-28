@@ -1,13 +1,7 @@
 #dashboard-wrapper {
-  min-height: 100vh;
-  width: 100%;
+  height: 100vh;
   overflow: hidden;
-  display: grid;
-}
-@media (min-width: 992px) {
-  #dashboard-wrapper {
-    grid-template-columns: 16rem 1fr;
-  }
+  display: flex;
 }
 
 .sidebar.mobile {
@@ -70,6 +64,7 @@
 }
 .sidebar.desktop {
   display: none;
+  width: 16rem;
 }
 @media (min-width: 992px) {
   .sidebar.desktop {
@@ -137,8 +132,10 @@
 }
 
 .main-column {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 .main-column > header {
   flex-shrink: 0;

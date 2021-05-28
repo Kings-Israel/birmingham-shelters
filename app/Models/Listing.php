@@ -17,7 +17,7 @@ class Listing extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name', 'address', 'postcode', 'local_authority-area', 'description', 'living_rooms', 'toilets', 'bedsitting_rooms', 'bedrooms', 'bathrooms', 'kitchen', 'other_rooms', 'features', 'user_id', 'contact_name', 'contact_email', 'contact_number'
+        'name', 'address', 'postcode', 'local_authority_area', 'description', 'living_rooms', 'toilets', 'bedsitting_rooms', 'bedrooms', 'bathrooms', 'kitchen', 'other_rooms', 'features', 'user_id', 'contact_name', 'contact_email', 'contact_number'
     ];
 
     protected $casts = [

@@ -8,14 +8,9 @@
 @import 'mixins';
 
 #dashboard-wrapper {
-    min-height: 100vh;
-    width: 100%;
+    height: 100vh;
     overflow: hidden;
-    display: grid;
-
-    @include media-breakpoint-up(lg) {
-        grid-template-columns: spacing(64) 1fr;
-    }
+    display: flex;
 }
 
 .sidebar {
@@ -87,6 +82,7 @@
 
     &.desktop {
         display: none;
+        width: spacing(64);
 
         @include media-breakpoint-up(lg) {
             display: flex;
@@ -160,8 +156,10 @@
 }
 
 .main-column {
+    flex: 1;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 
     &>header {
         flex-shrink: 0;
