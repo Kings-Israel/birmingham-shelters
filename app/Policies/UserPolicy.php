@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\UserTypeEnum;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -18,9 +19,18 @@ class UserPolicy
      */
     public function before(User $user, $ability)
     {
+        if($ability === "manageAdmins") {
+            return;
+        }
+
         if ($user->isAdministrator()) {
             return true;
         }
+    }
+
+    public function manageAdmins(User $user)
+    {
+        return $user->isOfType(UserTypeEnum::super_admin());
     }
 
     /**

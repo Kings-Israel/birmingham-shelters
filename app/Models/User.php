@@ -58,4 +58,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return in_array($this->user_type, [UserTypeEnum::admin(), UserTypeEnum::super_admin()]);
     }
+
+    public function isOfType(UserTypeEnum $user_type): bool
+    {
+        return $this->user_type === $user_type;
+    }
 }

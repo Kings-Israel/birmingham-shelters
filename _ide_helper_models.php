@@ -22,6 +22,7 @@ namespace App\Models{
  * @property int $support_hours
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Support\Collection $client_group_list
  * @property-read \App\Models\Listing $listing
  * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup newQuery()
@@ -57,7 +58,7 @@ namespace App\Models{
  * @property string|null $other_rooms
  * @property string|null $features
  * @property int $user_id
- * @property int $is_available
+ * @property bool $is_available
  * @property \Illuminate\Support\Carbon|null $verified_at
  * @property string $contact_name
  * @property string $contact_email
@@ -66,6 +67,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\ClientGroup|null $clientgroup
+ * @property-read \App\Models\ListingDocuments|null $documents
+ * @property-read bool $is_verified
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListingImage[] $listingimage
  * @property-read int|null $listingimage_count
  * @property-read \App\Models\User $user

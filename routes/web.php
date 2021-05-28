@@ -3,11 +3,9 @@
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminShowListingController;
 use App\Http\Controllers\AdminsManagementController;
-use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandlordListingController;
 use App\Http\Controllers\PostAjaxRedirect;
-use App\Http\Livewire\AdminListingManagement;
 use App\Http\Livewire\AdminListingsList;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
@@ -63,17 +61,19 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::get('/', AdminDashboardController::class)->name('admin-dashboard');
 
     // Admins Resource Routes
-    Route::prefix('admins')->name('admins.')->group(function () {
-        Route::get('/', [AdminsManagementController::class, 'all_admins'])->name('index');
-        Route::get('/create', [AdminsManagementController::class, 'create_admin'])->name('create');
-        Route::get('/{admin}/edit', [AdminsManagementController::class, 'edit_admin'])->name('edit');
-    });
+    Route::prefix('admins')
+        ->name('admins.')
+        ->middleware('userType:super_admin')
+        ->group(function () {
+            Route::get('/', [AdminsManagementController::class, 'index'])->name('index');
+            Route::get('/create', [AdminsManagementController::class, 'create'])->name('create');
+            Route::get('/{admin}/edit', [AdminsManagementController::class, 'edit'])->name('edit');
+        });
 
     // Listing management
     Route::prefix('listings')->name('admin.listings.')->group(function () {
-        Route::get("/", AdminListingsList::class)->name('index');
-        Route::get("/{listing}", AdminShowListingController::class)->name('show');
-
+        Route::get('/', AdminListingsList::class)->name('index');
+        Route::get('/{listing}', AdminShowListingController::class)->name('show');
     });
 });
 

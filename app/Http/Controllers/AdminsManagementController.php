@@ -6,7 +6,7 @@ use App\Models\User;
 
 class AdminsManagementController extends Controller
 {
-    public function all_admins()
+    public function index()
     {
         $admins = User::admins()
             ->where('id', '!=', auth()->id())
@@ -15,12 +15,12 @@ class AdminsManagementController extends Controller
         return view('admins.index', ['admins' => $admins]);
     }
 
-    public function create_admin()
+    public function create()
     {
         return view('admins.create');
     }
 
-    public function edit_admin(User $admin)
+    public function edit(User $admin)
     {
         return view('admins.edit', ['admin' => $admin]);
     }
