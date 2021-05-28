@@ -43,17 +43,14 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Gas Certificate:</label>
-                                <input type="file" name="gas_certificate" id="" class="form-control" accept=".pdf" value="{{ old('gas_certificate') }}">
-                                @error('gas_certificate')
+                                <input type="file" name='listing_document[Gas Certificate]' id="" class="form-control" accept=".pdf" value="{{ old('listing_document[Gas Certificate]') }}">
+                                @error('listing_document[Gas Certificate]')
                                     <strong class="error-message">{{ $message }}</strong>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Enter the document's expiry date:</label>
-                                <input type="date" name="gas_certificate_expiry_date" id="certificate" class="form-control" value="{{ old('gas_certificate_expiry_date') }}">
-                                @error('gas_certificate_expiry_date')
-                                    <strong class="error-message">{{ $message }}</strong>
-                                @enderror
+                                <input type="date" name="expiry_date[]" id="certificate" class="form-control" value="{{ old('expiry_date[0]') }}">
                             </div>
                         </div>
                         {{-- End Gas Certificate --}}
@@ -62,17 +59,15 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Electrical Installation Report:</label>
-                                <input type="file" name="electrical_certificate" id="" class="form-control" accept=".pdf" value="{{ old('electrcal_certificate') }}">
-                                @error('electrical_certificate')
+                                <input type="file" name="listing_document[Electrical Certificate]" id="" class="form-control" accept=".pdf" value="{{ old('listing_document[Electrical Certificate]') }}">
+                                @error('listing_document[Electrical Certificate]')
                                     <strong class="error-message">{{ $message }}</strong>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Enter the document's expiry date:</label>
-                                <input type="date" name="electrical_certificate_expiry_date" id="certificate" class="form-control" value="{{ old('electrical_certificate_expiry_date') }}">
-                                @error('electrical_certificate_expiry_date')
-                                    <strong class="error-message">{{ $message }}</strong>
-                                @enderror
+                                <input type="date" name="expiry_date[]" id="certificate" class="form-control" value="{{ old('expiry_date[1]') }}">
+                                
                             </div>
                         </div>
                         {{-- End of Electrical Installation Report --}}
@@ -81,17 +76,15 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Fire Alarm/Smoke Detectors:</label>
-                                <input type="file" name="detectors_certificate" id="" class="form-control" accept=".pdf" value="{{ old('detectors_certificate') }}">
-                                @error('detectors_certificate')
+                                <input type="file" name="listing_document[Fire and Smoke Detectors]" id="" class="form-control" accept=".pdf" value="{{ old('listing_document[Fire and Smoke Detectors]') }}">
+                                @error('listing_document[Fire and Smoke Detectors Certificate]')
                                     <strong class="error-message">{{ $message }}</strong>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Enter the document's expiry date:</label>
-                                <input type="date" name="detectors_certificate_expiry_date" id="certificate" class="form-control" value="{{ old('detectors_certificate_expiry_date') }}">
-                                @error('detectors_certificate_expiry_date')
-                                    <strong class="error-message">{{ $message }}</strong>
-                                @enderror
+                                <input type="date" name="expiry_date[]" id="certificate" class="form-control" value="{{ old('expiry_date[2]') }}">
+                               
                             </div>
                         </div>
                         {{-- End of fire alarm/smoke detectors --}}
@@ -100,17 +93,14 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Emergency Lighting:</label>
-                                <input type="file" name="emergency_lighting_certificate" id="" class="form-control" accept=".pdf" value="{{ old('emergency_lighting_certificate') }}">
-                                @error('emergency_lighting_certificate')
+                                <input type="file" name="listing_document[Emergency Lighting Certificate]" id="" class="form-control" accept=".pdf" value="{{ old('listing_document[Emergency Lighting Certificate]') }}">
+                                @error('listing_document[Emergency Lighting Certificate]')
                                     <strong class="error-message">{{ $message }}</strong>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Enter the document's expiry date:</label>
-                                <input type="date" name="emergency_lighting_certificate_expiry_date" id="certificate" class="form-control" value="{{ old('emergency_lighting_certificate_expiry_date') }}">
-                                @error('emergency_lighting_certificate_expiry_date')
-                                    <strong class="error-message">{{ $message }}</strong>
-                                @enderror
+                                <input type="date" name="expiry_date[]" id="certificate" class="form-control" value="{{ old('expiry_date[3]') }}">
                             </div>
                         </div>
                         {{-- End of Emergency Lighting --}}
@@ -119,17 +109,14 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Fire Risk Assessment:</label>
-                                <input type="file" name="fire_risk_certificate" id="" class="form-control" accept=".pdf" value="{{ old('fire_risk_certificate') }}">
-                                @error('fire_risk_certificate')
+                                <input type="file" name="listing_document[Fire Risk Assessment Certificate]" id="" class="form-control" accept=".pdf" value="{{ old('listing_document[Fire Risk Assessment Certificate]') }}">
+                                @error('listing_document[Fire Risk Assessment Certificate]')
                                     <strong class="error-message">{{ $message }}</strong>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Enter the document's expiry date:</label>
-                                <input type="date" name="fire_risk_certificate_expiry_date" id="certificate" class="form-control" value="{{ old('fire_risk_certificate_expiry_date') }}">
-                                @error('fire_risk_certificate_expiry_date')
-                                    <strong class="error-message">{{ $message }}</strong>
-                                @enderror
+                                <input type="date" name="expiry_date[]" id="certificate" class="form-control" value="{{ old('expiry_date[4]') }}">
                             </div>
                         </div>
                         {{-- End of Fire Risk Assessment --}}
@@ -138,17 +125,14 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>PAT:</label>
-                                <input type="file" name="pat_certificate" id="" class="form-control" accept=".pdf" value="{{ old('pat_certificate') }}">
-                                @error('pat_certificate')
+                                <input type="file" name="listing_document[PAT Certificate]" id="" class="form-control" accept=".pdf" value="{{ old('listing_document[PAT Certificate]') }}">
+                                @error('listing_document[PAT Certificate]')
                                     <strong class="error-message">{{ $message }}</strong>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Enter the document's expiry date:</label>
-                                <input type="date" name="pat_certificate_expiry_date" id="certificate" class="form-control" value="{{ old('pat_certificate_expiry_date') }}">
-                                @error('pat_certificate_expiry_date')
-                                    <strong class="error-message">{{ $message }}</strong>
-                                @enderror
+                                <input type="date" name="expiry_date[]" id="certificate" class="form-control" value="{{ old('expiry_date[5]') }}">
                             </div>
                         </div>
                         {{-- End of PAT --}}
@@ -158,17 +142,14 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Insurance:</label>
-                                <input type="file" name="insurance_certificate" id="" class="form-control" accept=".pdf" value="{{ old('insurance_certificate') }}">
-                                @error('insurance_certificate')
+                                <input type="file" name="listing_document[Insurance Certificate]" id="" class="form-control" accept=".pdf" value="{{ old('listing_document[Insurance Certificate]') }}">
+                                @error('listing_document[Insurance Certificate]')
                                     <strong class="error-message">{{ $message }}</strong>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Enter the document's expiry date:</label>
-                                <input type="date" name="insurance_certificate_expiry_date" id="certificate" class="form-control" value="{{ old('insurance_certificate_expiry_date') }}">
-                                @error('insurance_certificate_expiry_date')
-                                    <strong class="error-message">{{ $message }}</strong>
-                                @enderror
+                                <input type="date" name="expiry_date[]" id="certificate" class="form-control" value="{{ old('expiry_date[6]') }}">
                             </div>
                         </div>
                         {{-- End of Insurance --}}
@@ -177,33 +158,30 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Proof of Ownership/Lease:</label>
-                                <input type="file" name="ownership_certificate" id="" class="form-control" accept=".pdf" value="{{ old('ownership_certificate') }}">
-                                @error('ownership_certificate')
+                                <input type="file" name="listing_document[Ownership Certificate]" id="" class="form-control" accept=".pdf" value="{{ old('listing_document[Ownership Certificate]') }}">
+                                @error('listing_document[Ownership Certificate]')
                                     <strong class="error-message">{{ $message }}</strong>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Enter the document's expiry date:</label>
-                                <input type="date" name="ownership_certificate_expiry_date" id="certificate" class="form-control" value="{{ old('ownership_certificate_expiry_date') }}">
-                                @error('ownership_certificate_expiry_date')
-                                    <strong class="error-message">{{ $message }}</strong>
-                                @enderror
+                                <input type="date" name="expiry_date[]" id="certificate" class="form-control" value="{{ old('expiry_date[6]') }}">
                             </div>
                         </div>
                         {{-- End of lease or proof of ownership --}}
                         
                         {{-- Proof of Fire Blanket --}}
-                        <input id="a-1" class="checkbox-custom" name="proof[]" value="Proof of File Blanket" type="checkbox">
+                        <input id="a-1" class="checkbox-custom" name="proof[Proof of Fire Blanket]" value="Proof of File Blanket" type="checkbox">
                         <label for="a-1" class="checkbox-custom-label">Proof of Fire Blanket</label>
                         {{-- End for Proof of fire blanket --}}
 
                         {{-- Proof of CO Monitors --}}
-                        <input id="a-2" class="checkbox-custom" name="proof[]" value="Proof of CO Monitors" type="checkbox">
+                        <input id="a-2" class="checkbox-custom" name="proof[Proof of CO Monitors]" value="Proof of CO Monitors" type="checkbox">
                         <label for="a-2" class="checkbox-custom-label">Proof of CO Monitors</label>
                         {{-- End of Proof of CO Monitors --}}
 
                         {{-- Proof of Flame Retardant Spray --}}
-                        <input id="a-3" class="checkbox-custom" name="proof[]" value="Proof of Flame Retardant Spray" type="checkbox">
+                        <input id="a-3" class="checkbox-custom" name="proof[Proof of Flame Retardant Spray]" value="Proof of Flame Retardant Spray" type="checkbox">
                         <label for="a-3" class="checkbox-custom-label">Proof of Flame Retardant Spray</label>
                         {{-- End of Proof of Flame Retardant Spray --}}
 

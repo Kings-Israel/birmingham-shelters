@@ -30,6 +30,9 @@ class CreateListingsTable extends Migration
             $table->string('contact_name');
             $table->string('contact_email');
             $table->bigInteger('contact_number')->nullable();
+            $table->boolean('fire_blanket')->default(false);
+            $table->boolean('co_monitors')->default(false);
+            $table->boolean('flame_redundant_spray')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
