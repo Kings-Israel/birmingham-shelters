@@ -39,4 +39,15 @@ class VerificationController extends Controller
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
+
+    protected function redirectTo(): string
+    {
+        $user_type_home_map = [
+            'super_admin' => route('admin-dashboard'),
+            'admin' => route('admin-dashboard'),
+            'landlord' => route('landlord.index'),
+        ];
+
+        return $user_type_home_map[auth()->user()->user_type->value] ?? '/';
+    }
 }
