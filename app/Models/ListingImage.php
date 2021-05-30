@@ -17,7 +17,7 @@ class ListingImage extends Model
 
     public function url(): string
     {
-        return Storage::disk('listing')->url('images/'. $this->image_name);
+        return Storage::disk('local')->url('listing/images/'.$this->image_name);
     }
 
     public function listing(): BelongsTo

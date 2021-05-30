@@ -55,10 +55,29 @@ class Listing extends Model
         return $this->HasOne(ListingDocuments::class);
     }
 
+    public function listinginquiry(): HasMany
+    {
+        return $this->hasMany(ListingInquiry::class);
+    }
+
     public function markAsVerified(): Listing
     {
         $this->verified_at = now();
 
         return $this;
+    }
+
+    public function getOtherRoomsListAttribute(): Collection
+    {
+        if($this->other_rooms != '' || null) {
+            return collect(explode(',', $this->other_rooms));
+        }
+    }
+
+    public function getFeaturesListAttribute(): Collection
+    {
+        if($this->features != '' || null) {
+            return collect(explode(',', $this->features));
+        }
     }
 }
