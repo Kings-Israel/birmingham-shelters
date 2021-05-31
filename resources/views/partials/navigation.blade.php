@@ -20,9 +20,9 @@
                         <a href="{{ url('/contact') }}">Contact Us</a>
                     </x-site-nav-link>
                     @auth
-                        <x-site-nav-link :active="Request::is('/user/referralt')">
-                            <a href="{{ url('/user/referral') }}">Fill/Update Referral Form</a>
-                        </x-site-nav-link>
+                    <x-site-nav-link :active="Request::is('/user/referralt')">
+                        <a href="{{ url('/user/referral') }}">Fill Referral Form</a>
+                    </x-site-nav-link>
                     @endauth
                 </ul>
                 @auth

@@ -322,7 +322,7 @@ class UserMetadataController extends Controller
         Validator::make($request->all(), $rules, $messages);
 
         if (Consent::create($request->all())) {
-            return redirect()->route()->with('success', "Your information has been saved successfully");
+            return redirect()->route('user.index')->with('success', "Your information has been saved successfully");
         }
 
         return redirect()->back()->withErrors('An error occurred. Please tru y again.');
