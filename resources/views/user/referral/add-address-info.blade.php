@@ -24,8 +24,9 @@
    <!-- ============================ Add Listing Form ================================== -->
    <section class="bg-light">
     <div class="container-fluid">
-        <form action="{{ route('listing.add.submit_basic_info') }}" class="listing-form" method="post" enctype="multipart/form-data">
+        <form action="{{ route('address-form.submit') }}" class="listing-form" method="post" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="user_metadata_id" value="{{ $id }}">
             <div class="submit-page">
                             
                 <!-- Basic Information -->
@@ -33,52 +34,37 @@
                     <div class="submit-section">
                         <div class="row">
                             <h5>PREVIOUS ADDRESSES INFO</h5>
-                            <p>Section 3 of 4</p>
+                            <p>Section 3 of 6</p>
                             <div class="form-group col-md-12">
-                                <label>Please enter the last 5 addresses that you have resided in</label>
+                                <label>Please enter the last 4 addresses that you have resided in (At least one is required)</label>
+                                @if ($errors->any())
+                                    <p class="error-message"><strong>{{ $errors->first() }}</strong></p>
+                                @endif
                                 <div class="row">
-                                    @for ($i = 0; $i < 5; $i++)
+                                    @for ($i = 0; $i < 4; $i++)
                                         <div class="form-group col-md-2">
                                             <label>Address</label>
-                                            <input type="text" id="dwp_office" name="dwp_office" class="form-control" value="{{ old('dwp_office') }}">
-                                            @error('dwp_office')
-                                                <strong class="error-message">{{ $message }}</strong>
-                                            @enderror
+                                            <input type="text" id="address" name="address[]" class="form-control">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label>Moved in date</label>
-                                            <input type="date" id="dwp_office" name="dwp_office" class="form-control" value="{{ old('dwp_office') }}">
-                                            @error('dwp_office')
-                                                <strong class="error-message">{{ $message }}</strong>
-                                            @enderror
+                                            <input type="date" id="date" name="moved_in_date[]" class="form-control">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label>Moved out date</label>
-                                            <input type="date" id="dwp_office" name="dwp_office" class="form-control" value="{{ old('dwp_office') }}">
-                                            @error('dwp_office')
-                                                <strong class="error-message">{{ $message }}</strong>
-                                            @enderror
+                                            <input type="date" id="date" name="moved_out_date[]" class="form-control">
                                         </div>
                                         <div class="form-group col-md-1">
                                             <label>Tenure</label>
-                                            <input type="text" id="dwp_office" name="dwp_office" class="form-control" value="{{ old('dwp_office') }}">
-                                            @error('dwp_office')
-                                                <strong class="error-message">{{ $message }}</strong>
-                                            @enderror
+                                            <input type="text" id="tenure" name="tenure[]" class="form-control" >
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label>Landlord Details</label>
-                                            <input type="text" id="dwp_office" name="dwp_office" class="form-control" value="{{ old('dwp_office') }}">
-                                            @error('dwp_office')
-                                                <strong class="error-message">{{ $message }}</strong>
-                                            @enderror
+                                            <input type="text" id="landlord_details" name="landlord_details[]" class="form-control" >
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label>Reason for leaving</label>
-                                            <input type="text" id="dwp_office" name="dwp_office" class="form-control" value="{{ old('dwp_office') }}">
-                                            @error('dwp_office')
-                                                <strong class="error-message">{{ $message }}</strong>
-                                            @enderror
+                                            <input type="text" id="reason_for_leaving" name="reason_for_leaving[]" class="form-control" >
                                         </div>
                                     @endfor
                                 </div>
@@ -93,4 +79,24 @@
         </form>
     </div>
    </section>
+@push('scripts')
+   <script>
+       var today = new Date();
+       var dd = today.getDate();
+       var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+       var yyyy = today.getFullYear();
+       if(dd<10){
+       dd='0'+dd
+       } 
+       if(mm<10){
+       mm='0'+mm
+       } 
+
+       today = yyyy+'-'+mm+'-'+dd;
+       let expiry_date_fields = document.querySelectorAll("#date");
+       expiry_date_fields.forEach(field => {
+           field.setAttribute("max", today);
+       });
+   </script>
+@endpush
 </x-app-layout>

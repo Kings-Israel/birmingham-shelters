@@ -23,9 +23,9 @@
 
     <section class="bg-light">
         <div class="container-fluid">
-            <form action="{{ route('listing.add.submit_basic_info') }}" class="listing-form" method="post" enctype="multipart/form-data">
+            <form action="{{ route('support-form.submit') }}" class="listing-form" method="post" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                <input type="hidden" name="user_metadata_id" value="{{ $id }}">
                 <div class="submit-page">
                                 
                     <!-- Basic Information -->
@@ -35,129 +35,22 @@
                             <p>Section 5 of 6</p>
                             <p><strong>*For each selected option please provide details of support information required</strong></p>
                             <br>
-
                             <div class="container">
-                                <div class="row">
-                                    <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                                        <input id="a-2" class="checkbox-custom" name="a-2" type="checkbox">
-                                        <label for="a-2" class="checkbox-custom-label">Mental Health Problems</label>
+                                @for ($i = 0; $i < count($support_group_list); $i++)
+                                    <div class="row">        
+                                        <div class="form-group col-lg-5 col-md-6 col-sm-12">
+                                            <input id="{{ $support_group_list[$i] }}" class="checkbox-custom" name="support_group[]" value="{{ $support_group_list[$i] }}" type="checkbox">
+                                            <label for="{{ $support_group_list[$i] }}" class="checkbox-custom-label">{{ $support_group_list[$i] }}</label>
+                                        </div>
+                                        <div class="form-group col-lg-7 col-md-6 col-sm-12">
+                                            <label>Support Needs</label>
+                                            <input type="text" id="support_needs" name="support_needs[{{ $support_group_list[$i] }}]" class="form-control">
+                                            @error($support_group_list[$i])
+                                                <p class="error-message"><strong>{{ $message }}</strong></p>
+                                            @enderror
+                                        </div>
                                     </div>
-                                    <div class="form-group col-lg-8 col-md-6 col-sm-12">
-                                        <label>Support Needs</label>
-                                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" value="{{ old('date_of_birth') }}" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                                        <input id="a-2" class="checkbox-custom" name="a-2" type="checkbox">
-                                        <label for="a-2" class="checkbox-custom-label">Single Homeless With Support Needs</label>
-                                    </div>
-                                    <div class="form-group col-lg-8 col-md-6 col-sm-12">
-                                        <label>Support Needs</label>
-                                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" value="{{ old('date_of_birth') }}" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                                        <input id="a-2" class="checkbox-custom" name="a-2" type="checkbox">
-                                        <label for="a-2" class="checkbox-custom-label">Training Educator Employment</label>
-                                    </div>
-                                    <div class="form-group col-lg-8 col-md-6 col-sm-12">
-                                        <label>Support Needs</label>
-                                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" value="{{ old('date_of_birth') }}" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                                        <input id="a-2" class="checkbox-custom" name="a-2" type="checkbox">
-                                        <label for="a-2" class="checkbox-custom-label">Leisure, Cultural, Faith, Informal Learning Activities</label>
-                                    </div>
-                                    <div class="form-group col-lg-8 col-md-6 col-sm-12">
-                                        <label>Support Needs</label>
-                                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" value="{{ old('date_of_birth') }}" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                                        <input id="a-2" class="checkbox-custom" name="a-2" type="checkbox">
-                                        <label for="a-2" class="checkbox-custom-label">Primary Health Care, Mental Health or Drug/Alcohol Services</label>
-                                    </div>
-                                    <div class="form-group col-lg-8 col-md-6 col-sm-12">
-                                        <label>Support Needs</label>
-                                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" value="{{ old('date_of_birth') }}" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                                        <input id="a-2" class="checkbox-custom" name="a-2" type="checkbox">
-                                        <label for="a-2" class="checkbox-custom-label">Accomodation/Housing</label>
-                                    </div>
-                                    <div class="form-group col-lg-8 col-md-6 col-sm-12">
-                                        <label>Support Needs</label>
-                                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" value="{{ old('date_of_birth') }}" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                                        <input id="a-2" class="checkbox-custom" name="a-2" type="checkbox">
-                                        <label for="a-2" class="checkbox-custom-label">Safeguarding: Avoid self-harm and/or causing harm to others/Avoid harming Others</label>
-                                    </div>
-                                    <div class="form-group col-lg-8 col-md-6 col-sm-12">
-                                        <label>Support Needs</label>
-                                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" value="{{ old('date_of_birth') }}" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                                        <input id="a-2" class="checkbox-custom" name="a-2" type="checkbox">
-                                        <label for="a-2" class="checkbox-custom-label">Independent Living Skills</label>
-                                    </div>
-                                    <div class="form-group col-lg-8 col-md-6 col-sm-12">
-                                        <label>Support Needs</label>
-                                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" value="{{ old('date_of_birth') }}" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                                        <input id="a-2" class="checkbox-custom" name="a-2" type="checkbox">
-                                        <label for="a-2" class="checkbox-custom-label">Inclusion in Community</label>
-                                    </div>
-                                    <div class="form-group col-lg-8 col-md-6 col-sm-12">
-                                        <label>Support Needs</label>
-                                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" value="{{ old('date_of_birth') }}" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                                        <input id="a-2" class="checkbox-custom" name="a-2" type="checkbox">
-                                        <label for="a-2" class="checkbox-custom-label">Social Isolation/Contact with family/friends</label>
-                                    </div>
-                                    <div class="form-group col-lg-8 col-md-6 col-sm-12">
-                                        <label>Support Needs</label>
-                                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" value="{{ old('date_of_birth') }}" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                                        <input id="a-2" class="checkbox-custom" name="a-2" type="checkbox">
-                                        <label for="a-2" class="checkbox-custom-label">Other</label>
-                                        <input type="text" id="gender" name="gender" class="form-control" value="{{ old('gender') }}" required>
-                                    </div>
-                                    <div class="form-group col-lg-8 col-md-6 col-sm-12">
-                                        <label>Support Needs</label>
-                                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" value="{{ old('date_of_birth') }}" required>
-                                    </div>
-                                </div>
+                                @endfor
                                 <br>
                                 <div class="listing-submit-button">
                                     @include('partials.listing-buttons')

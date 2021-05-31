@@ -24,8 +24,9 @@
    <!-- ============================ Add Listing Form ================================== -->
    <section class="bg-light">
     <div class="container-fluid">
-        <form action="{{ route('listing.add.submit_basic_info') }}" class="listing-form" method="post" enctype="multipart/form-data">
+        <form action="{{ route('income-form.submit') }}" class="listing-form" method="post" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="user_metadata_id" value="{{ $id }}">
             <div class="submit-page">
                             
                 <!-- Basic Information -->
@@ -33,44 +34,21 @@
                     <div class="submit-section">
                         <div class="row">
                             <h5>SOURCE OF INCOME</h5>
-                            <p>Section 2 of 4</p>
+                            <p>Section 2 of 6</p>
                             <div class="form-group col-md-12">
                                 <label>Please select all that apply to the applicant</label>
                                 <div class="o-features">
                                     <ul class="no-ul-list third-row">
-                                        <li>
-                                            <input id="a-1" class="checkbox-custom" name="source_of_income[]" value="JSA" type="checkbox">
-                                            <label for="a-1" class="checkbox-custom-label">JSA</label>
-                                        </li>
-                                        <li>
-                                            <input id="a-2" class="checkbox-custom" name="source_of_income[]" value="DLA" type="checkbox">
-                                            <label for="a-2" class="checkbox-custom-label">DLA</label>
-                                        </li>
-                                        <li>
-                                            <input id="a-3" class="checkbox-custom" name="source_of_income[]" value="Incapacity Benefit/ESA" type="checkbox">
-                                            <label for="a-3" class="checkbox-custom-label">Incapacity Benefit/ESA</label>
-                                        </li>
-                                        <li>
-                                            <input id="a-4" class="checkbox-custom" name="source_of_income[]" value="Income Support" type="checkbox">
-                                            <label for="a-4" class="checkbox-custom-label">Income Support</label>
-                                        </li>
-                                        <li>
-                                            <input id="a-5" class="checkbox-custom" name="source_of_income[]" value="Pension" type="checkbox">
-                                            <label for="a-5" class="checkbox-custom-label">Pension</label>
-                                        </li>
-                                        <li>
-                                            <input id="a-6" class="checkbox-custom" name="source_of_income[]" value="UC" type="checkbox">
-                                            <label for="a-6" class="checkbox-custom-label">UC</label>
-                                        </li>
-                                        <li>
-                                            <input id="a-7" class="checkbox-custom" name="source_of_income[]" value="Working" type="checkbox">
-                                            <label for="a-7" class="checkbox-custom-label">Working</label>
-                                        </li>
-                                        <li>
-                                            <input id="a-8" class="checkbox-custom" name="source_of_income[]" value="None" type="checkbox">
-                                            <label for="a-8" class="checkbox-custom-label">None</label>
-                                        </li>
+                                        @for ($i = 0; $i < count($income_fields); $i++)
+                                            <li>
+                                                <input id="{{ $income_fields[$i] }}" class="checkbox-custom" name="source_of_income[]" value="{{ $income_fields[$i] }} {{ old($income_fields[$i]) }}" type="checkbox">
+                                                <label for="{{ $income_fields[$i] }}" class="checkbox-custom-label">{{ $income_fields[$i] }}</label>
+                                            </li>
+                                        @endfor
                                     </ul>
+                                    @error('source_of_income')
+                                        <p class="error-message"><strong>{{ $message }}</strong></p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row">
@@ -83,7 +61,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Do you have any rent arrears or other debt? (Please provide details of any outstanding debt)</label>
-                                    <textarea class="form-control h-40" id="other_debt_details" name="other_debt_details" value="{{ old('other_debt_details') }}" required></textarea>
+                                    <textarea class="form-control h-40" id="other_debt_details" name="other_debt">{{ old('other_debt_details') }}</textarea>
                                     @error('other_debt_details')
                                         <strong class="error-message">{{ $message }}</strong>
                                     @enderror

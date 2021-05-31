@@ -260,7 +260,7 @@
                                     </div>
                                     
                                     <div class="form-group col-md-4">
-                                        <label>Phone (optional)</label>
+                                        <label>Phone</label>
                                         <input type="text" class="form-control" name="contact_phoneNumber" value="{{ old('contact_phoneNumber') }}">
                                         @error('contact_phoneNumber')
                                             <strong class="error-message">{{ $message }}</strong>

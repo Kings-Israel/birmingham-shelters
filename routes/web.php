@@ -70,13 +70,19 @@ Route::post('/user/listing/inquiry', [ListingInquiryController::class, 'submit_i
 Route::get('/user/referral', [UserMetadataController::class, 'show_select_referral_type_form'])->name('referral-form.show');
 Route::get('/user/referral/self', [UserMetadataController::class, 'self_referral'])->name('referral.self-referral');
 Route::get('/user/referral/agency', [UserMetadataController::class, 'agency_referral'])->name('referral.agency-referral');
-Route::get('/user/referral/income', [UserMetadataController::class, 'add_income_info'])->name('referral.add.incomce-info');
-Route::get('/user/referral/address-history', [UserMetadataController::class, 'add_address_history_info'])->name('referral.add.address-history-info');
-Route::get('/user/referral/health', [UserMetadataController::class, 'add_health_info'])->name('referral.add.health-info');
-Route::get('/user/referral/support-needs', [UserMetadataController::class, 'add_support_info'])->name('referral.add.support-info');
-Route::get('/user/referral/risk-assessment', [UserMetadataController::class, 'add_risk_assessment'])->name('referral.add.risk-assessment');
-Route::get('/user/referral/consent', [UserMetadataController::class, 'add_consent'])->name('referral.add.consent');
+Route::get('/user/referral/income/{id}', [UserMetadataController::class, 'add_income_info'])->name('referral.add.income-info');
+Route::get('/user/referral/address-history/{id}', [UserMetadataController::class, 'add_address_history_info'])->name('referral.add.address-history-info');
+Route::get('/user/referral/health/{id}', [UserMetadataController::class, 'add_health_info'])->name('referral.add.health-info');
+Route::get('/user/referral/support-needs/{id}', [UserMetadataController::class, 'add_support_info'])->name('referral.add.support-info');
+Route::get('/user/referral/risk-assessment/{id}', [UserMetadataController::class, 'add_risk_assessment'])->name('referral.add.risk-assessment');
+Route::get('/user/referral/consent/{userMetadata}', [UserMetadataController::class, 'add_consent'])->name('referral.add.consent');
 Route::post('/user/referral/submit', [UserMetadataController::class, 'submit_referral_form'])->name('referral-form.submit');
+Route::post('/user/referral/income/submit', [UserMetadataController::class, 'submit_income_info'])->name('income-form.submit');
+Route::post('/user/referral/address/submit', [UserMetadataController::class, 'submit_address_history_info'])->name('address-form.submit');
+Route::post('/user/referral/health/submit', [UserMetadataController::class, 'submit_health_info'])->name('health-form.submit');
+Route::post('/user/referral/support/submit', [UserMetadataController::class, 'submit_support_info'])->name('support-form.submit');
+Route::post('/user/referral/risk-assessment/submit', [UserMetadataController::class, 'submit_risk_assessment'])->name('risk-assessment-form.submit');
+Route::post('/user/referral/consent/submit', [UserMetadataController::class, 'submit_consent_form'])->name('consent-form.submit');
 
 // Admin routes
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
