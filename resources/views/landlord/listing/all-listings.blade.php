@@ -65,7 +65,7 @@
                                             <div class="action">
                                                 <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti-pencil"></i></a>
                                                 <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="202 User View"><i class="ti-eye"></i></a>
-                                                <a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#delete_listing_<?php echo $listing->id ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Property" class="delete"><i class="ti-close"></i></a>
+                                                <a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#delete_listing_{{ $listing->id }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Property" class="delete"><i class="ti-close"></i></a>
                                                 <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Make Featured" class="delete"><i class="ti-star"></i></a>
                                             </div>
                                         </div>

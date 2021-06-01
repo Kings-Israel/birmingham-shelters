@@ -3146,6 +3146,7 @@ ul {
     display: table;
     position: relative;
     font-family: inherit;
+    scroll-margin-bottom: 20px;
 }
 
 .nav-toggle,
@@ -5352,8 +5353,6 @@ form.search-big-form.search-shadow, form.search-form.search-shadow {
     border: 1px solid #e6eaf1;
     background: #ffffff;
     padding: 25px;
-    margin-bottom: 30px;
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
 }
