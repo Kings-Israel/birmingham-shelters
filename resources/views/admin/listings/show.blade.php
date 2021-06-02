@@ -161,7 +161,7 @@
                         <div class="property_block_wrap_header">
                             <a data-bs-toggle="collapse" data-parent="#loca" data-bs-target="#clSix"
                                 aria-controls="clSix" href="javascript:void(0);" aria-expanded="true" class="collapsed">
-                                <h4 class="property_block_title">Relevant Documentes and Proofs</h4>
+                                <h4 class="property_block_title">Documents & Proofs</h4>
                             </a>
                         </div>
 
@@ -181,10 +181,13 @@
                                 <ul class="list-unstyled w-75">
                                     @foreach ($listing->documents as $document)
                                         <li class="border px-4 py-2 d-flex justify-content-between align-items-center">
-                                            <p class="fw-bold">{{ $document->document_type->label }}</p>
+                                            <p>
+                                                <span>{{ $document->document_type->label }}</span> <br>
+                                                <small class="text-muted">EXPIRY: {{ $document->expiry_date->format('F d, Y') }}</small>
+                                            </p>
 
                                             <div>
-                                                <button class="btn btn-sm btn-link">Download</button>
+                                                <a href="#" class="btn btn-sm btn-link">Download</a>
                                                 <button class="btn btn-sm btn-secondary">View</button>
                                             </div>
                                         </li>

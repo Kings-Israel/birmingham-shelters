@@ -29,9 +29,9 @@ class ListingInquiryController extends Controller
         Validator::make($request->all(), $rules, $messages);
 
         // Save the inquiry
-        $inquiry = new ListingInquiry::create($request->all());
+        $inquiry = ListingInquiry::create($request->all());
         if ($inquiry->save()) {
-            return redirect()->route()->with('success', "Your inquiry has been sent.");
+            // return redirect()->route()->with('success', "Your inquiry has been sent.");
         }
 
         return redirect()->back()->withError('There was an error while sending the inquiry. Please try again');
