@@ -16,9 +16,7 @@ class Listing extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = [
-        'name', 'address', 'postcode', 'local_authority_area', 'description', 'living_rooms', 'toilets', 'bedsitting_rooms', 'bedrooms', 'bathrooms', 'kitchen', 'other_rooms', 'features', 'user_id', 'contact_name', 'contact_email', 'contact_number'
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         'verified_at' => 'datetime',
@@ -50,9 +48,9 @@ class Listing extends Model
         return $this->hasOne(ClientGroup::class);
     }
 
-    public function documents(): HasOne
+    public function documents(): HasMany
     {
-        return $this->HasOne(ListingDocuments::class);
+        return $this->HasMany(ListingDocuments::class);
     }
 
     public function listinginquiry(): HasMany

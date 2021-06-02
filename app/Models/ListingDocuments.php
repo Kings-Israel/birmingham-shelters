@@ -15,6 +15,7 @@ class ListingDocuments extends Model
 
     protected $casts = [
         'document_type' => ListingDocumentTypesEnum::class,
+        'expiry_date' => 'date',
     ];
 
     public function listing(): BelongsTo
