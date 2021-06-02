@@ -11,6 +11,10 @@ class ListingInquiry extends Model
 
     protected $guard = [];
 
+    protected $fillable = [
+       'listing_id', 'user_name', 'user_email', 'user_phone_number', 'listing_message'
+    ];
+
     protected $casts = [
         'read_at' => 'datetime'
     ];

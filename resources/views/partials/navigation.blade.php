@@ -10,7 +10,18 @@
             <div class="nav-menus-wrapper" style="transition-property: none;">
                 <ul class="nav-menu">
                     <x-site-nav-link :active="Request::is('/')">
-                        <a href="{{ url('/') }}">Home</a>
+                        @auth
+                            @if (Auth::user()->user_type == 'user')
+                                <a href="{{ url('/user/home') }}">Home</a>
+                            @elseif (Auth::user()->user_type == 'landlord')
+                                <a href="{{ url('/landlord/home') }}">Home</a>
+                            @elseif (Auth::user()->user_type == 'volunteer')
+                                <a href="{{ url('/volunteer/home') }}">Home</a>
+                            @endif
+                        @endauth
+                        @guest
+                            <a href="{{ url('/') }}">Home</a>
+                        @endguest
                     </x-site-nav-link>
                     <x-site-nav-link :active="Request::is('/about')">
                         <a href="{{ url('/about') }}">About Us</a>

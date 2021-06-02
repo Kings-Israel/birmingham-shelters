@@ -7,21 +7,19 @@
                 <p class="lead-i text-light">
                     Where we link those impacted by homelessness with quality-assured supported accommodation. Join the platform as either a landlord or a room seeker.
                 <p>
-                @guest
                     <div class="mt-4">
+                        @guest
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signup">Get started</button>
+                        @endguest
+                        <a href="{{ route('user.listing.all') }}">
+                            <button class="btn btn-primary">View Rooms</button>
+                        </a>
+                        @guest
                         <p class="text-light mt-2">
                             Already registred? <a class="text-light" href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#login">Sign In</a>
                         </p>
+                        @endguest
                     </div>
-                @endguest
-                @auth
-                    @if (Auth::user()->user_type == 'user')
-                    <a href="{{ route('user.listing.all') }}">
-                        <button class="btn btn-primary">View Rooms</button>
-                    </a>
-                    @endif
-                @endauth
             </div>
         </div>
 

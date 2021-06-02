@@ -31,15 +31,9 @@
                         <div class="pbw-flex">
                             <div class="prt-detail-title-desc">
                                 <h3>{{ $listing->name }}</h3>
-                                <h6>Local Authority Area: </h6><span>{{ $listing->local_authority_area }}</span><br>
                                 <h6>Address: </h6><span>{{ $listing->address }}</span><br>
                                 <h6>Postcode: </h6><span>{{ $listing->postcode }}</span>
                             </div>
-                            <form action="{{ route('user.submit.inquiry') }}" method="post">
-                                @csrf
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                <input type="hidden" name="listing_id" value="{{ $listing->id }}">
-                            </form>
                         </div>
 
                     </div>
@@ -58,7 +52,6 @@
                                     <li><strong>Living Rooms:</strong>{{ $listing->living_rooms }}</li>
                                     <li><strong>Bedrooms:</strong>{{ $listing->bedrooms }}</li>
                                     <li><strong>Bathrooms:</strong>{{ $listing->bathrooms }}</li>
-                                    <li><strong>Bedsitting Rooms:</strong>{{ $listing->bedsitting_rooms }}</li>
                                     <li><strong>Toilets:</strong>{{ $listing->toilets }}</li>
                                     <li><strong>Kitchen:</strong>{{ $listing->kitchen }}</li>
                                 </ul>
@@ -142,24 +135,37 @@
                                     <input type="hidden" name="user_phone_number" value="{{ Auth::user()->phone_number }}">
                                     <input type="hidden" name="user_email" value="{{ Auth::user()->email }}">
                                 @endauth
-                                @guest
-                                    <div class="form-group">
-                                        <label>Name</label>
-                                        <input type="text" class="form-control" placeholder="Your Name" name="user_name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <input type="text" class="form-control" placeholder="Your Email" name="user_email">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Phone No.</label>
-                                        <input type="text" class="form-control" placeholder="Your Phone" name="user_phone_number">
-                                    </div>
-                                @endguest
+                                
                                 <div class="sides-widget-body simple-form">
+                                    @guest
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control" placeholder="Your Name" name="user_name" value="{{ old('user_name') }}">
+                                            @error('user_name')
+                                                <p class="error-message"><strong>{{ $message }}</strong></p>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="text" class="form-control" placeholder="Your Email" name="user_email" value="{{ old('user_email') }}">
+                                            @error('user_email')
+                                                <p class="error-message"><strong>{{ $message }}</strong></p>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Phone No.</label>
+                                            <input type="text" class="form-control" placeholder="Your Phone" name="user_phone_number" value="{{ old('user_phone_number') }}">
+                                            @error('user_phone_number')
+                                                <p class="error-message"><strong>{{ $message }}</strong></p>
+                                            @enderror
+                                        </div>
+                                    @endguest
                                     <div class="form-group">
                                         <label>Message</label>
-                                        <textarea name="listing_message" class="form-control">I'm interested in this property.</textarea>
+                                        <textarea name="listing_message" class="form-control">{{ old('listing_message') }}</textarea>
+                                        @error('listing_message')
+                                            <p class="error-message"><strong>{{ $message }}</strong></p>
+                                        @enderror
                                     </div>
                                     <button class="btn btn-black btn-md rounded full-width">Send Message</button>
                                 </div>
