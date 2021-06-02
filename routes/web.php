@@ -57,7 +57,7 @@ Route::post('listing/add/basicinfo', [LandlordListingController::class, 'submit_
 Route::post('listing/add/clientinfo', [LandlordListingController::class, 'submit_clientgroup_info'])->name('listing.add.submit_client_info');
 Route::post('listing/add/listingdocuments', [LandlordListingController::class, 'submit_listing_documents'])->name('listing.add.submit_documents');
 Route::post('listing/add/listingimages', [LandlordListingController::class, 'submit_listing_images'])->name('listing.add.submit_images');
-Route::delete('listing/delete/listing/{id}', [LandlordListingController::class, 'delete_listing'])->name('listing.delete');
+Route::delete('listing/delete/{id}', [LandlordListingController::class, 'delete_listing'])->name('listing.delete');
 
 // User listing controller
 Route::get('/user/listing/all', [UserListingController::class, 'listings'])->name('user.listing.all');

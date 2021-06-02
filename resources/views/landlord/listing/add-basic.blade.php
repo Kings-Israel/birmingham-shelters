@@ -68,14 +68,6 @@
                                     </div>
 
                                     <div class="form-group col-md-12">
-                                        <label>Local Authority Area</label>
-                                        <input type="text" id="local_authority_area" name="local_authority_area" class="form-control" value="{{ old('local_authority_area') }}" required>
-                                        @error('local_authority_area')
-                                            <strong class="error-message">{{ $message }}</strong>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group col-md-12">
                                         <label>Description</label>
                                         <textarea class="form-control h-120" id="description" name="description" value="{{ old('description') }}" required></textarea>
                                         @error('description')
@@ -100,21 +92,6 @@
                                         </div>
         
                                         <div class="form-group col-md-4">
-                                            <label>Bedsitting Rooms</label>
-                                            <select id="bedsitting_rooms" id="bedsitting_rooms" name="bedsitting_rooms" class="form-control" value="{{ old('bedsitting_rooms') }}" required>
-                                                <option value="">&nbsp;</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
-                                            @error('bedsitting_rooms')
-                                                <strong class="error-message">{{ $message }}</strong>
-                                            @enderror
-                                        </div>
-        
-                                        <div class="form-group col-md-4">
                                             <label>Bedrooms</label>
                                             <select id="bedrooms" id="bedrooms" name="bedrooms" class="form-control" value="{{ old('bedrooms') }}" required>
                                                 <option value="">&nbsp;</option>
@@ -128,10 +105,7 @@
                                                 <strong class="error-message">{{ $message }}</strong>
                                             @enderror
                                         </div>
-                                    </div>
-
-                                    
-                                    <div class="row">
+                                        
                                         <div class="form-group col-md-4">
                                             <label>Bathrooms</label>
                                             <select id="bathrooms" id="bathrooms" name="bathrooms" class="form-control" value="{{ old('bathrooms') }}" required>
@@ -146,6 +120,10 @@
                                                 <strong class="error-message">{{ $message }}</strong>
                                             @enderror
                                         </div>
+                                    </div>
+
+                                    
+                                    <div class="row">
         
                                         <div class="form-group col-md-4">
                                             <label>Toilets</label>

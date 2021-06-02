@@ -52,11 +52,8 @@
                                                 Postcode: <strong>{{ $listing->postcode }}</strong>
                                             </div>
                                             <div class="user_dashboard_listed">
-                                                Local Authority Area: <strong>{{ $listing->local_authority_area }}</strong>
-                                            </div>
-                                            <div class="user_dashboard_listed">
                                                 Status:
-                                                @if ($listing->is_verified)
+                                                @if ($listing->verified_at == null)
                                                     <strong> Not Verified </strong>
                                                 @else
                                                     <strong>Verified</strong>
@@ -72,14 +69,14 @@
                                     </div>
                                 </div>
                                 <!-- Delete Listing Form Modal -->
-                                <div class="modal fade signup" id="delete_listing_{{ $listing->id }}>" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
+                                <div class="modal fade signup" id="delete_listing_{{ $listing->id }}" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
                                         <div class="modal-content" id="sign-up">
                                             <span class="mod-close" data-bs-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
                                             <div class="modal-body">
                                                 <h4 class="text-center">Are you Sure you Want to delete this listing?</h4>
                                                 <div class="login-form">
-                                                    <form method="POST" id="register-form" action="{{ route('listing.delete', $listing->id) }}">
+                                                    <form method="POST" action="{{ route('listing.delete', $listing->id) }}">
                                                         @csrf
                                                         @method('DELETE')
 
@@ -110,10 +107,5 @@
 
 </section>
 <!-- ============================ User Dashboard End ================================== -->
-@push('scripts')
-    <script>
-
-    </script>
-@endpush
 </x-app-layout>
 

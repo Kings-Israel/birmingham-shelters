@@ -14,10 +14,8 @@ class CreateListingsTable extends Migration
             $table->string('name');
             $table->text('address');
             $table->text('postcode');
-            $table->text('local_authority_area');
             $table->text('description');
             $table->integer('living_rooms');
-            $table->integer('bedsitting_rooms');
             $table->integer('bedrooms');
             $table->integer('bathrooms');
             $table->integer('toilets');
