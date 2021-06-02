@@ -27,7 +27,19 @@ class LandlordListingController extends Controller
 
     public function basic_info()
     {
-        return view('landlord.listing.add-basic');
+        $features = [
+            'Air Condition',
+            'Internet',
+            'Garden',
+            'Bedding',
+            'Microwave',
+            'Balcony',
+            'Central Heating',
+            'Parking',
+            'Pre-Payment Meters',
+        ];
+
+        return view('landlord.listing.add-basic', ['features' => $features]);
     }
 
     public function client_info($id)
@@ -55,7 +67,7 @@ class LandlordListingController extends Controller
         ];
 
         return view('landlord.listing.add-listingdocuments')->with([
-            'id' => $id, 
+            'id' => $id,
             'listing_documents' => $listing_documents,
             'proofs' => $proofs
         ]);
@@ -192,7 +204,7 @@ class LandlordListingController extends Controller
         if(!$request->has('listing_document')) {
             return redirect()->back()->withError('Please upload the requested files');
         }
-        
+
         $counter = 0;
         // Save the file to DB and storage
         foreach($request->listing_document as $document => $file)
@@ -213,16 +225,16 @@ class LandlordListingController extends Controller
 
         if ($request->has('proof')) {
             $listing = Listing::find($request->listing_id);
-    
+
             if($request->has('proof.fire_blanket')) {
                 $listing->fire_blanket = 1;
-            } 
+            }
             if($request->has('proof.co_monitors')) {
                 $listing->co_monitors = 1;
-            } 
+            }
             if($request->has('proof.flame_retardant_spray')) {
                 $listing->flame_retardant_spray = 1;
-            } 
+            }
 
             $listing->save();
         }
