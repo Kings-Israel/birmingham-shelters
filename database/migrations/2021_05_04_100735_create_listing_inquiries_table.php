@@ -12,7 +12,9 @@ class CreateListingInquiriesTable extends Migration
         Schema::create('listing_inquiries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('listing_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id');
+            $table->string('user_name');
+            $table->string('user_email');
+            $table->bigInteger('user_phone_number');
             $table->string('message');
             $table->timestamp('read_at')->nullable();
             $table->timestamps();

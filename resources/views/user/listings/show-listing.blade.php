@@ -134,10 +134,28 @@
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                            @auth
                             <form action="{{ route('user.submit.inquiry') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="listing_id" value="{{ $listing->id }}">
+                                @auth
+                                    <input type="hidden" name="user_name" value="{{ Auth::user()->full_name }}">
+                                    <input type="hidden" name="user_phone_number" value="{{ Auth::user()->phone_number }}">
+                                    <input type="hidden" name="user_email" value="{{ Auth::user()->email }}">
+                                @endauth
+                                @guest
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control" placeholder="Your Name" name="user_name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="text" class="form-control" placeholder="Your Email" name="user_email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone No.</label>
+                                        <input type="text" class="form-control" placeholder="Your Phone" name="user_phone_number">
+                                    </div>
+                                @endguest
                                 <div class="sides-widget-body simple-form">
                                     <div class="form-group">
                                         <label>Message</label>
@@ -146,10 +164,6 @@
                                     <button class="btn btn-black btn-md rounded full-width">Send Message</button>
                                 </div>
                             </form>
-                            @endauth
-                            @guest
-                                <h4>Please <a href="{{ route('home') }}">Sign Up</a> Or <a href="{{ route('home') }}">Sign In</a> to make enquiries</h4>
-                            @endguest
                         </div>
                     
                     </div>
