@@ -44,7 +44,18 @@ class LandlordListingController extends Controller
 
     public function client_info($id)
     {
-        return view('landlord.listing.add-clientgroup')->with('id', $id);
+        $client_groups = [
+            'Mental Health',
+            'Homeless',
+            'Drug Dependency',
+            'Alcohol Dependency',
+            'Learning Disability',
+        ];
+
+        return view('landlord.listing.add-clientgroup', [
+            'id' => $id,
+            'client_groups' => $client_groups,
+        ]);
     }
 
     public function listing_documents($id)

@@ -1,11 +1,13 @@
 <x-app-layout :pageTitle="$pageTitle">
     @if (session('error'))
-    <div class="alert alert-danger">
+    <div class="alert alert-danger alert-dismissible flash">
         <p>{{ session('error') }}</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @elseif (session('success'))
-    <div class="alert alert-success">
+    <div class="alert alert-success alert-dismissible flash">
         <p>{{ session('success') }}</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
 
