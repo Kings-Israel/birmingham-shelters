@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ListingDocumentTypesEnum;
+use App\Enums\ListingProofsEnum;
 use App\Models\ClientGroup;
 use App\Models\Listing;
 use App\Models\ListingDocuments;
@@ -9,6 +11,7 @@ use App\Models\ListingImage;
 use Auth;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -60,27 +63,10 @@ class LandlordListingController extends Controller
 
     public function listing_documents($id)
     {
-        $listing_documents = [
-            'Gas Certificate',
-            'Electrical Certificate Report',
-            'Fire Alarm/Smoke Detectors',
-            'Emergency Lighting',
-            'Fire Risk Assessment',
-            'PAT',
-            'Insurance',
-            'Proof of Ownership/Lease'
-        ];
-
-        $proofs = [
-            'fire_blanket' => 'Proof of Fire Blanket',
-            'co_monitors' => 'Proof of CO Monitors',
-            'flame_retardant_spray' => 'Proof of Flame Retardant Spray'
-        ];
-
         return view('landlord.listing.add-listingdocuments')->with([
             'id' => $id,
-            'listing_documents' => $listing_documents,
-            'proofs' => $proofs
+            'listing_document_types' => ListingDocumentTypesEnum::toArray(),
+            'proofs' => ListingProofsEnum::toArray(),
         ]);
     }
 
@@ -211,27 +197,34 @@ class LandlordListingController extends Controller
 
     public function submit_listing_documents(Request $request)
     {
+        $rules = [
+            'listing_id' => ['required', 'integer'],
+            'listing_documents' => ['required', 'array', 'size:'.count(ListingDocumentTypesEnum::toArray())],
+            'listing_documents.*' => ['required', 'mimes:pdf'],
+            'expiry_dates' => ['required', 'array'],
+            'expiry_dates.*' => ['required', 'date'],
+            'proof' => ['sometimes','array'],
+        ];
 
-        if(!$request->has('listing_document')) {
-            return redirect()->back()->withError('Please upload the requested files');
-        }
+        $messages = [
+            'listing_documents.required' => 'Please upload all required documents.',
+            'listing_documents.size' => 'Please upload all required documents.',
+            'listing_documents.*.mimes' => 'Only PDFs are accepted.',
+            'expiry_dates.*.required' => 'An expiry date is required',
+        ];
 
-        $counter = 0;
-        // Save the file to DB and storage
-        foreach($request->listing_document as $document => $file)
-        {
-            $filenameToStore = $this->_changeFileName($request, $file->getClientOriginalName());
-            if ($file->storeAs('public/listing/documents', $filenameToStore)) {
-                $document_to_save = new ListingDocuments;
-                $document_to_save->listing_id = $request->listing_id;
-                $document_to_save->document_type = $document;
-                $document_to_save->filename = $filenameToStore;
-                $document_to_save->expiry_date = $request->expiry_date[$counter];
-                $document_to_save->save();
-                $counter++;
-            } else {
-                return redirect()->back()->withError('An error occurred while uploading the files.');
-            }
+        $validated = $request->validate($rules, $messages);
+
+        foreach($validated['listing_documents'] as $document_type => $file) {
+            $filename = $file
+                ->storeAs('documents', $this->_changeFileName($request, $file->getClientOriginalName()), 'listing');
+
+            ListingDocuments::create([
+                'listing_id' => $validated['listing_id'],
+                'document_type' =>  $document_type,
+                'filename' => $filename,
+                'expiry_date' => $validated['expiry_dates'][$document_type],
+            ]);
         }
 
         if ($request->has('proof')) {
