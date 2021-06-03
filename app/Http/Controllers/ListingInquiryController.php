@@ -31,9 +31,6 @@ class ListingInquiryController extends Controller
         // Save the inquiry
         if (ListingInquiry::create($request->all())) {
             return redirect()->back()->with('success', "Your inquiry has been sent.");
-        $inquiry = ListingInquiry::create($request->all());
-        if ($inquiry->save()) {
-            // return redirect()->route()->with('success', "Your inquiry has been sent.");
         }
 
         return redirect()->back()->withError('There was an error while sending the inquiry. Please try again');
