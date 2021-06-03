@@ -19,10 +19,17 @@
                     <x-site-nav-link :active="Request::is('/contact')">
                         <a href="{{ url('/contact') }}">Contact Us</a>
                     </x-site-nav-link>
+                    @auth
+                        @if (Auth::user()->user_type == 'user')
+                            <x-site-nav-link :active="Request::is('/user/referralt')">
+                                <a href="{{ url('/user/referral') }}">Fill Referral Form</a>
+                            </x-site-nav-link>
+                        @endif
+                    @endauth
                 </ul>
                 @auth
                     <ul class="nav-menu nav-menu-social align-to-right">
-                        <li><a> Welcome, {{ Auth::user()->first_name  }} {{ Auth::user()->last_name }}</a></li>
+                        <li><a> Welcome, {{ Auth::user()->full_name  }}</a></li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

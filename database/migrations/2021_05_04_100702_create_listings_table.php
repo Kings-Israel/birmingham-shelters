@@ -14,10 +14,8 @@ class CreateListingsTable extends Migration
             $table->string('name');
             $table->text('address');
             $table->text('postcode');
-            $table->text('local_authority_area');
             $table->text('description');
             $table->integer('living_rooms');
-            $table->integer('bedsitting_rooms');
             $table->integer('bedrooms');
             $table->integer('bathrooms');
             $table->integer('toilets');
@@ -30,6 +28,9 @@ class CreateListingsTable extends Migration
             $table->string('contact_name');
             $table->string('contact_email');
             $table->bigInteger('contact_number')->nullable();
+            $table->boolean('fire_blanket')->default(false);
+            $table->boolean('co_monitors')->default(false);
+            $table->boolean('flame_retardant_spray')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -15,7 +15,7 @@
                         </div>
                         <p style="margin-bottom: 0;">
                             Status:
-                            @if ($listing->is_verified)
+                            @if ($listing->verified_at)
                             <strong class="text-success">Verified</strong>
                             @else
                             <strong class="text-warning"> Not Verified </strong>
@@ -46,7 +46,6 @@
                     <div class="block-body">
                         <ul class="deatil_features">
                             <li><strong>Living Rooms:</strong>{{ $listing->living_rooms }}</li>
-                            <li><strong>Bedsitting Rooms:</strong>{{ $listing->bedsitting_rooms }}</li>
                             <li><strong>Bedrooms:</strong>{{ $listing->bedrooms }}</li>
                             <li><strong>Bathrooms:</strong>{{ $listing->bathrooms }}</li>
                             <li><strong>Toilets:</strong>{{ $listing->toilets }}</li>
@@ -97,6 +96,14 @@
                             <li class="text-capitalize">{{ $client }}</li>
                             @endforeach
                         </ul>
+                    </div>
+                    <div class="block-body">
+                        <h6 class="property_block_title">Client Support Description:</h6>
+                        <p>{{ $listing->clientgroup->support_description }}</p>
+                    </div>
+
+                    <div class="block-body">
+                        <p class="property_block_title"><strong>Client Support Hours per week:</strong> {{ $listing->clientgroup->support_hours }}</h6>
                     </div>
                 </div>
             </div>

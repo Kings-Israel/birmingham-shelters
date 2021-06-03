@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ListingDocumentTypesEnum;
+use App\Enums\ListingProofsEnum;
 use App\Models\ClientGroup;
 use App\Models\Listing;
 use App\Models\ListingDocuments;
 use App\Models\ListingImage;
 use Auth;
+use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
 class LandlordListingController extends Controller
@@ -26,17 +29,44 @@ class LandlordListingController extends Controller
 
     public function basic_info()
     {
-        return view('landlord.listing.add-basic');
+        $features = [
+            'Air Condition',
+            'Internet',
+            'Garden',
+            'Bedding',
+            'Microwave',
+            'Balcony',
+            'Central Heating',
+            'Parking',
+            'Pre-Payment Meters',
+        ];
+
+        return view('landlord.listing.add-basic', ['features' => $features]);
     }
 
     public function client_info($id)
     {
-        return view('landlord.listing.add-clientgroup')->with('id', $id);
+        $client_groups = [
+            'Mental Health',
+            'Homeless',
+            'Drug Dependency',
+            'Alcohol Dependency',
+            'Learning Disability',
+        ];
+
+        return view('landlord.listing.add-clientgroup', [
+            'id' => $id,
+            'client_groups' => $client_groups,
+        ]);
     }
 
     public function listing_documents($id)
     {
-        return view('landlord.listing.add-listingdocuments')->with('id', $id);
+        return view('landlord.listing.add-listingdocuments')->with([
+            'id' => $id,
+            'listing_document_types' => ListingDocumentTypesEnum::toArray(),
+            'proofs' => ListingProofsEnum::toArray(),
+        ]);
     }
 
     public function listing_images($id)
@@ -57,16 +87,15 @@ class LandlordListingController extends Controller
             'name' => 'required|string',
             'address' => 'required',
             'postcode' => 'required',
-            'local_authority_area' => 'required',
             'description' => 'required',
             'living_rooms' => 'required|numeric',
-            'bedsitting_rooms' => 'required|numeric',
             'bedrooms' => 'required|numeric',
             'bathrooms' => 'required|numeric',
             'toilets' => 'required|numeric',
             'kitchen' => 'required|numeric',
-            'contact_name' => 'required|string',
-            'contact_email' => 'required|email'
+            'contact_name' => "required|string",
+            'contact_email' => 'required|email',
+            'contact_phoneNumber' => new PhoneNumber,
         ];
 
         $message = [
@@ -79,10 +108,8 @@ class LandlordListingController extends Controller
         $listing->name = $request->name;
         $listing->address = $request->address;
         $listing->postcode = $request->postcode;
-        $listing->local_authority_area = $request->local_authority_area;
         $listing->description = $request->description;
         $listing->living_rooms = $request->living_rooms;
-        $listing->bedsitting_rooms = $request->bedsitting_rooms;
         $listing->bedrooms = $request->bedrooms;
         $listing->bathrooms = $request->bathrooms;
         $listing->toilets = $request->toilets;
@@ -159,161 +186,88 @@ class LandlordListingController extends Controller
         return redirect('listing/add-clientgroupinfo', $request->listing_id)->withError('An error occured. Please try again.');
     }
 
-    private function _changeFileName(Request $request, string $filename)
-    {
-        $file = \substr($filename, 0, -4);
-        $fileExtension = \substr($filename, -4);
-        $newFileName = $file.'-'.$request->user()->first_name.'-'.$request->user()->last_name.$fileExtension;
-        return $newFileName;
-    }
-
     public function submit_listing_documents(Request $request)
     {
         $rules = [
-            'listing_id' => 'required',
-            'gas_certificate' => 'required|mimes:pdf|max:4096',
-            'gas_certificate_expiry_date' => 'required|date',
-            'electrical_certificate' => 'required|mimes:pdf|max:4096',
-            'electrical_certificate_expiry_date' => 'required|date',
-            'detectors_certificate' => 'required|mimes:pdf|max:4096',
-            'detectors_certificate_expiry_date' => 'required|date',
-            'emergency_lighting_certificate' => 'required|mimes:pdf|max:4096',
-            'emergency_lighting_certificate_expiry_date' => 'required|date',
-            'fire_risk_certificate' => 'required|mimes:pdf|max:4096',
-            'fire_risk_certificate_expiry_date' => 'required|date',
-            'pat_certificate' => 'required|mimes:pdf|max:4096',
-            'pat_certificate_expiry_date' => 'required|date',
-            'insurance_certificate' => 'required|mimes:pdf|max:4096',
-            'insurance_certificate_expiry_date' => 'required|date',
-            'ownership_certificate' => 'required|mimes:pdf|max:4096',
-            'ownership_certificate_expiry_date' => 'required|date'
+            'listing_id' => ['required', 'integer'],
+            'listing_documents' => ['required', 'array', 'size:'.count(ListingDocumentTypesEnum::toArray())],
+            'listing_documents.*' => ['required', 'mimes:pdf'],
+            'expiry_dates' => ['required', 'array'],
+            'expiry_dates.*' => ['required', 'date'],
+            'proof' => ['sometimes','array'],
         ];
 
-        $message = [
-            'required' => 'This field is required',
-            'mimes:pdf' => 'This file should be in pdf format',
-            'date' => 'The input in this field should be a date',
+        $messages = [
+            'listing_documents.required' => 'Please upload all required documents.',
+            'listing_documents.size' => 'Please upload all required documents.',
+            'listing_documents.*.mimes' => 'Only PDFs are accepted.',
+            'expiry_dates.*.required' => 'An expiry date is required',
         ];
 
-        Validator::make($request->all(), $rules, $message)->validate();
+        $validated = $request->validate($rules, $messages);
 
-        $listingDocument = new ListingDocuments;
-        $listingDocument->listing_id = $request->listing_id;
-
-        // Format and store file to storage
-        $gasCertificate = $this->_changeFileName($request, $request->file('gas_certificate')->getClientOriginalName());
-        $listingDocument->gas_certificate = $gasCertificate;
-        $request->file('gas_certificate')->storeAs('public/listing/documents', $gasCertificate);
-        $listingDocument->gas_certificate_expiry_date = $request->gas_certificate_expiry_date;
-
-        $electricalCertificate = $this->_changeFileName($request, $request->file('electrical_certificate')->getClientOriginalName());
-        $listingDocument->electrical_certificate = $electricalCertificate;
-        $request->file('electrical_certificate')->storeAs('public/listing/documents', $electricalCertificate);
-        $listingDocument->electrical_certificate_expiry_date = $request->electrical_certificate_expiry_date;
-
-        $detectorsCertificate = $this->_changeFileName($request, $request->file('detectors_certificate')->getClientOriginalName());
-        $listingDocument->detectors_certificate = $detectorsCertificate;
-        $request->file('detectors_certificate')->storeAs('public/listing/documents', $detectorsCertificate);
-        $listingDocument->detectors_certificate_expiry_date = $request->detectors_certificate_expiry_date;
-
-        $emergency_lightingCertificate = $this->_changeFileName($request, $request->file('emergency_lighting_certificate')->getClientOriginalName());
-        $listingDocument->emergency_lighting_certificate = $emergency_lightingCertificate;
-        $request->file('emergency_lighting_certificate')->storeAs('public/listing/documents', $emergency_lightingCertificate);
-        $listingDocument->emergency_lighting_certificate_expiry_date = $request->emergency_lighting_certificate_expiry_date;
-
-        $fire_riskCertificate = $this->_changeFileName($request, $request->file('fire_risk_certificate')->getClientOriginalName());
-        $listingDocument->fire_risk_certificate = $fire_riskCertificate;
-        $request->file('fire_risk_certificate')->storeAs('public/listing/documents', $fire_riskCertificate);
-        $listingDocument->fire_risk_certificate_expiry_date = $request->fire_risk_certificate_expiry_date;
-
-        $patCertificate = $this->_changeFileName($request, $request->file('pat_certificate')->getClientOriginalName());
-        $listingDocument->pat_certificate = $patCertificate;
-        $request->file('pat_certificate')->storeAs('public/listing/documents', $patCertificate);
-        $listingDocument->pat_certificate_expiry_date = $request->pat_certificate_expiry_date;
-
-        $insuranceCertificate = $this->_changeFileName($request, $request->file('insurance_certificate')->getClientOriginalName());
-        $listingDocument->insurance_certificate = $insuranceCertificate;
-        $request->file('insurance_certificate')->storeAs('public/listing/documents', $insuranceCertificate);
-        $listingDocument->insurance_certificate_expiry_date = $request->insurance_certificate_expiry_date;
-
-        $ownershipCertificate = $this->_changeFileName($request, $request->file('ownership_certificate')->getClientOriginalName());
-        $listingDocument->ownership_certificate = $ownershipCertificate;
-        $request->file('ownership_certificate')->storeAs('public/listing/documents', $ownershipCertificate);
-        $listingDocument->ownership_certificate_expiry_date = $request->ownership_certificate_expiry_date;
+        foreach($validated['listing_documents'] as $document_type => $file) {
+            ListingDocuments::create([
+                'listing_id' => $validated['listing_id'],
+                'document_type' =>  $document_type,
+                'filename' => pathinfo($file->store('documents', 'listing'), PATHINFO_BASENAME),
+                'expiry_date' => $validated['expiry_dates'][$document_type],
+            ]);
+        }
 
         if ($request->has('proof')) {
-            $request->merge(['proof' => implode(',', (array)$request->get('proof'))]);
-            $listingDocument->proofs = $request->proof;
+            $listing = Listing::find($request->listing_id);
+
+            if($request->has('proof.fire_blanket')) {
+                $listing->fire_blanket = 1;
+            }
+            if($request->has('proof.co_monitors')) {
+                $listing->co_monitors = 1;
+            }
+            if($request->has('proof.flame_retardant_spray')) {
+                $listing->flame_retardant_spray = 1;
+            }
+
+            $listing->save();
         }
 
-        if ($listingDocument->save()) {
-            return redirect()->route('listing.add.listing_images', $request->listing_id);
-        }
-
-        return redirect('listing/add-listingdocuments', $request->listing_id)->withError('An error occured. Please try again.');
+        return redirect()->route('listing.add.listing_images', $request->listing_id);
     }
 
     public function submit_listing_images(Request $request)
     {
-        // $rules = [
-        //     'listing_id' => 'required',
-        //     'file' => 'required|mimes:png,jpg,jpeg'
-        // ];
+        abort_unless($request->file('file'), Response::HTTP_NOT_FOUND);
 
-        // $message = [
-        //     'required' => 'This field is required',
-        //     'mimes:png,jpg,jpeg' => 'Incorrect file format'
-        // ];
+        $listing_image = ListingImage::create([
+            'listing_id' => $request->listing_id,
+            'image_name' => pathinfo($request->file('file')->store('images', 'listing'), PATHINFO_BASENAME),
+        ]);
 
-        // Validator::make($request->all(), $rules, $message)->validate();
-
-        $listingImage = new ListingImage;
-
-        if ($request->file()) {
-            $filenameWithExt = $request->file->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $fileExtension = $request->file->getClientOriginalExtension();
-            $filenameToStore = $filename.'-'.time().'-'.$fileExtension;
-            $filepath = $request->file('file')->storeAs('public/listing/images', $filenameToStore);
-
-            $listingImage->listing_id = $request->listing_id;
-            $listingImage->image_name = $filenameToStore;
-            $listingImage->save();
-
-            return redirect()->route('landlord.index')->with('success', 'Property was added successfully');
-        }
-
-        return redirect()->route('listing.add.submit_images')->withErrors('An error occurred. Please try again.');
+        return response()->json($listing_image);
     }
 
-    public function delete_listing($id)
+    public function delete_removed_image(ListingImage $listing_image)
     {
-        $listingImages = ListingImage::where('listing_id', '=', $id)->get();
-        foreach ($listingImages as $image) {
-            unlink(public_path('storage/listing/images/'.$image->image_name));
+        if(!$listing_image->delete()){
+            return response()
+                ->json(['message' => 'Could not delete image'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $listingDocuments = ListingDocuments::where('listing_id', '=', $id)->get();
-        foreach ($listingDocuments as $document) {
-            unlink(public_path('storage/listing/documents/'.$document->gas_certificate));
-            unlink(public_path('storage/listing/documents/'.$document->electrical_certificate));
-            unlink(public_path('storage/listing/documents/'.$document->detectors_certificate));
-            unlink(public_path('storage/listing/documents/'.$document->emergency_lighting_certificate));
-            unlink(public_path('storage/listing/documents/'.$document->fire_risk_certificate));
-            unlink(public_path('storage/listing/documents/'.$document->pat_certificate));
-            unlink(public_path('storage/listing/documents/'.$document->insurance_certificate));
-            unlink(public_path('storage/listing/documents/'.$document->ownership_certificate));
-        }
-        if (ListingImage::where('listing_id', '=', $id)->delete()) {
-            if (ListingDocuments::where('listing_id', '=', $id)->delete()) {
-                if (ClientGroup::where('listing_id', '=', $id)->delete()) {
-                    if (Listing::destroy($id)) {
-                        return redirect()->route('listing.index')->with('success', 'Listing has been deleted successfully');
-                    }
-                }
-            }
-        }
+        return response()->json(['message' => 'Deleted image successfully.']);
+    }
 
-        return redirect()->route('listing.index')->withErrors('An error occured. Please try again');
+    public function delete_listing(Listing $listing)
+    {
+        $listing->load(['listingimage', 'documents', 'clientgroup']);
+
+        $listing->listingimage->each(fn(ListingImage $image) => $image->delete());
+
+        $listing->documents->each(fn(ListingDocuments $document) => $document->delete());
+
+        $listing->clientgroup->delete();
+
+        $listing->delete();
+
+        return redirect()->route('listing.view.all')->with('success', 'Listing has been deleted successfully');
     }
 }

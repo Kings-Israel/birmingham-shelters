@@ -23,6 +23,10 @@
     <!-- Custom  CSS -->
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
 
+    <script defer>
+        var BASE_URL = '{!! url('/') !!}';
+    </script>
+
     @livewireStyles
 
     @stack('styles')
@@ -78,7 +82,7 @@
             document.getElementById("filter_search").style.display = "none";
         }
         $(function () {
-            $(".alert").delay(5000).slideUp(300);
+            $(".alert.flash").delay(5000).slideUp(300);
         })
     </script>
 

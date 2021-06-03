@@ -1,4 +1,14 @@
 <x-app-layout pageTitle="User">
+    @if (session('error'))
+        <div class="alert alert-danger">
+            <p>{{ session('error') }}</p>
+        </div>
+    @elseif (session('success'))
+        <div class="alert alert-success">
+            <p>{{ session('success') }}</p>
+        </div>
+    @endif
+    
     @include('partials.hero-banner')
 
     <!-- ============================ Step How To Use Start ================================== -->
