@@ -15,6 +15,13 @@ class ListingImage extends Model
         'listing_id', 'image_name'
     ];
 
+    protected static function booted(): void
+    {
+        static::deleted(function(ListingImage $image) {
+            Storage::disk('listing')->delete('images/'.$image->image_name);
+        });
+    }
+
     public function url(): string
     {
         return Storage::disk('listing')->url('images/'.$this->image_name);

@@ -10,7 +10,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandlordListingController;
 use App\Http\Controllers\PostAjaxRedirect;
 use App\Http\Livewire\AdminListingsList;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +22,6 @@ Auth::routes(['verify' => true]);
 
 Route::view('/profile', 'user-profile')->middleware(['auth', 'verified'])->name('user-profile');
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/loggedIn', [PostAjaxRedirect::class, 'ajaxRedirect'])->name('loggedIn');
 Route::get('/user/home', [HomeController::class, 'user'])->name('user.index');
 Route::get('/landlord/home', [HomeController::class, 'landlord'])->name('landlord.index');
@@ -40,7 +38,7 @@ Route::post('listing/add/basicinfo', [LandlordListingController::class, 'submit_
 Route::post('listing/add/clientinfo', [LandlordListingController::class, 'submit_clientgroup_info'])->name('listing.add.submit_client_info');
 Route::post('listing/add/listingdocuments', [LandlordListingController::class, 'submit_listing_documents'])->name('listing.add.submit_documents');
 Route::post('listing/add/listingimages', [LandlordListingController::class, 'submit_listing_images'])->name('listing.add.submit_images');
-Route::delete('listing/delete/{id}', [LandlordListingController::class, 'delete_listing'])->name('listing.delete');
+Route::delete('listing/{listing}/delete', [LandlordListingController::class, 'delete_listing'])->name('listing.delete');
 
 Route::delete('listing-images/{listing_image}/delete', [LandlordListingController::class, 'delete_removed_image'])->name('listing-images.delete');
 

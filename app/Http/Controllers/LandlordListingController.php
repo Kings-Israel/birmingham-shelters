@@ -256,27 +256,18 @@ class LandlordListingController extends Controller
         return response()->json(['message' => 'Deleted image successfully.']);
     }
 
-    public function delete_listing($id)
+    public function delete_listing(Listing $listing)
     {
-        $listingImages = ListingImage::where('listing_id', '=', $id)->get();
-        foreach ($listingImages as $image) {
-            unlink(public_path('storage/listing/images/'.$image['image_name']));
-        }
+        $listing->load(['listingimage', 'documents', 'clientgroup']);
 
-        $listingDocuments = ListingDocuments::where('listing_id', '=', $id)->get();
-        foreach ($listingDocuments as $document) {
-            unlink(public_path('storage/listing/documents/'.$document['filename']));
-        }
-        if (ListingImage::where('listing_id', '=', $id)->delete()) {
-            if (ListingDocuments::where('listing_id', '=', $id)->delete()) {
-                if (ClientGroup::where('listing_id', '=', $id)->delete()) {
-                    if (Listing::destroy($id)) {
-                        return redirect()->route('listing.view.all')->with('success', 'Listing has been deleted successfully');
-                    }
-                }
-            }
-        }
+        $listing->listingimage->each(fn(ListingImage $image) => $image->delete());
 
-        return redirect()->route('listing.view.all')->withError('An error occured. Please try again');
+        $listing->documents->each(fn(ListingDocuments $document) => $document->delete());
+
+        $listing->clientgroup->delete();
+
+        $listing->delete();
+
+        return redirect()->route('listing.view.all')->with('success', 'Listing has been deleted successfully');
     }
 }

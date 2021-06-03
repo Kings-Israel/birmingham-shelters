@@ -41,7 +41,7 @@
                                 <div class="col-md-12 col-sm-12 col-md-12">
                                     <div class="singles-dashboard-list">
                                         <div class="sd-list-left">
-                                            <img src="{{ asset('storage/listing/images/'.$listing->listingimage[0]->image_name) }}" class="img-fluid" alt="" />
+                                            <img src="{!! $listing->coverImageUrl() !!}" class="img-fluid" alt="" />
                                         </div>
                                         <div class="sd-list-right">
                                             <h4 class="listing_dashboard_title"><a href="/listing/{{ $listing->id }}" class="theme-cl">{{ $listing->name }}</a></h4>

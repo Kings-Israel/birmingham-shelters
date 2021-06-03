@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Storage;
 
 class Listing extends Model
 {
@@ -42,7 +41,7 @@ class Listing extends Model
                     $value => [
                         'label' => $label,
                         'value' => $this->attributes[$value],
-                        ]
+                    ]
                 ];
             });
     }
@@ -81,7 +80,7 @@ class Listing extends Model
 
     public function getOtherRoomsListAttribute(): Collection
     {
-        if($this->other_rooms != '' || null) {
+        if ($this->other_rooms != '' || null) {
             return collect(explode(',', $this->other_rooms));
         }
     }
