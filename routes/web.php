@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminsManagementController;
 use App\Http\Controllers\UserListingController;
 use App\Http\Controllers\UserMetadataController;
 use App\Http\Controllers\ListingInquiryController;
+use App\Http\Controllers\UserBookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandlordListingController;
 use App\Http\Controllers\PostAjaxRedirect;
@@ -65,6 +66,9 @@ Route::get('/user/listing/{listing}', [UserListingController::class, 'listing'])
 
 // Listing enquiry routes
 Route::post('/user/listing/inquiry', [ListingInquiryController::class, 'submit_inquiry'])->name('user.submit.inquiry');
+
+// User Listing Booking Controller
+Route::post('/user/listing/booking', [UserBookingController::class, 'submit_booking'])->name('user.submit.booking');
 
 // Accomodation referral forms wizard
 Route::get('/user/referral', [UserMetadataController::class, 'show_select_referral_type_form'])->name('referral-form.show');

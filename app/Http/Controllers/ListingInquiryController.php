@@ -36,14 +36,4 @@ class ListingInquiryController extends Controller
         return redirect()->back()->withError('There was an error while sending the inquiry. Please try again');
 
     }
-
-    public function submit_booking(Request $request)
-    {
-         // Check if user has metadata
-         if (UserMetadata::where('user_id', $request->user_id)->exists()) {
-            return redirect()->route('user.listing.all')->with('success', 'Your inquiry has been sent');
-        } else {
-            return redirect()->route('referral-form.show')->with('success', 'Your query has been sent. Please enter the following information to recieve better information for your requirements.');
-        }
-    }
 }

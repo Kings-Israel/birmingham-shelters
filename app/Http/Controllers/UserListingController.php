@@ -10,8 +10,8 @@ class UserListingController extends Controller
 {
     public function listings()
     {
-        $listings = Listing::all();
-        return view('user.listings.all-listings')->with('listings', $listings);
+        $listings = Listing::paginate(10);
+        return view('user.listings.all-listings', compact('listings'));
     }
 
     public function listing(Listing $listing)

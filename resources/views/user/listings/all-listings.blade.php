@@ -30,14 +30,13 @@
             </div>
         </div>
     </div>
-    
     <section class="bg-light">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12 col-md-12">
                     <div class="item-shorting-box">
                         <div class="item-shorting clearfix">
-                            <div class="left-column pull-left"><h4 class="m-0">Showing 1-10 of 142 Results</h4></div>
+                            <div class="left-column pull-left"><h4 class="m-0">Showing {{ $listings->currentPage() }}-{{ count($listings->items()) }} of {{ $listings->total() }} Results</h4></div>
                         </div>
                     </div>
                 </div>
@@ -77,6 +76,34 @@
                                 </div>
                             </div>
                         @endforeach
+                        <!-- Pagination -->
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <ul class="pagination p-center">
+                                    @if (!$listings->onFirstPage())
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $listings->previousPageUrl() }}" aria-label="Previous">
+                                            <span class="ti-arrow-left" disabled></span>
+                                            <span class="sr-only">Previous</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    <li class="page-item active"><a class="page-link" href="#">{{ $listings->currentPage() }}</a></li>
+                                    @if ($listings->hasPages())
+                                        <li class="page-item"><a class="page-link" href="#">...</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">{{ $listings->lastPage() }}</a></li>
+                                    @endif
+                                    @if ($listings->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $listings->nextPageUrl() }}" aria-label="Next">
+                                            <span class="ti-arrow-right"></span>
+                                            <span class="sr-only">Next</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -325,6 +325,6 @@ class UserMetadataController extends Controller
             return redirect()->route('user.index')->with('success', "Your information has been saved successfully");
         }
 
-        return redirect()->back()->withErrors('An error occurred. Please tru y again.');
+        return redirect()->back()->withErrors('An error occurred. Please try again.');
     }
 }

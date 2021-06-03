@@ -89,7 +89,7 @@
                             <br>
 
                             <div class="listing-submit-button" id="submit_buttons" hidden>
-                                @include('partials.listing-buttons')
+                                @include('partials.referral-buttons')
                             </div>
                     </div>
                 </div>

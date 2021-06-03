@@ -38,9 +38,9 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function usermetadata(): HasOne
+    public function usermetadata()
     {
-        return $this->hasOne(UserMetadata::class);
+        return $this->hasMany(UserMetadata::class);
     }
 
     public function scopeAdmins(Builder $query): Builder
@@ -71,5 +71,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isOfType(UserTypeEnum $user_type): bool
     {
         return $this->user_type === $user_type;
+    }
+
+    /**
+     * Get all of the bookings for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
     }
 }

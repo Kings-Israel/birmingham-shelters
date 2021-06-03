@@ -34,6 +34,18 @@
                                 <h6>Address: </h6><span>{{ $listing->address }}</span><br>
                                 <h6>Postcode: </h6><span>{{ $listing->postcode }}</span>
                             </div>
+                            <hr>
+                            @guest
+                                <p>Please login or sign up to join the waiting list for this room</p>
+                            @endguest
+                            @auth
+                                <form action="{{ route('user.submit.booking') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" >
+                                    <input type="hidden" name="listing_id" value="{{ $listing->id }}">
+                                    <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
+                                </form>
+                            @endauth
                         </div>
 
                     </div>
@@ -171,7 +183,14 @@
                                 </div>
                             </form>
                         </div>
-                    
+                        @auth
+                            <form action="{{ route('user.submit.booking') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="listing_id" value="{{ $listing->id }}">
+                                <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
+                            </form>
+                        @endauth
                     </div>
                 </div>
             </div>

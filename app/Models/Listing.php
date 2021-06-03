@@ -80,4 +80,14 @@ class Listing extends Model
             return collect(explode(',', $this->features));
         }
     }
+
+    /**
+     * Get all of the bookings for the Listing
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

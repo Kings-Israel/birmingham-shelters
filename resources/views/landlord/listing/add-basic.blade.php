@@ -78,14 +78,7 @@
 
                                         <div class="form-group col-md-4">
                                             <label>Living Rooms</label>
-                                            <select id="living_rooms" id="living_rooms" name="living_rooms" class="form-control" requireder>
-                                                <option value="">&nbsp;</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
+                                            <input type="number" id="living_rooms" name="living_rooms" class="form-control" min="0" required />
                                             @error('living_rooms')
                                             <strong class="error-message">{{ $message }}</strong>
                                         @enderror
@@ -93,14 +86,7 @@
         
                                         <div class="form-group col-md-4">
                                             <label>Bedrooms</label>
-                                            <select id="bedrooms" id="bedrooms" name="bedrooms" class="form-control" value="{{ old('bedrooms') }}" required>
-                                                <option value="">&nbsp;</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
+                                            <input type="number" id="bedrooms" name="bedrooms" class="form-control" value="{{ old('bedrooms') }}" min="0" required />
                                             @error('bedrooms')
                                                 <strong class="error-message">{{ $message }}</strong>
                                             @enderror
@@ -108,14 +94,7 @@
                                         
                                         <div class="form-group col-md-4">
                                             <label>Bathrooms</label>
-                                            <select id="bathrooms" id="bathrooms" name="bathrooms" class="form-control" value="{{ old('bathrooms') }}" required>
-                                                <option value="">&nbsp;</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
+                                            <input type="number" id="bathrooms" name="bathrooms" class="form-control" value="{{ old('bathrooms') }}" min="0" required />
                                             @error('bathrooms')
                                                 <strong class="error-message">{{ $message }}</strong>
                                             @enderror
@@ -127,14 +106,7 @@
         
                                         <div class="form-group col-md-4">
                                             <label>Toilets</label>
-                                            <select id="toilets" id="toilets" name="toilets" class="form-control" value="{{ old('toilets') }}" required>
-                                                <option value="">&nbsp;</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
+                                            <input type="number" id="toilets" name="toilets" class="form-control" value="{{ old('toilets') }}" min="0" required />
                                             @error('toilets')
                                                 <strong class="error-message">{{ $message }}</strong>
                                             @enderror
@@ -142,14 +114,7 @@
         
                                         <div class="form-group col-md-4">
                                             <label>Kitchen</label>
-                                            <select id="kitchen" id="kitchen" name="kitchen" class="form-control" value="{{ old('kitchen') }}" required>
-                                                <option value="">&nbsp;</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
+                                            <input type="number" id="kitchen" name="kitchen" class="form-control" value="{{ old('kitchen') }}" min="0" required>
                                             @error('kitchen')
                                                 <strong class="error-message">{{ $message }}</strong>
                                             @enderror

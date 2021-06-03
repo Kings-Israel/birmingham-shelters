@@ -5,7 +5,7 @@
             <div class="hero-search-2">
                 <h2 class="text-light mb-4">Birmingham Shelters</h2>
                 <p class="lead-i text-light">
-                    Where we link those impacted by homelessness with quality-assured supported accommodation. Join the platform as either a landlord or a room seeker.
+                    Where we link those impacted by homelessness with quality-assured supported accommodation. @guest Join the platform as either a landlord or a room seeker @endguest
                 <p>
                     <div class="mt-4">
                         @guest

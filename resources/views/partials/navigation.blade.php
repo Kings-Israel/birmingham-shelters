@@ -2,7 +2,7 @@
     <div class="container">
         <nav id="navigation" class="navigation navigation-landscape">
             <div class="nav-header">
-                <a class="nav-brand" href="{{ url('/') }}">
+                <a class="nav-brand" href="#">
                     <img src="{{ asset('img/sb-mock-logo.png') }}" class="logo" alt="" />
                 </a>
                 <div class="nav-toggle"></div>

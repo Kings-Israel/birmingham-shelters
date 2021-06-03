@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -28,7 +30,8 @@ class HomeController extends Controller
 
     public function user()
     {
-        return view('user.home');
+        $user_details = User::with('usermetadata', 'bookings')->where('id', '=', Auth::user()->id)->get();
+        return view('user.home')->with('user_details', $user_details);
     }
 
     public function landlord()
