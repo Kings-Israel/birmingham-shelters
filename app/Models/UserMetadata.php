@@ -22,4 +22,14 @@ class UserMetadata extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
+    /**
+     * Get all of the booking for the UserMetadata
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function booking()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

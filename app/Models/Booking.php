@@ -18,9 +18,9 @@ class Booking extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function usermetadata()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(UserMetadata::class);
     }
 
     /**
