@@ -19,6 +19,11 @@ class ListingDocuments extends Model
         'expiry_date' => 'date',
     ];
 
+    public function url(): string
+    {
+        return Storage::disk('listing')->url('documents/'.$this->filename);
+    }
+
     public function listing(): BelongsTo
     {
         return $this->belongsTo(Listing::class);

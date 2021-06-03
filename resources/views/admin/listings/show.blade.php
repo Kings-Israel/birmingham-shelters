@@ -186,10 +186,7 @@
                                                 <small class="text-muted">EXPIRY: {{ $document->expiry_date->format('F d, Y') }}</small>
                                             </p>
 
-                                            <div>
-                                                <a href="#" class="btn btn-sm btn-link">Download</a>
-                                                <button class="btn btn-sm btn-secondary">View</button>
-                                            </div>
+                                            <livewire:admin-listing-document-actions :document="$document" :listing="$listing"/>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -204,4 +201,7 @@
     </section>
     <!-- ============================ Property Detail End ================================== -->
 
+    @push('modals')
+        @include('partials.preview-document-modal')
+    @endpush
 </x-admin-layout>
