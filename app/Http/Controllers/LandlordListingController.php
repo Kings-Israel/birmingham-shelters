@@ -11,8 +11,7 @@ use App\Models\ListingImage;
 use Auth;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
 class LandlordListingController extends Controller
@@ -187,14 +186,6 @@ class LandlordListingController extends Controller
         return redirect('listing/add-clientgroupinfo', $request->listing_id)->withError('An error occured. Please try again.');
     }
 
-    private function _changeFileName(Request $request, string $filename)
-    {
-        $file = \substr($filename, 0, -4);
-        $fileExtension = \substr($filename, -4);
-        $newFileName = $file.'-'.$request->user()->first_name.'-'.$request->user()->last_name.time().$fileExtension;
-        return $newFileName;
-    }
-
     public function submit_listing_documents(Request $request)
     {
         $rules = [
@@ -216,13 +207,10 @@ class LandlordListingController extends Controller
         $validated = $request->validate($rules, $messages);
 
         foreach($validated['listing_documents'] as $document_type => $file) {
-            $filename = $file
-                ->storeAs('documents', $this->_changeFileName($request, $file->getClientOriginalName()), 'listing');
-
             ListingDocuments::create([
                 'listing_id' => $validated['listing_id'],
                 'document_type' =>  $document_type,
-                'filename' => $filename,
+                'filename' => pathinfo($file->store('documents', 'listing'), PATHINFO_BASENAME),
                 'expiry_date' => $validated['expiry_dates'][$document_type],
             ]);
         }
@@ -248,23 +236,24 @@ class LandlordListingController extends Controller
 
     public function submit_listing_images(Request $request)
     {
-        $listingImage = new ListingImage;
+        abort_unless($request->file('file'), Response::HTTP_NOT_FOUND);
 
-        if ($request->file()) {
-            $filenameWithExt = $request->file->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $fileExtension = $request->file->getClientOriginalExtension();
-            $filenameToStore = $filename.'-'.time().'-'.$fileExtension;
-            $filepath = $request->file('file')->storeAs('public/listing/images', $filenameToStore);
+        $listing_image = ListingImage::create([
+            'listing_id' => $request->listing_id,
+            'image_name' => pathinfo($request->file('file')->store('images', 'listing'), PATHINFO_BASENAME),
+        ]);
 
-            $listingImage->listing_id = $request->listing_id;
-            $listingImage->image_name = $filenameToStore;
-            $listingImage->save();
+        return response()->json($listing_image);
+    }
 
-            return redirect()->route('landlord.index')->with('success', 'Property was added successfully');
+    public function delete_removed_image(ListingImage $listing_image)
+    {
+        if(!$listing_image->delete()){
+            return response()
+                ->json(['message' => 'Could not delete image'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        return redirect()->route('listing.add.submit_images')->withError('An error occurred. Please try again.');
+        return response()->json(['message' => 'Deleted image successfully.']);
     }
 
     public function delete_listing($id)
