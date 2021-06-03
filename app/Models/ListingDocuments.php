@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ListingDocumentTypesEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,6 +10,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ListingDocuments extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    protected $casts = [
+        'document_type' => ListingDocumentTypesEnum::class,
+        'expiry_date' => 'date',
+    ];
 
     public function listing(): BelongsTo
     {

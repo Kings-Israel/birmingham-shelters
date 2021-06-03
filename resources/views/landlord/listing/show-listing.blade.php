@@ -15,7 +15,7 @@
                         </div>
                         <p style="margin-bottom: 0;">
                             Status:
-                            @if ($listing->verified_at == null)
+                            @if ($listing->verified_at)
                             <strong class="text-success">Verified</strong>
                             @else
                             <strong class="text-warning"> Not Verified </strong>

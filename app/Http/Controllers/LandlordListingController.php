@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ListingDocumentTypesEnum;
+use App\Enums\ListingProofsEnum;
 use App\Models\ClientGroup;
 use App\Models\Listing;
 use App\Models\ListingDocuments;
@@ -9,6 +11,7 @@ use App\Models\ListingImage;
 use Auth;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -27,37 +30,43 @@ class LandlordListingController extends Controller
 
     public function basic_info()
     {
-        return view('landlord.listing.add-basic');
+        $features = [
+            'Air Condition',
+            'Internet',
+            'Garden',
+            'Bedding',
+            'Microwave',
+            'Balcony',
+            'Central Heating',
+            'Parking',
+            'Pre-Payment Meters',
+        ];
+
+        return view('landlord.listing.add-basic', ['features' => $features]);
     }
 
     public function client_info($id)
     {
-        return view('landlord.listing.add-clientgroup')->with('id', $id);
+        $client_groups = [
+            'Mental Health',
+            'Homeless',
+            'Drug Dependency',
+            'Alcohol Dependency',
+            'Learning Disability',
+        ];
+
+        return view('landlord.listing.add-clientgroup', [
+            'id' => $id,
+            'client_groups' => $client_groups,
+        ]);
     }
 
     public function listing_documents($id)
     {
-        $listing_documents = [
-            'Gas Certificate',
-            'Electrical Certificate Report',
-            'Fire Alarm/Smoke Detectors',
-            'Emergency Lighting',
-            'Fire Risk Assessment',
-            'PAT',
-            'Insurance',
-            'Proof of Ownership/Lease'
-        ];
-
-        $proofs = [
-            'fire_blanket' => 'Proof of Fire Blanket',
-            'co_monitors' => 'Proof of CO Monitors',
-            'flame_retardant_spray' => 'Proof of Flame Retardant Spray'
-        ];
-
         return view('landlord.listing.add-listingdocuments')->with([
-            'id' => $id, 
-            'listing_documents' => $listing_documents,
-            'proofs' => $proofs
+            'id' => $id,
+            'listing_document_types' => ListingDocumentTypesEnum::toArray(),
+            'proofs' => ListingProofsEnum::toArray(),
         ]);
     }
 
@@ -188,41 +197,48 @@ class LandlordListingController extends Controller
 
     public function submit_listing_documents(Request $request)
     {
+        $rules = [
+            'listing_id' => ['required', 'integer'],
+            'listing_documents' => ['required', 'array', 'size:'.count(ListingDocumentTypesEnum::toArray())],
+            'listing_documents.*' => ['required', 'mimes:pdf'],
+            'expiry_dates' => ['required', 'array'],
+            'expiry_dates.*' => ['required', 'date'],
+            'proof' => ['sometimes','array'],
+        ];
 
-        if(!$request->has('listing_document')) {
-            return redirect()->back()->withError('Please upload the requested files');
-        }
-        
-        $counter = 0;
-        // Save the file to DB and storage
-        foreach($request->listing_document as $document => $file)
-        {
-            $filenameToStore = $this->_changeFileName($request, $file->getClientOriginalName());
-            if ($file->storeAs('public/listing/documents', $filenameToStore)) {
-                $document_to_save = new ListingDocuments;
-                $document_to_save->listing_id = $request->listing_id;
-                $document_to_save->document_type = $document;
-                $document_to_save->filename = $filenameToStore;
-                $document_to_save->expiry_date = $request->expiry_date[$counter];
-                $document_to_save->save();
-                $counter++;
-            } else {
-                return redirect()->back()->withError('An error occurred while uploading the files.');
-            }
+        $messages = [
+            'listing_documents.required' => 'Please upload all required documents.',
+            'listing_documents.size' => 'Please upload all required documents.',
+            'listing_documents.*.mimes' => 'Only PDFs are accepted.',
+            'expiry_dates.*.required' => 'An expiry date is required',
+        ];
+
+        $validated = $request->validate($rules, $messages);
+
+        foreach($validated['listing_documents'] as $document_type => $file) {
+            $filename = $file
+                ->storeAs('documents', $this->_changeFileName($request, $file->getClientOriginalName()), 'listing');
+
+            ListingDocuments::create([
+                'listing_id' => $validated['listing_id'],
+                'document_type' =>  $document_type,
+                'filename' => $filename,
+                'expiry_date' => $validated['expiry_dates'][$document_type],
+            ]);
         }
 
         if ($request->has('proof')) {
             $listing = Listing::find($request->listing_id);
-    
+
             if($request->has('proof.fire_blanket')) {
                 $listing->fire_blanket = 1;
-            } 
+            }
             if($request->has('proof.co_monitors')) {
                 $listing->co_monitors = 1;
-            } 
+            }
             if($request->has('proof.flame_retardant_spray')) {
                 $listing->flame_retardant_spray = 1;
-            } 
+            }
 
             $listing->save();
         }
