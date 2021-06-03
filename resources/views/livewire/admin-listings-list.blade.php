@@ -125,7 +125,6 @@
                                         <div class="price-features-wrapper">
                                             <ul class="list-unstyled">
                                                 <li><span class="fw-bold">Postcode:</span> {{ $listing->postcode }}</li>
-                                                <li><span class="fw-bold">Local Authority:</span> {{ $listing->local_authority_area }}</li>
                                                 <li><span class="fw-bold">Landlord:</span> {{ $listing->user->full_name }}</li>
                                             </ul>
 

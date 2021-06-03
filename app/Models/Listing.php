@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ListingProofsEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,6 +32,19 @@ class Listing extends Model
     public function coverImageUrl(): string
     {
         return $this->listingimage->first()->url();
+    }
+
+    public function getProofs(): Collection
+    {
+        return collect(ListingProofsEnum::toArray())
+            ->flatMap(function ($label, $value) {
+                return [
+                    $value => [
+                        'label' => $label,
+                        'value' => $this->attributes[$value],
+                        ]
+                ];
+            });
     }
 
     public function user(): BelongsTo
@@ -72,11 +86,9 @@ class Listing extends Model
         }
     }
 
-    public function getFeaturesListAttribute(): Collection
+    public function getFeaturesListAttribute()
     {
-        if($this->features != '' || null) {
-            return collect(explode(',', $this->features));
-        }
+        return isset($this->features) ? collect(explode(',', $this->features)) : null;
     }
 
     /**

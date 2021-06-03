@@ -34,18 +34,12 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        if (Auth::user()->isAdministrator()) {
-            return route('admin-dashboard');
-        }
+        $user_type_home_map = [
+            'super_admin' => route('admin-dashboard'),
+            'admin' => route('admin-dashboard'),
+            'landlord' => route('landlord.index'),
+        ];
 
-        $role = Auth::user()->user_type;
-
-        if ($role == 'user') {
-            return RouteServiceProvider::USER_HOME;
-        } elseif ($role == 'landlord') {
-            return RouteServiceProvider::LANDLORD_HOME;
-        } elseif($role == 'volunteer') {
-            return RouteServiceProvider::VOLUNTEER_HOME;
-        }
+        return $user_type_home_map[auth()->user()->user_type->value] ?? '/';
     }
 }

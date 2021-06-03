@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ApplicantAddressInfo extends Model
 {
@@ -13,11 +14,6 @@ class ApplicantAddressInfo extends Model
         'user_metadata_id', 'address', 'moved_in', 'moved_out', 'tenure', 'landlord_details', 'reason_for_leaving'
     ];
 
-    /**
-     * Get the usermetadata that owns the ApplicantAddressInfo
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function usermetadata(): BelongsTo
     {
         return $this->belongsTo(UserMetadata::class);

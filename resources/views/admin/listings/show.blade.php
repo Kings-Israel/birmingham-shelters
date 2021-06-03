@@ -12,7 +12,7 @@
             <h3 class="text-light">{{ $listing->name }}</h3>
             <div class="text-light fw-bold d-flex">
                 <span><i class="ti ti-pin m-r-5"></i> {{$listing->address}} ({{ $listing->postcode }})</span>
-                <span class="m-l-15"><i class="ti ti-user m-r-5"></i> {{ $listing->user->full_name }}</span>
+                <span class="m-l-15" title="Owner"><i class="ti ti-user m-r-5"></i> {{ $listing->user->full_name }}</span>
             </div>
             <div class="m-t-10">
                 <livewire:admin-verify-listing :listing="$listing"/>
@@ -27,13 +27,13 @@
             <div class="row justify-content-center">
                 <div class="col-md-10">
 
-                    <!-- property main detail -->
+                    <!-- Rooms and Features -->
                     <div class="property_block_wrap style-2">
 
                         <div class="property_block_wrap_header">
                             <a data-bs-toggle="collapse" data-parent="#features" data-bs-target="#clOne"
                                 aria-controls="clOne" href="javascript:void(0);" aria-expanded="false">
-                                <h4 class="property_block_title">Detail & Features</h4>
+                                <h4 class="property_block_title">Rooms & Features</h4>
                             </a>
                         </div>
                         <div id="clOne" class="panel-collapse collapse show" aria-labelledby="clOne"
@@ -46,15 +46,23 @@
                                     <li><strong>Bathrooms:</strong>{{ $listing->bathrooms }}</li>
                                     <li><strong>Toilets:</strong>{{ $listing->toilets }}</li>
                                     <li><strong>Kitchen:</strong>{{ $listing->kitchen }}</li>
-
-                                    {{-- <li><strong>Status:</strong>Active</li> --}}
-
                                 </ul>
                                 @if ($listing->other_rooms)
                                 <h6 class="property_block_title">Other Rooms:</h6>
                                 <p>{{ $listing->other_rooms }}</p>
                                 @endif
                             </div>
+
+                            @if($listing->features_list)
+                            <div class="block-body">
+                                <h6 class="property_block_title">Features</h6>
+                                <ul class="avl-features third color">
+                                    @foreach ($listing->features_list as $feature)
+                                    <li class="text-capitalize">{{ $feature }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
                         </div>
 
                     </div>
@@ -92,6 +100,11 @@
                                     <li class="text-capitalize">{{ $client }}</li>
                                     @endforeach
                                 </ul>
+                            </div>
+                            <div class="block-body">
+                                <h6 class="property_block_title">Client Support Description:</h6>
+                                <p>{{ $listing->clientgroup->support_description }}</p>
+                                <p class="property_block_title"><strong>Client Support Hours per week:</strong> {{ $listing->clientgroup->support_hours }}</h6>
                             </div>
                         </div>
                     </div>
@@ -148,14 +161,38 @@
                         <div class="property_block_wrap_header">
                             <a data-bs-toggle="collapse" data-parent="#loca" data-bs-target="#clSix"
                                 aria-controls="clSix" href="javascript:void(0);" aria-expanded="true" class="collapsed">
-                                <h4 class="property_block_title">Related Documents</h4>
+                                <h4 class="property_block_title">Documents & Proofs</h4>
                             </a>
                         </div>
 
                         <div id="clSix" class="panel-collapse collapse show" aria-expanded="true">
                             <div class="block-body">
-                                <h4>TODO: list documents</h4>
+                                <ul class="list-unstyled">
+                                    @foreach ($listing->getProofs() as $proof)
+                                        <li>
+                                            <i class="{{ $proof['value'] ? 'ti-check text-success' : 'ti-close text-danger' }}"></i>
+                                            {{ $proof['label'] }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
 
+                            <div class="block-body">
+                                <ul class="list-unstyled w-75">
+                                    @foreach ($listing->documents as $document)
+                                        <li class="border px-4 py-2 d-flex justify-content-between align-items-center">
+                                            <p>
+                                                <span>{{ $document->document_type->label }}</span> <br>
+                                                <small class="text-muted">EXPIRY: {{ $document->expiry_date->format('F d, Y') }}</small>
+                                            </p>
+
+                                            <div>
+                                                <a href="#" class="btn btn-sm btn-link">Download</a>
+                                                <button class="btn btn-sm btn-secondary">View</button>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             </div>
                         </div>
 
