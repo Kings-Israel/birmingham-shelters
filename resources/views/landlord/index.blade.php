@@ -63,20 +63,4 @@
 
     </div>
 
-    @push('scripts')
-    <script>
-        Dropzone.options.statutoryDropzone = {
-            // init: function(){
-            //     this.on('complete', function(file) {
-            //         location.reload();
-            //     });
-            // },
-            acceptedFiles: ".doc, .docx, .pdf"
-        };
-        $(function () {
-            $(".alert").delay(5000).slideUp(300);
-        })
-
-    </script>
-    @endpush
 </x-app-dashboard-layout>

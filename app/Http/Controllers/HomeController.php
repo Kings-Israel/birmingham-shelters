@@ -2,42 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
+    public function user()
     {
         return view('user.index');
     }
 
-    public function user()
-    {
-        return view('user.home');
-    }
-
     public function landlord()
     {
-        return view('landlord.home');
+        return view('landlord.index');
     }
 
-    public function volunteer()
+    public function agent()
     {
-        return view('volunteer.home');
+        return view('agent.index');
     }
 }

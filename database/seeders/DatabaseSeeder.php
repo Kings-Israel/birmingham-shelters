@@ -8,14 +8,8 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
         User::factory()->asUserType(UserTypeEnum::super_admin())
             ->create([
                 'email' => 'super_admin@mail.com',
@@ -37,10 +31,17 @@ class DatabaseSeeder extends Seeder
                 'last_name' => 'Test'
             ]);
 
-        User::factory()->asUserType(UserTypeEnum::volunteer())
+        User::factory()->asUserType(UserTypeEnum::agent())
             ->create([
-                'email' => 'volunteer@test.com',
-                'first_name' => 'Volunteer',
+                'email' => 'agent@test.com',
+                'first_name' => 'Agent',
+                'last_name' => 'Test'
+            ]);
+
+        User::factory()->asUserType(UserTypeEnum::user())
+            ->create([
+                'email' => 'user@test.com',
+                'first_name' => 'Referee',
                 'last_name' => 'Test'
             ]);
     }

@@ -22,10 +22,10 @@ Auth::routes(['verify' => true]);
 
 Route::view('/profile', 'user-profile')->middleware(['auth', 'verified'])->name('user-profile');
 
-Route::get('/loggedIn', [PostAjaxRedirect::class, 'ajaxRedirect'])->name('loggedIn');
-Route::get('/user/home', [HomeController::class, 'user'])->name('user.index');
-Route::get('/landlord/home', [HomeController::class, 'landlord'])->name('landlord.index');
-Route::get('/volunteer/home', [HomeController::class, 'volunteer'])->name('volunteer.index');
+Route::get('/loggedIn', PostAjaxRedirect::class)->name('loggedIn');
+Route::get('/user', [HomeController::class, 'user'])->name('user.index');
+Route::get('/landlord', [HomeController::class, 'landlord'])->name('landlord.index');
+Route::get('/agent', [HomeController::class, 'agent'])->name('agent.index');
 
 // Landlord Listing Controller
 Route::get('listing/all', [LandlordListingController::class, 'all_listings'])->name('listing.view.all');
