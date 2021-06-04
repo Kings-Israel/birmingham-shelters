@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Auth;
 
 class LoginController extends Controller
 {
@@ -30,16 +28,5 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-    }
-
-    protected function redirectTo()
-    {
-        $user_type_home_map = [
-            'super_admin' => route('admin-dashboard'),
-            'admin' => route('admin-dashboard'),
-            'landlord' => route('landlord.index'),
-        ];
-
-        return $user_type_home_map[auth()->user()->user_type->value] ?? '/';
     }
 }

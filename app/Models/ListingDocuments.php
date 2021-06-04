@@ -19,6 +19,18 @@ class ListingDocuments extends Model
         'expiry_date' => 'date',
     ];
 
+    protected static function booted(): void
+    {
+        static::deleted(function(ListingDocuments $document) {
+            Storage::disk('listing')->delete('documents/'.$document->filename);
+        });
+    }
+
+    public function url(): string
+    {
+        return Storage::disk('listing')->url('documents/'.$this->filename);
+    }
+
     public function listing(): BelongsTo
     {
         return $this->belongsTo(Listing::class);

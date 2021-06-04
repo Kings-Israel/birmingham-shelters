@@ -23,6 +23,10 @@
     <!-- Custom  CSS -->
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
 
+    <script defer>
+        var BASE_URL = '{!! url('/') !!}';
+    </script>
+
     @livewireStyles
 
     @stack('styles')

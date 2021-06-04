@@ -26,7 +26,31 @@
             <div class="row">
 
                 <div class="col-lg-3 col-md-12">
-                    @include('partials.landlord-sidenav')
+                    <div class="simple-sidebar sm-sidebar" id="filter_search">
+
+                        <div class="search-sidebar_header">
+                            <h4 class="ssh_heading">Close Filter</h4>
+                            <button onclick="closeFilterSearch()" class="w3-bar-item w3-button w3-large"><i
+                                    class="ti-close"></i></button>
+                        </div>
+
+                        <div class="sidebar-widgets">
+                            <div class="dashboard-navbar">
+
+                                <div class="d-user-avater">
+                                    <h4>{{ Auth::user()->full_name }}</h4>
+                                    <span>{{ Auth::user()->email }}</span>
+                                </div>
+
+                                <div class="d-navigation">
+                                    @includeWhen(\Auth::user()->isOfType('landlord'), 'partials.landlord-sidenav')
+                                    @includeWhen(\Auth::user()->isOfType('agent'), 'partials.agent-sidenav')
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
                 <div class="col-lg-9 col-md-12">

@@ -21,7 +21,7 @@
                                     </span>
                                 </div>
                             </div>
-                            
+
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <div class="input-with-icon">
@@ -86,10 +86,11 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <div class="input-with-icon">
-                                        <select class="form-control" name="user_type">
+                                        <select class="form-control" name="user_type" required>
+                                            <option value="">Select user type</option>
                                             <option value="user">As a Customer</option>
                                             <option value="landlord">As a Landlord</option>
-                                            <option value="volunteer">As a Volunteer</option>
+                                            <option value="agent">As a Referral Agent</option>
                                         </select>
                                         <i class="ti-briefcase"></i>
                                     </div>

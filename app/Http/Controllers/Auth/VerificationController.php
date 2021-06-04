@@ -22,13 +22,6 @@ class VerificationController extends Controller
     use VerifiesEmails;
 
     /**
-     * Where to redirect users after verification.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
      * Create a new controller instance.
      *
      * @return void
@@ -46,6 +39,7 @@ class VerificationController extends Controller
             'super_admin' => route('admin-dashboard'),
             'admin' => route('admin-dashboard'),
             'landlord' => route('landlord.index'),
+            'agent' => route('agent.index'),
         ];
 
         return $user_type_home_map[auth()->user()->user_type->value] ?? '/';

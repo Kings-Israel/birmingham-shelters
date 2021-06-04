@@ -11,7 +11,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandlordListingController;
 use App\Http\Controllers\PostAjaxRedirect;
 use App\Http\Livewire\AdminListingsList;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,30 +24,25 @@ Auth::routes(['verify' => true]);
 
 Route::view('/profile', 'user-profile')->middleware(['auth', 'verified'])->name('user-profile');
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/loggedIn', [PostAjaxRedirect::class, 'ajaxRedirect'])->name('loggedIn');
-Route::get('/user/home', [HomeController::class, 'user'])->name('user.index');
-Route::get('/landlord/home', [HomeController::class, 'landlord'])->name('landlord.index');
-Route::get('/volunteer/home', [HomeController::class, 'volunteer'])->name('volunteer.index');
+Route::get('/loggedIn', PostAjaxRedirect::class)->name('loggedIn');
+Route::get('/user', [HomeController::class, 'user'])->name('user.index');
+Route::get('/landlord', [HomeController::class, 'landlord'])->name('landlord.index');
+Route::get('/agent', [HomeController::class, 'agent'])->name('agent.index');
 
-Route::group([
-    'prefix' => 'landlord/listing',
-    'as' => 'listing.',
-    'middleware' => ['userType:landlord']
-    ], 
-    function() {
-        Route::get('/all', [LandlordListingController::class, 'all_listings'])->name('view.all');
-        Route::get('/{listing}', [LandlordListingController::class, 'view_listing'])->name('view.one');
-        Route::get('/add/basicinfo', [LandlordListingController::class, 'basic_info'])->name('add.basic_info');
-        Route::get('/add/clientgroupinfo/{id}', [LandlordListingController::class, 'client_info'])->name('add.client_info');
-        Route::get('/add/listingdocuments/{id}', [LandlordListingController::class, 'listing_documents'])->name('add.listing_documents');
-        Route::get('/add/listingimages/{id}', [LandlordListingController::class, 'listing_images'])->name('add.listing_images');
-        Route::post('/add/basicinfo', [LandlordListingController::class, 'submit_basic_info'])->name('add.submit_basic_info');
-        Route::post('/add/clientinfo', [LandlordListingController::class, 'submit_clientgroup_info'])->name('add.submit_client_info');
-        Route::post('/add/listingdocuments', [LandlordListingController::class, 'submit_listing_documents'])->name('add.submit_documents');
-        Route::post('/add/listingimages', [LandlordListingController::class, 'submit_listing_images'])->name('add.submit_images');
-        Route::delete('/delete/{id}', [LandlordListingController::class, 'delete_listing'])->name('delete');
-});
+// Landlord Listing Controller
+Route::get('listing/all', [LandlordListingController::class, 'all_listings'])->name('listing.view.all');
+Route::get('listing/{listing}', [LandlordListingController::class, 'view_listing'])->name('listing.view.one');
+Route::get('listing/add/basicinfo', [LandlordListingController::class, 'basic_info'])->name('listing.add.basic_info');
+Route::get('listing/add/clientgroupinfo/{id}', [LandlordListingController::class, 'client_info'])->name('listing.add.client_info');
+Route::get('listing/add/listingdocuments/{id}', [LandlordListingController::class, 'listing_documents'])->name('listing.add.listing_documents');
+Route::get('listing/add/listingimages/{id}', [LandlordListingController::class, 'listing_images'])->name('listing.add.listing_images');
+Route::post('listing/add/basicinfo', [LandlordListingController::class, 'submit_basic_info'])->name('listing.add.submit_basic_info');
+Route::post('listing/add/clientinfo', [LandlordListingController::class, 'submit_clientgroup_info'])->name('listing.add.submit_client_info');
+Route::post('listing/add/listingdocuments', [LandlordListingController::class, 'submit_listing_documents'])->name('listing.add.submit_documents');
+Route::post('listing/add/listingimages', [LandlordListingController::class, 'submit_listing_images'])->name('listing.add.submit_images');
+Route::delete('listing/{listing}/delete', [LandlordListingController::class, 'delete_listing'])->name('listing.delete');
+
+Route::delete('listing-images/{listing_image}/delete', [LandlordListingController::class, 'delete_removed_image'])->name('listing-images.delete');
 
 // User listing controller
 Route::group(['prefix'=> '/listing', 'as' => 'listing.'], function () {

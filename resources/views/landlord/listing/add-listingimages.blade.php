@@ -25,31 +25,58 @@
                                 @enderror
                             </form>
                         </div>
-                        <div>
-                            <p class="file-upload-message" style="float: right"></p>
+                        <div class="d-flex justify-content-end align-items-center">
+                            <p class="file-upload-message"></p>
+                            <div>
+                                <a href="{{ route('listing.view.all') }}" hidden class="redirect-home-button">
+                                    <button class="btn btn-theme-light-2 rounded" type="submit">Finish</button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <br>
-        <a href="{{ route('listing.view.all') }}" hidden class="redirect-home-button">
-            <button class="btn btn-theme-light-2 rounded" type="submit">Finish</button>
-        </a>
     </div>
     @push('scripts')
     <script>
+        function finish(dropzoneInstance) {
+            $('.redirect-home-button').prop('hidden', dropzoneInstance.files.length === 0);
+        }
+
         Dropzone.options.listingDropzone = {
+            addRemoveLinks: true,
             init: function () {
-                this.on('error', function (errorMessage) {
+
+                this.on('error', function (file, message) {
                     $('.file-upload-message').css('color', 'red');
-                    $(".file-upload-message").text(errorMessage);
+                    $(".file-upload-message").text(message);
                 });
-                this.on('success', function (file, response) {
-                    this.removeFile(file);
-                    $('.file-upload-message').css('color', 'green');
-                    $('.file-upload-message').text('File(s) Uploaded Successfully');
-                    $('.redirect-home-button').removeAttr('hidden');
+
+                this.on('success', (file, response) => finish(this) );
+
+                this.on('removedfile', function (file) {
+
+                    if (!file.accepted) return;
+
+                    const { id } = JSON.parse(file.xhr.response);
+
+                    $.ajax({
+                        url: `${BASE_URL}/listing-images/${id}/delete`,
+                        type: 'DELETE',
+                        data: {
+                            "_token": $("meta[name='csrf-token']").attr("content"),
+                        }
+                    }).then( ({ message }) => {
+                        $('.file-upload-message').css('color', 'green').text(message);
+
+                        const timeOutId = setTimeout(function(){
+                            $('.file-upload-message').text('')
+                            clearTimeout(timeOutId);
+                        }, 4000);
+
+                        finish(this);
+                    });
                 });
             },
             acceptedFiles: ".png, .jpg, .jpeg"
