@@ -26,7 +26,7 @@
     <div class="container-fluid">
         <form action="{{ route('income-form.submit') }}" class="listing-form" method="post" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="user_metadata_id" value="{{ $id }}">
+            <input type="hidden" name="user_metadata_id" value="{{ $userMetadata->id }}">
             <div class="submit-page">
                             
                 <!-- Basic Information -->

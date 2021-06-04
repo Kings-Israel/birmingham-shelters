@@ -11,7 +11,7 @@
                         @guest
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signup">Get started</button>
                         @endguest
-                        <a href="{{ route('user.listing.all') }}">
+                        <a href="{{ route('listing.all') }}">
                             <button class="btn btn-primary">View Rooms</button>
                         </a>
                         @guest

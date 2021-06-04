@@ -14,7 +14,7 @@ class Consent extends Model
         'user_metadata_id', 'consent_name', 'consent_date', 'consent_company_position'
     ];
 
-    public function usermetadata(): BelongsTo
+    public function usermetadata()
     {
         return $this->belongsTo(UserMetadata::class);
     }

@@ -34,16 +34,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone_number_verified_at' => 'datetime',
     ];
 
-    /**
-     * Get the usermetadata associated with the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function usermetadata()
-    {
-        return $this->hasMany(UserMetadata::class);
-    }
-
     public function scopeAdmins(Builder $query): Builder
     {
         return $query->whereUserType(UserTypeEnum::admin()->value);
@@ -74,11 +64,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->user_type === $user_type;
     }
 
-    /**
-     * Get all of the bookings for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
+    public function hasMany()
+    {
+        return $this->hasMany(UserMetadata::class);
+    }
+
     public function bookings()
     {
         return $this->hasMany(Booking::class);

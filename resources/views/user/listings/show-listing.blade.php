@@ -139,7 +139,7 @@
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                            <form action="{{ route('user.submit.inquiry') }}" method="post">
+                            <form action="{{ route('listing.inquiry') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="listing_id" value="{{ $listing->id }}">
                                 @auth

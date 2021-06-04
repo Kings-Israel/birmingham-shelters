@@ -36,25 +36,25 @@ class UserMetadataController extends Controller
         return view('user.referral.agency-referral');
     }
 
-    public function add_income_info($id)
+    public function add_income_info(UserMetadata $userMetadata)
     {
         $income_fields = [
             'JSA', 'DLA', 'Incapacity Benefit/ESA', 'Income Support', 'Pension', 'UC', 'Working', 'None'
         ];
-        return view('user.referral.add-income-info')->with(['id' => $id, 'income_fields' => $income_fields]);
+        return view('user.referral.add-income-info')->with(['userMetadata' => $userMetadata, 'income_fields' => $income_fields]);
     }
 
-    public function add_address_history_info($id)
+    public function add_address_history_info(UserMetadata $userMetadata)
     {
-        return view('user.referral.add-address-info')->with('id', $id);
+        return view('user.referral.add-address-info')->with('userMetadata', $userMetadata);
     }
 
-    public function add_health_info($id)
+    public function add_health_info(UserMetadata $userMetadata)
     {
-        return view('user.referral.add-health-info')->with('id', $id);
+        return view('user.referral.add-health-info')->with('userMetadata', $userMetadata);
     }
 
-    public function add_support_info($id)
+    public function add_support_info(UserMetadata $userMetadata)
     {
         $support_group_list = [
             'Mental Health Problems', 
@@ -69,10 +69,10 @@ class UserMetadataController extends Controller
             'Social Isolation/Contact with family/friends',
             'Other'
         ];
-        return view('user.referral.add-support-needs')->with(['id' => $id, 'support_group_list' => $support_group_list]);
+        return view('user.referral.add-support-needs')->with(['userMetadata' => $userMetadata, 'support_group_list' => $support_group_list]);
     }
 
-    public function add_risk_assessment($id)
+    public function add_risk_assessment(UserMetadata $userMetadata)
     {
         $risks = [
             'Violence/Aggresive Behaviour',
@@ -89,7 +89,7 @@ class UserMetadataController extends Controller
             'Rent arrears',
             'Harm from Others'
         ];
-        return view('user.referral.add-risk-assessment')->with(['risks_list' => $risks, 'id' => $id]);
+        return view('user.referral.add-risk-assessment')->with(['risks_list' => $risks, 'userMetadata' => $userMetadata]);
     }
 
     public function add_consent(UserMetadata $userMetadata)
@@ -132,7 +132,7 @@ class UserMetadataController extends Controller
         Validator::make($request->all(), $rules, $messages)->validate();
 
         if ($userMetadata = UserMetadata::create($request->all())) {
-            return redirect()->route('referral.add.income-info', $userMetadata->id);
+            return redirect()->route('referral.add.income-info', $userMetadata);
         }
 
         return redirect()->back()->withError('There was a problem. Please try again');
@@ -322,7 +322,11 @@ class UserMetadataController extends Controller
         Validator::make($request->all(), $rules, $messages);
 
         if (Consent::create($request->all())) {
-            return redirect()->route('user.index')->with('success', "Your information has been saved successfully");
+            $userMetadata = UserMetadata::find($request->user_metadata_id);
+            $userMetadata->consent = 0;
+            if($userMetadata->save()){
+                return redirect()->route('user.index')->with('success', "Your information has been saved successfully");
+            }
         }
 
         return redirect()->back()->withErrors('An error occurred. Please try again.');

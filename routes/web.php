@@ -20,6 +20,7 @@ Route::view('/contact', 'pages.contact');
 Route::view('/about', 'pages.about');
 Route::view('/privacy', 'pages.privacy-policy');
 
+
 Auth::routes(['verify' => true]);
 
 Route::view('/profile', 'user-profile')->middleware(['auth', 'verified'])->name('user-profile');
@@ -30,41 +31,45 @@ Route::get('/user/home', [HomeController::class, 'user'])->name('user.index');
 Route::get('/landlord/home', [HomeController::class, 'landlord'])->name('landlord.index');
 Route::get('/volunteer/home', [HomeController::class, 'volunteer'])->name('volunteer.index');
 
-// Landlord Listing Controller
-Route::prefix('listing')->group(function () {
-    Route::get('/all', [LandlordListingController::class, 'all_listings'])->name('listing.view.all');
-    Route::get('/{listing}', [LandlordListingController::class, 'view_listing'])->name('listing.view.one');
-    Route::get('/add/basicinfo', [LandlordListingController::class, 'basic_info'])->name('listing.add.basic_info');
-    Route::get('/add/clientgroupinfo/{id}', [LandlordListingController::class, 'client_info'])->name('listing.add.client_info');
-    Route::get('/add/listingdocuments/{id}', [LandlordListingController::class, 'listing_documents'])->name('listing.add.listing_documents');
-    Route::get('/add/listingimages/{id}', [LandlordListingController::class, 'listing_images'])->name('listing.add.listing_images');
-    Route::post('/add/basicinfo', [LandlordListingController::class, 'submit_basic_info'])->name('listing.add.submit_basic_info');
-    Route::post('/add/clientinfo', [LandlordListingController::class, 'submit_clientgroup_info'])->name('listing.add.submit_client_info');
-    Route::post('/add/listingdocuments', [LandlordListingController::class, 'submit_listing_documents'])->name('listing.add.submit_documents');
-    Route::post('/add/listingimages', [LandlordListingController::class, 'submit_listing_images'])->name('listing.add.submit_images');
-    Route::delete('/delete/{id}', [LandlordListingController::class, 'delete_listing'])->name('listing.delete');
+Route::group([
+    'prefix' => 'landlord/listing',
+    'as' => 'listing.',
+    'middleware' => ['userType:landlord']
+    ], 
+    function() {
+        Route::get('/all', [LandlordListingController::class, 'all_listings'])->name('view.all');
+        Route::get('/{listing}', [LandlordListingController::class, 'view_listing'])->name('view.one');
+        Route::get('/add/basicinfo', [LandlordListingController::class, 'basic_info'])->name('add.basic_info');
+        Route::get('/add/clientgroupinfo/{id}', [LandlordListingController::class, 'client_info'])->name('add.client_info');
+        Route::get('/add/listingdocuments/{id}', [LandlordListingController::class, 'listing_documents'])->name('add.listing_documents');
+        Route::get('/add/listingimages/{id}', [LandlordListingController::class, 'listing_images'])->name('add.listing_images');
+        Route::post('/add/basicinfo', [LandlordListingController::class, 'submit_basic_info'])->name('add.submit_basic_info');
+        Route::post('/add/clientinfo', [LandlordListingController::class, 'submit_clientgroup_info'])->name('add.submit_client_info');
+        Route::post('/add/listingdocuments', [LandlordListingController::class, 'submit_listing_documents'])->name('add.submit_documents');
+        Route::post('/add/listingimages', [LandlordListingController::class, 'submit_listing_images'])->name('add.submit_images');
+        Route::delete('/delete/{id}', [LandlordListingController::class, 'delete_listing'])->name('delete');
 });
 
 // User listing controller
-Route::get('/user/listing/all', [UserListingController::class, 'listings'])->name('user.listing.all');
-Route::get('/user/listing/{listing}', [UserListingController::class, 'listing'])->name('user.listing.one');
-
-// Listing enquiry routes
-Route::post('/user/listing/inquiry', [ListingInquiryController::class, 'submit_inquiry'])->name('user.submit.inquiry');
+Route::group(['prefix'=> '/listing', 'as' => 'listing.'], function () {
+    Route::get('/all', [UserListingController::class, 'listings'])->name('all');
+    Route::geT('/{listing}', [UserListingController::class, 'listing'])->name('one');
+    Route::post('/inquiry', [ListingInquiryController::class, 'submit_inquiry'])->name('inquiry');
+});
 
 // User Listing Booking Controller
 Route::post('/user/listing/booking', [UserBookingController::class, 'submit_booking'])->name('user.submit.booking');
 
 // Accomodation referral forms wizard
 Route::prefix('/user/referral')->group(function () {
-    Route::get('/', [UserMetadataController::class, 'show_select_referral_form'])->name('referral-form.show');
+    Route::get('/', [UserMetadataController::class, 'show_select_referral_type_form'])->name('referral-form.show');
     Route::get('/self', [UserMetadataController::class, 'self_referral'])->name('referral.self-referral');
     Route::get('/agency', [UserMetadataController::class, 'agency_referral'])->name('referral.agency-referral');
-    Route::get('/income/{id}', [UserMetadataController::class, 'add_income_info'])->name('referral.add.income-info');
-    Route::get('/address-history/{id}', [UserMetadataController::class, 'add_address_history_info'])->name('referral.add.address-history-info');
-    Route::get('/health/{id}', [UserMetadataController::class, 'add_health_info'])->name('referral.add.health-info');
-    Route::get('/support-needs/{id}', [UserMetadataController::class, 'add_support_info'])->name('referral.add.support-info');
-    Route::get('/risk-assessment/{id}', [UserMetadataController::class, 'add_risk_assessment'])->name('referral.add.risk-assessment');
+    Route::get('/income/{userMetadata}', [UserMetadataController::class, 'add_income_info'])->name('referral.add.income-info');
+    Route::get('/address-history/{userMetadata}', [UserMetadataController::class, 'add_address_history_info'])->name('referral.add.address-history-info');
+    Route::get('/health/{userMetadata}', [UserMetadataController::class, 'add_health_info'])->name('referral.add.health-info');
+    Route::get('/support-needs/{userMetadata}', [UserMetadataController::class, 'add_support_info'])->name('referral.add.support-info');
+    Route::get('/risk-assessment/{userMetadata}', [UserMetadataController::class, 'add_risk_assessment'])->name('referral.add.risk-assessment');
     Route::get('/consent/{userMetadata}', [UserMetadataController::class, 'add_consent'])->name('referral.add.consent');
     Route::post('/submit', [UserMetadataController::class, 'submit_referral_form'])->name('referral-form.submit');
     Route::post('/income/submit', [UserMetadataController::class, 'submit_income_info'])->name('income-form.submit');

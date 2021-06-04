@@ -90,12 +90,7 @@ class Listing extends Model
     {
         return isset($this->features) ? collect(explode(',', $this->features)) : null;
     }
-
-    /**
-     * Get all of the bookings for the Listing
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
+    
     public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class);
