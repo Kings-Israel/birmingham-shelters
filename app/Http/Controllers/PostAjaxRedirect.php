@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Auth;
-use App\Providers\RouteServiceProvider;
 
 class PostAjaxRedirect extends Controller
 {
@@ -13,21 +10,15 @@ class PostAjaxRedirect extends Controller
         $this->middleware(['auth', 'verified']);
     }
 
-    // Method to redirect user to respective page after auth from ajax call
-    public function ajaxRedirect(Request $request)
+    public function __invoke()
     {
-        if (Auth::user()->isAdministrator()) {
-            return redirect()->route('admin-dashboard');
-        }
+        $user_type_home_map = [
+            'super_admin' => route('admin-dashboard'),
+            'admin' => route('admin-dashboard'),
+            'landlord' => route('landlord.index'),
+            'agent' => route('agent.index'),
+        ];
 
-        $role = Auth::user()->user_type;
-
-        if ($role == 'user') {
-            return redirect('/user/home');
-        } elseif ($role == 'landlord') {
-            return redirect('/landlord/home');
-        } elseif($role == 'volunteer') {
-            return redirect('/volunteer/home');
-        }
+        return redirect($user_type_home_map[auth()->user()->user_type->value] ?? '/');
     }
 }
