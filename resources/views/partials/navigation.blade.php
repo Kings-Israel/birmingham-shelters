@@ -31,11 +31,18 @@
                         <a href="{{ url('/contact') }}">Contact Us</a>
                     </x-site-nav-link>
                     @auth
+                        @if (Auth::user()->isOfType('agent'))
+                            <x-site-nav-link :active="Request::is('/listing')">
+                                <a href="{{ route('listing.all') }}">View Listings</a>
+                            </x-site-nav-link>
+                        @endif
+                    @endauth
+                    @auth
                         @if ((Auth::user()->isOfType('user')) || (Auth::user()->isOfType('agent')))
                             <x-site-nav-link :active="Request::is('/referral')">
-                                @if (Auth::user()->isOfType('user'))
+                                @if (Auth::user()->isOfType('user') && !(Auth::user()->usermetadata()->exists()))
                                     <a href="{{ route('referral.self-referral') }}">Fill Referral Form</a>
-                                @else
+                                @elseif(Auth::user()->isOfType('agent'))
                                     <a href="{{ route('referral.agency-referral') }}">Fill Referral Form</a>
                                 @endif
                             </x-site-nav-link>

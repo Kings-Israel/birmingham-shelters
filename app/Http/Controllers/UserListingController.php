@@ -11,12 +11,12 @@ class UserListingController extends Controller
     public function listings()
     {
         $listings = Listing::paginate(10);
-        return view('user.listings.all-listings', compact('listings'));
+        return view('listings.all-listings', compact('listings'));
     }
 
     public function listing(Listing $listing)
     {
-        return view('user.listings.show-listing', [
+        return view('listings.show-listing', [
             'listing' => $listing->load('clientgroup', 'listingimage')
         ]);
     }

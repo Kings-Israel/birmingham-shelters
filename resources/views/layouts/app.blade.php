@@ -85,6 +85,23 @@
             $(".alert.flash").delay(5000).slideUp(300);
         })
 
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+        var yyyy = today.getFullYear();
+        if(dd<10){
+        dd='0'+dd
+        } 
+        if(mm<10){
+        mm='0'+mm
+        } 
+
+        today = yyyy+'-'+mm+'-'+dd;
+        let expiry_date_fields = document.querySelectorAll("#date");
+        expiry_date_fields.forEach(field => {
+            field.setAttribute("max", today);
+        });
+
         function readURL(input) {
             if (input.files && input.files[0]) {
 

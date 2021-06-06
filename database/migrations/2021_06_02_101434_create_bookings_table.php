@@ -16,6 +16,7 @@ class CreateBookingsTable extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('listing_id');
+            $table->foreignId('user_id');
             $table->foreignId('user_metadata_id');
             $table->timestamps();
         });

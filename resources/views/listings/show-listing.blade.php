@@ -31,20 +31,27 @@
                         <div class="pbw-flex">
                             <div class="prt-detail-title-desc">
                                 <h3 id="listing_name">{{ $listing->name }}</h3>
-                                <h6>Address: </h6><span id="listing_address">308 Witton Green, Birmingham, UK</span><br>
-                                <h6>Postcode: </h6><span id="listing_postcode">B18 4PR</span>
+                                <h6>Address: </h6><span id="listing_address">{{ $listing->address }}</span><br>
+                                <h6>Postcode: </h6><span id="listing_postcode">{{ $listing->postcode }}</span>
                             </div>
                             <hr>
                             @guest
                                 <p>Please login or sign up to join the waiting list for this room</p>
                             @endguest
                             @auth
-                                <form action="{{ route('user.submit.booking') }}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" >
-                                    <input type="hidden" name="listing_id" value="{{ $listing->id }}">
-                                    <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
-                                </form>
+                                @if ((Auth::user()->isOfType('user')) && (Auth::user()->usermetadata()->exists()))
+                                    <form action="{{ route('submit.booking') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                        <input type="hidden" name="user_metadata_id" value="{{ Auth::user()->usermetadata()->first()->id }}">
+                                        <input type="hidden" name="listing_id" value="{{ $listing->id }}">
+                                        <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
+                                    </form>
+                                @elseif(Auth::user()->isOfType('agent'))
+                                    <button type="submit" class="btn btn-black btn-md rounded full-width">Add Referee To Waiting List</button>
+                                @else
+                                    <p>Fill the Referral Form to Join the Waiting List for This Property</p>
+                                @endif
                             @endauth
                         </div>
 
@@ -205,12 +212,19 @@
                             </form>
                         </div>
                         @auth
-                            <form action="{{ route('user.submit.booking') }}" method="post">
-                                @csrf
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                <input type="hidden" name="listing_id" value="{{ $listing->id }}">
-                                <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
-                            </form>
+                            @if ((Auth::user()->isOfType('user')) && (Auth::user()->usermetadata()->exists()))
+                                <form action="{{ route('submit.booking') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                    <input type="hidden" name="user_metadata_id" value="{{ Auth::user()->usermetadata()->first()->id }}">
+                                    <input type="hidden" name="listing_id" value="{{ $listing->id }}">
+                                    <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
+                                </form>
+                            @elseif(Auth::user()->isOfType('agent'))
+                                <button type="submit" class="btn btn-black btn-md rounded full-width">Add Referee To Waiting List</button>
+                            @else
+                                <p>Fill the Referral Form to Join the Waiting List for This Property</p>
+                            @endif
                         @endauth
                     </div>
                 </div>

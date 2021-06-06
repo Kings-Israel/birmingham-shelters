@@ -27,6 +27,7 @@
         <form action="{{ route('referral-form.submit') }}" class="listing-form" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="referral_type" value="agency-referral">
+            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
             <div class="submit-page">
                             
                 <!-- Basic Information -->
@@ -125,7 +126,7 @@
                             <div class="row">
                                 <div class="form-group col-md-3">
                                     <label>Date of Birth</label>
-                                    <input type="date" id="applicant_date_of_birth" name="applicant_date_of_birth" class="form-control" value="{{ old('applicant_date_of_birth') }}" required>
+                                    <input type="date" id="date" name="applicant_date_of_birth" class="form-control" value="{{ old('applicant_date_of_birth') }}" required>
                                     @error('applicant_date_of_birth')
                                         <strong class="error-message">{{ $message }}</strong>
                                     @enderror

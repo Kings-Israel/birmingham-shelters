@@ -8,10 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     protected $fillable = [
-        'listing_id', 'user_id'
+        'listing_id', 'user_id', 'user_metadata_id'
     ];
     
     use HasFactory;
+
+    /**
+     * Get the user that owns the Booking
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Get the user that owns the Booking

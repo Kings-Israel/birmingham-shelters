@@ -1,4 +1,13 @@
 <x-app-layout pageTitle="User">
+    @if (session('error'))
+        <div class="alert alert-danger">
+            <p>{{ session('error') }}</p>
+        </div>
+    @elseif (session('success'))
+        <div class="alert alert-success">
+            <p>{{ session('success') }}</p>
+        </div>
+    @endif
     @if (count($listings) > 0)    
         <div class="page-title">
             <div class="container">
@@ -68,7 +77,7 @@
                                         
                                             <div class="listing-footer-wrapper">
                                                 <div class="listing-locate">
-                                                    <span class="listing-location"><i class="ti-location-pin"></i>Quice Market, Canada</span>
+                                                    <span class="listing-location"><i class="ti-location-pin"></i>{{ $listing->address }}</span>
                                                 </div>
                                                 <div class="listing-detail-btn">
                                                     <a href="{{ route('listing.one', $listing->id) }}" class="more-btn">View</a>

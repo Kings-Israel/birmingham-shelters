@@ -62,7 +62,7 @@ Route::group(['prefix'=> '/listing', 'as' => 'listing.'], function () {
 });
 
 // User Listing Booking Controller
-Route::post('/user/listing/booking', [UserBookingController::class, 'submit_booking'])->name('user.submit.booking');
+Route::post('/listing/booking', [UserBookingController::class, 'submit_booking'])->name('submit.booking');
 
 // Accomodation referral forms wizard
 Route::prefix('/referral')->group(function () {

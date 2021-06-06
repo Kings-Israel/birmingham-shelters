@@ -8,8 +8,8 @@
                     <div class="property_block_wrap style-4">
                         <div class="prt-detail-title-desc">
                             <h3 class="text-light" id="listing_name">{{ $listing->name }}</h3>
-                            <span id="listing_address"><i class="lni-map-marker"></i> 308 Witton Green, Birmingham, UK</span>,
-                            <p class="prt-price-fix">Postcode: <strong id="listing_postcode">B18 4PR</strong>
+                            <span id="listing_address"><i class="lni-map-marker"></i> {{ $listing->address }}</span>,
+                            <p class="prt-price-fix">Postcode: <strong id="listing_postcode">{{ $listing->postcode }}</strong>
                             </p>
                         </div>
                         <p style="margin-bottom: 0;">

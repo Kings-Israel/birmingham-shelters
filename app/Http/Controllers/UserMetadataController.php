@@ -13,7 +13,6 @@ use App\Models\ApplicantRiskAssessment;
 use App\Models\Consent;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\PhoneNumber;
-use Illuminate\Support\Facades\Storage;
 
 class UserMetadataController extends Controller
 {
@@ -107,37 +106,35 @@ class UserMetadataController extends Controller
             'referral_type' => 'required|string',
             'referrer_name' => 'required|string',
             'referrer_email' => 'required|email',
-            'referrer_phone_number' => ['required', new PhoneNumber],
+            'referrer_phone_number' => new PhoneNumber,
             'referral_reason' => 'required',
             'applicant_name' => 'required|string',
             'applicant_email' => 'required|email',
-            'applicant_phone_number' => ['requried', new PhoneNumber],
+            'applicant_phone_number' => new PhoneNumber,
             'applicant_date_of_birth' => 'required|date',
             'applicant_ni_number' => 'required',
             'applicant_current_address' => 'required',
             'applicant_gender' => 'required',
             'applicant_sexual_orientation' => 'required',
             'applicant_ethnicity' => 'required',
-            'applicant_kin_name' => 'nullable|string',
-            'applicant_kin_relationship' => 'nullable|string',
-            'applicant_kin_phone_number' => ['nullable', new PhoneNumber],
+            'applicant_kin_name' => 'nullable',
+            'applicant_kin_relationship' => 'nullable',
+            'applicant_kin_phone_number' => new PhoneNumber,
             'applicant_kin_email' => 'nullable|email',
-            'applicant_image' => 'sometimes|mimes:jpg,jpeg,png'
+            'applicant_image' => 'sometimes|mimes:png,jpg,jpeg'
         ];
 
         $messages = [
             'required' => 'Please enter this information',
             'email' => 'Please enter a valid email address',
-            'date' => 'Please enter a valid date',
-            'applicant_image.mimes' => 'Please select a valid image'
+            'date' => 'Please enter a valid date'
         ];
 
-        
         Validator::make($request->all(), $rules, $messages)->validate();
-
-        if($request->has('applicant_image')) {
+        
+        if ($request->has('applicant_image')) {
             $filename = $request->applicant_image->getClientOriginalName();
-            $request->applicant_image->storeAs('public/referee/profile', $filename);
+            $request->applicant_image->storeAs('public/referee/image', $filename);
             $request->applicant_image = $filename;
         }
 
@@ -335,7 +332,7 @@ class UserMetadataController extends Controller
             $userMetadata = UserMetadata::find($request->user_metadata_id);
             $userMetadata->consent = 0;
             if($userMetadata->save()){
-                return redirect()->route('user.index')->with('success', "Your information has been saved successfully");
+                return redirect()->route('listing.all')->with('success', "Your information has been saved successfully");
             }
         }
 

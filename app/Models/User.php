@@ -72,6 +72,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->user_type === $user_type;
     }
 
+    public function listing()
+    {
+        return $this->hasMany(Listing::class);
+    }
+
     public function usermetadata()
     {
         return $this->hasMany(UserMetadata::class);
