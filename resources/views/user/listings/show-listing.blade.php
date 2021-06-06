@@ -30,9 +30,9 @@
 
                         <div class="pbw-flex">
                             <div class="prt-detail-title-desc">
-                                <h3>{{ $listing->name }}</h3>
-                                <h6>Address: </h6><span>{{ $listing->address }}</span><br>
-                                <h6>Postcode: </h6><span>{{ $listing->postcode }}</span>
+                                <h3 id="listing_name">{{ $listing->name }}</h3>
+                                <h6>Address: </h6><span id="listing_address">308 Witton Green, Birmingham, UK</span><br>
+                                <h6>Postcode: </h6><span id="listing_postcode">B18 4PR</span>
                             </div>
                             <hr>
                             @guest
@@ -122,6 +122,27 @@
                                 <h6>Support Hours: <strong>{{ $listing->clientgroup->support_hours }}</strong></h6>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Location Single Block Wrap -->
+                    <div class="property_block_wrap style-2">
+
+                        <div class="property_block_wrap_header">
+                            <a data-bs-toggle="collapse" data-parent="#loca" data-bs-target="#clSix" aria-controls="clSix"
+                                href="javascript:void(0);" aria-expanded="true" class="collapsed">
+                                <h4 class="property_block_title">Location</h4>
+                            </a>
+                        </div>
+
+                        <div id="clSix" class="panel-collapse collapse show" aria-expanded="true">
+                            <div class="block-body">
+                                <div class="hm-map-container fw-map" id="map-container">
+                                    <div id="map"></div>
+                                </div>
+                                <div id="map-error" class="error-message">No Location data was provided.</div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12">

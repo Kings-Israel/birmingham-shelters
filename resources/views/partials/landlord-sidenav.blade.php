@@ -3,8 +3,8 @@
         <a href="{{ route('landlord.index') }}"><i class="ti-dashboard"></i>Dashboard</a>
     </x-app-sidebar-nav-link>
 
-    <x-app-sidebar-nav-link :active="Route::is('user-profile')">
-        <a href="{{ route('user-profile') }}"><i class="ti-user"></i>My Profile</a>
+    <x-app-sidebar-nav-link :active="Route::is('profile.*')">
+        <a href="{{ route('profile.show', auth()->user()) }}"><i class="ti-user"></i>My Profile</a>
     </x-app-sidebar-nav-link>
 
     <x-app-sidebar-nav-link :active="request()->routeIs('listing.view.*')">

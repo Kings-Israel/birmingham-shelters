@@ -13,6 +13,7 @@ use App\Models\ApplicantRiskAssessment;
 use App\Models\Consent;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\PhoneNumber;
+use Illuminate\Support\Facades\Storage;
 
 class UserMetadataController extends Controller
 {
@@ -23,17 +24,17 @@ class UserMetadataController extends Controller
 
     public function show_select_referral_type_form()
     {
-        return view('user.referral.index');
+        return view('referral.index');
     }
 
     public function self_referral()
     {
-        return view('user.referral.self-referral');
+        return view('referral.self-referral');
     }
 
     public function agency_referral()
     {
-        return view('user.referral.agency-referral');
+        return view('referral.agency-referral');
     }
 
     public function add_income_info(UserMetadata $userMetadata)
@@ -41,17 +42,17 @@ class UserMetadataController extends Controller
         $income_fields = [
             'JSA', 'DLA', 'Incapacity Benefit/ESA', 'Income Support', 'Pension', 'UC', 'Working', 'None'
         ];
-        return view('user.referral.add-income-info')->with(['userMetadata' => $userMetadata, 'income_fields' => $income_fields]);
+        return view('referral.add-income-info')->with(['userMetadata' => $userMetadata, 'income_fields' => $income_fields]);
     }
 
     public function add_address_history_info(UserMetadata $userMetadata)
     {
-        return view('user.referral.add-address-info')->with('userMetadata', $userMetadata);
+        return view('referral.add-address-info')->with('userMetadata', $userMetadata);
     }
 
     public function add_health_info(UserMetadata $userMetadata)
     {
-        return view('user.referral.add-health-info')->with('userMetadata', $userMetadata);
+        return view('referral.add-health-info')->with('userMetadata', $userMetadata);
     }
 
     public function add_support_info(UserMetadata $userMetadata)
@@ -69,7 +70,7 @@ class UserMetadataController extends Controller
             'Social Isolation/Contact with family/friends',
             'Other'
         ];
-        return view('user.referral.add-support-needs')->with(['userMetadata' => $userMetadata, 'support_group_list' => $support_group_list]);
+        return view('referral.add-support-needs')->with(['userMetadata' => $userMetadata, 'support_group_list' => $support_group_list]);
     }
 
     public function add_risk_assessment(UserMetadata $userMetadata)
@@ -89,12 +90,12 @@ class UserMetadataController extends Controller
             'Rent arrears',
             'Harm from Others'
         ];
-        return view('user.referral.add-risk-assessment')->with(['risks_list' => $risks, 'userMetadata' => $userMetadata]);
+        return view('referral.add-risk-assessment')->with(['risks_list' => $risks, 'userMetadata' => $userMetadata]);
     }
 
     public function add_consent(UserMetadata $userMetadata)
     {
-        return view('user.referral.add-consent', [
+        return view('referral.add-consent', [
             'id' => $userMetadata->id,
             'referral_type' => $userMetadata->referral_type,
         ]);
@@ -106,30 +107,39 @@ class UserMetadataController extends Controller
             'referral_type' => 'required|string',
             'referrer_name' => 'required|string',
             'referrer_email' => 'required|email',
-            'referrer_phone_number' => new PhoneNumber,
+            'referrer_phone_number' => ['required', new PhoneNumber],
             'referral_reason' => 'required',
             'applicant_name' => 'required|string',
             'applicant_email' => 'required|email',
-            'applicant_phone_number' => new PhoneNumber,
+            'applicant_phone_number' => ['requried', new PhoneNumber],
             'applicant_date_of_birth' => 'required|date',
             'applicant_ni_number' => 'required',
             'applicant_current_address' => 'required',
             'applicant_gender' => 'required',
             'applicant_sexual_orientation' => 'required',
             'applicant_ethnicity' => 'required',
-            'applicant_kin_name' => 'nullable',
-            'applicant_kin_relationship' => 'nullable',
-            'applicant_kin_phone_number' => new PhoneNumber,
-            'applicant_kin_email' => 'nullable|email'
+            'applicant_kin_name' => 'nullable|string',
+            'applicant_kin_relationship' => 'nullable|string',
+            'applicant_kin_phone_number' => ['nullable', new PhoneNumber],
+            'applicant_kin_email' => 'nullable|email',
+            'applicant_image' => 'sometimes|mimes:jpg,jpeg,png'
         ];
 
         $messages = [
             'required' => 'Please enter this information',
             'email' => 'Please enter a valid email address',
-            'date' => 'Please enter a valid date'
+            'date' => 'Please enter a valid date',
+            'applicant_image.mimes' => 'Please select a valid image'
         ];
 
+        
         Validator::make($request->all(), $rules, $messages)->validate();
+
+        if($request->has('applicant_image')) {
+            $filename = $request->applicant_image->getClientOriginalName();
+            $request->applicant_image->storeAs('public/referee/profile', $filename);
+            $request->applicant_image = $filename;
+        }
 
         if ($userMetadata = UserMetadata::create($request->all())) {
             return redirect()->route('referral.add.income-info', $userMetadata);

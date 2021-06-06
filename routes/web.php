@@ -28,19 +28,29 @@ Route::get('/loggedIn', PostAjaxRedirect::class)->name('loggedIn');
 Route::get('/user', [HomeController::class, 'user'])->name('user.index');
 Route::get('/landlord', [HomeController::class, 'landlord'])->name('landlord.index');
 Route::get('/agent', [HomeController::class, 'agent'])->name('agent.index');
+Route::group(['prefix' => '/profile', 'as' => 'profile.'], function() {
+    Route::get('/{user}', [HomeController::class, 'show_profile'])->name('show');
+    Route::post('/update', [HomeController::class, 'update_profile'])->name('update');
+});
 
-// Landlord Listing Controller
-Route::get('listing/all', [LandlordListingController::class, 'all_listings'])->name('listing.view.all');
-Route::get('listing/{listing}', [LandlordListingController::class, 'view_listing'])->name('listing.view.one');
-Route::get('listing/add/basicinfo', [LandlordListingController::class, 'basic_info'])->name('listing.add.basic_info');
-Route::get('listing/add/clientgroupinfo/{id}', [LandlordListingController::class, 'client_info'])->name('listing.add.client_info');
-Route::get('listing/add/listingdocuments/{id}', [LandlordListingController::class, 'listing_documents'])->name('listing.add.listing_documents');
-Route::get('listing/add/listingimages/{id}', [LandlordListingController::class, 'listing_images'])->name('listing.add.listing_images');
-Route::post('listing/add/basicinfo', [LandlordListingController::class, 'submit_basic_info'])->name('listing.add.submit_basic_info');
-Route::post('listing/add/clientinfo', [LandlordListingController::class, 'submit_clientgroup_info'])->name('listing.add.submit_client_info');
-Route::post('listing/add/listingdocuments', [LandlordListingController::class, 'submit_listing_documents'])->name('listing.add.submit_documents');
-Route::post('listing/add/listingimages', [LandlordListingController::class, 'submit_listing_images'])->name('listing.add.submit_images');
-Route::delete('listing/{listing}/delete', [LandlordListingController::class, 'delete_listing'])->name('listing.delete');
+Route::group([
+    'prefix' => 'landlord/listing',
+    'as' => 'listing.',
+    'middleware' => ['userType:landlord']
+    ], 
+    function() {
+        Route::get('/all', [LandlordListingController::class, 'all_listings'])->name('view.all');
+        Route::get('/{listing}', [LandlordListingController::class, 'view_listing'])->name('view.one');
+        Route::get('/add/basicinfo', [LandlordListingController::class, 'basic_info'])->name('add.basic_info');
+        Route::get('/add/clientgroupinfo/{id}', [LandlordListingController::class, 'client_info'])->name('add.client_info');
+        Route::get('/add/listingdocuments/{id}', [LandlordListingController::class, 'listing_documents'])->name('add.listing_documents');
+        Route::get('/add/listingimages/{id}', [LandlordListingController::class, 'listing_images'])->name('add.listing_images');
+        Route::post('/add/basicinfo', [LandlordListingController::class, 'submit_basic_info'])->name('add.submit_basic_info');
+        Route::post('/add/clientinfo', [LandlordListingController::class, 'submit_clientgroup_info'])->name('add.submit_client_info');
+        Route::post('/add/listingdocuments', [LandlordListingController::class, 'submit_listing_documents'])->name('add.submit_documents');
+        Route::post('/add/listingimages', [LandlordListingController::class, 'submit_listing_images'])->name('add.submit_images');
+        Route::delete('/{listing}/delete', [LandlordListingController::class, 'delete_listing'])->name('delete');
+});
 
 Route::delete('listing-images/{listing_image}/delete', [LandlordListingController::class, 'delete_removed_image'])->name('listing-images.delete');
 
@@ -55,7 +65,7 @@ Route::group(['prefix'=> '/listing', 'as' => 'listing.'], function () {
 Route::post('/user/listing/booking', [UserBookingController::class, 'submit_booking'])->name('user.submit.booking');
 
 // Accomodation referral forms wizard
-Route::prefix('/user/referral')->group(function () {
+Route::prefix('/referral')->group(function () {
     Route::get('/', [UserMetadataController::class, 'show_select_referral_type_form'])->name('referral-form.show');
     Route::get('/self', [UserMetadataController::class, 'self_referral'])->name('referral.self-referral');
     Route::get('/agency', [UserMetadataController::class, 'agency_referral'])->name('referral.agency-referral');

@@ -69,7 +69,7 @@
     <script src="{{ asset('assets/js/imagesloaded.js') }}"></script>
     <script src="{{ asset('assets/js/dropzone.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-
+    
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->
@@ -84,8 +84,76 @@
         $(function () {
             $(".alert.flash").delay(5000).slideUp(300);
         })
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                $('.image-upload-wrap').hide();
+
+                $('.file-upload-image').attr('src', e.target.result);
+                $('.file-upload-content').show();
+
+                $('.image-title').html(input.files[0].name);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+
+            } else {
+                removeUpload();
+                }
+            }
+
+        function removeUpload() {
+            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+            $('.file-upload-content').hide();
+            $('.image-upload-wrap').show();
+        }
+        $('.image-upload-wrap').bind('dragover', function () {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function () {
+            $('.image-upload-wrap').removeClass('image-dropping');
+        });
+
+        function initMap() {
+            var mapErrorContainer = document.getElementById('map-error');
+            var address = document.getElementById('listing_address').innerText;
+            var addressTitle = document.getElementById('listing_name').innerText;
+            var addressPostalCode = document.getElementById('listing_postcode').innerText;
+            var geocoder = new google.maps.Geocoder();
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 16,
+            });
+
+            geocoder.geocode({
+                'address': address,
+                componentRestrictions : {
+                    country: 'UK',
+                    postalCode: addressPostalCode
+                }
+            }, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    mapErrorContainer.style.display = "none";
+                    map.setCenter(results[0].geometry.location);
+                    new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location,
+                        title: addressTitle
+                    });
+                } else {
+                    const mapContainer = document.getElementById('map-container').style.display = "none";
+                    // alert('Geocode was not successful for the following reasons: ' + status)
+                }
+            })
+        }
     </script>
 
+    <!-- Map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAPS_API_KEY') }}&callback=initMap" defer></script>
     @livewireScripts
 </body>
 

@@ -72,7 +72,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->user_type === $user_type;
     }
 
-    public function hasMany()
+    public function usermetadata()
     {
         return $this->hasMany(UserMetadata::class);
     }

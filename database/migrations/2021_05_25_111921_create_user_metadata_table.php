@@ -34,6 +34,7 @@ class CreateUserMetadataTable extends Migration
             $table->string('applicant_kin_relationship');
             $table->bigInteger('applicant_kin_phone_number');
             $table->string('applicant_kin_email');
+            $table->string('applicant_image')->nullable();
             $table->boolean('consent')->default(false);
             $table->timestamps();
         });

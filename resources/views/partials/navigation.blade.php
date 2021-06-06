@@ -12,11 +12,11 @@
                     <x-site-nav-link :active="Request::is('/')">
                         @auth
                             @if (Auth::user()->user_type == 'user')
-                                <a href="{{ url('/user/home') }}">Home</a>
+                                <a href="{{ route('home') }}">Home</a>
                             @elseif (Auth::user()->user_type == 'landlord')
-                                <a href="{{ url('/landlord/home') }}">Home</a>
-                            @elseif (Auth::user()->user_type == 'volunteer')
-                                <a href="{{ url('/volunteer/home') }}">Home</a>
+                                <a href="{{ route('landlord.index') }}">Home</a>
+                            @elseif (Auth::user()->user_type == 'agent')
+                                <a href="{{ route('home') }}">Home</a>
                             @endif
                         @endauth
                         @guest
@@ -31,16 +31,31 @@
                         <a href="{{ url('/contact') }}">Contact Us</a>
                     </x-site-nav-link>
                     @auth
-                        @if (Auth::user()->user_type == 'user')
-                            <x-site-nav-link :active="Request::is('/user/referralt')">
-                                <a href="{{ url('/user/referral') }}">Fill Referral Form</a>
+                        @if ((Auth::user()->isOfType('user')) || (Auth::user()->isOfType('agent')))
+                            <x-site-nav-link :active="Request::is('/referral')">
+                                @if (Auth::user()->isOfType('user'))
+                                    <a href="{{ route('referral.self-referral') }}">Fill Referral Form</a>
+                                @else
+                                    <a href="{{ route('referral.agency-referral') }}">Fill Referral Form</a>
+                                @endif
                             </x-site-nav-link>
                         @endif
                     @endauth
                 </ul>
                 @auth
                     <ul class="nav-menu nav-menu-social align-to-right">
-                        <li><a> Welcome, {{ Auth::user()->full_name  }}</a></li>
+                        <li><a> Welcome, {{ Auth::user()->full_name  }}</a>
+                            @if (Auth::user()->user_type == 'user')
+                                <ul class="nav-dropdown nav-submenu">
+                                    <li><a class="active" href="{{ route('user.index') }}">My Dashboard</a></li>
+                                </ul>
+                            @endif
+                            @if (Auth::user()->user_type == 'agent')
+                                <ul class="nav-dropdown nav-submenu">
+                                    <li><a class="active" href="{{ route('agent.index') }}">My Dashboard</a></li>
+                                </ul>
+                            @endif
+                        </li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

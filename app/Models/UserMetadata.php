@@ -29,6 +29,7 @@ class UserMetadata extends Model
         'applicant_kin_relationship', 
         'applicant_kin_phone_number', 
         'applicant_kin_email',
+        'applicant_image',
         'consent'
     ];
 

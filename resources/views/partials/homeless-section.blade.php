@@ -16,8 +16,9 @@
                             New rooms are added onto the website frequently and rooms become available quite often, but how soon you will receive a match is dependent upon the areas you have chosen. The best way to get one of the rooms on our website is to register below by filling out the form. <strong>Please fill it out in as much detail as you can, as this will assist us find you tailored support.</strong> After the form is filled out, we will reach out to you via the contacts provided by you and let you know when a room that meets your needs becomes available.
                         </p>
                     </div>
-
-                    <button class="btn btn-outline-theme-2 mt-2 mb-4" data-bs-toggle="modal" data-bs-target="#signup">Get Started</button>
+                    @guest
+                        <button class="btn btn-outline-theme-2 mt-2 mb-4" data-bs-toggle="modal" data-bs-target="#signup">Get Started</button>
+                    @endguest
                 </div>
             </div>
 

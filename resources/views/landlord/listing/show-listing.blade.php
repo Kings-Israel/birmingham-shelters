@@ -7,10 +7,9 @@
 
                     <div class="property_block_wrap style-4">
                         <div class="prt-detail-title-desc">
-                            <h3 class="text-light">{{ $listing->name }}</h3>
-                            <span><i class="lni-map-marker"></i> {{ $listing->address }},
-                                {{ $listing->local_authority_area }}</span>
-                            <p class="prt-price-fix">Postcode: <strong>{{ $listing->postcode }}</strong>
+                            <h3 class="text-light" id="listing_name">{{ $listing->name }}</h3>
+                            <span id="listing_address"><i class="lni-map-marker"></i> 308 Witton Green, Birmingham, UK</span>,
+                            <p class="prt-price-fix">Postcode: <strong id="listing_postcode">B18 4PR</strong>
                             </p>
                         </div>
                         <p style="margin-bottom: 0;">
@@ -118,13 +117,12 @@
                     </a>
                 </div>
 
-                <div id="clSix" class="panel-collapse collapse" aria-expanded="true">
+                <div id="clSix" class="panel-collapse collapse show" aria-expanded="true">
                     <div class="block-body">
-                        <div class="map-container">
-                            <div id="singleMap" data-latitude="40.7427837" data-longitude="-73.11445617675781"
-                                data-mapTitle="Our Location"></div>
+                        <div class="hm-map-container fw-map" id="map-container">
+                            <div id="map"></div>
                         </div>
-
+                        <div id="map-error" class="error-message">No Location data was provided.</div>
                     </div>
                 </div>
 
@@ -153,143 +151,44 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Nearby Single Block Wrap -->
-            <div class="property_block_wrap style-2">
-
-                <div class="property_block_wrap_header">
-                    <a data-bs-toggle="collapse" data-parent="#nearby" data-bs-target="#clNine" aria-controls="clNine"
-                        href="javascript:void(0);" aria-expanded="true">
-                        <h4 class="property_block_title">Nearby</h4>
-                    </a>
-                </div>
-
-                <div id="clNine" class="panel-collapse collapse" aria-expanded="true">
-                    <div class="block-body">
-
-                        <!-- Schools -->
-                        <div class="nearby-wrap">
-                            <div class="nearby_header">
-                                <div class="nearby_header_first">
-                                    <h5>Schools Around</h5>
-                                </div>
-                                <div class="nearby_header_last">
-                                    <div class="nearby_powerd">
-                                        Powerd by <img src="assets/img/edu.png" class="img-fluid" alt="" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="neary_section_list">
-
-                                <div class="neary_section">
-                                    <div class="neary_section_first">
-                                        <h4 class="nearby_place_title">Green Iseland School<small>(3.52
-                                                mi)</small></h4>
-                                    </div>
-                                    <div class="neary_section_last">
-                                        <div class="nearby_place_rate">
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <small class="reviews-count">(421 Reviews)</small>
-                                    </div>
-                                </div>
-
-                                <div class="neary_section">
-                                    <div class="neary_section_first">
-                                        <h4 class="nearby_place_title">Ragni Intermediate
-                                            College<small>(0.52 mi)</small></h4>
-                                    </div>
-                                    <div class="neary_section_last">
-                                        <div class="nearby_place_rate">
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star-half filled"></i>
-                                        </div>
-                                        <small class="reviews-count">(470 Reviews)</small>
-                                    </div>
-                                </div>
-
-                                <div class="neary_section">
-                                    <div class="neary_section_first">
-                                        <h4 class="nearby_place_title">Rose Wood Primary
-                                            Scool<small>(0.47 mi)</small></h4>
-                                    </div>
-                                    <div class="neary_section_last">
-                                        <div class="nearby_place_rate">
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <small class="reviews-count">(204 Reviews)</small>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Hotel & Restaurant -->
-                        <div class="nearby-wrap">
-                            <div class="nearby_header">
-                                <div class="nearby_header_first">
-                                    <h5>Food Around</h5>
-                                </div>
-                                <div class="nearby_header_last">
-                                    <div class="nearby_powerd">
-                                        Powerd by <img src="assets/img/food.png" class="img-fluid" alt="" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="neary_section_list">
-
-                                <div class="neary_section">
-                                    <div class="neary_section_first">
-                                        <h4 class="nearby_place_title">The Rise hotel<small>(2.42
-                                                mi)</small></h4>
-                                    </div>
-                                    <div class="neary_section_last">
-                                        <div class="nearby_place_rate">
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                        </div>
-                                        <small class="reviews-count">(105 Reviews)</small>
-                                    </div>
-                                </div>
-
-                                <div class="neary_section">
-                                    <div class="neary_section_first">
-                                        <h4 class="nearby_place_title">Blue Ocean Bar &
-                                            Restaurant<small>(1.52 mi)</small></h4>
-                                    </div>
-                                    <div class="neary_section_last">
-                                        <div class="nearby_place_rate">
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <small class="reviews-count">(40 Reviews)</small>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
     <!-- ============================ Property Detail End ================================== -->
+@push('scripts')
+<script>
+    // function initMap() {
+    //         var mapErrorContainer = document.getElementById('map-error');
+    //         var address = document.getElementById('listing_address').innerText;
+    //         var addressTitle = document.getElementById('listing_name').innerText;
+    //         var addressPostalCode = document.getElementById('listing_postcode').innerText;
+    //         var geocoder = new google.maps.Geocoder();
 
+    //         const map = new google.maps.Map(document.getElementById("map"), {
+    //             zoom: 16,
+    //         });
+
+    //         geocoder.geocode({
+    //             'address': address,
+    //             componentRestrictions : {
+    //                 country: 'UK',
+    //                 postalCode: addressPostalCode
+    //             }
+    //         }, function(results, status) {
+    //             if (status == google.maps.GeocoderStatus.OK) {
+    //                 mapErrorContainer.style.display = "none";
+    //                 map.setCenter(results[0].geometry.location);
+    //                 new google.maps.Marker({
+    //                     map: map,
+    //                     position: results[0].geometry.location,
+    //                     title: addressTitle
+    //                 });
+    //             } else {
+    //                 const mapContainer = document.getElementById('map-container').style.display = "none";
+    //                 // alert('Geocode was not successful for the following reasons: ' + status)
+    //             }
+    //         })
+    //     }
+    </script>
+    
+@endpush
 </x-app-dashboard-layout>

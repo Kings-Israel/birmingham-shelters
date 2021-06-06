@@ -56,14 +56,7 @@
                                 </div>
                             </div>
                             <br>
-                            <label>Has the client ever been detained/sectioned under the mental health act or community treatment order?</label>
-                            <input id="a-1" class="checkbox-custom" name="detained_for_mental_health" type="radio" value="Yes" {{ (old('detained_for_mental_health') == 'Yes') ? 'checked' : '' }}>
-                            <label for="a-1" class="checkbox-custom-label">Yes</label>
-                            <input id="a-2" class="checkbox-custom" name="detained_for_mental_health" type="radio"  value="No" {{ (old('detained_for_mental_health') == 'No') ? 'checked' : '' }}>
-                            <label for="a-2" class="checkbox-custom-label">No</label>
-                            @error('detained_for_mental_health')
-                                <strong class="error-message">{{ $message }}</strong>
-                            @enderror
+                            
                             <div class="row">
                                 <div class="col-lg-6 col-md-12">
                                     <label>Mental Health</label>
@@ -101,6 +94,15 @@
                             <label>Any Other Relevant Information</label>
                             <textarea class="form-control h-120" id="other_relevant_information" name="other_relevant_information">{{ old('other_relevant_information') }}</textarea>
                             @error('other_relevant_information')
+                                <strong class="error-message">{{ $message }}</strong>
+                            @enderror
+                            <br>
+                            <label>Has the client ever been detained/sectioned under the mental health act or community treatment order?</label>
+                            <input id="a-1" class="checkbox-custom" name="detained_for_mental_health" type="radio" value="Yes" {{ (old('detained_for_mental_health') == 'Yes') ? 'checked' : '' }}>
+                            <label for="a-1" class="checkbox-custom-label">Yes</label>
+                            <input id="a-2" class="checkbox-custom" name="detained_for_mental_health" type="radio"  value="No" {{ (old('detained_for_mental_health') == 'No') ? 'checked' : '' }}>
+                            <label for="a-2" class="checkbox-custom-label">No</label>
+                            @error('detained_for_mental_health')
                                 <strong class="error-message">{{ $message }}</strong>
                             @enderror
 

@@ -13,7 +13,7 @@
                             <img src="{!! $listing->coverImageUrl() !!}" class="img-fluid" alt="" />
                         </div>
                         <div class="sd-list-right">
-                            <h4 class="listing_dashboard_title"><a href="/listing/{{ $listing->id }}"
+                            <h4 class="listing_dashboard_title"><a href="{{ route('listing.view.one', $listing->id) }}"
                                     class="theme-cl">{{ $listing->name }}</a></h4>
                             <div class="user_dashboard_listed">
                                 Address: <strong>{{ $listing->address }}</strong>
