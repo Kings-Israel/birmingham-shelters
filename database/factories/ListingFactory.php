@@ -70,9 +70,9 @@ class ListingFactory extends Factory
     protected function setSampleImages(): array
     {
         return [
-            'sample/sample_1.jpg',
-            'sample/sample_2.jpg',
-            'sample/sample_3.jpg',
+            'samples/sample_1.jpg',
+            'samples/sample_2.jpg',
+            'samples/sample_3.jpg',
         ];
     }
 

@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 
 class Listing extends Model
 {
@@ -21,34 +23,11 @@ class Listing extends Model
         'verified_at' => 'datetime',
         'is_available' => 'bool',
         'supported_groups' => 'array',
-        'proofs' => 'array',
+        'proofs' => ListingProofsEnum::class.':collection',
         'images' => 'collection',
         'features' => 'collection',
         'other_rooms' => 'collection',
     ];
-
-    public function getIsVerifiedAttribute(): bool
-    {
-        return isset($this->verified_at);
-    }
-
-    public function coverImageUrl(): string
-    {
-        return $this->images->first()->url();
-    }
-
-    public function getProofs(): Collection
-    {
-        return collect(ListingProofsEnum::toArray())
-            ->flatMap(function ($label, $value) {
-                return [
-                    $value => [
-                        'label' => $label,
-                        'value' => $this->attributes[$value],
-                    ]
-                ];
-            });
-    }
 
     public function user(): BelongsTo
     {
@@ -63,6 +42,34 @@ class Listing extends Model
     public function listinginquiry(): HasMany
     {
         return $this->hasMany(ListingInquiry::class);
+    }
+
+    public function getIsVerifiedAttribute(): bool
+    {
+        return isset($this->verified_at);
+    }
+
+    public function coverImageUrl(): string
+    {
+        return $this->getImageUrl($this->images->first());
+    }
+
+    public function getImageUrl(string $filename): string
+    {
+        return Storage::disk('listing')->url('images/'.$filename);
+    }
+
+    public function getProofs(): Collection
+    {
+        return collect(ListingProofsEnum::toArray())
+            ->flatMap(function ($label, $value) {
+                return [
+                    $value => [
+                        'label' => $label,
+                        'value' => in_array(ListingProofsEnum::from($value), $this->proofs),
+                    ]
+                ];
+            });
     }
 
     public function markAsVerified(): Listing

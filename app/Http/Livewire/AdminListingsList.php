@@ -23,7 +23,7 @@ class AdminListingsList extends Component
 
     public function getListingsProperty()
     {
-        return Listing::with('listingimage', 'user')->paginate(10);
+        return Listing::with('user')->paginate(10);
     }
 
     public function render()

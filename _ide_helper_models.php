@@ -162,19 +162,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\ClientGroup
- *
- * @property-read \Illuminate\Support\Collection $client_group_list
- * @property-read \App\Models\Listing $listing
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup query()
- */
-	class ClientGroup extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
  * App\Models\Consent
  *
  * @property int $id
@@ -225,10 +212,12 @@ namespace App\Models{
  * @property array $supported_groups
  * @property string $support_description
  * @property int $support_hours
- * @property array $proofs
+ * @property \App\Enums\ListingProofsEnum $proofs
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListingDocument[] $documents
+ * @property-read int|null $documents_count
  * @property-read bool $is_verified
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListingInquiry[] $listinginquiry
  * @property-read int|null $listinginquiry_count
@@ -295,18 +284,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument whereUpdatedAt($value)
  */
 	class ListingDocument extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\ListingImage
- *
- * @property-read \App\Models\Listing $listing
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage query()
- */
-	class ListingImage extends \Eloquent {}
 }
 
 namespace App\Models{
