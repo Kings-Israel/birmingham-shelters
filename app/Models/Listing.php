@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 
@@ -21,6 +20,11 @@ class Listing extends Model
     protected $casts = [
         'verified_at' => 'datetime',
         'is_available' => 'bool',
+        'supported_groups' => 'array',
+        'proofs' => 'array',
+        'images' => 'collection',
+        'features' => 'collection',
+        'other_rooms' => 'collection',
     ];
 
     public function getIsVerifiedAttribute(): bool
@@ -30,7 +34,7 @@ class Listing extends Model
 
     public function coverImageUrl(): string
     {
-        return $this->listingimage->first()->url();
+        return $this->images->first()->url();
     }
 
     public function getProofs(): Collection
@@ -51,19 +55,9 @@ class Listing extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function listingimage(): HasMany
-    {
-        return $this->hasMany(ListingImage::class);
-    }
-
-    public function clientgroup(): HasOne
-    {
-        return $this->hasOne(ClientGroup::class);
-    }
-
     public function documents(): HasMany
     {
-        return $this->HasMany(ListingDocuments::class);
+        return $this->hasMany(ListingDocument::class);
     }
 
     public function listinginquiry(): HasMany
@@ -76,17 +70,5 @@ class Listing extends Model
         $this->verified_at = now();
 
         return $this;
-    }
-
-    public function getOtherRoomsListAttribute(): Collection
-    {
-        if ($this->other_rooms != '' || null) {
-            return collect(explode(',', $this->other_rooms));
-        }
-    }
-
-    public function getFeaturesListAttribute()
-    {
-        return isset($this->features) ? collect(explode(',', $this->features)) : null;
     }
 }

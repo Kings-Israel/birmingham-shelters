@@ -164,27 +164,11 @@ namespace App\Models{
 /**
  * App\Models\ClientGroup
  *
- * @property int $id
- * @property int $listing_id
- * @property string $client_group
- * @property string|null $other_types
- * @property string $support_description
- * @property int $support_hours
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Support\Collection $client_group_list
  * @property-read \App\Models\Listing $listing
  * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup query()
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereClientGroup($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereListingId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereOtherTypes($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereSupportDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereSupportHours($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereUpdatedAt($value)
  */
 	class ClientGroup extends \Eloquent {}
 }
@@ -229,28 +213,23 @@ namespace App\Models{
  * @property int $bathrooms
  * @property int $toilets
  * @property int $kitchen
- * @property string|null $other_rooms
- * @property string|null $features
+ * @property \Illuminate\Support\Collection|null $other_rooms
+ * @property \Illuminate\Support\Collection $features
  * @property int $user_id
  * @property bool $is_available
  * @property \Illuminate\Support\Carbon|null $verified_at
  * @property string $contact_name
  * @property string $contact_email
- * @property int|null $contact_number
- * @property int $fire_blanket
- * @property int $co_monitors
- * @property int $flame_retardant_spray
+ * @property string|null $contact_number
+ * @property \Illuminate\Support\Collection $images
+ * @property array $supported_groups
+ * @property string $support_description
+ * @property int $support_hours
+ * @property array $proofs
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\ClientGroup|null $clientgroup
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListingDocuments[] $documents
- * @property-read int|null $documents_count
- * @property-read mixed $features_list
  * @property-read bool $is_verified
- * @property-read \Illuminate\Support\Collection $other_rooms_list
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListingImage[] $listingimage
- * @property-read int|null $listingimage_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListingInquiry[] $listinginquiry
  * @property-read int|null $listinginquiry_count
  * @property-read \App\Models\User $user
@@ -262,7 +241,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereBathrooms($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereBedrooms($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Listing whereCoMonitors($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereContactEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereContactName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereContactNumber($value)
@@ -270,15 +248,18 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereFeatures($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Listing whereFireBlanket($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Listing whereFlameRetardantSpray($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Listing whereImages($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereIsAvailable($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereKitchen($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereLivingRooms($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereOtherRooms($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing wherePostcode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Listing whereProofs($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Listing whereSupportDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Listing whereSupportHours($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Listing whereSupportedGroups($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereToilets($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereUserId($value)
@@ -291,7 +272,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\ListingDocuments
+ * App\Models\ListingDocument
  *
  * @property int $id
  * @property int $listing_id
@@ -301,38 +282,29 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Listing $listing
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments query()
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments whereDocumentType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments whereExpiryDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments whereFilename($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments whereListingId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments whereUpdatedAt($value)
+ * @method static \Database\Factories\ListingDocumentFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument whereDocumentType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument whereExpiryDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument whereFilename($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument whereListingId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument whereUpdatedAt($value)
  */
-	class ListingDocuments extends \Eloquent {}
+	class ListingDocument extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
  * App\Models\ListingImage
  *
- * @property int $id
- * @property int $listing_id
- * @property string $image_name
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Listing $listing
  * @method static \Illuminate\Database\Eloquent\Builder|ListingImage newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ListingImage newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ListingImage query()
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage whereImageName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage whereListingId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage whereUpdatedAt($value)
  */
 	class ListingImage extends \Eloquent {}
 }

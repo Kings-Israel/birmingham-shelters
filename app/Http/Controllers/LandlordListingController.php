@@ -6,10 +6,10 @@ use App\Enums\ListingDocumentTypesEnum;
 use App\Enums\ListingProofsEnum;
 use App\Models\ClientGroup;
 use App\Models\Listing;
-use App\Models\ListingDocuments;
+use App\Models\ListingDocument;
 use App\Models\ListingImage;
-use Auth;
 use App\Rules\PhoneNumber;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -93,7 +93,7 @@ class LandlordListingController extends Controller
             'bathrooms' => 'required|numeric',
             'toilets' => 'required|numeric',
             'kitchen' => 'required|numeric',
-            'contact_name' => "required|string",
+            'contact_name' => 'required|string',
             'contact_email' => 'required|email',
             'contact_phoneNumber' => new PhoneNumber,
         ];
@@ -194,7 +194,7 @@ class LandlordListingController extends Controller
             'listing_documents.*' => ['required', 'mimes:pdf'],
             'expiry_dates' => ['required', 'array'],
             'expiry_dates.*' => ['required', 'date'],
-            'proof' => ['sometimes','array'],
+            'proof' => ['sometimes', 'array'],
         ];
 
         $messages = [
@@ -206,10 +206,10 @@ class LandlordListingController extends Controller
 
         $validated = $request->validate($rules, $messages);
 
-        foreach($validated['listing_documents'] as $document_type => $file) {
-            ListingDocuments::create([
+        foreach ($validated['listing_documents'] as $document_type => $file) {
+            ListingDocument::create([
                 'listing_id' => $validated['listing_id'],
-                'document_type' =>  $document_type,
+                'document_type' => $document_type,
                 'filename' => pathinfo($file->store('documents', 'listing'), PATHINFO_BASENAME),
                 'expiry_date' => $validated['expiry_dates'][$document_type],
             ]);
@@ -218,13 +218,13 @@ class LandlordListingController extends Controller
         if ($request->has('proof')) {
             $listing = Listing::find($request->listing_id);
 
-            if($request->has('proof.fire_blanket')) {
+            if ($request->has('proof.fire_blanket')) {
                 $listing->fire_blanket = 1;
             }
-            if($request->has('proof.co_monitors')) {
+            if ($request->has('proof.co_monitors')) {
                 $listing->co_monitors = 1;
             }
-            if($request->has('proof.flame_retardant_spray')) {
+            if ($request->has('proof.flame_retardant_spray')) {
                 $listing->flame_retardant_spray = 1;
             }
 
@@ -248,7 +248,7 @@ class LandlordListingController extends Controller
 
     public function delete_removed_image(ListingImage $listing_image)
     {
-        if(!$listing_image->delete()){
+        if (! $listing_image->delete()) {
             return response()
                 ->json(['message' => 'Could not delete image'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -260,9 +260,9 @@ class LandlordListingController extends Controller
     {
         $listing->load(['listingimage', 'documents', 'clientgroup']);
 
-        $listing->listingimage->each(fn(ListingImage $image) => $image->delete());
+        $listing->listingimage->each(fn (ListingImage $image) => $image->delete());
 
-        $listing->documents->each(fn(ListingDocuments $document) => $document->delete());
+        $listing->documents->each(fn (ListingDocument $document) => $document->delete());
 
         $listing->clientgroup->delete();
 
