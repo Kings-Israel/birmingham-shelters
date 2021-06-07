@@ -40,13 +40,17 @@
                             @endguest
                             @auth
                                 @if ((Auth::user()->isOfType('user')) && (Auth::user()->usermetadata()->exists()))
-                                    <form action="{{ route('submit.booking') }}" method="post">
-                                        @csrf
-                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                        <input type="hidden" name="user_metadata_id" value="{{ Auth::user()->usermetadata()->first()->id }}">
-                                        <input type="hidden" name="listing_id" value="{{ $listing->id }}">
-                                        <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
-                                    </form>
+                                    @if ($listing->bookings->contains('user_id', Auth::user()->id))
+                                        <p>You have already joined the waiting list for this room.</p>
+                                    @else
+                                        <form action="{{ route('submit.booking') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                            <input type="hidden" name="user_metadata_id" value="{{ Auth::user()->usermetadata()->first()->id }}">
+                                            <input type="hidden" name="listing_id" value="{{ $listing->id }}">
+                                            <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
+                                        </form>
+                                    @endif
                                 @elseif(Auth::user()->isOfType('agent'))
                                     <button type="submit" class="btn btn-black btn-md rounded full-width">Add Referee To Waiting List</button>
                                 @else
@@ -213,6 +217,9 @@
                         </div>
                         @auth
                             @if ((Auth::user()->isOfType('user')) && (Auth::user()->usermetadata()->exists()))
+                                @if ($listing->bookings->contains('user_id', Auth::user()->id))
+                                <p>You have already joined the waiting list for this room.</p>
+                            @else
                                 <form action="{{ route('submit.booking') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -220,6 +227,7 @@
                                     <input type="hidden" name="listing_id" value="{{ $listing->id }}">
                                     <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
                                 </form>
+                            @endif
                             @elseif(Auth::user()->isOfType('agent'))
                                 <button type="submit" class="btn btn-black btn-md rounded full-width">Add Referee To Waiting List</button>
                             @else

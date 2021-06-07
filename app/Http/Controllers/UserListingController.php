@@ -17,7 +17,7 @@ class UserListingController extends Controller
     public function listing(Listing $listing)
     {
         return view('listings.show-listing', [
-            'listing' => $listing->load('clientgroup', 'listingimage')
+            'listing' => $listing->load('clientgroup', 'listingimage', 'bookings')
         ]);
     }
 }

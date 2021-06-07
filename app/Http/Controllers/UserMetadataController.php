@@ -133,12 +133,35 @@ class UserMetadataController extends Controller
         Validator::make($request->all(), $rules, $messages)->validate();
         
         if ($request->has('applicant_image')) {
-            $filename = $request->applicant_image->getClientOriginalName();
-            $request->applicant_image->storeAs('public/referee/image', $filename);
-            $request->applicant_image = $filename;
+            pathinfo($request->file('applicant_image')->store('image', 'referee'), PATHINFO_BASENAME);
         }
 
-        if ($userMetadata = UserMetadata::create($request->all())) {
+        $userMetadata = new UserMetadata;
+        $userMetadata->user_id = $request->user()->id;
+        $userMetadata->referral_type = $request->referral_type;
+        $userMetadata->referrer_name = $request->referrer_name;
+        $userMetadata->referrer_email = $request->referrer_email;
+        $userMetadata->referrer_phone_number = $request->referrer_phone_number;
+        $userMetadata->referral_reason = $request->referral_reason;
+        $userMetadata->applicant_name = $request->applicant_name;
+        $userMetadata->applicant_email = $request->applicant_email;
+        $userMetadata->applicant_phone_number = $request->applicant_phone_number;
+        $userMetadata->applicant_date_of_birth = $request->applicant_date_of_birth;
+        $userMetadata->applicant_ni_number = $request->applicant_ni_number;
+        $userMetadata->applicant_current_address = $request->applicant_current_address;
+        $userMetadata->applicant_gender = $request->applicant_gender;
+        $userMetadata->applicant_sexual_orientation = $request->applicant_sexual_orientation;
+        $userMetadata->applicant_ethnicity = $request->applicant_ethnicity;
+        $userMetadata->applicant_kin_name = $request->applicant_kin_name;
+        $userMetadata->applicant_kin_email = $request->applicant_kin_email;
+        $userMetadata->applicant_kin_phone_number = $request->applicant_kin_phone_number;
+        $userMetadata->applicant_kin_relationship = $request->applicant_kin_relationship;
+
+        if ($request->has('applicant_image')) {
+            $userMetadata->applicant_image = pathinfo($request->file('applicant_image')->store('image', 'referee'), PATHINFO_BASENAME);
+        }
+
+        if ($userMetadata->save()) {
             return redirect()->route('referral.add.income-info', $userMetadata);
         }
 

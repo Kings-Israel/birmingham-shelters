@@ -69,6 +69,10 @@
                                             <div class="listing-detail-wrapper-box">
                                                 <div class="listing-detail-wrapper">
                                                     <div class="listing-short-detail">
+                                                        {{-- TODO: Change the condition to show only when listing is verified --}}
+                                                        @if ($listing->verified_at == null)
+                                                            <img src="{{ asset('/assets/img/star.png') }}" class="img-fluid" width="20px" style="float: right;"/>
+                                                        @endif
                                                         <h4 class="listing-name"><a href="single-property-2.html">{{ $listing->name }}</a></h4>
                                                         <p class="listing-description">{{ $listing->description }}</p>
                                                     </div>

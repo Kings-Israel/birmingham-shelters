@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Listing;
+use App\Models\Booking;
+use App\Models\UserMetadata;
 use App\Rules\PhoneNumber;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Auth;
+
 
 class HomeController extends Controller
 {
@@ -18,17 +22,38 @@ class HomeController extends Controller
 
     public function user()
     {
-        return view('user.index');
+        $bookings = Booking::where('user_id', '=', Auth::user()->id)->paginate(10);
+        return view('user.index')->with('bookings', $bookings);
     }
 
     public function landlord()
     {
+        $listings = Listing::where('user_id', '=', Auth::user()->id)->get();
+        $totalListings = count($listings);
+        $verifiedListings = count($listings->where('verified_at', '!=', null));
+        $occupiedListings = count($listings->where('is_available', '=', true));
+        $unoccupiedListings = $totalListings - $occupiedListings;
+        $bookings = [];
+        foreach ($listings as $listing) {
+            $bookings[$listing->id] = $listing->loadCount('bookings');
+        }
+        $listing_inquiries = [];
+        foreach ($listings as $listing) {
+            $listing_inquiries[$listing->id] = $listing->loadCount('listinginquiry');
+        }
+        // dd($listing_inquiries);
         return view('landlord.index');
     }
 
     public function agent()
     {
         return view('agent.index');
+    }
+
+    public function agent_referees()
+    {
+        $referees = UserMetadata::where('user_id', '=', Auth::user()->id)->paginate(10);
+        return view('agent.my-referees')->with('referees', $referees);
     }
 
     public function show_profile(User $user)

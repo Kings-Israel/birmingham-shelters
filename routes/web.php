@@ -28,6 +28,7 @@ Route::get('/loggedIn', PostAjaxRedirect::class)->name('loggedIn');
 Route::get('/user', [HomeController::class, 'user'])->name('user.index');
 Route::get('/landlord', [HomeController::class, 'landlord'])->name('landlord.index');
 Route::get('/agent', [HomeController::class, 'agent'])->name('agent.index');
+Route::get('/agent/referees', [HomeController::class, 'agent_referees'])->name('agent.referees');
 Route::group(['prefix' => '/profile', 'as' => 'profile.'], function() {
     Route::get('/{user}', [HomeController::class, 'show_profile'])->name('show');
     Route::post('/update', [HomeController::class, 'update_profile'])->name('update');
