@@ -8,10 +8,7 @@
                     <div class="property_block_wrap style-4">
                         <div class="prt-detail-title-desc">
                             <h3 class="text-light">{{ $listing->name }}</h3>
-                            <span><i class="lni-map-marker"></i> {{ $listing->address }},
-                                {{ $listing->local_authority_area }}</span>
-                            <p class="prt-price-fix">Postcode: <strong>{{ $listing->postcode }}</strong>
-                            </p>
+                            <span><i class="lni-map-marker"></i> {{ $listing->address }}, {{ $listing->postcode }}</span>
                         </div>
                         <p style="margin-bottom: 0;">
                             Status:
@@ -50,13 +47,10 @@
                             <li><strong>Bathrooms:</strong>{{ $listing->bathrooms }}</li>
                             <li><strong>Toilets:</strong>{{ $listing->toilets }}</li>
                             <li><strong>Kitchen:</strong>{{ $listing->kitchen }}</li>
-
-                            {{-- <li><strong>Status:</strong>Active</li> --}}
-
                         </ul>
                         @if ($listing->other_rooms)
                         <h6 class="property_block_title">Other Rooms:</h6>
-                        <p>{{ $listing->other_rooms }}</p>
+                        <p>{{ $listing->other_rooms->implode(', ') }}</p>
                         @endif
                     </div>
                 </div>
@@ -92,18 +86,18 @@
                 <div id="clThree" class="panel-collapse collapse show" aria-expanded="true">
                     <div class="block-body">
                         <ul class="avl-features third color">
-                            @foreach ($listing->clientgroup->client_group_list as $client)
+                            @foreach ($listing->supported_groups as $client)
                             <li class="text-capitalize">{{ $client }}</li>
                             @endforeach
                         </ul>
                     </div>
                     <div class="block-body">
                         <h6 class="property_block_title">Client Support Description:</h6>
-                        <p>{{ $listing->clientgroup->support_description }}</p>
+                        <p>{{ $listing->support_description }}</p>
                     </div>
 
                     <div class="block-body">
-                        <p class="property_block_title"><strong>Client Support Hours per week:</strong> {{ $listing->clientgroup->support_hours }}</h6>
+                        <p class="property_block_title"><strong>Client Support Hours per week:</strong> {{ $listing->support_hours }}</h6>
                     </div>
                 </div>
             </div>
@@ -143,9 +137,9 @@
                 <div id="clSev" class="panel-collapse collapse show" aria-expanded="true">
                     <div class="block-body">
                         <ul class="list-gallery-inline">
-                            @foreach ($listing->listingimage as $image)
+                            @foreach ($listing->images as $image)
                             <li>
-                                <a href="{!! $image->url() !!}" class="mfp-gallery"><img src="{!! $image->url() !!}"
+                                <a href="{!! $listing->getImageUrl($image) !!}" class="mfp-gallery"><img src="{!! $listing->getImageUrl($image) !!}"
                                         class="img-fluid mx-auto" alt="" /></a>
                             </li>
                             @endforeach

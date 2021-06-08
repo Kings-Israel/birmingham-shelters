@@ -23,8 +23,8 @@ class LandlordListingController extends Controller
 
     public function all_listings()
     {
-        $listings = Listing::where('user_id', '=', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
-        return view('landlord.listing.all-listings')->with('listings', $listings);
+        return view('landlord.listing.all-listings')
+                    ->with('listings', Auth::user()->listings()->orderBy('created_at', 'DESC')->get());
     }
 
     public function basic_info()
@@ -76,9 +76,7 @@ class LandlordListingController extends Controller
 
     public function view_listing(Listing $listing)
     {
-        return view('landlord.listing.show-listing', [
-            'listing' => $listing->load('clientgroup', 'listingimage'),
-        ]);
+        return view('landlord.listing.show-listing')->with('listing', $listing);
     }
 
     public function submit_basic_info(Request $request)
