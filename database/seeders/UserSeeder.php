@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Enums\UserTypeEnum;
+use App\Models\Listing;
+use App\Models\ListingDocument;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -26,5 +28,11 @@ class UserSeeder extends Seeder
                     'email' => "$type@test.com",
                 ]);
             });
+
+        Listing::factory(5)
+            ->withDocuments()
+            ->ownerAs(User::whereEmail('landlord@test.com')->first())
+            ->create();
+
     }
 }

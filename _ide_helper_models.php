@@ -294,7 +294,7 @@ namespace App\Models{
  * @property int $listing_id
  * @property string $user_name
  * @property string $user_email
- * @property int $user_phone_number
+ * @property string $user_phone_number
  * @property string $message
  * @property \Illuminate\Support\Carbon|null $read_at
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -333,6 +333,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read string $full_name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Listing[] $listings
+ * @property-read int|null $listings_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \App\Models\UserMetadata|null $usermetadata
@@ -365,7 +367,7 @@ namespace App\Models{
  * @property int $user_id
  * @property string $referral_type
  * @property string $referrer_name
- * @property int $referrer_phone_number
+ * @property string $referrer_phone_number
  * @property string $referrer_email
  * @property string $referral_reason
  * @property string $applicant_name
@@ -379,7 +381,7 @@ namespace App\Models{
  * @property string $applicant_ethnicity
  * @property string $applicant_kin_name
  * @property string $applicant_kin_relationship
- * @property int $applicant_kin_phone_number
+ * @property string $applicant_kin_phone_number
  * @property string $applicant_kin_email
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at

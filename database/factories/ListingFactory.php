@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Enums\ListingProofsEnum;
 use App\Models\Listing;
 use App\Models\ListingDocument;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ListingFactory extends Factory
@@ -102,8 +103,18 @@ class ListingFactory extends Factory
         });
     }
 
-    public function  withRelationships(): Factory
+    public function ownerAs(User $user): Factory
     {
-        return $this->forUser()->has(ListingDocument::factory()->requiredDocuments(), 'documents');
+        return $this->state(fn($attributes) => ['user_id' => $user->id]);
+    }
+
+    public function withDocuments(): Factory
+    {
+        return $this->has(ListingDocument::factory()->requiredDocuments(), 'documents');
+    }
+
+    public function withRelationships(): Factory
+    {
+        return $this->forUser()->withDocuments();
     }
 }

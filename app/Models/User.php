@@ -6,6 +6,7 @@ use App\Enums\UserTypeEnum;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -33,6 +34,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'phone_number_verified_at' => 'datetime',
     ];
+
+    public function listings(): HasMany
+    {
+        return $this->hasMany(Listing::class);
+    }
 
     public function usermetadata(): HasOne
     {
