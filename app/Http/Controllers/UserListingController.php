@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use App\Models\ClientGroup;
+use App\Models\Booking;
+use App\Models\UserMetdata;
 use Illuminate\Http\Request;
 
 class UserListingController extends Controller

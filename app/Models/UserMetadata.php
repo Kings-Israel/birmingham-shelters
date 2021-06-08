@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Booking;
 
 class UserMetadata extends Model
 {
@@ -76,5 +77,20 @@ class UserMetadata extends Model
     public function consent() 
     {
         return $this->hasOne(Consent::class);
+    }
+
+    public function canBook($user_id, $user_metadata_id, $listing_id)
+    {
+        $booking = Booking::where([
+            ['user_id', '=', $user_id],
+            ['user_metadata_id', '=', $user_metadata_id],
+            ['listing_id', '=', $listing_id]
+        ])->get();
+
+        if(count($booking) <= 0) {
+            return true;
+        } else {
+            return  false;
+        }
     }
 }

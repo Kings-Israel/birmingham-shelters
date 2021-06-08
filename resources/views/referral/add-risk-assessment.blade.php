@@ -60,7 +60,7 @@
                                         <label for="{{ $risk }}-High" class="checkbox-custom-label">High</label>
                                     </div>
                                     <div class="col-lg-5 col-md-12 col-sm-12">
-                                        <input type="text" class="form-control simple" name="risk_description[{{ $risk }}]" value="">
+                                        <input type="text" class="form-control simple" name="risk_description[{{ $risk }}]" value="{{ old('risk_description['.$risk.']') }}">
                                     </div>
                                     @error($risk)
                                         <p class="error-message"><strong>{{ $message }}</strong></p>

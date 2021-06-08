@@ -151,44 +151,30 @@
                     </div>
                 </div>
             </div>
+
+            <div class="property_block_wrap style-2">
+
+                <div class="property_block_wrap_header">
+                    <a data-bs-toggle="collapse" data-parent="#clSev" data-bs-target="#clSev" aria-controls="clOne"
+                        href="javascript:void(0);" aria-expanded="true" class="collapsed">
+                        <h4 class="property_block_title">Bookings</h4>
+                    </a>
+                </div>
+
+                <div id="clSev" class="panel-collapse collapse show" aria-expanded="true">
+                    <div class="block-body">
+                        <ul class="list-gallery-inline">
+                            @foreach ($listing->listingimage as $image)
+                            <li>
+                                <a href="{!! $image->url() !!}" class="mfp-gallery"><img src="{!! $image->url() !!}"
+                                        class="img-fluid mx-auto" alt="" /></a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <!-- ============================ Property Detail End ================================== -->
-@push('scripts')
-<script>
-    // function initMap() {
-    //         var mapErrorContainer = document.getElementById('map-error');
-    //         var address = document.getElementById('listing_address').innerText;
-    //         var addressTitle = document.getElementById('listing_name').innerText;
-    //         var addressPostalCode = document.getElementById('listing_postcode').innerText;
-    //         var geocoder = new google.maps.Geocoder();
-
-    //         const map = new google.maps.Map(document.getElementById("map"), {
-    //             zoom: 16,
-    //         });
-
-    //         geocoder.geocode({
-    //             'address': address,
-    //             componentRestrictions : {
-    //                 country: 'UK',
-    //                 postalCode: addressPostalCode
-    //             }
-    //         }, function(results, status) {
-    //             if (status == google.maps.GeocoderStatus.OK) {
-    //                 mapErrorContainer.style.display = "none";
-    //                 map.setCenter(results[0].geometry.location);
-    //                 new google.maps.Marker({
-    //                     map: map,
-    //                     position: results[0].geometry.location,
-    //                     title: addressTitle
-    //                 });
-    //             } else {
-    //                 const mapContainer = document.getElementById('map-container').style.display = "none";
-    //                 // alert('Geocode was not successful for the following reasons: ' + status)
-    //             }
-    //         })
-    //     }
-    </script>
-    
-@endpush
 </x-app-dashboard-layout>

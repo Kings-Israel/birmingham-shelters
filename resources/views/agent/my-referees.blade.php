@@ -6,7 +6,7 @@
                 @if (count($referees) <= 0)
                     <span style="text-align: center">
                         <h3>You have not made any referees.</h3>
-                        <h4><a href="{{ route('listing.all') }}">Click Here</a></h4><h6>to view available rooms</h6>
+                        <h4><a href="{{ route('referral.agency-referral') }}">Click Here</a></h4><h6>to add referees</h6>
                     </span>
                 @else
                 @foreach ($referees as $referee)

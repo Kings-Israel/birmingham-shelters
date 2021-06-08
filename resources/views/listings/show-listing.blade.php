@@ -52,7 +52,38 @@
                                         </form>
                                     @endif
                                 @elseif(Auth::user()->isOfType('agent'))
-                                    <button type="submit" class="btn btn-black btn-md rounded full-width">Add Referee To Waiting List</button>
+                                <button type="submit" class="btn btn-black btn-md rounded full-width" data-bs-toggle="modal" data-bs-target="#view_users">Add Referee To Waiting List</button>
+                                
+                                <div class="modal fade" id="view_users" tabindex="-1" role="dialog" aria-labelledby="view_users_modal" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+                                        <div class="modal-content" id="view_users_modal">
+                                            <span class="mod-close" data-bs-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+                                            <div class="modal-body">
+                                                <h4 class="modal-header-title">My Referees</h4>
+                                                <p style="text-align: center">Select a referee to add to waiting list</p>
+                                                <div class="login-form">
+                                                    <form method="POST" id="add-users-form" action="{{ route('submit.booking') }}">
+                                                        @csrf
+                                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                                        <input type="hidden" name="listing_id" value="{{ $listing->id }}">
+                                                        <ul>
+                                                            @foreach (Auth::user()->usermetadata()->get() as $metadata)
+                                                                @if ($metadata->canBook(Auth::user()->id, $metadata->id, $listing->id))
+                                                                    <li>
+                                                                        <input id="{{ $metadata->id }}" class="checkbox-custom" name="user_metadata_id" value="{{ $metadata->id }} {{ (old('user['.$metadata->id.']')) ? 'checked' : '' }}" type="radio" onchange="selected()">
+                                                                        <label for="{{ $metadata->id }}" class="checkbox-custom-label">{{ $metadata->applicant_name }}</label>
+                                                                    </li>
+                                                                @endif      
+                                                            @endforeach
+                                                        </ul>
+                                                        <button type="submit" id="add-users-button" disabled  class="btn btn-md full-width btn-theme-light-2 rounded">Submit</button>
+                                                    </form>
+                                                    <h5 id="error-message" style="color: red; display: none">Please select a referee</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 @else
                                     <p>Fill the Referral Form to Join the Waiting List for This Property</p>
                                 @endif
@@ -215,6 +246,9 @@
                                 </div>
                             </form>
                         </div>
+                        @guest
+                                <p>Please login or sign up to join the waiting list for this property</p>
+                            @endguest
                         @auth
                             @if ((Auth::user()->isOfType('user')) && (Auth::user()->usermetadata()->exists()))
                                 @if ($listing->bookings->contains('user_id', Auth::user()->id))
@@ -240,5 +274,17 @@
             
         </div>
     </section>
-
+    @push('scripts')
+    <script>
+        function selected() {
+            var result = document.querySelector('input[name="user_metadata_id"]:checked').value;
+            if(result !=""){
+                document.getElementById("add-users-button").removeAttribute('disabled');
+            }
+            else{
+                document.getElementById("add-users-button").setAttribute('disabled', true);
+            }
+        }
+    </script>
+    @endpush
 </x-app-layout>

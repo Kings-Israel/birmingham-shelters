@@ -77,7 +77,7 @@ class LandlordListingController extends Controller
     public function view_listing(Listing $listing)
     {
         return view('landlord.listing.show-listing', [
-            'listing' => $listing->load('clientgroup', 'listingimage'),
+            'listing' => $listing->load('clientgroup', 'listingimage', 'bookings'),
         ]);
     }
 
