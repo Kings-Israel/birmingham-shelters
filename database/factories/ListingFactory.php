@@ -101,4 +101,9 @@ class ListingFactory extends Factory
             ];
         });
     }
+
+    public function  withRelationships(): Factory
+    {
+        return $this->forUser()->has(ListingDocument::factory()->requiredDocuments(), 'documents');
+    }
 }

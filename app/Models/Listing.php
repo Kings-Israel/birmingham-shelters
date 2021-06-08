@@ -74,6 +74,10 @@ class Listing extends Model
 
     public function markAsVerified(): Listing
     {
+        if ($this->is_verified) {
+            return $this;
+        }
+
         $this->verified_at = now();
 
         return $this;
