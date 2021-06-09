@@ -12,7 +12,9 @@ use App\Rules\PhoneNumber;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class LandlordListingController extends Controller
 {
@@ -46,7 +48,9 @@ class LandlordListingController extends Controller
 
     public function client_info($id)
     {
-        $client_groups = [
+        $this->authorize('update', Listing::findOrFail($id));
+
+        $supported_groups = [
             'Mental Health',
             'Homeless',
             'Drug Dependency',
@@ -56,7 +60,7 @@ class LandlordListingController extends Controller
 
         return view('landlord.listing.add-clientgroup', [
             'id' => $id,
-            'client_groups' => $client_groups,
+            'supported_groups' => $supported_groups,
         ]);
     }
 
@@ -116,52 +120,43 @@ class LandlordListingController extends Controller
 
     }
 
-    private function _checkOtherClientGroup(Request $request, string $value)
-    {
-        if ($request->has('client_group')) {
-            return in_array($value, $request->input('client_group'));
-        }
-
-        return false;
-    }
-
     public function submit_clientgroup_info(Request $request)
     {
         $rules = [
             'listing_id' => 'required',
-            'client_group' => 'required|min:1',
-            'other_support_types' => ''.($this->_checkOtherClientGroup($request, 'Other') ? 'required' : '').'',
+            'supported_groups' => ['required', 'array', 'min:1'],
+            'other_supported_groups' => [
+                Rule::requiredIf(in_array('Other', $request->input('supported_groups'))),
+                'string'
+            ],
             'support_description' => 'required|string',
             'support_hours' => 'required|numeric'
         ];
 
         $message = [
-            'client_group.required' => 'Please pick at least one option.',
+            'supported_groups.required' => 'Please pick at least one option.',
             'string' => 'The input value must be text.',
             'numeric' => 'The input value must be a number.'
         ];
 
-        Validator::make($request->all(), $rules, $message)->validate();
+        $validated = Validator::make($request->all(), $rules, $message)->validate();
 
-        $client_group = new ClientGroup;
-        $client_group->listing_id = $request->listing_id;
-        if ($request->has('client_group')) {
-            $request->merge(['client_group' => implode(',', (array)$request->get('client_group'))]);
-            $client_group->client_group = $request->client_group;
-        }
+        $update_data = collect($validated)
+            ->when($request->filled('other_supported_groups'), function (Collection $collection) {
+                $collection['supported_groups'] = collect($collection['supported_groups'])
+                            ->reject(fn($value) => $value === "Other")
+                            ->merge(
+                                collect(explode(',', $collection['other_supported_groups']))->map(fn ($value) => trim($value))
+                                )->all();
+                return $collection->except('other_supported_groups');
+            })
+            ->except('listing_id')
+            ->all();
 
-        if ($request->has('other_support_types')) {
-            $client_group->other_types = $request->other_support_types;
-        }
+        Listing::whereId($request->listing_id)
+            ->update($update_data);
 
-        $client_group->support_description = $request->support_description;
-        $client_group->support_hours = $request->support_hours;
-
-        if ($client_group->save()) {
-            return redirect()->route('listing.add.listing_documents', $request->listing_id);
-        }
-
-        return redirect('listing/add-clientgroupinfo', $request->listing_id)->withError('An error occured. Please try again.');
+        return redirect()->route('listing.add.listing_documents', $request->listing_id);
     }
 
     public function submit_listing_documents(Request $request)

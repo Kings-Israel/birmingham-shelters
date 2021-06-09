@@ -18,7 +18,7 @@ class AdminVerifyListingTest extends TestCase
         $this->actingAs(User::factory()->asUserType('admin')->create());
 
         /** @var Listing */
-        $listing = Listing::factory()->unverified()->withRelationships()->create();
+        $listing = Listing::factory()->withRelationships()->create();
 
         $component = Livewire::test(AdminVerifyListing::class, ['listing' => $listing])
                         ->assertSet('listing', $listing)
@@ -36,7 +36,7 @@ class AdminVerifyListingTest extends TestCase
         $this->actingAs(User::factory()->asUserType('landlord')->create());
 
         /** @var Listing */
-        $listing = Listing::factory()->unverified()->withRelationships()->create();
+        $listing = Listing::factory()->withRelationships()->create();
 
         Livewire::test(AdminVerifyListing::class, ['listing' => $listing])
                         ->call('markAsVerified')

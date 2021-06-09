@@ -201,18 +201,18 @@ namespace App\Models{
  * @property int $toilets
  * @property int $kitchen
  * @property \Illuminate\Support\Collection|null $other_rooms
- * @property \Illuminate\Support\Collection $features
+ * @property \Illuminate\Support\Collection|null $features
  * @property int $user_id
  * @property bool $is_available
  * @property \Illuminate\Support\Carbon|null $verified_at
  * @property string $contact_name
  * @property string $contact_email
  * @property string|null $contact_number
- * @property \Illuminate\Support\Collection $images
- * @property array $supported_groups
- * @property string $support_description
- * @property int $support_hours
- * @property \App\Enums\ListingProofsEnum $proofs
+ * @property \Illuminate\Support\Collection|null $images
+ * @property array|null $supported_groups
+ * @property string|null $support_description
+ * @property int|null $support_hours
+ * @property \App\Enums\ListingProofsEnum|null $proofs
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at

@@ -25,6 +25,8 @@ class ListingManagementTest extends TestCase
 
     public function test_admin_can_visit_single_listing(): void
     {
+        $this->withoutExceptionHandling();
+
         $this->actingAs(User::factory()->asUserType('admin')->create());
 
         $listing = Listing::factory()->withRelationships()->create();

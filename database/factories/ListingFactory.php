@@ -7,36 +7,52 @@ use App\Models\Listing;
 use App\Models\ListingDocument;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Collection;
 
 class ListingFactory extends Factory
 {
     protected $model = Listing::class;
 
+    protected bool $with_basic_info = true;
+
+    protected bool $with_support_info = true;
+
+    protected bool $with_images = true;
+
     public function definition(): array
     {
-        return [
-            'name' => $this->faker->sentence(4),
-            'address' => $this->faker->streetAddress(),
-            'postcode' => $this->faker->postcode(),
-            'description' => $this->faker->paragraph(),
-            'living_rooms' => $this->faker->numberBetween(0, 3),
-            'bedrooms' => $this->faker->numberBetween(1, 4),
-            'bathrooms' => $this->faker->numberBetween(1, 3),
-            'toilets' => $this->faker->numberBetween(1, 3),
-            'kitchen' => $this->faker->numberBetween(1, 3),
-            'features' => $this->getFeatures(),
-            'other_rooms' => [],
-            'verified_at' => now(),
-            'is_available' => true,
-            'contact_name' => $this->faker->name(),
-            'contact_email' => $this->faker->freeEmail(),
-            'contact_number' => $this->faker->unique()->regexify('44\d{10}'),
-            'supported_groups' => $this->getSupportedGroups(),
-            'support_description' => $this->faker->paragraph(7),
-            'support_hours' => $this->faker->numberBetween(1, 4),
-            'images' => $this->setSampleImages(),
-            'proofs' => $this->setProofs(),
-        ];
+        return collect([])
+            ->when($this->with_basic_info, function (Collection $attributes) {
+                return $attributes->merge([
+                    'name' => $this->faker->sentence(4),
+                    'address' => $this->faker->streetAddress(),
+                    'postcode' => $this->faker->postcode(),
+                    'description' => $this->faker->paragraph(),
+                    'living_rooms' => $this->faker->numberBetween(0, 3),
+                    'bedrooms' => $this->faker->numberBetween(1, 4),
+                    'bathrooms' => $this->faker->numberBetween(1, 3),
+                    'toilets' => $this->faker->numberBetween(1, 3),
+                    'kitchen' => $this->faker->numberBetween(1, 3),
+                    'features' => $this->getFeatures(),
+                    'other_rooms' => [],
+                    'contact_name' => $this->faker->name(),
+                    'contact_email' => $this->faker->freeEmail(),
+                    'contact_number' => $this->faker->unique()->regexify('44\d{10}'),
+                ]);
+            })
+            ->when($this->with_support_info, function (Collection $attributes) {
+                return $attributes->merge([
+                    'supported_groups' => $this->getSupportedGroups(),
+                    'support_description' => $this->faker->paragraph(7),
+                    'support_hours' => $this->faker->numberBetween(1, 4),
+                ]);
+            })
+            ->when($this->with_images, function (Collection $attributes) {
+                return $attributes->merge([
+                    'images' => $this->setSampleImages(),
+                ]);
+            })
+            ->all();
     }
 
     protected function getFeatures(): array
@@ -77,19 +93,18 @@ class ListingFactory extends Factory
         ];
     }
 
-    protected function setProofs(): array
+    public function setProofs(): Factory
     {
-        return $this->faker->randomElements(
-            ListingProofsEnum::toValues(),
-            $this->faker->numberBetween(0, 3)
-        );
+        return $this->state([
+            'proofs' => $this->faker->randomElements(ListingProofsEnum::toValues(), $this->faker->numberBetween(0, 3)),
+        ]);
     }
 
-    public function unverified(): Factory
+    public function verified(): Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'verified_at' => null,
+                'verified_at' => now(),
             ];
         });
     }
@@ -105,16 +120,25 @@ class ListingFactory extends Factory
 
     public function ownerAs(User $user): Factory
     {
-        return $this->state(fn($attributes) => ['user_id' => $user->id]);
+        return $this->state(fn ($attributes) => ['user_id' => $user->id]);
     }
 
     public function withDocuments(): Factory
     {
-        return $this->has(ListingDocument::factory()->requiredDocuments(), 'documents');
+        return $this->setProofs()
+                    ->has(ListingDocument::factory()->requiredDocuments(), 'documents');
     }
 
     public function withRelationships(): Factory
     {
         return $this->forUser()->withDocuments();
+    }
+
+    public function basicInfoOnly(): Factory
+    {
+        $this->with_images = false;
+        $this->with_support_info = false;
+
+        return $this;
     }
 }
