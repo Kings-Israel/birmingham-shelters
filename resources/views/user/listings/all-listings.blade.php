@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10 col-md-12">
-                    
+
                     <div class="full-search-2 eclip-search italian-search hero-search-radius shadow-hard">
                         <div class="hero-search-content">
                             <div class="row">
@@ -15,22 +15,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-3 col-md-5 col-sm-12">
                                     <div class="form-group">
                                         <a href="#" class="btn search-btn black">Search</a>
                                     </div>
                                 </div>
-                                        
+
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
     </div>
-    
+
     <section class="bg-light">
         <div class="container">
             <div class="row justify-content-center">
@@ -50,11 +50,11 @@
                                 <div class="property-listing property-1">
                                     <div class="listing-img-wrapper">
                                         <a href="single-property-2.html">
-                                            <img src="{{ asset('storage/listing/images/'.$listing->listingimage[0]->image_name) }}" class="img-fluid mx-auto" alt="" />
+                                            <img src="{!!  $listing->coverImageUrl() !!}" class="img-fluid mx-auto" alt="" />
                                         </a>
                                     </div>
                                     <div class="listing-content">
-										
+
                                         <div class="listing-detail-wrapper-box">
                                             <div class="listing-detail-wrapper">
                                                 <div class="listing-short-detail">
@@ -63,7 +63,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    
+
                                         <div class="listing-footer-wrapper">
                                             <div class="listing-locate">
                                                 <span class="listing-location"><i class="ti-location-pin"></i>Quice Market, Canada</span>
@@ -72,7 +72,7 @@
                                                 <a href="{{ route('user.listing.one', $listing->id) }}" class="more-btn">View</a>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
