@@ -17,7 +17,9 @@ class Listing extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $guarded = [];
+    protected $guarded = [
+        'verified_at',
+    ];
 
     protected $casts = [
         'user_id' => 'integer',

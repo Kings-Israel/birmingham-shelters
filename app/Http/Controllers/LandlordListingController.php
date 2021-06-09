@@ -93,47 +93,27 @@ class LandlordListingController extends Controller
             'kitchen' => 'required|numeric',
             'contact_name' => 'required|string',
             'contact_email' => 'required|email',
-            'contact_phoneNumber' => new PhoneNumber,
+            'contact_number' => ['nullable', new PhoneNumber],
+            'other_rooms' => 'nullable|string',
+            'features' => 'sometimes|array'
         ];
 
-        $message = [
+        $messages = [
             'numeric' => 'The input in this field must be a number'
         ];
 
-        Validator::make($request->all(), $rules, $message)->validate();
+        $validated_data = $request->validate($rules, $messages);
 
-        $listing = new Listing;
-        $listing->name = $request->name;
-        $listing->address = $request->address;
-        $listing->postcode = $request->postcode;
-        $listing->description = $request->description;
-        $listing->living_rooms = $request->living_rooms;
-        $listing->bedrooms = $request->bedrooms;
-        $listing->bathrooms = $request->bathrooms;
-        $listing->toilets = $request->toilets;
-        $listing->kitchen = $request->kitchen;
-        if ($request->has('other_rooms')) {
-            $listing->other_rooms = $request->other_rooms;
+        if (isset($validated_data['other_rooms'])) {
+            $validated_data['other_rooms'] = collect(explode(',', $validated_data['other_rooms']))
+                                                ->map(fn($value) => trim($value))
+                                                ->all();
         }
 
-        if ($request->has('feature')) {
-            $request->merge(['feature' => implode(',', (array)$request->get('feature'))]);
-            $listing->features = $request->feature;
-        }
+        $listing = Auth::user()->listings()->create($validated_data);
 
-        $listing->user_id = $request->user()->id;
+        return redirect()->route('listing.add.client_info', $listing->id);
 
-        $listing->contact_name = $request->contact_name;
-        $listing->contact_email = $request->contact_email;
-        if ($request->has('contact_phoneNumber')) {
-            $listing->contact_number = $request->contact_phoneNumber;
-        }
-
-        if ($listing->save()) {
-            return redirect()->route('listing.add.client_info', $listing->id);
-        }
-
-        return redirect('listing/add-basicinfo')->withError('An error occured. Please try again.');
     }
 
     private function _checkOtherClientGroup(Request $request, string $value)
