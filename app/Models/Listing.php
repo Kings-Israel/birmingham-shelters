@@ -20,6 +20,7 @@ class Listing extends Model
     protected $guarded = [];
 
     protected $casts = [
+        'user_id' => 'integer',
         'verified_at' => 'datetime',
         'is_available' => 'bool',
         'supported_groups' => 'array',
@@ -28,6 +29,14 @@ class Listing extends Model
         'features' => 'collection',
         'other_rooms' => 'collection',
     ];
+
+    protected static function booted(): void
+    {
+        static::deleted(function(Listing $listing) {
+            $listing->images
+                ->each(fn ($path) => Storage::disk('listing')->delete('images/'.$path));
+        });
+    }
 
     public function user(): BelongsTo
     {

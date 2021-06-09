@@ -21,7 +21,7 @@ class ListingDocument extends Model
 
     protected static function booted(): void
     {
-        static::deleted(function(ListingDocuments $document) {
+        static::deleted(function(ListingDocument $document) {
             Storage::disk('listing')->delete('documents/'.$document->filename);
         });
     }

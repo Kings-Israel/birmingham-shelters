@@ -256,13 +256,11 @@ class LandlordListingController extends Controller
 
     public function delete_listing(Listing $listing)
     {
-        $listing->load(['listingimage', 'documents', 'clientgroup']);
+        $this->authorize('delete', $listing);
 
-        $listing->listingimage->each(fn (ListingImage $image) => $image->delete());
+        $listing->load('documents');
 
         $listing->documents->each(fn (ListingDocument $document) => $document->delete());
-
-        $listing->clientgroup->delete();
 
         $listing->delete();
 
