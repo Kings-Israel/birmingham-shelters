@@ -13,6 +13,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -122,6 +123,8 @@ class LandlordListingController extends Controller
 
     public function submit_clientgroup_info(Request $request)
     {
+        $this->authorize('update', Listing::findOrFail($request->listing_id));
+
         $rules = [
             'listing_id' => 'required',
             'supported_groups' => ['required', 'array', 'min:1'],
@@ -161,6 +164,8 @@ class LandlordListingController extends Controller
 
     public function submit_listing_documents(Request $request)
     {
+        $this->authorize('update', Listing::findOrFail($request->listing_id));
+
         $rules = [
             'listing_id' => ['required', 'integer'],
             'listing_documents' => ['required', 'array', 'size:'.count(ListingDocumentTypesEnum::toArray())],
@@ -188,43 +193,39 @@ class LandlordListingController extends Controller
             ]);
         }
 
-        if ($request->has('proof')) {
-            $listing = Listing::find($request->listing_id);
-
-            if ($request->has('proof.fire_blanket')) {
-                $listing->fire_blanket = 1;
-            }
-            if ($request->has('proof.co_monitors')) {
-                $listing->co_monitors = 1;
-            }
-            if ($request->has('proof.flame_retardant_spray')) {
-                $listing->flame_retardant_spray = 1;
-            }
-
-            $listing->save();
-        }
+        $request->whenFilled('proof', function ($input) use ($request) {
+            Listing::whereId($request->listing_id)->update(['proofs' => array_keys($input)]);
+        });
 
         return redirect()->route('listing.add.listing_images', $request->listing_id);
     }
 
     public function submit_listing_images(Request $request)
     {
+        $this->authorize('update', $listing = Listing::findOrFail($request->listing_id));
+
         abort_unless($request->file('file'), Response::HTTP_NOT_FOUND);
 
-        $listing_image = ListingImage::create([
-            'listing_id' => $request->listing_id,
-            'image_name' => pathinfo($request->file('file')->store('images', 'listing'), PATHINFO_BASENAME),
-        ]);
+        $listing->images->push(
+            $filename = pathinfo($request->file('file')->store('images', 'listing'), PATHINFO_BASENAME)
+        );
 
-        return response()->json($listing_image);
+        $listing->save();
+
+        return response()->json([
+            'listingId' => $listing->id,
+            'filename' => $filename,
+        ]);
     }
 
-    public function delete_removed_image(ListingImage $listing_image)
+    public function delete_removed_image(Listing $listing)
     {
-        if (! $listing_image->delete()) {
-            return response()
-                ->json(['message' => 'Could not delete image'], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
+        $image = request('filename');
+
+        Storage::disk("listing")->delete("images/$image");
+
+        $listing->images = $listing->images->reject(fn($value) => $value === $image);
+        $listing->save();
 
         return response()->json(['message' => 'Deleted image successfully.']);
     }

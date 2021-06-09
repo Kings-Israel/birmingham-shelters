@@ -97,7 +97,7 @@ class LandlordSubmitPropertyTest extends TestCase
         $data['other_rooms'] = '';
 
         /** @var Listing */
-        $listing = User::factory()->asUserType('landlord')->create()->listings()->create($data);
+        $listing = $user->listings()->create($data);
 
         $client_data = [
             'listing_id' => $listing->id,
@@ -124,7 +124,7 @@ class LandlordSubmitPropertyTest extends TestCase
         $data['other_rooms'] = '';
 
         /** @var Listing */
-        $listing = User::factory()->asUserType('landlord')->create()->listings()->create($data);
+        $listing = $user->listings()->create($data);
 
         $client_data = [
             'listing_id' => $listing->id,
@@ -145,7 +145,7 @@ class LandlordSubmitPropertyTest extends TestCase
         $data['other_rooms'] = '';
 
         /** @var Listing */
-        $listing = User::factory()->asUserType('landlord')->create()->listings()->create($data);
+        $listing = $user->listings()->create($data);
 
         $client_data = [
             'listing_id' => $listing->id,
@@ -159,8 +159,6 @@ class LandlordSubmitPropertyTest extends TestCase
             ->assertRedirect(route('listing.add.listing_documents', $listing->id));
 
         $listing->refresh();
-
-        $this->withoutExceptionHandling();
 
         $excepted_supported_groups = collect($client_data['supported_groups'])
             ->reject(fn($value) => $value === "Other")
