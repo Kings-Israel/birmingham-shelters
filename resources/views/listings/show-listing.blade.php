@@ -70,7 +70,7 @@
                                                             @foreach (Auth::user()->refereedata()->get() as $metadata)
                                                                 @if ($metadata->canBook(Auth::user()->id, $metadata->id, $listing->id))
                                                                     <li>
-                                                                        <input id="{{ $metadata->id }}" class="checkbox-custom" name="user_metadata_id" value="{{ $metadata->id }} {{ (old('user['.$metadata->id.']')) ? 'checked' : '' }}" type="radio" onchange="selected()">
+                                                                        <input id="{{ $metadata->id }}" class="checkbox-custom" name="referee_data_id" value="{{ $metadata->id }} {{ (old('user['.$metadata->id.']')) ? 'checked' : '' }}" type="radio" onchange="selected()">
                                                                         <label for="{{ $metadata->id }}" class="checkbox-custom-label">{{ $metadata->applicant_name }}</label>
                                                                     </li>
                                                                 @endif      
@@ -263,7 +263,7 @@
                                 </form>
                             @endif
                             @elseif(Auth::user()->isOfType('agent'))
-                                <button type="submit" class="btn btn-black btn-md rounded full-width">Add Referee To Waiting List</button>
+                                <button type="submit" class="btn btn-black btn-md rounded full-width" data-bs-toggle="modal" data-bs-target="#view_users">Add Referee To Waiting List</button>
                             @else
                                 <p>Fill the Referral Form to Join the Waiting List for This Property</p>
                             @endif
@@ -277,7 +277,7 @@
     @push('scripts')
     <script>
         function selected() {
-            var result = document.querySelector('input[name="user_metadata_id"]:checked').value;
+            var result = document.querySelector('input[name="referee_data_id"]:checked').value;
             if(result !=""){
                 document.getElementById("add-users-button").removeAttribute('disabled');
             }
