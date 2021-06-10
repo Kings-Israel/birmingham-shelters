@@ -13,33 +13,61 @@
                     <div class="col-lg-6 col-md-12">
                         <div class="property-listing property-1">
                             <div class="listing-img-wrapper">
-                                <a href="single-property-2.html">
-                                    <img src="{{ asset('storage/referee/image/'.$referee->applicant_image) }}" class="img-fluid mx-auto" alt="" />
-                                </a>
+                                <div class="sd-list-left">
+                                    <a href="{{ route('agent.referees.referee', $referee->id) }}">
+                                        <img src="{{ asset('storage/referee/image/'.$referee->applicant_image) }}" class="img-fluid mx-auto" alt="" />
+                                    </a>
+                                </div>
                             </div>
-                            <div class="listing-content">
+                            <div class="listing-content sd-list-right">
                                 
                                 <div class="listing-detail-wrapper-box">
                                     <div class="listing-detail-wrapper">
                                         <div class="listing-short-detail">
-                                            <h4 class="listing-name"><a href="single-property-2.html">{{ $referee->applicant_name }}</a></h4>
+                                            <h4 class="listing-name"><a href="{{ route('agent.referees.referee', $referee->id) }}">{{ $referee->applicant_name }}</a></h4>
                                             <p class="listing-description">{{ $referee->applicant_email }}</p>
                                         </div>
                                     </div>
                                 </div>
-                            
-                                {{-- <div class="listing-footer-wrapper">
-                                    <div class="listing-locate">
-                                        <span class="listing-location"><i class="ti-location-pin"></i>{{ $referee->listing->address }}</span>
-                                    </div>
-                                    <div class="listing-detail-btn">
-                                        <a href="{{ route('listing.one', $referee->listing->id) }}" class="more-btn">View</a>
-                                    </div>
-                                </div> --}}
+
+                                <div class="action">
+                                <a href="JavaScript:Void(0);" data-bs-toggle="modal"
+                                    data-bs-target="#delete_listing_{{ $referee->id }}" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Delete Referee" class="delete"><i
+                                        class="ti-close"></i></a>
+                                </div>
                                 
                             </div>
                         </div>
-                    </div>                      
+                    </div>  
+                    {{-- Delete Referee Modal --}}
+                    <div class="modal fade signup" id="delete_listing_{{ $referee->id }}" tabindex="-1" role="dialog"
+                        aria-labelledby="sign-up" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+                            <div class="modal-content" id="sign-up">
+                                <span class="mod-close" data-bs-dismiss="modal" aria-hidden="true"><i
+                                        class="ti-close"></i></span>
+                                <div class="modal-body">
+                                    <h4 class="text-center">Are you Sure you Want to delete {{ $referee->applicant_name }}?
+                                    </h4>
+                                    <div class="login-form">
+                                        <form method="POST" action="{{ route('referee.delete', $referee->id) }}">
+                                            @csrf
+                                            @method('DELETE')
+    
+                                            <div class="form-group">
+                                                <button type="submit"
+                                                    class="btn btn-md full-width btn-primary rounded">Delete</button>
+                                            </div>
+    
+                                        </form>
+                                        <button type="submit" data-bs-dismiss="modal"
+                                            class="btn btn-md full-width btn-theme-light-2 rounded">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
                 @endforeach
 
                 <!-- Pagination -->

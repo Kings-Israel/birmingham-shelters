@@ -12,7 +12,7 @@ class UserBookingController extends Controller
         $this->middleware('auth');
     }
 
-    public function submit_booking(Request $request)
+    public function submitBooking(Request $request)
     {
         if(Booking::create($request->all())) {
             return redirect()->back()->with('success', 'You have been added to the waiting list');

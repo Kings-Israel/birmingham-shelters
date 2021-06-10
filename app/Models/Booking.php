@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     protected $fillable = [
-        'listing_id', 'user_id', 'user_metadata_id'
+        'listing_id', 'user_id', 'referee_data_id'
     ];
     
     use HasFactory;
@@ -28,9 +28,9 @@ class Booking extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function usermetadata()
+    public function refereedata()
     {
-        return $this->belongsTo(UserMetadata::class);
+        return $this->belongsTo(RefereeData::class);
     }
 
     /**

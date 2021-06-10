@@ -7,23 +7,30 @@
         <div class="alert alert-success">
             <p>{{ session('success') }}</p>
         </div>
-    @endif
-    @if (count($listings) > 0)    
-        <div class="page-title">
-            <div class="container">
-                <div class="row justify-content-center">
-                    @include('partials.search')
-                </div>
+    @endif 
+    <div class="page-title">
+        <div class="container">
+            <div class="row justify-content-center">
+                @include('partials.search')
             </div>
         </div>
-    @endif
+    </div>
     <section class="bg-light">
         <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 col-md-12">
+                    <div class="item-shorting-box">
+                        <div class="item-shorting clearfix">
+                            <div class="left-column pull-left" @if(count($listings) <= 0) style="display: none" @endif><h4 class="m-0">Showing {{ $listings->currentPage() }}-{{ count($listings->items()) }} of {{ $listings->total() }} Results</h4></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12 col-sm-12 list-layout">
                     <div class="row">
                         @if (count($listings) <= 0)
-                            <h3 style="text-align: center">No Listings have been added yet.</h3>
+                            <h3 style="text-align: center">No Listings have been found.</h3>
                         @else
                             @foreach ($listings as $listing)
                                 <div class="col-lg-6 col-md-12">

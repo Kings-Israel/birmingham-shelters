@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ListingInquiryController extends Controller
 {
-    public function submit_inquiry(Request $request)
+    public function submitInquiry(Request $request)
     {
         $rules = [
             'user_name' => 'required|string',

@@ -21,13 +21,13 @@ class LandlordListingController extends Controller
         $this->middleware('auth');
     }
 
-    public function all_listings()
+    public function allListings()
     {
         $listings = Listing::where('user_id', '=', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
         return view('landlord.listing.all-listings')->with('listings', $listings);
     }
 
-    public function basic_info()
+    public function basicInfo()
     {
         $features = [
             'Air Condition',
@@ -44,7 +44,7 @@ class LandlordListingController extends Controller
         return view('landlord.listing.add-basic', ['features' => $features]);
     }
 
-    public function client_info($id)
+    public function clientInfo($id)
     {
         $client_groups = [
             'Mental Health',
@@ -60,7 +60,7 @@ class LandlordListingController extends Controller
         ]);
     }
 
-    public function listing_documents($id)
+    public function listingDocuments($id)
     {
         return view('landlord.listing.add-listingdocuments')->with([
             'id' => $id,
@@ -69,19 +69,19 @@ class LandlordListingController extends Controller
         ]);
     }
 
-    public function listing_images($id)
+    public function listingImages($id)
     {
         return view('landlord.listing.add-listingimages')->with('id', $id);
     }
 
-    public function view_listing(Listing $listing)
+    public function viewListing(Listing $listing)
     {
         return view('landlord.listing.show-listing', [
             'listing' => $listing->load('clientgroup', 'listingimage', 'bookings'),
         ]);
     }
 
-    public function submit_basic_info(Request $request)
+    public function submitBasicInfo(Request $request)
     {
         $rules = [
             'name' => 'required|string',
@@ -147,7 +147,7 @@ class LandlordListingController extends Controller
         return false;
     }
 
-    public function submit_clientgroup_info(Request $request)
+    public function submitClientgroupInfo(Request $request)
     {
         $rules = [
             'listing_id' => 'required',
@@ -186,7 +186,7 @@ class LandlordListingController extends Controller
         return redirect('listing/add-clientgroupinfo', $request->listing_id)->withError('An error occured. Please try again.');
     }
 
-    public function submit_listing_documents(Request $request)
+    public function submitListingDocuments(Request $request)
     {
         $rules = [
             'listing_id' => ['required', 'integer'],
@@ -234,7 +234,7 @@ class LandlordListingController extends Controller
         return redirect()->route('listing.add.listing_images', $request->listing_id);
     }
 
-    public function submit_listing_images(Request $request)
+    public function submitListingImages(Request $request)
     {
         abort_unless($request->file('file'), Response::HTTP_NOT_FOUND);
 
@@ -246,7 +246,7 @@ class LandlordListingController extends Controller
         return response()->json($listing_image);
     }
 
-    public function delete_removed_image(ListingImage $listing_image)
+    public function deleteRemovedImage(ListingImage $listing_image)
     {
         if(!$listing_image->delete()){
             return response()
@@ -256,7 +256,7 @@ class LandlordListingController extends Controller
         return response()->json(['message' => 'Deleted image successfully.']);
     }
 
-    public function delete_listing(Listing $listing)
+    public function deleteListing(Listing $listing)
     {
         $listing->load(['listingimage', 'documents', 'clientgroup', 'bookings']);
 

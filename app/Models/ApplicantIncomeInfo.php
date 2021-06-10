@@ -11,11 +11,16 @@ class ApplicantIncomeInfo extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_metadata_id', 'source_of_income', 'dwp_office', 'other_debt'
+        'referee_data_id', 'source_of_income', 'dwp_office', 'other_debt'
     ];
 
-    public function usermetadata(): BelongsTo
+    public function refereedata(): BelongsTo
     {
-        return $this->belongsTo(UserMetadata::class);
+        return $this->belongsTo(RefereeData::class);
+    }
+
+    public function getSourceOfIncomeListAttribute()
+    {
+        return collect(explode(',', $this->source_of_income));
     }
 }

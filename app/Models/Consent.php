@@ -11,11 +11,11 @@ class Consent extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_metadata_id', 'consent_name', 'consent_date', 'consent_company_position'
+        'referee_data_id', 'consent_name', 'consent_date', 'consent_company_position'
     ];
 
-    public function usermetadata()
+    public function refereedata(): BelongsTo
     {
-        return $this->belongsTo(UserMetadata::class);
+        return $this->belongsTo(RefereeData::class);
     }
 }

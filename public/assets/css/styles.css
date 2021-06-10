@@ -11990,3 +11990,10 @@ a.blue2-theme {
     border: 0;
     transition: all .2s ease;
   }
+
+  .referee-details {
+      display: inline-flex;
+    }
+  .referee-details .details {
+      margin-right: 20px;
+  }

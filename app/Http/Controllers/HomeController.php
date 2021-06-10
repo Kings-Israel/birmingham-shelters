@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Listing;
 use App\Models\Booking;
-use App\Models\UserMetadata;
+use App\Models\RefereeData;
+use App\Models\ApplicantAddressInfo;
+use App\Models\ApplicantHealthInfo;
+use App\Models\ApplicantIncomeInfo;
+use App\Models\ApplicantSupportNeeds;
+use App\Models\ApplicantRiskAssessment;
 use App\Rules\PhoneNumber;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -35,33 +40,52 @@ class HomeController extends Controller
         $unoccupiedListings = $totalListings - $occupiedListings;
         $bookings = [];
         foreach ($listings as $listing) {
-            $bookings[$listing->id] = $listing->loadCount('bookings');
+            $bookings[$listing->id] = $listing->load('bookings');
         }
         $listing_inquiries = [];
         foreach ($listings as $listing) {
             $listing_inquiries[$listing->id] = $listing->loadCount('listinginquiry');
         }
-        // dd($listing_inquiries);
+        // dd($bookings);
         return view('landlord.index');
     }
 
     public function agent()
     {
-        return view('agent.index');
+        $bookings = Booking::where('user_id', '=', Auth::user()->id)->paginate(10);
+        $referees = RefereeData::where('user_id', '=', Auth::user()->id)->paginate(10);
+        return view('agent.index')->with(['bookings' => $bookings, 'referees' => $referees]);
     }
 
-    public function agent_referees()
+    public function agentReferees()
     {
-        $referees = UserMetadata::where('user_id', '=', Auth::user()->id)->paginate(10);
+        $referees = RefereeData::where('user_id', '=', Auth::user()->id)->paginate(10);
         return view('agent.my-referees')->with('referees', $referees);
     }
 
-    public function show_profile(User $user)
+    public function referee(RefereeData $referee)
+    {
+        $applicant_addresses = ApplicantAddressInfo::where('referee_data_id', '=', $referee->id)->get();
+        $applicant_health = ApplicantHealthInfo::where('referee_data_id', '=', $referee->id)->get();
+        $applicant_support = ApplicantSupportNeeds::where('referee_data_id', '=', $referee->id)->get();
+        $applicant_income = ApplicantIncomeInfo::where('referee_data_id', '=', $referee->id)->get();
+        $applicant_risk_assessment = ApplicantRiskAssessment::where('referee_data_id', '=', $referee->id)->get();
+        return view('agent.referee')->with([
+            'referee' => $referee,
+            'address_info' => $applicant_addresses,
+            'health_info' => $applicant_health,
+            'support_info' => $applicant_support,
+            'income_info' => $applicant_income,
+            'risk_assessment' => $applicant_risk_assessment
+            ]);
+    }
+
+    public function showProfile(User $user)
     {
         return view('profile.profile')->with('user', $user);
     }
 
-    public function update_profile(Request $request)
+    public function updateProfile(Request $request)
     {
         $rules = [
             'first_name' => 'required|string',

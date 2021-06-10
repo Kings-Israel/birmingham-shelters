@@ -77,9 +77,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Listing::class);
     }
 
-    public function usermetadata()
+    public function refereedata()
     {
-        return $this->hasMany(UserMetadata::class);
+        return $this->hasMany(RefereeData::class);
     }
 
     public function bookings()

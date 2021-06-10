@@ -20,8 +20,9 @@
                                 <strong class="text-success">Verified </strong>
                             @endif
                         </p>
+                        <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Bookings</button>
+                        <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Inquiries</button>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -135,29 +136,6 @@
                     <a data-bs-toggle="collapse" data-parent="#clSev" data-bs-target="#clSev" aria-controls="clOne"
                         href="javascript:void(0);" aria-expanded="true" class="collapsed">
                         <h4 class="property_block_title">Gallery</h4>
-                    </a>
-                </div>
-
-                <div id="clSev" class="panel-collapse collapse show" aria-expanded="true">
-                    <div class="block-body">
-                        <ul class="list-gallery-inline">
-                            @foreach ($listing->listingimage as $image)
-                            <li>
-                                <a href="{!! $image->url() !!}" class="mfp-gallery"><img src="{!! $image->url() !!}"
-                                        class="img-fluid mx-auto" alt="" /></a>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="property_block_wrap style-2">
-
-                <div class="property_block_wrap_header">
-                    <a data-bs-toggle="collapse" data-parent="#clSev" data-bs-target="#clSev" aria-controls="clOne"
-                        href="javascript:void(0);" aria-expanded="true" class="collapsed">
-                        <h4 class="property_block_title">Bookings</h4>
                     </a>
                 </div>
 

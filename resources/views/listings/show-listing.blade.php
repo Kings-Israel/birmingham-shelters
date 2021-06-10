@@ -39,14 +39,14 @@
                                 <p>Please login or sign up to join the waiting list for this room</p>
                             @endguest
                             @auth
-                                @if ((Auth::user()->isOfType('user')) && (Auth::user()->usermetadata()->exists()))
+                                @if ((Auth::user()->isOfType('user')) && (Auth::user()->refereedata()->exists()))
                                     @if ($listing->bookings->contains('user_id', Auth::user()->id))
                                         <p>You have already joined the waiting list for this room.</p>
                                     @else
                                         <form action="{{ route('submit.booking') }}" method="post">
                                             @csrf
                                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                            <input type="hidden" name="user_metadata_id" value="{{ Auth::user()->usermetadata()->first()->id }}">
+                                            <input type="hidden" name="user_metadata_id" value="{{ Auth::user()->refereedata()->first()->id }}">
                                             <input type="hidden" name="listing_id" value="{{ $listing->id }}">
                                             <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
                                         </form>
@@ -67,7 +67,7 @@
                                                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                                         <input type="hidden" name="listing_id" value="{{ $listing->id }}">
                                                         <ul>
-                                                            @foreach (Auth::user()->usermetadata()->get() as $metadata)
+                                                            @foreach (Auth::user()->refereedata()->get() as $metadata)
                                                                 @if ($metadata->canBook(Auth::user()->id, $metadata->id, $listing->id))
                                                                     <li>
                                                                         <input id="{{ $metadata->id }}" class="checkbox-custom" name="user_metadata_id" value="{{ $metadata->id }} {{ (old('user['.$metadata->id.']')) ? 'checked' : '' }}" type="radio" onchange="selected()">
@@ -250,14 +250,14 @@
                                 <p>Please login or sign up to join the waiting list for this property</p>
                             @endguest
                         @auth
-                            @if ((Auth::user()->isOfType('user')) && (Auth::user()->usermetadata()->exists()))
+                            @if ((Auth::user()->isOfType('user')) && (Auth::user()->refereedata()->exists()))
                                 @if ($listing->bookings->contains('user_id', Auth::user()->id))
                                 <p>You have already joined the waiting list for this room.</p>
                             @else
                                 <form action="{{ route('submit.booking') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                    <input type="hidden" name="user_metadata_id" value="{{ Auth::user()->usermetadata()->first()->id }}">
+                                    <input type="hidden" name="user_metadata_id" value="{{ Auth::user()->refereedata()->first()->id }}">
                                     <input type="hidden" name="listing_id" value="{{ $listing->id }}">
                                     <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
                                 </form>

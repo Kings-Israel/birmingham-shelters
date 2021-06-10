@@ -11,11 +11,11 @@ class ApplicantHealthInfo extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_metadata_id', 'professional_officer', 'gp_name', 'gp_address', 'detained_for_mental_health', 'mental_health', 'physical_health', 'present_medication', 'current_cpa', 'other_relevant_information', 'has_criminal_offence', 'criminal_offence_details'
+        'referee_data_id', 'professional_officer', 'gp_name', 'gp_address', 'detained_for_mental_health', 'mental_health', 'physical_health', 'present_medication', 'current_cpa', 'other_relevant_information', 'has_criminal_offence', 'criminal_offence_details'
     ];
 
-    public function usermetadata(): BelongsTo
+    public function refereedata(): BelongsTo
     {
-        return $this->belongsTo(UserMetadata::class);
+        return $this->belongsTo(RefereeData::class);
     }
 }

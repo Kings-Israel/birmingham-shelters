@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Booking;
 
-class UserMetadata extends Model
+class RefereeData extends Model
 {
     use HasFactory;
 
@@ -69,7 +68,7 @@ class UserMetadata extends Model
         return $this->hasOne(ApplicantRiskAssessment::class);
     }
 
-    public function applicantsupportneeeds()
+    public function applicantsupportneeds()
     {
         return $this->hasOne(ApplicantSupportNeeds::class);
     }
@@ -79,11 +78,11 @@ class UserMetadata extends Model
         return $this->hasOne(Consent::class);
     }
 
-    public function canBook($user_id, $user_metadata_id, $listing_id)
+    public function canBook($user_id, $referee_data_id, $listing_id)
     {
         $booking = Booking::where([
             ['user_id', '=', $user_id],
-            ['user_metadata_id', '=', $user_metadata_id],
+            ['referee_data_id', '=', $referee_data_id],
             ['listing_id', '=', $listing_id]
         ])->get();
 
@@ -93,4 +92,6 @@ class UserMetadata extends Model
             return  false;
         }
     }
+
+    
 }

@@ -25,7 +25,7 @@
         <div class="container-fluid">
             <form action="{{ route('health-form.submit') }}" class="listing-form" method="post" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="user_metadata_id" value="{{ $userMetadata->id }}">
+                <input type="hidden" name="referee_data_id" value="{{ $refereeData->id }}">
                 <div class="submit-page">
                                 
                     <!-- Basic Information -->
@@ -109,18 +109,18 @@
                             <br>
                             <div class="form-group">
                                 <label>Does the client have any past, pending or current criminal offences?</label>
-                                <input id="a-p" class="checkbox-custom" name="has_criminal_offence" type="radio" value="Yes" {{ (old('has_criminal_offence') == 'Yes') ? 'checked' : '' }}>
+                                <input id="a-p" class="checkbox-custom" name="has_criminal_offence" type="radio" value="Yes" {{ (old('has_criminal_offence') == 'Yes') ? 'checked' : '' }} onchange="selected()">
                                 <label for="a-p" class="checkbox-custom-label">Yes</label>
-                                <input id="a-q" class="checkbox-custom" name="has_criminal_offence" type="radio" value="No" {{ (old('has_criminal_offence') == 'No') ? 'checked' : '' }}>
+                                <input id="a-q" class="checkbox-custom" name="has_criminal_offence" type="radio" value="No" {{ (old('has_criminal_offence') == 'No') ? 'checked' : '' }} onchange="selected()">
                                 <label for="a-q" class="checkbox-custom-label">No</label>
                                 @error('has_criminal_offence')
                                     <strong class="error-message">{{ $message }}</strong>
                                 @enderror
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" id="criminal_offence_details" hidden>
                                 <label>If Yes, Please provide details</label>
-                                <textarea class="form-control h-120" id="criminal_offence_details" name="criminal_offence_details" value="{{ old('criminal_offence_details') }}"></textarea>
+                                <textarea class="form-control h-120"  name="criminal_offence_details"  value="{{ old('criminal_offence_details') }}"></textarea>
                                 @error('criminal_offence_details')
                                     <strong class="error-message">{{ $message }}</strong>
                                 @enderror
@@ -135,4 +135,17 @@
             </form>
         </div>
     </section>
+    @push('scripts')
+    <script>
+        function selected() {
+            var result = document.querySelector('input[name="has_criminal_offence"]:checked').value;
+            if(result == "Yes"){
+                document.getElementById("criminal_offence_details").removeAttribute('hidden');
+            }
+            else{
+                document.getElementById("criminal_offence_details").setAttribute('hidden', true);
+            }
+        }
+    </script>
+    @endpush
 </x-app-layout>

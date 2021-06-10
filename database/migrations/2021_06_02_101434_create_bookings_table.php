@@ -17,7 +17,7 @@ class CreateBookingsTable extends Migration
             $table->id();
             $table->foreignId('listing_id');
             $table->foreignId('user_id');
-            $table->foreignId('user_metadata_id');
+            $table->foreignId('referee_data_id');
             $table->timestamps();
         });
     }

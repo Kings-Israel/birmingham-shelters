@@ -15,7 +15,7 @@ class CreateApplicantRiskAssessmentsTable extends Migration
     {
         Schema::create('applicant_risk_assessments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_metadata_id');
+            $table->foreignId('referee_data_id');
             $table->string('risk');
             $table->string('risk_level');
             $table->text('risk_details');

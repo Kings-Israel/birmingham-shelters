@@ -13,7 +13,7 @@
                     <div class="col-lg-6 col-md-12">
                         <div class="property-listing property-1">
                             <div class="listing-img-wrapper">
-                                <a href="single-property-2.html">
+                                <a href="{{ route('listing.one', $booking->listing->id) }}">
                                     <img src="{{ asset('storage/listing/images/'.$booking->listing->listingimage[0]->image_name) }}" class="img-fluid mx-auto" alt="" />
                                 </a>
                             </div>
@@ -26,7 +26,7 @@
                                             @if ($booking->listing->verified_at == null)
                                                 <img src="{{ asset('/assets/img/star.png') }}" class="img-fluid" width="20px" style="float: right;"/>
                                             @endif
-                                            <h4 class="listing-name"><a href="single-property-2.html">{{ $booking->listing->name }}</a></h4>
+                                            <h4 class="listing-name"><a href="{{ route('listing.one', $booking->listing->id) }}">{{ $booking->listing->name }}</a></h4>
                                             <p class="listing-description">{{ $booking->listing->description }}</p>
                                         </div>
                                     </div>

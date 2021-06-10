@@ -15,7 +15,7 @@ class CreateApplicantHealthInfosTable extends Migration
     {
         Schema::create('applicant_health_infos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_metadata_id');
+            $table->foreignId('referee_data_id');
             $table->string('professional_officer')->nullable();
             $table->string('gp_name')->nullable();
             $table->string('gp_address')->nullable();

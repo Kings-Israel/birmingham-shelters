@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\UserMetadata;
+use App\Models\RefereeData;
 use App\Models\ApplicantIncomeInfo;
 use App\Models\ApplicantAddressInfo;
 use App\Models\ApplicantHealthInfo;
@@ -14,47 +14,42 @@ use App\Models\Consent;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\PhoneNumber;
 
-class UserMetadataController extends Controller
+class RefereeDataController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    public function show_select_referral_type_form()
-    {
-        return view('referral.index');
-    }
-
-    public function self_referral()
+    public function selfReferral()
     {
         return view('referral.self-referral');
     }
 
-    public function agency_referral()
+    public function agencyReferral()
     {
         return view('referral.agency-referral');
     }
 
-    public function add_income_info(UserMetadata $userMetadata)
+    public function addIncomeInfo(RefereeData $refereeData)
     {
         $income_fields = [
             'JSA', 'DLA', 'Incapacity Benefit/ESA', 'Income Support', 'Pension', 'UC', 'Working', 'None'
         ];
-        return view('referral.add-income-info')->with(['userMetadata' => $userMetadata, 'income_fields' => $income_fields]);
+        return view('referral.add-income-info')->with(['refereeData' => $refereeData, 'income_fields' => $income_fields]);
     }
 
-    public function add_address_history_info(UserMetadata $userMetadata)
+    public function addAddressHistoryInfo(RefereeData $refereeData)
     {
-        return view('referral.add-address-info')->with('userMetadata', $userMetadata);
+        return view('referral.add-address-info')->with('refereeData', $refereeData);
     }
 
-    public function add_health_info(UserMetadata $userMetadata)
+    public function addHealthInfo(RefereeData $refereeData)
     {
-        return view('referral.add-health-info')->with('userMetadata', $userMetadata);
+        return view('referral.add-health-info')->with('refereeData', $refereeData);
     }
 
-    public function add_support_info(UserMetadata $userMetadata)
+    public function addSupportInfo(RefereeData $refereeData)
     {
         $support_group_list = [
             'Mental Health Problems', 
@@ -69,10 +64,10 @@ class UserMetadataController extends Controller
             'Social Isolation/Contact with family/friends',
             'Other'
         ];
-        return view('referral.add-support-needs')->with(['userMetadata' => $userMetadata, 'support_group_list' => $support_group_list]);
+        return view('referral.add-support-needs')->with(['refereeData' => $refereeData, 'support_group_list' => $support_group_list]);
     }
 
-    public function add_risk_assessment(UserMetadata $userMetadata)
+    public function addRiskAssessment(RefereeData $refereeData)
     {
         $risks = [
             'Violence/Aggresive Behaviour',
@@ -89,18 +84,18 @@ class UserMetadataController extends Controller
             'Rent arrears',
             'Harm from Others'
         ];
-        return view('referral.add-risk-assessment')->with(['risks_list' => $risks, 'userMetadata' => $userMetadata]);
+        return view('referral.add-risk-assessment')->with(['risks_list' => $risks, 'refereeData' => $refereeData]);
     }
 
-    public function add_consent(UserMetadata $userMetadata)
+    public function addConsent(RefereeData $refereeData)
     {
         return view('referral.add-consent', [
-            'id' => $userMetadata->id,
-            'referral_type' => $userMetadata->referral_type,
+            'id' => $refereeData->id,
+            'referral_type' => $refereeData->referral_type,
         ]);
     }
 
-    public function submit_referral_form(Request $request)
+    public function submitReferralForm(Request $request)
     {
         $rules = [
             'referral_type' => 'required|string',
@@ -136,39 +131,41 @@ class UserMetadataController extends Controller
             pathinfo($request->file('applicant_image')->store('image', 'referee'), PATHINFO_BASENAME);
         }
 
-        $userMetadata = new UserMetadata;
-        $userMetadata->user_id = $request->user()->id;
-        $userMetadata->referral_type = $request->referral_type;
-        $userMetadata->referrer_name = $request->referrer_name;
-        $userMetadata->referrer_email = $request->referrer_email;
-        $userMetadata->referrer_phone_number = $request->referrer_phone_number;
-        $userMetadata->referral_reason = $request->referral_reason;
-        $userMetadata->applicant_name = $request->applicant_name;
-        $userMetadata->applicant_email = $request->applicant_email;
-        $userMetadata->applicant_phone_number = $request->applicant_phone_number;
-        $userMetadata->applicant_date_of_birth = $request->applicant_date_of_birth;
-        $userMetadata->applicant_ni_number = $request->applicant_ni_number;
-        $userMetadata->applicant_current_address = $request->applicant_current_address;
-        $userMetadata->applicant_gender = $request->applicant_gender;
-        $userMetadata->applicant_sexual_orientation = $request->applicant_sexual_orientation;
-        $userMetadata->applicant_ethnicity = $request->applicant_ethnicity;
-        $userMetadata->applicant_kin_name = $request->applicant_kin_name;
-        $userMetadata->applicant_kin_email = $request->applicant_kin_email;
-        $userMetadata->applicant_kin_phone_number = $request->applicant_kin_phone_number;
-        $userMetadata->applicant_kin_relationship = $request->applicant_kin_relationship;
+        $refereeData = new RefereeData;
+        $refereeData->user_id = $request->user()->id;
+        $refereeData->referral_type = $request->referral_type;
+        $refereeData->referrer_name = $request->referrer_name;
+        $refereeData->referrer_email = $request->referrer_email;
+        $refereeData->referrer_phone_number = $request->referrer_phone_number;
+        $refereeData->referral_reason = $request->referral_reason;
+        $refereeData->applicant_name = $request->applicant_name;
+        $refereeData->applicant_email = $request->applicant_email;
+        $refereeData->applicant_phone_number = $request->applicant_phone_number;
+        $refereeData->applicant_date_of_birth = $request->applicant_date_of_birth;
+        $refereeData->applicant_ni_number = $request->applicant_ni_number;
+        $refereeData->applicant_current_address = $request->applicant_current_address;
+        $refereeData->applicant_gender = $request->applicant_gender;
+        $refereeData->applicant_sexual_orientation = $request->applicant_sexual_orientation;
+        $refereeData->applicant_ethnicity = $request->applicant_ethnicity;
+        $refereeData->applicant_kin_name = $request->applicant_kin_name;
+        $refereeData->applicant_kin_email = $request->applicant_kin_email;
+        $refereeData->applicant_kin_phone_number = $request->applicant_kin_phone_number;
+        $refereeData->applicant_kin_relationship = $request->applicant_kin_relationship;
 
         if ($request->has('applicant_image')) {
-            $userMetadata->applicant_image = pathinfo($request->file('applicant_image')->store('image', 'referee'), PATHINFO_BASENAME);
+            $refereeData->applicant_image = pathinfo($request->file('applicant_image')->store('image', 'referee'), PATHINFO_BASENAME);
+        } else {
+            $refereeData->applicant_image = 'blank-profile-picture.png';
         }
 
-        if ($userMetadata->save()) {
-            return redirect()->route('referral.add.income-info', $userMetadata);
+        if ($refereeData->save()) {
+            return redirect()->route('referral.add.income-info', $refereeData);
         }
 
         return redirect()->back()->withError('There was a problem. Please try again');
     }
 
-    public function submit_income_info(Request $request)
+    public function submitIncomeInfo(Request $request)
     {
         $rules = [
             'source_of_income' => 'required|min:1',
@@ -182,18 +179,18 @@ class UserMetadataController extends Controller
         Validator::make($request->all(), $rules, $messages)->validate();
 
         $incomeInfo = new ApplicantIncomeInfo;
-        $incomeInfo->user_metadata_id = $request->user_metadata_id;
+        $incomeInfo->referee_data_id = $request->referee_data_id;
         $incomeInfo->source_of_income = implode(',', $request->source_of_income);
         $incomeInfo->dwp_office = $request->dwp_office;
         $incomeInfo->other_debt = $request->other_debt;
         if($incomeInfo->save()) {
-            return redirect()->route('referral.add.address-history-info', $request->user_metadata_id);
+            return redirect()->route('referral.add.address-history-info', $request->referee_data_id);
         }
 
         return redirect()->back()->withError('A problem occurred while saving the data. Please try again');
     }
 
-    public function submit_address_history_info(Request $request)
+    public function submitAddressHistoryInfo(Request $request)
     {
         $rules = [
             'address.0' => 'required|string',
@@ -220,18 +217,18 @@ class UserMetadataController extends Controller
         for ($i=0; $i < 4; $i++) { 
             if($request->address[$i] != null && $request->moved_in_date[$i] != null && $request->moved_out_date[$i] != null && $request->tenure[$i] != null && $request->landlord_details[$i] && $request->reason_for_leaving != null) {
                 ApplicantAddressInfo::create([
-                    'user_metadata_id' => $request->user_metadata_id,
+                    'referee_data_id' => $request->referee_data_id,
                     'address' => $request->address[$i],
                     'moved_in' => $request->moved_in_date[$i],
                     'moved_out' => $request->moved_out_date[$i],
                     'tenure' => $request->tenure[$i],
                     'landlord_details' => $request->landlord_details[$i],
-                    'reason_for_leaving' => $request->reason_for_leaving[$i]
+                    'reason_for_leaving' => $request->reason_for_leaving[$i],
                 ]);
             }
         }
 
-        return redirect()->route('referral.add.health-info', $request->user_metadata_id);
+        return redirect()->route('referral.add.health-info', $request->referee_data_id);
 
     }
 
@@ -244,7 +241,7 @@ class UserMetadataController extends Controller
         return false;
     }
 
-    public function submit_health_info(Request $request)
+    public function submitHealthInfo(Request $request)
     {
         $rules = [
             'professional_officer' => 'nullable|string',
@@ -270,13 +267,13 @@ class UserMetadataController extends Controller
         Validator::make($request->all(), $rules, $message)->validate();
 
         if (ApplicantHealthInfo::create($request->all())) {
-            return redirect()->route('referral.add.support-info', $request->user_metadata_id);
+            return redirect()->route('referral.add.support-info', $request->referee_data_id);
         }
 
         return redirect()->back()->withErrors('An Error Occured. Please try again');
     }
 
-    public function submit_support_info(Request $request)
+    public function submitSupportInfo(Request $request)
     {
         $rules = [];
         $messages = [];
@@ -293,16 +290,16 @@ class UserMetadataController extends Controller
 
         foreach ($request->support_group as $key => $group) {
             $applicantSupport = new ApplicantSupportNeeds;
-            $applicantSupport->user_metadata_id = $request->user_metadata_id;
+            $applicantSupport->referee_data_id = $request->referee_data_id;
             $applicantSupport->support_group = $group;
             $applicantSupport->support_needs = $request->support_needs[$group];
             $applicantSupport->save();
         }
 
-        return redirect()->route('referral.add.risk-assessment', $request->user_metadata_id);
+        return redirect()->route('referral.add.risk-assessment', $request->referee_data_id);
     }
 
-    public function submit_risk_assessment(Request $request)
+    public function submitRiskAssessment(Request $request)
     {
         $risks_with_risk_level = collect($request->risk_level, $request->risks);
         $rules = [];
@@ -323,7 +320,7 @@ class UserMetadataController extends Controller
             foreach ($risks_with_risk_level as $risk => $risk_level) {
                 if($risk === $key) {
                     $riskAssessment = new ApplicantRiskAssessment;
-                    $riskAssessment->user_metadata_id = $request->user_metadata_id;
+                    $riskAssessment->referee_data_id = $request->referee_data_id;
                     $riskAssessment->risk = $risk;
                     $riskAssessment->risk_level = $risk_level;
                     $riskAssessment->risk_details = $description;
@@ -332,10 +329,10 @@ class UserMetadataController extends Controller
             }
         }
 
-        return redirect()->route('referral.add.consent', $request->user_metadata_id);
+        return redirect()->route('referral.add.consent', $request->referee_data_id);
     }
 
-    public function submit_consent_form(Request $request)
+    public function submitConsentForm(Request $request)
     {
         $rules = [
             'consent_name' => 'required|string',
@@ -352,13 +349,29 @@ class UserMetadataController extends Controller
         Validator::make($request->all(), $rules, $messages);
 
         if (Consent::create($request->all())) {
-            $userMetadata = UserMetadata::find($request->user_metadata_id);
-            $userMetadata->consent = 0;
-            if($userMetadata->save()){
+            $refereeData = refereeData::find($request->referee_data_id);
+            $refereeData->consent = 0;
+            if($refereeData->save()){
                 return redirect()->route('listing.all')->with('success', "Your information has been saved successfully");
             }
         }
 
         return redirect()->back()->withErrors('An error occurred. Please try again.');
+    }
+
+    public function deleteReferee(RefereeData $refereeData)
+    {
+        if($refereeData->applicant_image != 'blank-profile-picture.png') {
+            Storage::disk('referee')->delete('image', $refereeData->applicant_image);
+        }
+        $refereeData->applicantaddressinfo->delete();
+        $refereeData->applicanthealthinfo->delete();
+        $refereeData->applicantincomeinfo->delete();
+        $refereeData->applicantriskassessment->delete();
+        $refereeData->applicantsupportneeds->delete();
+        $refereeData->booking->delete();
+        $refereeData->delete();
+
+        return redirect()->back()->with('success', 'Referee Details have been deleted');
     }
 }

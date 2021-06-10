@@ -31,7 +31,7 @@
                         <a href="{{ url('/contact') }}">Contact Us</a>
                     </x-site-nav-link>
                     @auth
-                        @if (Auth::user()->isOfType('agent'))
+                        @if (Auth::user()->isOfType('agent') || Auth::user()->isOfType('user'))
                             <x-site-nav-link :active="Request::is('/listing')">
                                 <a href="{{ route('listing.all') }}">View Listings</a>
                             </x-site-nav-link>
@@ -40,7 +40,7 @@
                     @auth
                         @if ((Auth::user()->isOfType('user')) || (Auth::user()->isOfType('agent')))
                             <x-site-nav-link :active="Request::is('/referral')">
-                                @if (Auth::user()->isOfType('user') && !(Auth::user()->usermetadata()->exists()))
+                                @if (Auth::user()->isOfType('user') && !(Auth::user()->refereedata()->exists()))
                                     <a href="{{ route('referral.self-referral') }}">Fill Referral Form</a>
                                 @elseif(Auth::user()->isOfType('agent'))
                                     <a href="{{ route('referral.agency-referral') }}">Fill Referral Form</a>

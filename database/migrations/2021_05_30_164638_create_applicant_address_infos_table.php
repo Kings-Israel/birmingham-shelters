@@ -15,7 +15,7 @@ class CreateApplicantAddressInfosTable extends Migration
     {
         Schema::create('applicant_address_infos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_metadata_id');
+            $table->foreignId('referee_data_id');
             $table->string('address');
             $table->date('moved_in');
             $table->date('moved_out');
