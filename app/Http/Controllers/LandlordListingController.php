@@ -237,7 +237,7 @@ class LandlordListingController extends Controller
 
         $listing->documents->each(fn (ListingDocument $document) => $document->delete());
 
-        $listing->bookings->delete();
+        $listing->bookings()->delete();
 
         $listing->delete();
 

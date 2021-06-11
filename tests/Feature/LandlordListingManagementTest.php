@@ -36,6 +36,8 @@ class LandlordListingManagementTest extends TestCase
 
     public function test_landlord_can_delete_listing(): void
     {
+        $this->withoutExceptionHandling();
+        
         $this->actingAs($user = User::factory()->asUserType('landlord')->create());
 
         $listing = Listing::factory()->ownerAs($user)->withDocuments()->create();
