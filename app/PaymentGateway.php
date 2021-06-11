@@ -3,6 +3,7 @@
 namespace App;
 
 use Braintree;
+use Braintree\Error\ErrorCollection;
 
 class PaymentGateway
 {
@@ -23,15 +24,20 @@ class PaymentGateway
         return $this->braintree->ClientToken()->generate();
     }
 
+    public function retrieveErrors(ErrorCollection $errors): string
+    {
+        return collect($errors)
+                ->map(fn($error) => "Error {$error->code}: {$error->message}")
+                ->implode('\n');
+    }
+
     public function charge(array $details)
     {
+        $options = ['submitForSettlement' => true];
+
         return $this->braintree->transaction()
-        ->sale([
-            'amount' => $details['amount'],
-            'paymentMethodNonce' => $details['nonce'],
-            'options' => [
-                'submitForSettlement' => true
-            ]
-        ]);
+                ->sale(
+                    array_merge($details, ['options' => $options])
+                );
     }
 }

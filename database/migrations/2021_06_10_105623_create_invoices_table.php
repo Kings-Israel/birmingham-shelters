@@ -12,10 +12,11 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('invoice_type');
-            $table->bigInteger('total');
+            $table->text('description')->nullable();
+            $table->bigInteger('total'); // saved in cents
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('invoicable_id');
-            $table->string('invoicable_type');
+            $table->foreignId('invoiceable_id');
+            $table->string('invoiceable_type');
             $table->timestamps();
             $table->softDeletes();
         });

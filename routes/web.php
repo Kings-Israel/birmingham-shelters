@@ -3,13 +3,15 @@
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminShowListingController;
 use App\Http\Controllers\AdminsManagementController;
-use App\Http\Controllers\UserListingController;
-use App\Http\Controllers\UserMetadataController;
-use App\Http\Controllers\ListingInquiryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandlordListingController;
+use App\Http\Controllers\ListingInquiryController;
 use App\Http\Controllers\PostAjaxRedirect;
+use App\Http\Controllers\UserListingController;
+use App\Http\Controllers\UserMetadataController;
 use App\Http\Livewire\AdminListingsList;
+use App\PaymentGateway;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -87,3 +89,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
         Route::get('/{listing}', AdminShowListingController::class)->name('show');
     });
 });
+
+
+// Payment routes
+Route::group(['middleware' => ['auth', 'verified']], function() {
+    Route::get('invoices/{invoice}/checkout', [CheckoutController::class, 'show']);
+    Route::post('invoices/{invoice}/checkout', [CheckoutController::class, 'checkout'])->name('invoices.checkout');
+});
+

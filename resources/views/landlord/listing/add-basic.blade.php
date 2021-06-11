@@ -144,4 +144,4 @@
             </div>
         </div>
     </form>
-</x-app-layout>
+</x-app-dashboard-layout>

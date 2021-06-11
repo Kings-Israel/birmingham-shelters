@@ -188,6 +188,44 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Invoice
+ *
+ * @property int $id
+ * @property \App\Enums\InvoiceTypeEnum $invoice_type
+ * @property string|null $description
+ * @property int $total
+ * @property int $user_id
+ * @property int $invoiceable_id
+ * @property string $invoiceable_type
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $invoiceable
+ * @property-read \App\Models\Payment|null $payment
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\InvoiceFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Invoice onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereInvoiceType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereInvoiceableId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereInvoiceableType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereTotal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|Invoice withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Invoice withoutTrashed()
+ */
+	class Invoice extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Listing
  *
  * @property int $id
@@ -208,7 +246,7 @@ namespace App\Models{
  * @property string $contact_name
  * @property string $contact_email
  * @property string|null $contact_number
- * @property \Illuminate\Support\Collection|null $images
+ * @property \Illuminate\Database\Eloquent\Casts\AsCollection|null $images
  * @property array|null $supported_groups
  * @property string|null $support_description
  * @property int|null $support_hours
@@ -219,6 +257,8 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListingDocument[] $documents
  * @property-read int|null $documents_count
  * @property-read bool $is_verified
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Invoice[] $invoices
+ * @property-read int|null $invoices_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListingInquiry[] $listinginquiry
  * @property-read int|null $listinginquiry_count
  * @property-read \App\Models\User $user
@@ -314,6 +354,38 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ListingInquiry whereUserPhoneNumber($value)
  */
 	class ListingInquiry extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Payment
+ *
+ * @property int $id
+ * @property int $invoice_id
+ * @property int $amount
+ * @property string $method
+ * @property string $transaction_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Invoice $invoice
+ * @method static \Database\Factories\PaymentFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Payment onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereInvoiceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereMethod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereTransactionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Payment withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Payment withoutTrashed()
+ */
+	class Payment extends \Eloquent {}
 }
 
 namespace App\Models{
