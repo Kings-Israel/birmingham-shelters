@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
                 empty(Storage::disk('listing')->files('images/samples'))
                 ) {
                 File::copyDirectory(
-                    Storage::path('stubs/listing_images'),
+                    storage_path('stubs/listing_images'),
                     Storage::disk('listing')->path('images/samples')
                 );
             }
@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
                 empty(Storage::disk('listing')->files('documents/samples'))
                 ) {
                 File::copyDirectory(
-                    Storage::path('stubs/listing_documents'),
+                    storage_path('stubs/listing_documents'),
                     Storage::disk('listing')->path('documents/samples')
                 );
             }
