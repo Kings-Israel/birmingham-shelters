@@ -15,7 +15,7 @@
                                 <i class="ti-user"></i>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label>Password</label>
                             <div class="input-with-icon">
@@ -23,11 +23,11 @@
                                 <i class="ti-unlock"></i>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <button type="submit" id="login-button" class="btn btn-md full-width btn-theme-light-2 rounded">Login</button>
                         </div>
-                        
+
                     </form>
                     <h5 id="error-message" style="color: red; display: none">Invalid Credentials</h5>
                 </div>
@@ -45,12 +45,13 @@
                 let formData = $(this).serializeArray();
                 $.ajax({
                     method: "POST",
+                    dataType: "json",
                     headers: {
                         Accept: "application/json"
                     },
                     url: "{{ route('login') }}",
                     data: formData,
-                    success: () => window.location.assign("{{ route('loggedIn') }}"),
+                    success: ({ redirectPath }) => window.location.assign(redirectPath),
                     error: (response) => {
                         if(response.status === 422) {
                             $("#error-message").css({'display': 'block'})

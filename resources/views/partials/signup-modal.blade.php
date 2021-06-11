@@ -122,12 +122,13 @@
                 $("#register-button").text('Please Wait...')
                 $.ajax({
                     method: "POST",
+                    dataType: "json",
                     headers: {
                         Accept: "application/json"
                     },
                     url: "{{ route('register') }}",
                     data: formData,
-                    success: () => window.location.assign("{{ route('loggedIn') }}"),
+                    success: ({ redirectPath }) => window.location.assign(redirectPath),
                     error: (response) => {
                         if(response.status === 422) {
                             let errors = response.responseJSON.errors;
