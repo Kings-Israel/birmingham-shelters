@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Enums\ListingDocumentTypesEnum;
 use App\Enums\ListingProofsEnum;
-use App\Models\ClientGroup;
 use App\Models\Listing;
 use App\Models\ListingDocument;
-use App\Models\ListingImage;
 use App\Rules\PhoneNumber;
 use Auth;
 use Illuminate\Http\Request;
@@ -24,13 +22,13 @@ class LandlordListingController extends Controller
         $this->middleware('auth');
     }
 
-    public function all_listings()
+    public function allListings()
     {
         return view('landlord.listing.all-listings')
                     ->with('listings', Auth::user()->listings()->orderBy('created_at', 'DESC')->get());
     }
 
-    public function basic_info()
+    public function basicInfo()
     {
         $features = [
             'Air Condition',
@@ -47,7 +45,7 @@ class LandlordListingController extends Controller
         return view('landlord.listing.add-basic', ['features' => $features]);
     }
 
-    public function client_info($id)
+    public function clientInfo($id)
     {
         $this->authorize('update', Listing::findOrFail($id));
 
@@ -65,7 +63,7 @@ class LandlordListingController extends Controller
         ]);
     }
 
-    public function listing_documents($id)
+    public function listingDocuments($id)
     {
         return view('landlord.listing.add-listingdocuments')->with([
             'id' => $id,
@@ -74,17 +72,19 @@ class LandlordListingController extends Controller
         ]);
     }
 
-    public function listing_images($id)
+    public function listingImages($id)
     {
         return view('landlord.listing.add-listingimages')->with('id', $id);
     }
 
-    public function view_listing(Listing $listing)
+    public function viewListing(Listing $listing)
     {
-        return view('landlord.listing.show-listing')->with('listing', $listing);
+        return view('landlord.listing.show-listing', [
+            'listing' => $listing->load('bookings'),
+        ]);
     }
 
-    public function submit_basic_info(Request $request)
+    public function submitBasicInfo(Request $request)
     {
         $rules = [
             'name' => 'required|string',
@@ -111,17 +111,16 @@ class LandlordListingController extends Controller
 
         if (isset($validated_data['other_rooms'])) {
             $validated_data['other_rooms'] = collect(explode(',', $validated_data['other_rooms']))
-                                                ->map(fn($value) => trim($value))
+                                                ->map(fn ($value) => trim($value))
                                                 ->all();
         }
 
         $listing = Auth::user()->listings()->create($validated_data);
 
         return redirect()->route('listing.add.client_info', $listing->id);
-
     }
 
-    public function submit_clientgroup_info(Request $request)
+    public function submitClientgroupInfo(Request $request)
     {
         $this->authorize('update', Listing::findOrFail($request->listing_id));
 
@@ -147,10 +146,10 @@ class LandlordListingController extends Controller
         $update_data = collect($validated)
             ->when($request->filled('other_supported_groups'), function (Collection $collection) {
                 $collection['supported_groups'] = collect($collection['supported_groups'])
-                            ->reject(fn($value) => $value === "Other")
+                            ->reject(fn ($value) => $value === 'Other')
                             ->merge(
                                 collect(explode(',', $collection['other_supported_groups']))->map(fn ($value) => trim($value))
-                                )->all();
+                            )->all();
                 return $collection->except('other_supported_groups');
             })
             ->except('listing_id')
@@ -162,7 +161,7 @@ class LandlordListingController extends Controller
         return redirect()->route('listing.add.listing_documents', $request->listing_id);
     }
 
-    public function submit_listing_documents(Request $request)
+    public function submitListingDocuments(Request $request)
     {
         $this->authorize('update', Listing::findOrFail($request->listing_id));
 
@@ -200,7 +199,7 @@ class LandlordListingController extends Controller
         return redirect()->route('listing.add.listing_images', $request->listing_id);
     }
 
-    public function submit_listing_images(Request $request)
+    public function submitListingImages(Request $request)
     {
         $this->authorize('update', $listing = Listing::findOrFail($request->listing_id));
 
@@ -218,25 +217,27 @@ class LandlordListingController extends Controller
         ]);
     }
 
-    public function delete_removed_image(Listing $listing)
+    public function deleteRemovedImage(Listing $listing)
     {
         $image = request('filename');
 
-        Storage::disk("listing")->delete("images/$image");
+        Storage::disk('listing')->delete("images/$image");
 
-        $listing->images = $listing->images->reject(fn($value) => $value === $image);
+        $listing->images = $listing->images->reject(fn ($value) => $value === $image);
         $listing->save();
 
         return response()->json(['message' => 'Deleted image successfully.']);
     }
 
-    public function delete_listing(Listing $listing)
+    public function deleteListing(Listing $listing)
     {
         $this->authorize('delete', $listing);
 
-        $listing->load('documents');
+        $listing->load(['documents', 'bookings']);
 
         $listing->documents->each(fn (ListingDocument $document) => $document->delete());
+
+        $listing->bookings->delete();
 
         $listing->delete();
 

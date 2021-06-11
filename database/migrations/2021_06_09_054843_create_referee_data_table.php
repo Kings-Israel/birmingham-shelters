@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserMetadataTable extends Migration
+class CreateRefereeDataTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserMetadataTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_metadata', function (Blueprint $table) {
+        Schema::create('referee_data', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
             $table->string('referral_type');
@@ -34,6 +34,8 @@ class CreateUserMetadataTable extends Migration
             $table->string('applicant_kin_relationship');
             $table->string('applicant_kin_phone_number');
             $table->string('applicant_kin_email');
+            $table->string('applicant_image')->nullable();
+            $table->boolean('consent')->default(false);
             $table->timestamps();
         });
     }
@@ -45,6 +47,6 @@ class CreateUserMetadataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_metadata');
+        Schema::dropIfExists('referee_data');
     }
 }

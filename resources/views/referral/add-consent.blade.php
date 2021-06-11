@@ -24,7 +24,7 @@
         <div class="container-fluid">
             <form action="{{ route('consent-form.submit') }}" class="listing-form" method="post" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="user_metadata_id" value="{{ $id }}">
+                <input type="hidden" name="referee_data_id" value="{{ $id }}">
                 <div class="submit-page">
                                 
                     <!-- Basic Information -->
@@ -36,7 +36,7 @@
                             <div class="row">
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <label>Name</label>
-                                    <input type="text" class="form-control" name="consent_name" value="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}">
+                                    <input type="text" class="form-control" name="consent_name" value="{{ Auth::user()->full_name }}">
                                     @error('name')
                                         <strong class="error-message">{{ $message }}</strong>
                                     @enderror
@@ -89,7 +89,7 @@
                             <br>
 
                             <div class="listing-submit-button" id="submit_buttons" hidden>
-                                @include('partials.listing-buttons')
+                                @include('partials.referral-buttons')
                             </div>
                     </div>
                 </div>

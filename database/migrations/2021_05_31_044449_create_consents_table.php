@@ -15,7 +15,7 @@ class CreateConsentsTable extends Migration
     {
         Schema::create('consents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_metadata_id');
+            $table->foreignId('referee_data_id');
             $table->string('consent_name');
             $table->date('consent_date');
             $table->string('consent_company_position');

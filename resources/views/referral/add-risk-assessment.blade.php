@@ -25,7 +25,7 @@
         <div class="container-fluid">
             <form action="{{ route('risk-assessment-form.submit') }}" class="listing-form" method="post" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="user_metadata_id" value="{{ $id }}">
+                <input type="hidden" name="referee_data_id" value="{{ $refereeData->id }}">
                 <div class="submit-page">
                                 
                     <!-- Basic Information -->
@@ -60,7 +60,7 @@
                                         <label for="{{ $risk }}-High" class="checkbox-custom-label">High</label>
                                     </div>
                                     <div class="col-lg-5 col-md-12 col-sm-12">
-                                        <input type="text" class="form-control simple" name="risk_description[{{ $risk }}]" value="">
+                                        <input type="text" class="form-control simple" name="risk_description[{{ $risk }}]" value="{{ old('risk_description['.$risk.']') }}">
                                     </div>
                                     @error($risk)
                                         <p class="error-message"><strong>{{ $message }}</strong></p>
@@ -71,7 +71,7 @@
                         </div>
                         <br>
                         <div class="listing-submit-button">
-                            @include('partials.listing-buttons')
+                            @include('partials.referral-buttons')
                         </div>
                     </div>
                 </div>

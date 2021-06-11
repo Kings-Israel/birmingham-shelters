@@ -19,7 +19,7 @@
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label>Address</label>
+                            <label>Address (e.g 308 Witton Road, Birmingham, UK)</label>
                             <input type="text" id="address" class="form-control" name="address" placeholder="" value="{{ old('address') }}" required>
                             <x-input-error for="address" />
                         </div>

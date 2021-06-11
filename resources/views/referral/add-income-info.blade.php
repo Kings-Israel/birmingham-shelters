@@ -26,7 +26,7 @@
     <div class="container-fluid">
         <form action="{{ route('income-form.submit') }}" class="listing-form" method="post" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="user_metadata_id" value="{{ $id }}">
+            <input type="hidden" name="referee_data_id" value="{{ $refereeData->id }}">
             <div class="submit-page">
                             
                 <!-- Basic Information -->
@@ -71,7 +71,7 @@
                     </div>
                 </div>
                 <div class="listing-submit-button">
-                    @include('partials.listing-buttons')
+                    @include('partials.referral-buttons')
                 </div>
             </div>
         </form>

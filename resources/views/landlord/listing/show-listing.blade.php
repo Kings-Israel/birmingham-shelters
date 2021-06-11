@@ -12,14 +12,15 @@
                         </div>
                         <p style="margin-bottom: 0;">
                             Status:
-                            @if ($listing->verified_at)
-                            <strong class="text-success">Verified</strong>
+                            @if ($listing->verified_at == null)
+                                <strong class="text-warning">Not Verified</strong>
                             @else
-                            <strong class="text-warning"> Not Verified </strong>
+                                <strong class="text-success">Verified </strong>
                             @endif
                         </p>
+                        <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Bookings</button>
+                        <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Inquiries</button>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -112,13 +113,12 @@
                     </a>
                 </div>
 
-                <div id="clSix" class="panel-collapse collapse" aria-expanded="true">
+                <div id="clSix" class="panel-collapse collapse show" aria-expanded="true">
                     <div class="block-body">
-                        <div class="map-container">
-                            <div id="singleMap" data-latitude="40.7427837" data-longitude="-73.11445617675781"
-                                data-mapTitle="Our Location"></div>
+                        <div class="hm-map-container fw-map" id="map-container">
+                            <div id="map"></div>
                         </div>
-
+                        <div id="map-error" class="error-message">No Location data was provided.</div>
                     </div>
                 </div>
 
@@ -147,143 +147,7 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Nearby Single Block Wrap -->
-            <div class="property_block_wrap style-2">
-
-                <div class="property_block_wrap_header">
-                    <a data-bs-toggle="collapse" data-parent="#nearby" data-bs-target="#clNine" aria-controls="clNine"
-                        href="javascript:void(0);" aria-expanded="true">
-                        <h4 class="property_block_title">Nearby</h4>
-                    </a>
-                </div>
-
-                <div id="clNine" class="panel-collapse collapse" aria-expanded="true">
-                    <div class="block-body">
-
-                        <!-- Schools -->
-                        <div class="nearby-wrap">
-                            <div class="nearby_header">
-                                <div class="nearby_header_first">
-                                    <h5>Schools Around</h5>
-                                </div>
-                                <div class="nearby_header_last">
-                                    <div class="nearby_powerd">
-                                        Powerd by <img src="assets/img/edu.png" class="img-fluid" alt="" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="neary_section_list">
-
-                                <div class="neary_section">
-                                    <div class="neary_section_first">
-                                        <h4 class="nearby_place_title">Green Iseland School<small>(3.52
-                                                mi)</small></h4>
-                                    </div>
-                                    <div class="neary_section_last">
-                                        <div class="nearby_place_rate">
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <small class="reviews-count">(421 Reviews)</small>
-                                    </div>
-                                </div>
-
-                                <div class="neary_section">
-                                    <div class="neary_section_first">
-                                        <h4 class="nearby_place_title">Ragni Intermediate
-                                            College<small>(0.52 mi)</small></h4>
-                                    </div>
-                                    <div class="neary_section_last">
-                                        <div class="nearby_place_rate">
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star-half filled"></i>
-                                        </div>
-                                        <small class="reviews-count">(470 Reviews)</small>
-                                    </div>
-                                </div>
-
-                                <div class="neary_section">
-                                    <div class="neary_section_first">
-                                        <h4 class="nearby_place_title">Rose Wood Primary
-                                            Scool<small>(0.47 mi)</small></h4>
-                                    </div>
-                                    <div class="neary_section_last">
-                                        <div class="nearby_place_rate">
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <small class="reviews-count">(204 Reviews)</small>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Hotel & Restaurant -->
-                        <div class="nearby-wrap">
-                            <div class="nearby_header">
-                                <div class="nearby_header_first">
-                                    <h5>Food Around</h5>
-                                </div>
-                                <div class="nearby_header_last">
-                                    <div class="nearby_powerd">
-                                        Powerd by <img src="assets/img/food.png" class="img-fluid" alt="" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="neary_section_list">
-
-                                <div class="neary_section">
-                                    <div class="neary_section_first">
-                                        <h4 class="nearby_place_title">The Rise hotel<small>(2.42
-                                                mi)</small></h4>
-                                    </div>
-                                    <div class="neary_section_last">
-                                        <div class="nearby_place_rate">
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                        </div>
-                                        <small class="reviews-count">(105 Reviews)</small>
-                                    </div>
-                                </div>
-
-                                <div class="neary_section">
-                                    <div class="neary_section_first">
-                                        <h4 class="nearby_place_title">Blue Ocean Bar &
-                                            Restaurant<small>(1.52 mi)</small></h4>
-                                    </div>
-                                    <div class="neary_section_last">
-                                        <div class="nearby_place_rate">
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star filled"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <small class="reviews-count">(40 Reviews)</small>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
     <!-- ============================ Property Detail End ================================== -->
-
 </x-app-dashboard-layout>

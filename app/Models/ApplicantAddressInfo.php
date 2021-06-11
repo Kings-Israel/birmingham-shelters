@@ -11,11 +11,11 @@ class ApplicantAddressInfo extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_metadata_id', 'address', 'moved_in', 'moved_out', 'tenure', 'landlord_details', 'reason_for_leaving'
+        'referee_data_id', 'address', 'moved_in', 'moved_out', 'tenure', 'landlord_details', 'reason_for_leaving'
     ];
 
-    public function usermetadata(): BelongsTo
+    public function refereedata(): BelongsTo
     {
-        return $this->belongsTo(UserMetadata::class);
+        return $this->belongsTo(RefereeData::class);
     }
 }

@@ -20,13 +20,16 @@
             </div>
         </div>
     </div>
-    
    <!-- ============================ Add Listing Form ================================== -->
    <section class="bg-light">
     <div class="container-fluid">
         <form action="{{ route('referral-form.submit') }}" class="listing-form" method="post" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="referral_type" value="agency-referral">
+            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+            <input type="hidden" name="referral_type" value="self-referral">
+            <input type="hidden" name="referrer_name" value="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}">
+            <input type="hidden" name="referrer_email" value="{{ Auth::user()->email }}">
+            <input type="hidden" name="referrer_phone_number" value="{{ Auth::user()->phone_number }}">
             <div class="submit-page">
                             
                 <!-- Basic Information -->
@@ -37,82 +40,59 @@
                     <p>All sections of this form must be completed. Failure to do so may cause delays. If for any reason a section cannot be filled out, please state why. Blank sections will not be accepted.</p>
                     <p>It is important that applicants are aware that a bed space within our Supported Accommodation requires active engagement with key working sessions to address issues that may be linked to their homelessness.</p>
                     <p>In a case where the required value does not apply, please enter 'Not Applicable'</p>
-
-
+                    
+                    <br><hr>
                     <div class="submit-section">
-                        <div class="row">
-                            <h5>REFERRAL AGENCY CONTACT DETAILS</h5>
+                        <p>Section 1 of 6</p>
+                            <h5>REFERRAL CONTACT DETAILS</h5>
+                            <p>The details you provided during registration will be used for contact</p>
                             <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label>Name of Referrer</label>
-                                    <input type="text" id="referrer_name" name="referrer_name" class="form-control" value="{{ old('referrer_name') }}" required>
-                                    @error('referrer_name')
-                                        <strong class="error-message">{{ $message }}</strong>
-                                    @enderror
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label>Reason for referral (*This must be accurate.
+                                            All referrals must be the definition of ‘Vulnerable Adult’.)</label>
+                                        <textarea class="form-control h-120" id="referral_reason" name="referral_reason" required>{{ old('referral_reason') }}</textarea>
+                                        @error('referral_reason')
+                                            <strong class="error-message">{{ $message }}</strong>
+                                        @enderror
+                                    </div>
                                 </div>
-
-                                <div class="form-group col-md-4">
-                                    <label>Referrer's Phone Number</label>
-                                    <input type="text" id="referrer_phone_number" name="referrer_phone_number" class="form-control" value="{{ old('referrer_phone_number') }}" required>
-                                    @error('referrer_phone_number')
-                                        <strong class="error-message">{{ $message }}</strong>
-                                    @enderror
+                                <div class="col-md-4">
+                                    <div class="file-upload">
+                                        <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Profile Image</button>
+                                      
+                                        <div class="image-upload-wrap">
+                                          <input class="file-upload-input" type='file' name="applicant_image" onchange="readURL(this);" accept="image/*" />
+                                          <div class="drag-text">
+                                            <h3>Drag and drop a file or select add Profile Image</h3>
+                                          </div>
+                                        </div>
+                                        <div class="file-upload-content">
+                                          <img class="file-upload-image" src="#" alt="your image" />
+                                          <div class="image-title-wrap">
+                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                          </div>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="form-group col-md-4">
-                                    <label>Name of Referrer</label>
-                                    <input type="text" id="referrer_email" name="referrer_email" class="form-control" value="{{ old('referrer_email') }}" required>
-                                    @error('referrer_email')
-                                        <strong class="error-message">{{ $message }}</strong>
-                                    @enderror
-                                </div>
-
                             </div>
 
-                            <div class="form-group col-md-12">
-                                <label>Reason for referral (*This must be accurate.
-                                    All referrals must be the definition of ‘Vulnerable Adult’.)</label>
-                                <textarea class="form-control h-120" id="referral_reason" name="referral_reason" value="{{ old('referral_reason') }}" required></textarea>
-                                @error('referral_reason')
-                                    <strong class="error-message">{{ $message }}</strong>
-                                @enderror
-                            </div>
-                            <h5>APPLICATION CONTACT DETAILS</h5>
+                            <div class="row">
+                                <h5>APPLICATION CONTACT DETAILS</h5>
+                                <input type="hidden" name="applicant_name" value="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}">
+                                <input type="hidden" name="applicant_email" value="{{ Auth::user()->email }}">
+                                <input type="hidden" name="applicant_phone_number" value="{{ Auth::user()->phone_number }}">
 
-                            <div class="row">
-                                <div class="form-group col-lg-4 col-md-12">
-                                    <label>Applicant's Name</label>
-                                    <input type="text" id="applicant_name" name="applicant_name" class="form-control" value="{{ old('applicant_name') }}" required>
-                                    @error('applicant_name')
-                                        <strong class="error-message">{{ $message }}</strong>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-lg-4 col-md-12">
-                                    <label>Applicant's Email Address</label>
-                                    <input type="email" id="applicant_email" name="applicant_email" class="form-control" value="{{ old('applicant_email') }}" required>
-                                    @error('applicant_email')
-                                        <strong class="error-message">{{ $message }}</strong>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-lg-4 col-md-12">
-                                    <label>Applicant's Phone Number</label>
-                                    <input type="number" id="applicant_phone_number" name="applicant_phone_number" class="form-control" value="{{ old('applicant_phone_number') }}" required>
-                                    @error('applicant_phone_number')
-                                        <strong class="error-message">{{ $message }}</strong>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="form-group col-md-3">
                                     <label>Date of Birth</label>
-                                    <input type="date" id="applicant_date_of_birth" name="applicant_date_of_birth" class="form-control" value="{{ old('applicant_date_of_birth') }}" required>
+                                    <input type="date" id="date" name="applicant_date_of_birth" class="form-control" value="{{ old('applicant_date_of_birth') }}" required>
                                     @error('applicant_date_of_birth')
                                         <strong class="error-message">{{ $message }}</strong>
                                     @enderror
                                 </div>
 
                                 <div class="form-group col-md-3">
-                                    <label>NI Number</label>
+                                    <label>National Insurance Number</label>
                                     <input type="number" id="applicant_ni_number" name="applicant_ni_number" class="form-control" value="{{ old('applicant_ni_number') }}" required>
                                     @error('applicant_ni_number')
                                         <strong class="error-message">{{ $message }}</strong>
@@ -126,7 +106,7 @@
                                         <strong class="error-message">{{ $message }}</strong>
                                     @enderror
                                 </div>
-
+                                
                                 <div class="form-group col-md-3">
                                     <label>Gender</label>
                                     <input type="text" id="applicant_gender" name="applicant_gender" class="form-control" value="{{ old('applicant_gender') }}" required>
@@ -134,6 +114,7 @@
                                         <strong class="error-message">{{ $message }}</strong>
                                     @enderror
                                 </div>
+
                             </div>
                             <div class="row">
 
@@ -170,6 +151,7 @@
                                 </div>
                                 
                             </div>
+
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label>Sexual Orientation</label>
@@ -187,12 +169,11 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
                 <br>
                 <div class="listing-submit-button">
-                    @include('partials.listing-buttons')
+                    @include('partials.referral-buttons')
                 </div>
             
             </div>
