@@ -12,6 +12,8 @@ class AdminListingsList extends Component
 {
     use WithPagination;
 
+    protected $paginationTheme = 'bootstrap';
+
     public array $breadcrumb;
 
     public function mount(): void
