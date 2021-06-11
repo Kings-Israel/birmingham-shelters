@@ -13,8 +13,9 @@
                         <li>Accepts people on benefit.</li>
                         <li>Understands the needs of homeless people and the care, support or supervision that should be afforded to them to help them live as independently as possible.</li>
                     </ul>
-
-                    <button class="btn btn-outline-theme-2 mt-2 mb-4" data-bs-toggle="modal" data-bs-target="#signup">Create an account</button>
+                    @guest
+                        <button class="btn btn-outline-theme-2 mt-2 mb-4" data-bs-toggle="modal" data-bs-target="#signup">Create an account</button>
+                    @endguest
 
                     <div class="alert alert-info font-weight-bold fs-5">
                         All room providers must be accredited by Birmingham City Council and or a government-registered Social landlord and meet our quality standards.

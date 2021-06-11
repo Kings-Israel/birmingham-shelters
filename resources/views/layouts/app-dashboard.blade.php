@@ -43,8 +43,9 @@
                                 </div>
 
                                 <div class="d-navigation">
-                                    @includeWhen(\Auth::user()->isOfType('landlord'), 'partials.landlord-sidenav')
-                                    @includeWhen(\Auth::user()->isOfType('agent'), 'partials.agent-sidenav')
+                                    @includeWhen(Auth::user()->isOfType('landlord'), 'partials.landlord-sidenav')
+                                    @includeWhen(Auth::user()->isOfType('user'), 'partials.user-sidenav')
+                                    @includeWhen(Auth::user()->isOfType('agent'), 'partials.agent-sidenav')
                                 </div>
 
                             </div>

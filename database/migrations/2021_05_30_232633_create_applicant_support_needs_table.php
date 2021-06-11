@@ -15,7 +15,7 @@ class CreateApplicantSupportNeedsTable extends Migration
     {
         Schema::create('applicant_support_needs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_metadata_id');
+            $table->foreignId('referee_data_id');
             $table->string('support_group');
             $table->text('support_needs');
             $table->timestamps();

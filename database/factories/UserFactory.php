@@ -10,19 +10,10 @@ use Spatie\Enum\Laravel\Faker\FakerEnumProvider;
 
 class UserFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
+
     protected $model = User::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
+    public function definition(): array
     {
         FakerEnumProvider::register();
 
@@ -39,12 +30,7 @@ class UserFactory extends Factory
         ];
     }
 
-    /**
-     * Indicate that the model's email address and phone number should be unverified.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    public function unverified()
+    public function unverified(): Factory
     {
         return $this->state(function (array $attributes) {
             return [
@@ -54,11 +40,15 @@ class UserFactory extends Factory
         });
     }
 
-    public function asUserType(UserTypeEnum $userType): Factory
+    public function asUserType($user_type): Factory
     {
-        return $this->state(function (array $attributes) use ($userType) {
+        if (is_string($user_type)) {
+            $user_type = UserTypeEnum::from($user_type);
+        }
+
+        return $this->state(function (array $attributes) use ($user_type) {
             return [
-                'user_type' => $userType->value,
+                'user_type' => $user_type->value,
             ];
         });
     }

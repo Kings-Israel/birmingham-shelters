@@ -19,7 +19,7 @@
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label>Address</label>
+                            <label>Address (e.g 308 Witton Road, Birmingham, UK)</label>
                             <input type="text" id="address" class="form-control" name="address" placeholder="" value="{{ old('address') }}" required>
                             <x-input-error for="address" />
                         </div>
@@ -94,13 +94,13 @@
 
 
             <div class="form-group col-md-12">
-                <label>Other Features</label>
+                <label>Features</label>
                 <div class="o-features">
                     <ul class="no-ul-list third-row">
-                        @php($selected_features = old("feature", []))
+                        @php($selected_features = old("features", []))
                         @foreach ($features as $feature)
                             <li>
-                                <input type="checkbox" class="checkbox-custom" name="feature[]"
+                                <input type="checkbox" class="checkbox-custom" name="features[]"
                                     id="a-{{$loop->index}}"
                                     value="{{ $feature }}"
                                     {{ in_array($feature, $selected_features) ? 'checked' : '' }}>
@@ -132,8 +132,8 @@
 
                         <div class="form-group col-md-4">
                             <label>Phone</label>
-                            <input type="text" class="form-control" name="contact_phoneNumber" value="{{ old('contact_phoneNumber') }}">
-                            <x-input-error for="contact_phoneNumber" />
+                            <input type="text" class="form-control" name="contact_number" value="{{ old('contact_number') }}">
+                            <x-input-error for="contact_number" />
                         </div>
 
                     </div>
@@ -144,4 +144,4 @@
             </div>
         </div>
     </form>
-</x-app-layout>
+</x-app-dashboard-layout>

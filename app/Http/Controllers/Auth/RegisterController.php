@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Rules\PhoneNumber;
 use App\Models\User;
-use Auth;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Enums\UserTypeEnum;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Enum\Laravel\Rules\EnumRule;
 
 class RegisterController extends Controller
@@ -72,5 +75,42 @@ class RegisterController extends Controller
             'user_type' => $data['user_type'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        $redirectPath = redirect()->intended($this->redirectPath())->getTargetUrl();
+
+        return $request->wantsJson()
+                    ? new JsonResponse(['redirectPath' => $redirectPath ], 201)
+                    : redirect($this->redirectPath());
+    }
+
+    public function redirectTo(): string
+    {
+        $user_type_home_map = [
+            'super_admin' => route('admin-dashboard'),
+            'admin' => route('admin-dashboard'),
+            'landlord' => route('landlord.index'),
+            'agent' => route('agent.index'),
+        ];
+
+        return $user_type_home_map[Auth::user()->user_type->value] ?? '/';
     }
 }

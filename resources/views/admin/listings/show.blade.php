@@ -49,15 +49,15 @@
                                 </ul>
                                 @if ($listing->other_rooms)
                                 <h6 class="property_block_title">Other Rooms:</h6>
-                                <p>{{ $listing->other_rooms }}</p>
+                                <p>{{ $listing->other_rooms->implode(', ') }}</p>
                                 @endif
                             </div>
 
-                            @if($listing->features_list)
+                            @if($listing->features)
                             <div class="block-body">
                                 <h6 class="property_block_title">Features</h6>
                                 <ul class="avl-features third color">
-                                    @foreach ($listing->features_list as $feature)
+                                    @foreach ($listing->features as $feature)
                                     <li class="text-capitalize">{{ $feature }}</li>
                                     @endforeach
                                 </ul>
@@ -96,15 +96,15 @@
                         <div id="clThree" class="panel-collapse collapse show" aria-expanded="true">
                             <div class="block-body">
                                 <ul class="avl-features third color">
-                                    @foreach ($listing->clientgroup->client_group_list as $client)
+                                    @foreach ($listing->supported_groups as $client)
                                     <li class="text-capitalize">{{ $client }}</li>
                                     @endforeach
                                 </ul>
                             </div>
                             <div class="block-body">
                                 <h6 class="property_block_title">Client Support Description:</h6>
-                                <p>{{ $listing->clientgroup->support_description }}</p>
-                                <p class="property_block_title"><strong>Client Support Hours per week:</strong> {{ $listing->clientgroup->support_hours }}</h6>
+                                <p>{{ $listing->support_description }}</p>
+                                <p class="property_block_title"><strong>Client Support Hours per week:</strong> {{ $listing->support_hours }}</h6>
                             </div>
                         </div>
                     </div>
@@ -144,10 +144,10 @@
                         <div id="clSev" class="panel-collapse collapse" aria-expanded="true">
                             <div class="block-body">
                                 <ul class="list-gallery-inline">
-                                    @foreach ($listing->listingimage as $image)
+                                    @foreach ($listing->images as $image)
                                     <li>
-                                        <a href="{!! $image->url() !!}" class="mfp-gallery"><img
-                                                src="{!! $image->url() !!}" class="img-fluid mx-auto" alt="" /></a>
+                                        <a href="{!! $listing->getImageUrl($image) !!}" class="mfp-gallery"><img
+                                                src="{!! $listing->getImageUrl($image) !!}" class="img-fluid mx-auto" alt="" /></a>
                                     </li>
                                     @endforeach
                                 </ul>

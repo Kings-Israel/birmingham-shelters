@@ -24,7 +24,7 @@ namespace App\Models{
  * @property string $reason_for_leaving
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\UserMetadata $usermetadata
+ * @property-read \App\Models\RefereeData $refereedata
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantAddressInfo newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantAddressInfo newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantAddressInfo query()
@@ -61,7 +61,7 @@ namespace App\Models{
  * @property string|null $criminal_offence_details
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\UserMetadata $usermetadata
+ * @property-read \App\Models\RefereeData $refereedata
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantHealthInfo newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantHealthInfo newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantHealthInfo query()
@@ -95,7 +95,8 @@ namespace App\Models{
  * @property string|null $other_debt
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\UserMetadata $usermetadata
+ * @property-read mixed $source_of_income_list
+ * @property-read \App\Models\RefereeData $refereedata
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantIncomeInfo newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantIncomeInfo newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantIncomeInfo query()
@@ -121,7 +122,7 @@ namespace App\Models{
  * @property string $risk_details
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\UserMetadata $usermetadata
+ * @property-read \App\Models\RefereeData $refereedata
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantRiskAssessment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantRiskAssessment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantRiskAssessment query()
@@ -146,7 +147,7 @@ namespace App\Models{
  * @property string $support_needs
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\UserMetadata $usermetadata
+ * @property-read \App\Models\RefereeData $refereedata
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantSupportNeeds newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantSupportNeeds newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantSupportNeeds query()
@@ -162,31 +163,16 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\ClientGroup
+ * App\Models\Booking
  *
- * @property int $id
- * @property int $listing_id
- * @property string $client_group
- * @property string|null $other_types
- * @property string $support_description
- * @property int $support_hours
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Support\Collection $client_group_list
  * @property-read \App\Models\Listing $listing
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup query()
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereClientGroup($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereListingId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereOtherTypes($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereSupportDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereSupportHours($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ClientGroup whereUpdatedAt($value)
+ * @property-read \App\Models\RefereeData $refereedata
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking query()
  */
-	class ClientGroup extends \Eloquent {}
+	class Booking extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -200,7 +186,7 @@ namespace App\Models{
  * @property string $consent_company_position
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\UserMetadata $usermetadata
+ * @property-read \App\Models\RefereeData $refereedata
  * @method static \Illuminate\Database\Eloquent\Builder|Consent newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Consent newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Consent query()
@@ -217,6 +203,44 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Invoice
+ *
+ * @property int $id
+ * @property \App\Enums\InvoiceTypeEnum $invoice_type
+ * @property string|null $description
+ * @property int $total
+ * @property int $user_id
+ * @property int $invoiceable_id
+ * @property string $invoiceable_type
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $invoiceable
+ * @property-read \App\Models\Payment|null $payment
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\InvoiceFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Invoice onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereInvoiceType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereInvoiceableId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereInvoiceableType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereTotal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|Invoice withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Invoice withoutTrashed()
+ */
+	class Invoice extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Listing
  *
  * @property int $id
@@ -229,28 +253,29 @@ namespace App\Models{
  * @property int $bathrooms
  * @property int $toilets
  * @property int $kitchen
- * @property string|null $other_rooms
- * @property string|null $features
+ * @property \Illuminate\Support\Collection|null $other_rooms
+ * @property \Illuminate\Support\Collection|null $features
  * @property int $user_id
  * @property bool $is_available
  * @property \Illuminate\Support\Carbon|null $verified_at
  * @property string $contact_name
  * @property string $contact_email
- * @property int|null $contact_number
- * @property int $fire_blanket
- * @property int $co_monitors
- * @property int $flame_retardant_spray
+ * @property string|null $contact_number
+ * @property \Illuminate\Database\Eloquent\Casts\AsCollection|null $images
+ * @property array|null $supported_groups
+ * @property string|null $support_description
+ * @property int|null $support_hours
+ * @property \App\Enums\ListingProofsEnum|null $proofs
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\ClientGroup|null $clientgroup
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListingDocuments[] $documents
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Booking[] $bookings
+ * @property-read int|null $bookings_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListingDocument[] $documents
  * @property-read int|null $documents_count
- * @property-read mixed $features_list
  * @property-read bool $is_verified
- * @property-read \Illuminate\Support\Collection $other_rooms_list
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListingImage[] $listingimage
- * @property-read int|null $listingimage_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Invoice[] $invoices
+ * @property-read int|null $invoices_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListingInquiry[] $listinginquiry
  * @property-read int|null $listinginquiry_count
  * @property-read \App\Models\User $user
@@ -262,7 +287,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereBathrooms($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereBedrooms($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Listing whereCoMonitors($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereContactEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereContactName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereContactNumber($value)
@@ -270,15 +294,18 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereFeatures($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Listing whereFireBlanket($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Listing whereFlameRetardantSpray($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Listing whereImages($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereIsAvailable($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereKitchen($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereLivingRooms($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereOtherRooms($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing wherePostcode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Listing whereProofs($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Listing whereSupportDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Listing whereSupportHours($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Listing whereSupportedGroups($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereToilets($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereUserId($value)
@@ -291,7 +318,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\ListingDocuments
+ * App\Models\ListingDocument
  *
  * @property int $id
  * @property int $listing_id
@@ -301,40 +328,19 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Listing $listing
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments query()
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments whereDocumentType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments whereExpiryDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments whereFilename($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments whereListingId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingDocuments whereUpdatedAt($value)
+ * @method static \Database\Factories\ListingDocumentFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument whereDocumentType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument whereExpiryDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument whereFilename($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument whereListingId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingDocument whereUpdatedAt($value)
  */
-	class ListingDocuments extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\ListingImage
- *
- * @property int $id
- * @property int $listing_id
- * @property string $image_name
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Listing $listing
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage query()
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage whereImageName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage whereListingId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingImage whereUpdatedAt($value)
- */
-	class ListingImage extends \Eloquent {}
+	class ListingDocument extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -345,7 +351,7 @@ namespace App\Models{
  * @property int $listing_id
  * @property string $user_name
  * @property string $user_email
- * @property int $user_phone_number
+ * @property string $user_phone_number
  * @property string $message
  * @property \Illuminate\Support\Carbon|null $read_at
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -369,6 +375,58 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Payment
+ *
+ * @property int $id
+ * @property int $invoice_id
+ * @property int $amount
+ * @property string $method
+ * @property string $transaction_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Invoice $invoice
+ * @method static \Database\Factories\PaymentFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Payment onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereInvoiceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereMethod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereTransactionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Payment withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Payment withoutTrashed()
+ */
+	class Payment extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\RefereeData
+ *
+ * @property-read \App\Models\ApplicantAddressInfo|null $applicantaddressinfo
+ * @property-read \App\Models\ApplicantHealthInfo|null $applicanthealthinfo
+ * @property-read \App\Models\ApplicantIncomeInfo|null $applicantincomeinfo
+ * @property-read \App\Models\ApplicantRiskAssessment|null $applicantriskassessment
+ * @property-read \App\Models\ApplicantSupportNeeds|null $applicantsupportneeds
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Booking[] $booking
+ * @property-read int|null $booking_count
+ * @property-read \App\Models\Consent|null $consent
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData query()
+ */
+	class RefereeData extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\User
  *
  * @property int $id
@@ -383,10 +441,15 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Booking[] $bookings
+ * @property-read int|null $bookings_count
  * @property-read string $full_name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Listing[] $listings
+ * @property-read int|null $listings_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
- * @property-read \App\Models\UserMetadata|null $usermetadata
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\RefereeData[] $refereedata
+ * @property-read int|null $refereedata_count
  * @method static \Illuminate\Database\Eloquent\Builder|User admins()
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
@@ -406,85 +469,5 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUserType($value)
  */
 	class User extends \Eloquent implements \Illuminate\Contracts\Auth\MustVerifyEmail {}
-}
-
-namespace App\Models{
-/**
- * App\Models\UserMetadata
- *
- * @property int $id
- * @property int $user_id
- * @property string $referral_type
- * @property string $referrer_name
- * @property int $referrer_phone_number
- * @property string $referrer_email
- * @property string $referral_reason
- * @property string $applicant_name
- * @property string $applicant_email
- * @property string $applicant_phone_number
- * @property string $applicant_date_of_birth
- * @property int $applicant_ni_number
- * @property string $applicant_current_address
- * @property string $applicant_gender
- * @property string $applicant_sexual_orientation
- * @property string $applicant_ethnicity
- * @property string $applicant_kin_name
- * @property string $applicant_kin_relationship
- * @property int $applicant_kin_phone_number
- * @property string $applicant_kin_email
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata query()
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereApplicantCurrentAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereApplicantDateOfBirth($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereApplicantEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereApplicantEthnicity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereApplicantGender($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereApplicantKinEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereApplicantKinName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereApplicantKinPhoneNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereApplicantKinRelationship($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereApplicantName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereApplicantNiNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereApplicantPhoneNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereApplicantSexualOrientation($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereReferralReason($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereReferralType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereReferrerEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereReferrerName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereReferrerPhoneNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserMetadata whereUserId($value)
- */
-	class UserMetadata extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\VolunteerMetadata
- *
- * @property int $id
- * @property int $volunteer_id
- * @property \Illuminate\Support\Carbon|null $approved_at
- * @property string $paypal_email
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Database\Factories\VolunteerMetadataFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|VolunteerMetadata newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|VolunteerMetadata newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|VolunteerMetadata query()
- * @method static \Illuminate\Database\Eloquent\Builder|VolunteerMetadata whereApprovedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|VolunteerMetadata whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|VolunteerMetadata whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|VolunteerMetadata wherePaypalEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|VolunteerMetadata whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|VolunteerMetadata whereVolunteerId($value)
- */
-	class VolunteerMetadata extends \Eloquent {}
 }
 

@@ -10,8 +10,8 @@ class ApplicantRiskAssessment extends Model
 {
     use HasFactory;
 
-    public function usermetadata(): BelongsTo
+    public function refereedata(): BelongsTo
     {
-        return $this->belongsTo(UserMetadata::class);
+        return $this->belongsTo(RefereeData::class);
     }
 }

@@ -15,7 +15,7 @@ class CreateApplicantIncomeInfosTable extends Migration
     {
         Schema::create('applicant_income_infos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_metadata_id');
+            $table->foreignId('referee_data_id');
             $table->text('source_of_income');
             $table->string('dwp_office')->nullable();
             $table->text('other_debt')->nullable();

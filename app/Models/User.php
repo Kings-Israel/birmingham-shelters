@@ -6,6 +6,7 @@ use App\Enums\UserTypeEnum;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -33,11 +34,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'phone_number_verified_at' => 'datetime',
     ];
-
-    public function usermetadata(): HasOne
-    {
-        return $this->hasOne(UserMetadata::class);
-    }
 
     public function scopeAdmins(Builder $query): Builder
     {
@@ -75,5 +71,20 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         return $this->user_type === $user_type;
+    }
+
+    public function listings()
+    {
+        return $this->hasMany(Listing::class);
+    }
+
+    public function refereedata()
+    {
+        return $this->hasMany(RefereeData::class);
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
     }
 }

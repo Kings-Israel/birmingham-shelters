@@ -13,7 +13,7 @@
                             <img src="{!! $listing->coverImageUrl() !!}" class="img-fluid" alt="" />
                         </div>
                         <div class="sd-list-right">
-                            <h4 class="listing_dashboard_title"><a href="/listing/{{ $listing->id }}"
+                            <h4 class="listing_dashboard_title"><a href="{{ route('listing.view.one', $listing->id) }}"
                                     class="theme-cl">{{ $listing->name }}</a></h4>
                             <div class="user_dashboard_listed">
                                 Address: <strong>{{ $listing->address }}</strong>
@@ -24,22 +24,16 @@
                             <div class="user_dashboard_listed">
                                 Status:
                                 @if ($listing->verified_at == null)
-                                <strong> Not Verified </strong>
+                                    <strong> Not Verified </strong>
                                 @else
-                                <strong>Verified</strong>
+                                    <strong>Verified</strong>
                                 @endif
                             </div>
                             <div class="action">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i
-                                        class="ti-pencil"></i></a>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="202 User View"><i
-                                        class="ti-eye"></i></a>
                                 <a href="JavaScript:Void(0);" data-bs-toggle="modal"
                                     data-bs-target="#delete_listing_{{ $listing->id }}" data-bs-toggle="tooltip"
                                     data-bs-placement="top" title="Delete Property" class="delete"><i
                                         class="ti-close"></i></a>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Make Featured"
-                                    class="delete"><i class="ti-star"></i></a>
                             </div>
                         </div>
                     </div>
