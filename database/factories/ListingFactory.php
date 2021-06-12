@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\ListingProofsEnum;
+use App\Enums\ListingStatusEnum;
 use App\Models\Listing;
 use App\Models\ListingDocument;
 use App\Models\User;
@@ -102,20 +103,12 @@ class ListingFactory extends Factory
 
     public function verified(): Factory
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'verified_at' => now(),
-            ];
-        });
+        return $this->state(['status' => ListingStatusEnum::verified()]);
     }
 
     public function unavailable(): Factory
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'is_available' => false,
-            ];
-        });
+        return $this->state(['is_available' => false ]);
     }
 
     public function ownerAs(User $user): Factory

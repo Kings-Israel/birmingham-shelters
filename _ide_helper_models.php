@@ -15,7 +15,7 @@ namespace App\Models{
  * App\Models\ApplicantAddressInfo
  *
  * @property int $id
- * @property int $user_metadata_id
+ * @property int $referee_data_id
  * @property string $address
  * @property string $moved_in
  * @property string $moved_out
@@ -35,9 +35,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantAddressInfo whereMovedIn($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantAddressInfo whereMovedOut($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantAddressInfo whereReasonForLeaving($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ApplicantAddressInfo whereRefereeDataId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantAddressInfo whereTenure($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantAddressInfo whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ApplicantAddressInfo whereUserMetadataId($value)
  */
 	class ApplicantAddressInfo extends \Eloquent {}
 }
@@ -47,7 +47,7 @@ namespace App\Models{
  * App\Models\ApplicantHealthInfo
  *
  * @property int $id
- * @property int $user_metadata_id
+ * @property int $referee_data_id
  * @property string|null $professional_officer
  * @property string|null $gp_name
  * @property string|null $gp_address
@@ -78,8 +78,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantHealthInfo wherePhysicalHealth($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantHealthInfo wherePresentMedication($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantHealthInfo whereProfessionalOfficer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ApplicantHealthInfo whereRefereeDataId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantHealthInfo whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ApplicantHealthInfo whereUserMetadataId($value)
  */
 	class ApplicantHealthInfo extends \Eloquent {}
 }
@@ -89,7 +89,7 @@ namespace App\Models{
  * App\Models\ApplicantIncomeInfo
  *
  * @property int $id
- * @property int $user_metadata_id
+ * @property int $referee_data_id
  * @property string $source_of_income
  * @property string|null $dwp_office
  * @property string|null $other_debt
@@ -104,9 +104,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantIncomeInfo whereDwpOffice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantIncomeInfo whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantIncomeInfo whereOtherDebt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ApplicantIncomeInfo whereRefereeDataId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantIncomeInfo whereSourceOfIncome($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantIncomeInfo whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ApplicantIncomeInfo whereUserMetadataId($value)
  */
 	class ApplicantIncomeInfo extends \Eloquent {}
 }
@@ -116,7 +116,7 @@ namespace App\Models{
  * App\Models\ApplicantRiskAssessment
  *
  * @property int $id
- * @property int $user_metadata_id
+ * @property int $referee_data_id
  * @property string $risk
  * @property string $risk_level
  * @property string $risk_details
@@ -128,11 +128,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantRiskAssessment query()
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantRiskAssessment whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantRiskAssessment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ApplicantRiskAssessment whereRefereeDataId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantRiskAssessment whereRisk($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantRiskAssessment whereRiskDetails($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantRiskAssessment whereRiskLevel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantRiskAssessment whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ApplicantRiskAssessment whereUserMetadataId($value)
  */
 	class ApplicantRiskAssessment extends \Eloquent {}
 }
@@ -142,7 +142,7 @@ namespace App\Models{
  * App\Models\ApplicantSupportNeeds
  *
  * @property int $id
- * @property int $user_metadata_id
+ * @property int $referee_data_id
  * @property string $support_group
  * @property string $support_needs
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -153,10 +153,10 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantSupportNeeds query()
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantSupportNeeds whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantSupportNeeds whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ApplicantSupportNeeds whereRefereeDataId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantSupportNeeds whereSupportGroup($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantSupportNeeds whereSupportNeeds($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApplicantSupportNeeds whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ApplicantSupportNeeds whereUserMetadataId($value)
  */
 	class ApplicantSupportNeeds extends \Eloquent {}
 }
@@ -165,12 +165,24 @@ namespace App\Models{
 /**
  * App\Models\Booking
  *
+ * @property int $id
+ * @property int $listing_id
+ * @property int $user_id
+ * @property int $referee_data_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Listing $listing
  * @property-read \App\Models\RefereeData $refereedata
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Booking newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Booking newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Booking query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereListingId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereRefereeDataId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereUserId($value)
  */
 	class Booking extends \Eloquent {}
 }
@@ -180,7 +192,7 @@ namespace App\Models{
  * App\Models\Consent
  *
  * @property int $id
- * @property int $user_metadata_id
+ * @property int $referee_data_id
  * @property string $consent_name
  * @property string $consent_date
  * @property string $consent_company_position
@@ -195,8 +207,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Consent whereConsentName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Consent whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Consent whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Consent whereRefereeDataId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Consent whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Consent whereUserMetadataId($value)
  */
 	class Consent extends \Eloquent {}
 }
@@ -257,7 +269,6 @@ namespace App\Models{
  * @property \Illuminate\Support\Collection|null $features
  * @property int $user_id
  * @property bool $is_available
- * @property \Illuminate\Support\Carbon|null $verified_at
  * @property string $contact_name
  * @property string $contact_email
  * @property string|null $contact_number
@@ -266,6 +277,7 @@ namespace App\Models{
  * @property string|null $support_description
  * @property int|null $support_hours
  * @property \App\Enums\ListingProofsEnum|null $proofs
+ * @property \App\Enums\ListingStatusEnum $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -276,6 +288,8 @@ namespace App\Models{
  * @property-read bool $is_verified
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Invoice[] $invoices
  * @property-read int|null $invoices_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListingFeedback[] $listingFeedback
+ * @property-read int|null $listing_feedback_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListingInquiry[] $listinginquiry
  * @property-read int|null $listinginquiry_count
  * @property-read \App\Models\User $user
@@ -303,13 +317,13 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereOtherRooms($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing wherePostcode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereProofs($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Listing whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereSupportDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereSupportHours($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereSupportedGroups($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereToilets($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Listing whereVerifiedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Listing withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Listing withoutTrashed()
  */
@@ -345,6 +359,34 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\ListingFeedback
+ *
+ * @property int $id
+ * @property int $listing_id
+ * @property int $admin_id
+ * @property string $message
+ * @property bool $is_resolved
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $admin
+ * @property-read \App\Models\Listing $listing
+ * @method static \Database\Factories\ListingFeedbackFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingFeedback newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingFeedback newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingFeedback query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingFeedback whereAdminId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingFeedback whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingFeedback whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingFeedback whereIsResolved($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingFeedback whereListingId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingFeedback whereMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingFeedback whereUpdatedAt($value)
+ */
+	class ListingFeedback extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\ListingInquiry
  *
  * @property int $id
@@ -352,7 +394,7 @@ namespace App\Models{
  * @property string $user_name
  * @property string $user_email
  * @property string $user_phone_number
- * @property string $message
+ * @property string $listing_message
  * @property \Illuminate\Support\Carbon|null $read_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -363,7 +405,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ListingInquiry whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListingInquiry whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListingInquiry whereListingId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListingInquiry whereMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListingInquiry whereListingMessage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListingInquiry whereReadAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListingInquiry whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListingInquiry whereUserEmail($value)
@@ -409,6 +451,30 @@ namespace App\Models{
 /**
  * App\Models\RefereeData
  *
+ * @property int $id
+ * @property int $user_id
+ * @property string $referral_type
+ * @property string $referrer_name
+ * @property string $referrer_phone_number
+ * @property string $referrer_email
+ * @property string $referral_reason
+ * @property string $applicant_name
+ * @property string $applicant_email
+ * @property string $applicant_phone_number
+ * @property string $applicant_date_of_birth
+ * @property int $applicant_ni_number
+ * @property string $applicant_current_address
+ * @property string $applicant_gender
+ * @property string $applicant_sexual_orientation
+ * @property string $applicant_ethnicity
+ * @property string $applicant_kin_name
+ * @property string $applicant_kin_relationship
+ * @property string $applicant_kin_phone_number
+ * @property string $applicant_kin_email
+ * @property string|null $applicant_image
+ * @property \App\Models\Consent|null $consent
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\ApplicantAddressInfo|null $applicantaddressinfo
  * @property-read \App\Models\ApplicantHealthInfo|null $applicanthealthinfo
  * @property-read \App\Models\ApplicantIncomeInfo|null $applicantincomeinfo
@@ -416,11 +482,34 @@ namespace App\Models{
  * @property-read \App\Models\ApplicantSupportNeeds|null $applicantsupportneeds
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Booking[] $booking
  * @property-read int|null $booking_count
- * @property-read \App\Models\Consent|null $consent
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|RefereeData newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RefereeData newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RefereeData query()
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereApplicantCurrentAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereApplicantDateOfBirth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereApplicantEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereApplicantEthnicity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereApplicantGender($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereApplicantImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereApplicantKinEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereApplicantKinName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereApplicantKinPhoneNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereApplicantKinRelationship($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereApplicantName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereApplicantNiNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereApplicantPhoneNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereApplicantSexualOrientation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereConsent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereReferralReason($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereReferralType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereReferrerEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereReferrerName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereReferrerPhoneNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RefereeData whereUserId($value)
  */
 	class RefereeData extends \Eloquent {}
 }

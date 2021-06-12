@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ListingProofsEnum;
+use App\Enums\ListingStatusEnum;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,13 +19,15 @@ class Listing extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $guarded = [
-        'verified_at',
+    protected $guarded = [];
+
+    protected $attributes = [
+        'status' => 'draft',
     ];
 
     protected $casts = [
         'user_id' => 'integer',
-        'verified_at' => 'datetime',
+        'status' => ListingStatusEnum::class,
         'is_available' => 'bool',
         'supported_groups' => 'array',
         'proofs' => ListingProofsEnum::class.':collection',
@@ -61,9 +64,19 @@ class Listing extends Model
         return $this->morphMany(Invoice::class, 'invoiceable');
     }
 
+    public function listingFeedback(): HasMany
+    {
+        return $this->hasMany(ListingFeedback::class);
+    }
+
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
+
     public function getIsVerifiedAttribute(): bool
     {
-        return isset($this->verified_at);
+        return $this->status === ListingStatusEnum::verified();
     }
 
     public function coverImageUrl(): string
@@ -95,13 +108,11 @@ class Listing extends Model
             return $this;
         }
 
-        $this->verified_at = now();
+        return tap($this, fn($instance) => $instance->status = ListingStatusEnum::verified());
+    }
 
-        return $this;
-    }
-    
-    public function bookings(): HasMany
-    {
-        return $this->hasMany(Booking::class);
-    }
+    // public function hasNoUnResolvedFeedback(): bool
+    // {
+
+    // }
 }

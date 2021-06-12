@@ -23,12 +23,12 @@ class AdminVerifyListingTest extends TestCase
         $component = Livewire::test(AdminVerifyListing::class, ['listing' => $listing])
                         ->assertSet('listing', $listing)
                         ->assertSee('Verify Listing')
-                        ->call('markAsVerified');
+                        ->call('markAsVerified')
+                        ->assertSee('Verified');
 
         $listing->refresh();
 
         $this->assertTrue($listing->is_verified);
-        $component->assertSee($listing->verified_at->diffForHumans());
     }
 
     public function test_only_authorized_users_can_mark_listing_as_verified(): void
