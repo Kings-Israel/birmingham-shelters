@@ -147,6 +147,25 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Feedback Messages -->
+            <div class="property_block_wrap style-2">
+
+                <div class="property_block_wrap_header">
+                    <a data-bs-toggle="collapse" data-parent="#cl-feedback" data-bs-target="#cl-feedback"
+                        aria-controls="cl-feedback" href="javascript:void(0);" aria-expanded="true"
+                        class="collapsed">
+                        <h4 class="property_block_title">Feedback</h4>
+                    </a>
+                </div>
+
+                <div id="cl-feedback" class="panel-collapse collapse show" aria-expanded="true">
+                    <div class="block-body">
+                        <livewire:listing-feedback-list :listing="$listing" />
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
     <!-- ============================ Property Detail End ================================== -->

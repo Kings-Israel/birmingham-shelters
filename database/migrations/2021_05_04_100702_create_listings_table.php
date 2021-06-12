@@ -24,7 +24,6 @@ class CreateListingsTable extends Migration
             $table->json('features')->nullable();
             $table->foreignId('user_id')->constrained();
             $table->boolean('is_available')->default(true);
-            $table->timestamp('verified_at')->nullable();
             $table->string('contact_name');
             $table->string('contact_email');
             $table->string('contact_number')->nullable();
@@ -33,6 +32,7 @@ class CreateListingsTable extends Migration
             $table->text('support_description')->nullable();
             $table->integer('support_hours')->nullable();
             $table->json('proofs')->nullable();
+            $table->string('status');
             $table->timestamps();
             $table->softDeletes();
         });
