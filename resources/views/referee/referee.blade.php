@@ -1,6 +1,13 @@
 <x-app-dashboard-layout pageTitle="Referee">
     <div class="container">
         <div class="property_block_wrap_header">
+            <a style="float: right" href="{{ route('listing.referee.pdf', $referee->id) }}">Download PDF</a>
+            <h4 class="property_block_title">
+                <a href="{{ url()->previous() }}">
+                    <i class="ti-angle-left"></i> 
+                </a>
+                Referee:
+            </h4>
             <div class="pbw-flex-1">
                 <div class="pbw-flex-thumb">
                     <img src="{{ asset('storage/referee/image/'.$referee->applicant_image) }}" class="img-fluid" width="300" style="height: 200px; object-fit:cover" alt="" />
@@ -64,7 +71,7 @@
             <div class="property_block_wrap_header">
                 <a data-bs-toggle="collapse" data-parent="#dsrp" data-bs-target="#clTwo" aria-controls="clTwo"
                     href="javascript:void(0);" aria-expanded="true">
-                    <h4 class="property_block_title">Kin Information:</h4>
+                    <h4 class="property_block_title">Next fo Kin:</h4>
                 </a>
             </div>
             <div id="clTwo" class="panel-collapse collapse show" aria-expanded="true">

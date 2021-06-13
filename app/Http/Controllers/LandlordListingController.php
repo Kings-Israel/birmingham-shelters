@@ -8,6 +8,7 @@ use App\Models\ClientGroup;
 use App\Models\Listing;
 use App\Models\ListingDocuments;
 use App\Models\ListingImage;
+use App\Models\RefereeData;
 use Auth;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
@@ -25,6 +26,28 @@ class LandlordListingController extends Controller
     {
         $listings = Listing::where('user_id', '=', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
         return view('landlord.listing.all-listings')->with('listings', $listings);
+    }
+
+    public function viewListing(Listing $listing)
+    {
+        return view('landlord.listing.show-listing', [
+            'listing' => $listing->load('clientgroup', 'listingimage', 'bookings'),
+        ]);
+    }
+
+    public function viewListingBookings(Listing $listing)
+    {
+        $referee_data = collect([]);
+        foreach ($listing->bookings as $booking) {
+            $referee_data->push(RefereeData::where('id', '=', $booking->referee_data_id)->paginate(10));
+        }
+
+        return view('landlord.bookings')->with(['referee_data' => $referee_data, 'listing_id' => $listing->id]);
+    }
+
+    public function viewListingInquiries()
+    {
+
     }
 
     public function basicInfo()
@@ -72,13 +95,6 @@ class LandlordListingController extends Controller
     public function listingImages($id)
     {
         return view('landlord.listing.add-listingimages')->with('id', $id);
-    }
-
-    public function viewListing(Listing $listing)
-    {
-        return view('landlord.listing.show-listing', [
-            'listing' => $listing->load('clientgroup', 'listingimage', 'bookings'),
-        ]);
     }
 
     public function submitBasicInfo(Request $request)

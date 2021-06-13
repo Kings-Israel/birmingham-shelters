@@ -11997,3 +11997,8 @@ a.blue2-theme {
   .referee-details .details {
       margin-right: 20px;
   }
+
+  .booking-details-row:hover {
+      background-color: #e4e4e4;
+      transition: .2s ease-in-out;
+  }

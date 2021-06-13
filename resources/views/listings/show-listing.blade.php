@@ -46,7 +46,7 @@
                                         <form action="{{ route('submit.booking') }}" method="post">
                                             @csrf
                                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                            <input type="hidden" name="user_metadata_id" value="{{ Auth::user()->refereedata()->first()->id }}">
+                                            <input type="hidden" name="referee_data_id" value="{{ Auth::user()->refereedata()->first()->id }}">
                                             <input type="hidden" name="listing_id" value="{{ $listing->id }}">
                                             <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
                                         </form>
@@ -257,7 +257,7 @@
                                 <form action="{{ route('submit.booking') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                    <input type="hidden" name="user_metadata_id" value="{{ Auth::user()->refereedata()->first()->id }}">
+                                    <input type="hidden" name="referee_data_id" value="{{ Auth::user()->refereedata()->first()->id }}">
                                     <input type="hidden" name="listing_id" value="{{ $listing->id }}">
                                     <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
                                 </form>

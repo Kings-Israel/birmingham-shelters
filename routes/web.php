@@ -29,7 +29,7 @@ Route::get('/user', [HomeController::class, 'user'])->name('user.index');
 Route::get('/landlord', [HomeController::class, 'landlord'])->name('landlord.index');
 Route::get('/agent', [HomeController::class, 'agent'])->name('agent.index');
 Route::get('/agent/referees', [HomeController::class, 'agentReferees'])->name('agent.referees.all');
-Route::get('/agent/referee/{referee}', [HomeController::class, 'referee'])->name('agent.referees.referee');
+Route::get('/referee/{referee}', [HomeController::class, 'referee'])->name('referees.referee');
 Route::group(['prefix' => '/profile', 'as' => 'profile.'], function() {
     Route::get('/{user}', [HomeController::class, 'showProfile'])->name('show');
     Route::post('/update', [HomeController::class, 'updateProfile'])->name('update');
@@ -52,6 +52,8 @@ Route::group([
         Route::post('/add/listingdocuments', [LandlordListingController::class, 'submitListingDocuments'])->name('add.submit_documents');
         Route::post('/add/listingimages', [LandlordListingController::class, 'submitListingImages'])->name('add.submit_images');
         Route::delete('/{listing}/delete', [LandlordListingController::class, 'deleteListing'])->name('delete');
+        Route::get('/bookings/{listing}', [LandlordListingController::class, 'viewListingBookings'])->name('bookings.all');
+        Route::get('/referee/pdf/{refereeData}', [RefereeDataController::class, 'getPdf'])->name('referee.pdf');
 });
 
 Route::delete('listing-images/{listing_image}/delete', [LandlordListingController::class, 'deleteRemovedImage'])->name('listing-images.delete');

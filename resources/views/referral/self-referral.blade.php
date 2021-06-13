@@ -26,7 +26,7 @@
         <form action="{{ route('referral-form.submit') }}" class="listing-form" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-            <input type="hidden" name="referral_type" value="self-referral">
+            <input type="hidden" name="referral_type" value="Self Referral">
             <input type="hidden" name="referrer_name" value="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}">
             <input type="hidden" name="referrer_email" value="{{ Auth::user()->email }}">
             <input type="hidden" name="referrer_phone_number" value="{{ Auth::user()->phone_number }}">
