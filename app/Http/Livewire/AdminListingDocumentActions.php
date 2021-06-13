@@ -3,18 +3,18 @@
 namespace App\Http\Livewire;
 
 use App\Models\Listing;
-use App\Models\ListingDocuments;
+use App\Models\ListingDocument;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
 class AdminListingDocumentActions extends Component
 {
-    public ListingDocuments $document;
+    public ListingDocument $document;
 
     public Listing $listing;
 
-    public function mount(ListingDocuments $document, Listing $listing): void
+    public function mount(ListingDocument $document, Listing $listing): void
     {
         $this->document = $document;
 

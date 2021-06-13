@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
-use App\Models\ClientGroup;
-use App\Models\Booking;
-use App\Models\UserMetdata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -38,7 +35,7 @@ class UserListingController extends Controller
     public function listing(Listing $listing)
     {
         return view('listings.show-listing', [
-            'listing' => $listing->load('clientgroup', 'listingimage', 'bookings')
+            'listing' => $listing->load('bookings')
         ]);
     }
 }

@@ -18,7 +18,7 @@ class CreateRefereeDataTable extends Migration
             $table->foreignId('user_id');
             $table->string('referral_type');
             $table->string('referrer_name');
-            $table->bigInteger('referrer_phone_number');
+            $table->string('referrer_phone_number');
             $table->string('referrer_email');
             $table->text('referral_reason');
             $table->string('applicant_name');
@@ -32,7 +32,7 @@ class CreateRefereeDataTable extends Migration
             $table->string('applicant_ethnicity');
             $table->string('applicant_kin_name');
             $table->string('applicant_kin_relationship');
-            $table->bigInteger('applicant_kin_phone_number');
+            $table->string('applicant_kin_phone_number');
             $table->string('applicant_kin_email');
             $table->string('applicant_image')->nullable();
             $table->boolean('consent')->default(false);

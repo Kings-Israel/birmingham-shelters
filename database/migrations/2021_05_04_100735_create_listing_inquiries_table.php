@@ -14,7 +14,7 @@ class CreateListingInquiriesTable extends Migration
             $table->foreignId('listing_id')->constrained()->onDelete('cascade');
             $table->string('user_name');
             $table->string('user_email');
-            $table->bigInteger('user_phone_number');
+            $table->string('user_phone_number');
             $table->text('listing_message');
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
