@@ -1,6 +1,15 @@
 <x-app-dashboard-layout pageTitle="Referee">
     <div class="container">
         <div class="property_block_wrap_header">
+            @if (Auth::user()->isOfType('landlord'))
+                <a style="float: right" href="{{ route('listing.referee.pdf', $referee->id) }}">Download PDF</a>
+            @endif
+            <h4 class="property_block_title">
+                <a href="{{ url()->previous() }}">
+                    <i class="ti-angle-left"></i> 
+                </a>
+                Referee:
+            </h4>
             <div class="pbw-flex-1">
                 <div class="pbw-flex-thumb">
                     <img src="{{ asset('storage/referee/image/'.$referee->applicant_image) }}" class="img-fluid" width="300" style="height: 200px; object-fit:cover" alt="" />

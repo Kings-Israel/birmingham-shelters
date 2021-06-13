@@ -14,7 +14,7 @@
                         <div class="property-listing property-1">
                             <div class="listing-img-wrapper">
                                 <div class="sd-list-left">
-                                    <a href="{{ route('agent.referees.referee', $referee->id) }}">
+                                    <a href="{{ route('referees.referee', $referee->id) }}">
                                         <img src="{{ asset('storage/referee/image/'.$referee->applicant_image) }}" class="img-fluid mx-auto" alt="" />
                                     </a>
                                 </div>
@@ -24,7 +24,7 @@
                                 <div class="listing-detail-wrapper-box">
                                     <div class="listing-detail-wrapper">
                                         <div class="listing-short-detail">
-                                            <h4 class="listing-name"><a href="{{ route('agent.referees.referee', $referee->id) }}">{{ $referee->applicant_name }}</a></h4>
+                                            <h4 class="listing-name"><a href="{{ route('referees.referee', $referee->id) }}">{{ $referee->applicant_name }}</a></h4>
                                             <p class="listing-description">{{ $referee->applicant_email }}</p>
                                         </div>
                                     </div>

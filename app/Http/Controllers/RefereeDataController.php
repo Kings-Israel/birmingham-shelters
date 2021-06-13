@@ -13,6 +13,7 @@ use App\Models\ApplicantRiskAssessment;
 use App\Models\Consent;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\PhoneNumber;
+use PDF;
 
 class RefereeDataController extends Controller
 {
@@ -373,5 +374,23 @@ class RefereeDataController extends Controller
         $refereeData->delete();
 
         return redirect()->back()->with('success', 'Referee Details have been deleted');
+    }
+
+    public function getPdf(RefereeData $refereeData)
+    {
+        $applicant_addresses = ApplicantAddressInfo::where('referee_data_id', '=', $refereeData->id)->get();
+        $applicant_health = ApplicantHealthInfo::where('referee_data_id', '=', $refereeData->id)->get();
+        $applicant_support = ApplicantSupportNeeds::where('referee_data_id', '=', $refereeData->id)->get();
+        $applicant_income = ApplicantIncomeInfo::where('referee_data_id', '=', $refereeData->id)->get();
+        $applicant_risk_assessment = ApplicantRiskAssessment::where('referee_data_id', '=', $refereeData->id)->get();
+        $pdf = PDF::loadView('referee.referee-pdf', [
+            'referee' => $refereeData,
+            'address_info' => $applicant_addresses,
+            'health_info' => $applicant_health,
+            'income_info' => $applicant_income,
+            'support_info' => $applicant_support,
+            'risk_assessment' => $applicant_risk_assessment
+        ]);
+        return $pdf->download($refereeData->applicant_name.'.pdf');
     }
 }

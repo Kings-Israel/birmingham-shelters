@@ -34,20 +34,34 @@ class HomeController extends Controller
     public function landlord()
     {
         $listings = Listing::where('user_id', '=', Auth::user()->id)->get();
-        $totalListings = count($listings);
-        $verifiedListings = count($listings->where('verified_at', '!=', null));
-        $occupiedListings = count($listings->where('is_available', '=', true));
-        $unoccupiedListings = $totalListings - $occupiedListings;
-        $bookings = [];
-        foreach ($listings as $listing) {
-            $bookings[$listing->id] = $listing->load('bookings');
+        $total_listings = count($listings);
+        $verified_listings = count($listings->where('verified_at', '!=', null));
+        $occupied_listings = count($listings->where('is_available', '=', false));
+        $unoccupied_listings = $total_listings - $occupied_listings;
+        $bookings_total_number = 0;
+        foreach ($listings->load('bookings') as $booking) {
+            if(count($booking->bookings) != 0 ) {
+                foreach($booking->bookings as $newBooking) {
+                    $bookings_total_number++;
+                }
+            }
         }
-        $listing_inquiries = [];
-        foreach ($listings as $listing) {
-            $listing_inquiries[$listing->id] = $listing->loadCount('listinginquiry');
+        $listing_inquiries_total_number = 0;
+        foreach ($listings->load('listinginquiry') as $inquiries) {
+            if (count($inquiries->listinginquiry) != 0) {
+                foreach($inquiries->listinginquiry as $inquiry) {
+                    $listing_inquiries_total_number++;
+                }
+            }
         }
-        // dd($bookings);
-        return view('landlord.index');
+        return view('landlord.index')->with([
+            'total_listings' => $total_listings,
+            'verified_listings' => $verified_listings,
+            'occupied_listings' => $occupied_listings,
+            'unoccupied_listings' => $unoccupied_listings,
+            'bookings_total_number' => $bookings_total_number,
+            'listing_inquiries_total_number' => $listing_inquiries_total_number
+        ]);
     }
 
     public function agent()
@@ -70,7 +84,7 @@ class HomeController extends Controller
         $applicant_support = ApplicantSupportNeeds::where('referee_data_id', '=', $referee->id)->get();
         $applicant_income = ApplicantIncomeInfo::where('referee_data_id', '=', $referee->id)->get();
         $applicant_risk_assessment = ApplicantRiskAssessment::where('referee_data_id', '=', $referee->id)->get();
-        return view('agent.referee')->with([
+        return view('referee.referee')->with([
             'referee' => $referee,
             'address_info' => $applicant_addresses,
             'health_info' => $applicant_health,
