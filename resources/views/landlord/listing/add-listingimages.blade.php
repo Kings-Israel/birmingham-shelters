@@ -59,13 +59,14 @@
 
                     if (!file.accepted) return;
 
-                    const { id } = JSON.parse(file.xhr.response);
+                    const { listingId, filename } = JSON.parse(file.xhr.response);
 
                     $.ajax({
-                        url: `${BASE_URL}/listing-images/${id}/delete`,
+                        url: `${BASE_URL}/listing/${listingId}/delete-image`,
                         type: 'DELETE',
                         data: {
                             "_token": $("meta[name='csrf-token']").attr("content"),
+                            filename,
                         }
                     }).then( ({ message }) => {
                         $('.file-upload-message').css('color', 'green').text(message);

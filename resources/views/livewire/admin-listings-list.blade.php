@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <div class="item-shorting-box-right">
-                            <div class="shorting-by">
+                            <div class="shorting-by" wire:ignore>
                                 <select id="shorty" class="form-control">
                                     <option value="">&nbsp;</option>
                                     <option value="1">Low Price</option>
@@ -151,7 +151,7 @@
                         {{ $this->listings->links() }}
                     </div>
                     <!-- Pagination -->
-                    <div class="row">
+                    <div style="display: none" class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <ul class="pagination p-center">
                                 <li class="page-item">

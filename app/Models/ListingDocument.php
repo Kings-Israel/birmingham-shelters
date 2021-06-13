@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
 
-class ListingDocuments extends Model
+class ListingDocument extends Model
 {
     use HasFactory;
 
@@ -21,7 +21,7 @@ class ListingDocuments extends Model
 
     protected static function booted(): void
     {
-        static::deleted(function(ListingDocuments $document) {
+        static::deleted(function(ListingDocument $document) {
             Storage::disk('listing')->delete('documents/'.$document->filename);
         });
     }
