@@ -37,7 +37,7 @@
                                     <div class="property-listing property-1">
                                         <div class="listing-img-wrapper">
                                             <a href="single-property-2.html">
-                                                <img src="{{ asset('storage/listing/images/'.$listing->listingimage[0]->image_name) }}" class="img-fluid mx-auto" alt="" />
+                                                <img src="{!! $listing->coverImageUrl() !!}" class="img-fluid mx-auto" alt="" />
                                             </a>
                                         </div>
                                         <div class="listing-content">
