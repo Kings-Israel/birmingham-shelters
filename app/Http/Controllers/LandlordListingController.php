@@ -144,7 +144,7 @@ class LandlordListingController extends Controller
             'listing_id' => 'required',
             'supported_groups' => ['required', 'array', 'min:1'],
             'other_supported_groups' => [
-                Rule::requiredIf(in_array('Other', $request->input('supported_groups'))),
+                Rule::requiredWhen(in_array('Other', $request->input('supported_groups'))),
                 'string'
             ],
             'support_description' => 'required|string',
