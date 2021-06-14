@@ -6,6 +6,7 @@ use App\Enums\ListingDocumentTypesEnum;
 use App\Enums\ListingProofsEnum;
 use App\Models\Listing;
 use App\Models\ListingDocument;
+use App\Models\RefereeData;
 use App\Rules\PhoneNumber;
 use Auth;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class LandlordListingController extends Controller
     public function viewListing(Listing $listing)
     {
         return view('landlord.listing.show-listing', [
-            'listing' => $listing->load('clientgroup', 'listingimage', 'bookings'),
+            'listing' => $listing->load('bookings'),
         ]);
     }
 

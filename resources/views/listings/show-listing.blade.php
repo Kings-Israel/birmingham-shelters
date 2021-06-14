@@ -10,8 +10,8 @@
     @endif
     <div class="featured_slick_gallery gray">
         <div class="featured_slick_gallery-slide">
-            @foreach ($listing->listingimage as $image)
-                <div class="featured_slick_padd"><a href="{{ $image->url() }}" class="mfp-gallery"><img src="{{ $image->url() }}" class="img-fluid " alt="" /></a></div>
+            @foreach ($listing->images as $image)
+                <div class="featured_slick_padd"><a href="{{ $listing->getImageUrl($image) }}" class="mfp-gallery"><img src="{{ $listing->getImageUrl($image) }}" class="img-fluid " alt="" /></a></div>
             @endforeach
         </div>
     </div>
@@ -24,7 +24,7 @@
                     
                         <div class="pbw-flex-1">
                             <div class="pbw-flex-thumb">
-                                <img src="{{ asset('storage/listing/images/'.$listing->listingimage[1]->image_name) }}" class="img-fluid" width="400" alt="" />
+                                <img src="{!! $listing->coverImageUrl() !!}" class="img-fluid" width="400" alt="" />
                             </div>
                         </div>
 
@@ -124,7 +124,7 @@
                         <div id="clOne" class="panel-collapse collapse show" aria-labelledby="clOne" aria-expanded="true">
                             <div class="block-body">
                                 <ul class="avl-features third color">
-                                    @foreach ($listing->features_list as $feature)
+                                    @foreach ($listing->features as $feature)
                                         <li>{{ $feature }}</li>
                                     @endforeach
                                 </ul>
@@ -150,7 +150,7 @@
                         <div id="clTwo" class="panel-collapse collapse show" aria-expanded="true">
                             <div class="block-body">
                                 <ul class="avl-features third clor">
-                                    @foreach ($listing->clientgroup->client_group_list as $client)
+                                    @foreach ($listing->supported_groups as $client)
                                         <li>{{ $client }}</li>
                                     @endforeach
                                 </ul>
@@ -158,10 +158,10 @@
                                 <div id="clTwo" class="panel-collapse collapse show" aria-expanded="true">
                                     <h6>How the facility will offer support</h6>
                                     <div class="block-body">
-                                        <p>{{ $listing->clientgroup->support_description }}</p>
+                                        <p>{{ $listing->support_description }}</p>
                                     </div>
                                 </div>
-                                <h6>Support Hours: <strong>{{ $listing->clientgroup->support_hours }}</strong></h6>
+                                <h6>Support Hours: <strong>{{ $listing->support_hours }}</strong></h6>
                             </div>
                         </div>
                     </div>

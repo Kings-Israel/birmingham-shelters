@@ -53,17 +53,11 @@ Route::group(
         Route::post('/add/listingdocuments', [LandlordListingController::class, 'submitListingDocuments'])->name('add.submit_documents');
         Route::post('/add/listingimages', [LandlordListingController::class, 'submitListingImages'])->name('add.submit_images');
         Route::delete('/{listing}/delete', [LandlordListingController::class, 'deleteListing'])->name('delete');
-<<<<<<< HEAD
         Route::get('/bookings/{listing}', [LandlordListingController::class, 'viewListingBookings'])->name('bookings.all');
         Route::get('/referee/pdf/{refereeData}', [RefereeDataController::class, 'getPdf'])->name('referee.pdf');
-});
-
-Route::delete('listing-images/{listing_image}/delete', [LandlordListingController::class, 'deleteRemovedImage'])->name('listing-images.delete');
-=======
         Route::delete('/{listing}/delete-image', [LandlordListingController::class, 'deleteRemovedImage'])->name('images.delete');
     }
 );
->>>>>>> 699e091195f7c38441eac0642b92ac39502907ba
 
 // User listing controller
 Route::group(['prefix' => '/listing', 'as' => 'listing.'], function () {

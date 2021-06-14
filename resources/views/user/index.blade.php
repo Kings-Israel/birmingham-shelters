@@ -14,7 +14,7 @@
                         <div class="property-listing property-1">
                             <div class="listing-img-wrapper">
                                 <a href="{{ route('listing.one', $booking->listing->id) }}">
-                                    <img src="{{ asset('storage/listing/images/'.$booking->listing->listingimage[0]->image_name) }}" class="img-fluid mx-auto" alt="" />
+                                    <img src="{!! $booking->listing->coverImageUrl() !!}" class="img-fluid mx-auto" alt="" />
                                 </a>
                             </div>
                             <div class="listing-content">
