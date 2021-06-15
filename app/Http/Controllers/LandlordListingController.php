@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\ListingDocumentTypesEnum;
 use App\Enums\ListingProofsEnum;
 use App\Models\Listing;
-
+use App\Models\RefereeData;
 use App\Models\ListingDocument;
 use App\Rules\PhoneNumber;
 use Auth;
