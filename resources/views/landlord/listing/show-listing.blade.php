@@ -7,7 +7,9 @@
 
                     <div class="property_block_wrap style-4">
                         <div class="prt-detail-title-desc">
-                            <h3 class="text-light">{{ $listing->name }}</h3>
+                            <h3 class="text-light" id="listing_name">{{ $listing->name }}</h3>
+                            <p hidden id="listing_address">{{ $listing->address }}</p>
+                            <p hidden id="listing_postcode">{{ $listing->postcode }}</p>
                             <span><i class="lni-map-marker"></i> {{ $listing->address }}, {{ $listing->postcode }}</span>
                         </div>
                         <p style="margin-bottom: 0;">
@@ -51,7 +53,7 @@
                             <li><strong>Toilets:</strong>{{ $listing->toilets }}</li>
                             <li><strong>Kitchen:</strong>{{ $listing->kitchen }}</li>
                         </ul>
-                        @if ($listing->other_rooms)
+                        @if (count($listing->other_rooms) != 0)
                         <h6 class="property_block_title">Other Rooms:</h6>
                         <p>{{ $listing->other_rooms->implode(', ') }}</p>
                         @endif

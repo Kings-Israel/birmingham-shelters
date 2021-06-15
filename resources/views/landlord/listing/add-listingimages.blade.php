@@ -53,7 +53,7 @@
                     $(".file-upload-message").text(message);
                 });
 
-                this.on('success', (file, response) => finish(this) );
+                this.on('success', (file, response) => finish(this));
 
                 this.on('removedfile', function (file) {
 

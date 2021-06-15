@@ -171,13 +171,15 @@
                         <div id="clSix" class="panel-collapse collapse" aria-expanded="true">
                             <div class="block-body">
                                 <ul class="list-unstyled">
-                                    @foreach ($listing->getProofs() as $proof)
-                                    <li>
-                                        <i
-                                            class="{{ $proof['value'] ? 'ti-check text-success' : 'ti-close text-danger' }}"></i>
-                                        {{ $proof['label'] }}
-                                    </li>
-                                    @endforeach
+                                    @if ($listing->proofs != null)
+                                        @foreach ($listing->getProofs() as $proof)
+                                        <li>
+                                            <i
+                                                class="{{ $proof['value'] ? 'ti-check text-success' : 'ti-close text-danger' }}"></i>
+                                            {{ $proof['label'] }}
+                                        </li>
+                                        @endforeach
+                                    @endif
                                 </ul>
                             </div>
 
