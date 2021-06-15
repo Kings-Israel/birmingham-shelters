@@ -28,7 +28,7 @@
     </div>
     <hr>
     <h5>Referral Type: <strong>{{ $referee->referral_type }}</strong></h5>
-    @if ($referee->referral_type == 'agency-referral')
+    @if ($referee->referral_type == 'Agency Referral')
         <div class="row">
             <div class="col-4">Referrer Name: <strong>{{ $referee->referrer_name }}</strong></div>
             <div class="col-4">Referrer Phone Number: <strong>{{ $referee->referrer_phone_number }}</strong></div>

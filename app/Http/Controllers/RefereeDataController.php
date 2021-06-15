@@ -376,7 +376,7 @@ class RefereeDataController extends Controller
         return redirect()->back()->with('success', 'Referee Details have been deleted');
     }
 
-    public function getPdf(RefereeData $refereeData)
+    public function getPDF(RefereeData $refereeData)
     {
         $applicant_addresses = ApplicantAddressInfo::where('referee_data_id', '=', $refereeData->id)->get();
         $applicant_health = ApplicantHealthInfo::where('referee_data_id', '=', $refereeData->id)->get();
