@@ -1,7 +1,9 @@
 <x-app-dashboard-layout pageTitle="Referee">
     <div class="container">
         <div class="property_block_wrap_header">
-            <a style="float: right" href="{{ route('listing.referee.pdf', $referee->id) }}">Download PDF</a>
+            @if (Auth::user()->isOfType('landlord'))
+                <a style="float: right" href="{{ route('listing.referee.pdf', $referee->id) }}">Download PDF</a>
+            @endif
             <h4 class="property_block_title">
                 <a href="{{ url()->previous() }}">
                     <i class="ti-angle-left"></i> 

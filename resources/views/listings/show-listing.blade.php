@@ -110,7 +110,7 @@
                                     <li><strong>Kitchen:</strong>{{ $listing->kitchen }}</li>
                                 </ul>
                                 <br>
-                                @if ($listing->other_rooms)
+                                @if (count($listing->other_rooms) != 0)
                                     <h5 class="property_block_title">Other Rooms</h5>
                                     <ul class="deatil_features">
                                         <li><strong>{{ $listing->other_rooms }}</strong></li>

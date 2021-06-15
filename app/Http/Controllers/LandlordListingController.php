@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\ListingDocumentTypesEnum;
 use App\Enums\ListingProofsEnum;
 use App\Models\Listing;
+use App\Models\RefereeData;
 use App\Models\ListingDocument;
 use App\Models\RefereeData;
 use App\Rules\PhoneNumber;
@@ -136,6 +137,15 @@ class LandlordListingController extends Controller
         return redirect()->route('listing.add.client_info', $listing->id);
     }
 
+    private function _checkOtherClientGroup(Request $request, string $value)
+    {
+        if ($request->has('client_group')) {
+            return in_array($value, $request->input('client_group'));
+        }
+
+        return false;
+    }
+
     public function submitClientgroupInfo(Request $request)
     {
         $this->authorize('update', Listing::findOrFail($request->listing_id));
@@ -143,10 +153,7 @@ class LandlordListingController extends Controller
         $rules = [
             'listing_id' => 'required',
             'supported_groups' => ['required', 'array', 'min:1'],
-            'other_supported_groups' => [
-                Rule::requiredIf(in_array('Other', $request->input('supported_groups'))),
-                'string'
-            ],
+            'other_supported_groups' => ''.($this->_checkOtherClientGroup($request, 'Other') ? 'required' : '').'',
             'support_description' => 'required|string',
             'support_hours' => 'required|numeric'
         ];
@@ -166,10 +173,11 @@ class LandlordListingController extends Controller
                             ->merge(
                                 collect(explode(',', $collection['other_supported_groups']))->map(fn ($value) => trim($value))
                             )->all();
-                return $collection->except('other_supported_groups');
+                return $collection;
             })
             ->except('listing_id')
             ->all();
+            $update_data = collect($update_data)->except('other_supported_groups')->toArray();
 
         Listing::whereId($request->listing_id)
             ->update($update_data);
@@ -192,13 +200,13 @@ class LandlordListingController extends Controller
 
         $messages = [
             'listing_documents.required' => 'Please upload all required documents.',
+            'listing_documents.*.required' => 'Please upload all documents',
             'listing_documents.size' => 'Please upload all required documents.',
             'listing_documents.*.mimes' => 'Only PDFs are accepted.',
             'expiry_dates.*.required' => 'An expiry date is required',
         ];
-
+        
         $validated = $request->validate($rules, $messages);
-
         foreach ($validated['listing_documents'] as $document_type => $file) {
             ListingDocument::create([
                 'listing_id' => $validated['listing_id'],
@@ -221,7 +229,7 @@ class LandlordListingController extends Controller
 
         abort_unless($request->file('file'), Response::HTTP_NOT_FOUND);
 
-        $listing->images->push(
+        $listing->images = collect($listing->images)->push(
             $filename = pathinfo($request->file('file')->store('images', 'listing'), PATHINFO_BASENAME)
         );
 
