@@ -221,7 +221,7 @@ class LandlordListingController extends Controller
 
         abort_unless($request->file('file'), Response::HTTP_NOT_FOUND);
 
-        $listing->images->push(
+        $listing->images = collect($listing->images)->push(
             $filename = pathinfo($request->file('file')->store('images', 'listing'), PATHINFO_BASENAME)
         );
 
