@@ -20,8 +20,9 @@
                                 <strong class="text-success">Verified </strong>
                             @endif
                         </p>
+                        
                         <a href="{{ route('listing.bookings.all', $listing->id) }}">
-                            <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Bookings</button>
+                            <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Bookings ({{ count($listing->bookings) }})</button>
                         </a>
                         <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Inquiries</button>
                     </div>

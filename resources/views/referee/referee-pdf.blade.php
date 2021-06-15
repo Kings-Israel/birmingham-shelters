@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
     <title>{{ $referee->applicant_name }}</title>
 </head>
 <body>
@@ -28,7 +28,7 @@
     </div>
     <hr>
     <h5>Referral Type: <strong>{{ $referee->referral_type }}</strong></h5>
-    @if ($referee->referral_type == 'agency-referral')
+    @if ($referee->referral_type == 'Agency Referral')
         <div class="row">
             <div class="col-4">Referrer Name: <strong>{{ $referee->referrer_name }}</strong></div>
             <div class="col-4">Referrer Phone Number: <strong>{{ $referee->referrer_phone_number }}</strong></div>
