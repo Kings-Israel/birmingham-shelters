@@ -73,7 +73,7 @@
             <div class="property_block_wrap_header">
                 <a data-bs-toggle="collapse" data-parent="#dsrp" data-bs-target="#clTwo" aria-controls="clTwo"
                     href="javascript:void(0);" aria-expanded="true">
-                    <h4 class="property_block_title">Kin Information:</h4>
+                    <h4 class="property_block_title">Next fo Kin:</h4>
                 </a>
             </div>
             <div id="clTwo" class="panel-collapse collapse show" aria-expanded="true">

@@ -32,7 +32,7 @@
                         <h5>APPLICANT CONSENT</h5>
                         <br>
                         <h5>REFERRAL AGENCY CONSENT</h5>
-                        @if ($referral_type === 'self-referral')
+                        @if ($referral_type == 'Self Referral')
                             <div class="row">
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <label>Name</label>
