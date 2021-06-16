@@ -54,9 +54,9 @@
                             <li><strong>Toilets:</strong>{{ $listing->toilets }}</li>
                             <li><strong>Kitchen:</strong>{{ $listing->kitchen }}</li>
                         </ul>
-                        @if (count($listing->other_rooms) != 0)
-                        <h6 class="property_block_title">Other Rooms:</h6>
-                        <p>{{ $listing->other_rooms->implode(', ') }}</p>
+                        @if ($listing->other_rooms != null || count($listing->other_rooms) != 0)
+                            <h6 class="property_block_title">Other Rooms:</h6>
+                            <p>{{ $listing->other_rooms->implode(', ') }}</p>
                         @endif
                     </div>
                 </div>
