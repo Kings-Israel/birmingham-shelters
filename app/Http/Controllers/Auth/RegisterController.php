@@ -107,6 +107,7 @@ class RegisterController extends Controller
         $user_type_home_map = [
             'super_admin' => route('admin-dashboard'),
             'admin' => route('admin-dashboard'),
+            'user' => route('user.index'),
             'landlord' => route('landlord.index'),
             'agent' => route('agent.index'),
         ];

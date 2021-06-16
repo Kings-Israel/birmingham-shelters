@@ -19,7 +19,7 @@ class RefereeDataController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'verified']);
     }
 
     public function selfReferral()
@@ -391,6 +391,6 @@ class RefereeDataController extends Controller
             'support_info' => $applicant_support,
             'risk_assessment' => $applicant_risk_assessment
         ]);
-        return $pdf->stream($refereeData->applicant_name.'.pdf');
+        return $pdf->download($refereeData->applicant_name.'.pdf');
     }
 }

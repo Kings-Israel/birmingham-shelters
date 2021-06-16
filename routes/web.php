@@ -11,6 +11,7 @@ use App\Http\Controllers\PostAjaxRedirect;
 use App\Http\Controllers\RefereeDataController;
 use App\Http\Controllers\UserBookingController;
 use App\Http\Controllers\UserListingController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Livewire\AdminListingsList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,24 @@ Route::view('/about', 'pages.about');
 Route::view('/privacy', 'pages.privacy-policy');
 
 Auth::routes(['verify' => true]);
+
+Route::view('/email/verify', 'verify')->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    $role = Auth::user()->user_type;
+
+    if ($role == 'user') {
+        return redirect('/user');
+    } elseif ($role == 'landlord') {
+        return redirect('/landlord');
+    } elseif ($role == 'agent') {
+        return redirect('/agent');
+    } else {
+        return redirect('/');
+    }
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::view('/profile', 'user-profile')->middleware(['auth', 'verified'])->name('user-profile');
 
