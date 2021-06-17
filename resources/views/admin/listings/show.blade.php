@@ -1,6 +1,5 @@
 <x-admin-layout :pageTitle="$listing->name">
     <x-breadcrumb :items="$breadcrumb" />
-
     <!-- ============================ Property Header Info Start================================== -->
     <div class="bg-title">
         <div class="container px-4 py-3">
@@ -171,15 +170,12 @@
                         <div id="clSix" class="panel-collapse collapse" aria-expanded="true">
                             <div class="block-body">
                                 <ul class="list-unstyled">
-                                    @if ($listing->proofs != null)
-                                        @foreach ($listing->getProofs() as $proof)
+                                    @foreach ($listing->getProofs() as $proof)
                                         <li>
-                                            <i
-                                                class="{{ $proof['value'] ? 'ti-check text-success' : 'ti-close text-danger' }}"></i>
-                                            {{ $proof['label'] }}
+                                            <i class="{{ $proof['value'] ? 'ti-check text-success' : 'ti-close text-danger' }}"></i>
+                                                {{ $proof['label'] }}
                                         </li>
-                                        @endforeach
-                                    @endif
+                                    @endforeach
                                 </ul>
                             </div>
 
