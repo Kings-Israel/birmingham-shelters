@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\ListingDocumentTypesEnum;
 use App\Enums\ListingProofsEnum;
 use App\Models\Listing;
+use App\Models\ListingInquiry;
 use App\Models\RefereeData;
 use App\Models\ListingDocument;
 use App\Rules\PhoneNumber;
@@ -25,12 +26,21 @@ class LandlordListingController extends Controller
 
     public function allListings()
     {
+        $listings = Listing::where('user_id', '=', Auth::user()->id)->orderBy('created_at', "DESC")->get();
+        $listings->loadCount(['inquiry' => function($query) {
+            $query->where('read_at', null);
+        }]);
+
         return view('landlord.listing.all-listings')
-                    ->with('listings', Auth::user()->listings()->orderBy('created_at', 'DESC')->get());
+                    ->with('listings', $listings);
     }
 
     public function viewListing(Listing $listing)
     {
+        $listing->loadCount(['inquiry' => function($query) {
+            $query->where('read_at', null);
+        }]);
+
         return view('landlord.listing.show-listing', [
             'listing' => $listing->load('bookings'),
         ]);
@@ -46,9 +56,23 @@ class LandlordListingController extends Controller
         return view('landlord.bookings')->with(['referee_data' => $referee_data, 'listing_id' => $listing->id]);
     }
 
-    public function viewListingInquiries()
+    public function viewListingInquiries(Listing $listing)
     {
+        return view('landlord.inquiries')
+                ->with(
+                    'inquiries',  
+                    $listing->load(['inquiry' => function($query) {
+                        $query->orderBy('id', 'DESC');
+                    }]));
+    }
 
+    public function deleteInquiry($id) 
+    {
+        if (ListingInquiry::destroy($id)) {
+            return redirect()->back()->with('success', 'Inquiry deleted');
+        }
+
+        return redirect()->back()->withError('Failed to delete inquiry.');
     }
 
     public function basicInfo()

@@ -391,6 +391,6 @@ class RefereeDataController extends Controller
             'support_info' => $applicant_support,
             'risk_assessment' => $applicant_risk_assessment
         ]);
-        return $pdf->download($refereeData->applicant_name.'.pdf');
+        return $pdf->stream($refereeData->applicant_name.'.pdf');
     }
 }

@@ -24,7 +24,12 @@
                         <a href="{{ route('listing.bookings.all', $listing->id) }}">
                             <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Bookings ({{ count($listing->bookings) }})</button>
                         </a>
-                        <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Inquiries</button>
+                        <a href="{{ route('listing.inquiries.all', $listing->id) }}">
+                            <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Inquiries ({{ $listing->inquiry_count }})</button>
+                        </a>
+                        <a href="#">
+                            <button class="btn btn-theme-light-2 rounded mt-3" type="submit">Make Sponsored</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -54,9 +59,9 @@
                             <li><strong>Toilets:</strong>{{ $listing->toilets }}</li>
                             <li><strong>Kitchen:</strong>{{ $listing->kitchen }}</li>
                         </ul>
-                        @if (count($listing->other_rooms) != 0)
-                        <h6 class="property_block_title">Other Rooms:</h6>
-                        <p>{{ $listing->other_rooms->implode(', ') }}</p>
+                        @if ($listing->other_rooms != null || count($listing->other_rooms) != 0)
+                            <h6 class="property_block_title">Other Rooms:</h6>
+                            <p>{{ $listing->other_rooms->implode(', ') }}</p>
                         @endif
                     </div>
                 </div>

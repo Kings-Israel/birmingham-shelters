@@ -10,6 +10,7 @@ use App\Models\ApplicantHealthInfo;
 use App\Models\ApplicantIncomeInfo;
 use App\Models\ApplicantSupportNeeds;
 use App\Models\ApplicantRiskAssessment;
+use App\Models\ListingInquiry;
 use App\Rules\PhoneNumber;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -47,10 +48,12 @@ class HomeController extends Controller
             }
         }
         $listing_inquiries_total_number = 0;
-        foreach ($listings->load('listinginquiry') as $inquiries) {
-            if (count($inquiries->listinginquiry) != 0) {
-                foreach($inquiries->listinginquiry as $inquiry) {
-                    $listing_inquiries_total_number++;
+        foreach ($listings->load('inquiry') as $inquiries) {
+            if (count($inquiries->inquiry) != 0) {
+                foreach($inquiries->inquiry as $inquiry) {
+                    if($inquiry->read_at == null) {
+                        $listing_inquiries_total_number++;
+                    }
                 }
             }
         }
@@ -140,5 +143,15 @@ class HomeController extends Controller
         }
 
         return redirect()->back()->withError('There was a problem updating your information. Please try again');
+    }
+
+    public function messages(User $user)
+    {
+        $inquiries = ListingInquiry::where([
+                ['user_email', '=', $user->email],
+                ['message_response', '!=', null],
+            ])
+            ->orderBy('id', 'DESC')->get();
+        return view('messages.messages')->with(['user' => $user, 'inquiries' => $inquiries]);
     }
 }

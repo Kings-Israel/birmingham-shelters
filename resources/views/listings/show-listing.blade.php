@@ -1,4 +1,4 @@
-<x-app-layout pageTitle="User">
+<x-app-layout pageTitle="Listing">
     @if (session('error'))
         <div class="alert alert-danger">
             <p>{{ session('error') }}</p>
@@ -43,7 +43,7 @@
                                     @if ($listing->bookings->contains('user_id', Auth::user()->id))
                                         <p>You have already joined the waiting list for this room.</p>
                                     @else
-                                        <form action="{{ route('submit.booking') }}" method="post">
+                                        <form action="{{ route('listing.submit.booking') }}" method="post">
                                             @csrf
                                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                             <input type="hidden" name="referee_data_id" value="{{ Auth::user()->refereedata()->first()->id }}">
@@ -62,7 +62,7 @@
                                                 <h4 class="modal-header-title">My Referees</h4>
                                                 <p style="text-align: center">Select a referee to add to waiting list</p>
                                                 <div class="login-form">
-                                                    <form method="POST" id="add-users-form" action="{{ route('submit.booking') }}">
+                                                    <form method="POST" id="add-users-form" action="{{ route('listing.submit.booking') }}">
                                                         @csrf
                                                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                                         <input type="hidden" name="listing_id" value="{{ $listing->id }}">
@@ -110,10 +110,12 @@
                                     <li><strong>Kitchen:</strong>{{ $listing->kitchen }}</li>
                                 </ul>
                                 <br>
-                                @if (count($listing->other_rooms) != 0)
+                                @if (count($listing->other_rooms) != 0 || $listing->other_rooms != null)
                                     <h5 class="property_block_title">Other Rooms</h5>
                                     <ul class="deatil_features">
-                                        <li><strong>{{ $listing->other_rooms }}</strong></li>
+                                        @foreach ($listing->other_rooms as $room)
+                                            <li><strong>{{ $room }}</strong></li>
+                                        @endforeach
                                     </ul>
                                 @endif
                             </div>
@@ -254,7 +256,7 @@
                                 @if ($listing->bookings->contains('user_id', Auth::user()->id))
                                 <p>You have already joined the waiting list for this room.</p>
                             @else
-                                <form action="{{ route('submit.booking') }}" method="post">
+                                <form action="{{ route('listing.submit.booking') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                     <input type="hidden" name="referee_data_id" value="{{ Auth::user()->refereedata()->first()->id }}">

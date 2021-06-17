@@ -1,4 +1,4 @@
-<x-app-layout pageTitle="User">
+<x-app-layout pageTitle="Health">
     @if (session('error'))
         <div class="alert alert-danger">
             <p>{{ session('error') }}</p>

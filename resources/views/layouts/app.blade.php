@@ -82,7 +82,7 @@
             document.getElementById("filter_search").style.display = "none";
         }
         $(function () {
-            $(".alert.flash").delay(5000).slideUp(300);
+            $(".alert").delay(5000).slideUp(300);
         })
 
         var today = new Date();

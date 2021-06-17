@@ -20,6 +20,7 @@ Route::view('/', 'index')->name('home');
 Route::view('/contact', 'pages.contact');
 Route::view('/about', 'pages.about');
 Route::view('/privacy', 'pages.privacy-policy');
+Route::view('/inquiry-template', 'landlord.inquiry-reply-template');
 
 Auth::routes(['verify' => true]);
 
@@ -47,6 +48,7 @@ Route::get('/loggedIn', PostAjaxRedirect::class)->name('loggedIn');
 Route::get('/user', [HomeController::class, 'user'])->name('user.index');
 Route::get('/landlord', [HomeController::class, 'landlord'])->name('landlord.index');
 Route::get('/agent', [HomeController::class, 'agent'])->name('agent.index');
+Route::get('/messages/{user}', [HomeController::class, 'messages'])->name('messages.show');
 Route::get('/agent/referees', [HomeController::class, 'agentReferees'])->name('agent.referees.all');
 Route::get('/referee/{referee}', [HomeController::class, 'referee'])->name('referees.referee');
 Route::group(['prefix' => '/profile', 'as' => 'profile.'], function() {
@@ -73,6 +75,8 @@ Route::group(
         Route::post('/add/listingimages', [LandlordListingController::class, 'submitListingImages'])->name('add.submit_images');
         Route::delete('/{listing}/delete', [LandlordListingController::class, 'deleteListing'])->name('delete');
         Route::get('/bookings/{listing}', [LandlordListingController::class, 'viewListingBookings'])->name('bookings.all');
+        Route::get('/inquiries/{listing}', [LandlordListingController::class, 'viewListingInquiries'])->name('inquiries.all');
+        Route::delete('/inquiry/{inquiry}/delete', [LandlordListingController::class, 'deleteInquiry'])->name('inquiry.delete');
         Route::get('/referee/pdf/{refereeData}', [RefereeDataController::class, 'getPdf'])->name('referee.pdf');
         Route::delete('/{listing}/delete-image', [LandlordListingController::class, 'deleteRemovedImage'])->name('images.delete');
     }
@@ -83,11 +87,13 @@ Route::group(['prefix' => '/listing', 'as' => 'listing.'], function () {
     Route::get('/all', [UserListingController::class, 'listings'])->name('all');
     Route::post('/search', [UserListingController::class, 'searchListings'])->name('search');
     Route::get('/{listing}', [UserListingController::class, 'listing'])->name('one');
+    Route::post('/booking/submit', [UserListingController::class, 'submitBooking'])->middleware(['auth', 'verified'])->name('submit.booking');
     Route::post('/inquiry', [ListingInquiryController::class, 'submitInquiry'])->name('inquiry');
+    Route::post('/inquiry/response', [ListingInquiryController::class, 'replyToInquiry'])->name('inquiry.response');
+    Route::get('/inquiry/response/email/{inquiry}', [ListingInquiryController::class, 'replyThroughMail'])->middleware(['auth', 'verified'])->name('reply.mail');
+    Route::post('/inquiry/response/email', [ListingInquiryController::class, 'emailReply'])->middleware(['auth', 'verified'])->name('submit.email.reply');
+    Route::delete('/inquiry/delete/{inquiry}', [ListingInquiryController::class, 'deleteInquiry'])->middleware(['auth', 'verified'])->name('user.inquiry.delete');
 });
-
-// User Listing Booking Controller
-Route::post('/listing/booking/user', [UserBookingController::class, 'submitBooking'])->name('submit.booking');
 
 // Accomodation referral forms wizard
 Route::prefix('/referral')->group(function () {

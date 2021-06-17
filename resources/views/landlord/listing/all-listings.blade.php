@@ -16,10 +16,10 @@
                             <h4 class="listing_dashboard_title"><a href="{{ route('listing.view.one', $listing->id) }}"
                                     class="theme-cl">{{ $listing->name }}</a></h4>
                             <div class="user_dashboard_listed">
-                                Address: <strong>{{ $listing->address }}</strong>
+                                Bookings: <strong>{{ count($listing->bookings) }}</strong>
                             </div>
                             <div class="user_dashboard_listed">
-                                Postcode: <strong>{{ $listing->postcode }}</strong>
+                                Inquiries: <strong>{{ $listing->inquiry_count }}</strong>
                             </div>
                             <div class="user_dashboard_listed">
                                 Status:
