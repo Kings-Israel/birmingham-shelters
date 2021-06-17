@@ -170,7 +170,7 @@
     </script>
 
     <!-- Map -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCisnVFSnc5QVfU2Jm2W3oRLqMDrKwOEoM&callback=initMap" defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCisnVFSnc5QVfU2Jm2W3oRLqMDrKwOEoM&callback=initMap"></script>
     @livewireScripts
 </body>
 
