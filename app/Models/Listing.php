@@ -30,7 +30,7 @@ class Listing extends Model
         'status' => ListingStatusEnum::class,
         'is_available' => 'bool',
         'supported_groups' => 'array',
-        'proofs' => ListingProofsEnum::class.':collection' || null,
+        'proofs' => ListingProofsEnum::class.':collection',
         'images' => AsCollection::class,
         'features' => 'collection',
         'other_rooms' => 'collection',
