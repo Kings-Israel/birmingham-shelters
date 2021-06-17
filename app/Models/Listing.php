@@ -54,7 +54,7 @@ class Listing extends Model
         return $this->hasMany(ListingDocument::class);
     }
 
-    public function listinginquiry(): HasMany
+    public function inquiry(): HasMany
     {
         return $this->hasMany(ListingInquiry::class);
     }

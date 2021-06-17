@@ -12002,3 +12002,16 @@ a.blue2-theme {
       background-color: #e4e4e4;
       transition: .2s ease-in-out;
   }
+
+  .inquiry-details-row:hover {
+    background-color: #e4e4e4;
+    transition: .2s ease-in-out;
+  }
+
+  #inquiry-not-read {
+    background-color: #e4e4e4;
+  }
+
+  #inquiry-not-read:hover {
+    background-color: #707070;
+  }

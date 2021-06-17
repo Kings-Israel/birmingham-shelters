@@ -52,6 +52,25 @@
             </div>
             <br>
         </div>
+        <div class="property_block_wrap style-2">
+            <div class="property_block_wrap_header">
+                <a data-bs-toggle="collapse" data-parent="#dsrp" data-bs-target="#clTwo" aria-controls="clTwo"
+                    href="javascript:void(0);" aria-expanded="true">
+                    <h5 class="property_block_title">Referral Type: <strong>{{ $referee->referral_type }}</strong></h5>
+                </a>
+            </div>
+            <div id="clTwo" class="panel-collapse collapse show" aria-expanded="true">
+                <div class="block-body">
+                    @if ($referee->referral_type == 'Agency Referral')
+                        <div class="row">
+                            <div class="col-4">Referrer Name: <strong>{{ $referee->referrer_name }}</strong></div>
+                            <div class="col-4">Referrer Phone Number: <strong>{{ $referee->referrer_phone_number }}</strong></div>
+                            <div class="col-4">Referrer Email: <strong>{{ $referee->referrer_email }}</strong></div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
 
         <div class="property_block_wrap style-2">
 

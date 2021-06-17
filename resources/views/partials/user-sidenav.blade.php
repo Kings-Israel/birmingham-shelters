@@ -5,6 +5,9 @@
     <x-app-sidebar-nav-link :active="Route::is('profile.show')">
         <a href="{{ route('profile.show', auth()->user()) }}"><i class="ti-user"></i>My Profile</a>
     </x-app-sidebar-nav-link>
+    <x-app-sidebar-nav-link :active="Route::is('messages.show')">
+        <a href="{{ route('messages.show', auth()->user()) }}"><i class="ti-user"></i>My Messages</a>
+    </x-app-sidebar-nav-link>
     <li>
         <form method="POST" action="{{ route('logout') }}">
             @csrf

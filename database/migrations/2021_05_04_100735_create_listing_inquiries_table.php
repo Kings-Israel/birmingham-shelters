@@ -16,6 +16,7 @@ class CreateListingInquiriesTable extends Migration
             $table->string('user_email');
             $table->string('user_phone_number');
             $table->text('listing_message');
+            $table->text('message_response')->nullable();
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
