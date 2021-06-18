@@ -29,7 +29,7 @@
                                 <div class="col-lg-6 col-md-12">
                                     <div class="property-listing property-1">
                                         <div class="listing-img-wrapper">
-                                            <a href="single-property-2.html">
+                                            <a href="{{ route('listing.one', $listing->id) }}">
                                                 <img src="{!! $listing->coverImageUrl() !!}" class="img-fluid mx-auto" alt="" />
                                             </a>
                                         </div>
