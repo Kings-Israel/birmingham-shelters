@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use App\Models\Booking;
+use App\Models\RefereeData;
 
 class AdminShowListingController extends Controller
 {
 
-    public function __invoke(Listing $listing)
+    public function showListing(Listing $listing)
     {
         return view('admin.listings.show', [
             'listing' => $listing->load('user', 'documents'),

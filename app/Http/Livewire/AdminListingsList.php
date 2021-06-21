@@ -16,6 +16,8 @@ class AdminListingsList extends Component
 
     public array $breadcrumb;
 
+    public $listingSearch;
+
     public function mount(): void
     {
         $this->breadcrumb = [
@@ -23,13 +25,12 @@ class AdminListingsList extends Component
         ];
     }
 
-    public function getListingsProperty()
-    {
-        return Listing::with('user')->paginate(10);
-    }
-
     public function render()
     {
-        return view('livewire.admin-listings-list')->layout('layouts.admin', ['pageTitle' => "Property Listings"]);
+        $listingSearch = '%'.$this->listingSearch.'%';
+        $listings = Listing::with('user')->where([
+                ['address', 'like', $listingSearch],
+            ])->paginate(10);
+        return view('livewire.admin.admin-listings-list', ['listings' => $listings])->layout('layouts.admin', ['pageTitle' => "Property Listings"]);
     }
 }

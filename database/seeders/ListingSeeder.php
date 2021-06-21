@@ -12,6 +12,7 @@ class ListingSeeder extends Seeder
         Listing::factory(10)
             ->forUser()
             ->withDocuments()
+            ->withInquiries()
             ->create();
     }
 }

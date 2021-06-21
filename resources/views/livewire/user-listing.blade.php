@@ -1,4 +1,4 @@
-<x-app-layout pageTitle="Listings">
+<div>
     @if (session('error'))
         <div class="alert alert-danger">
             <p>{{ session('error') }}</p>
@@ -8,22 +8,29 @@
             <p>{{ session('success') }}</p>
         </div>
     @endif
-    @if (count($listings) > 0)    
-        <div class="page-title">
-            <div class="container">
-                <div class="row justify-content-center">
-                    @include('partials.search')
-                </div>
+    <div class="page-title">
+        <div class="container">
+            <div class="row justify-content-center">
+                @include('partials.search')
             </div>
         </div>
-    @endif
+    </div>
     <section class="bg-light">
         <div class="container">
             <div class="row">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="item-shorting-box">
+                            <div class="item-shorting clearfix">
+                                <div class="left-column pull-left" @if(count($listings) <= 0) style="display: none" @endif><h4 class="m-0">Showing {{ $listings->currentPage() }}-{{ count($listings->items()) }} of {{ $listings->total() }} Results</h4></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-lg-12 col-sm-12 list-layout">
                     <div class="row">
                         @if (count($listings) <= 0)
-                            <h3 style="text-align: center">No Listings have been added yet.</h3>
+                            <h3 style="text-align: center">No Listings Found.</h3>
                         @else
                             @foreach ($listings as $listing)
                                 <div class="col-lg-6 col-md-12">
@@ -34,7 +41,6 @@
                                             </a>
                                         </div>
                                         <div class="listing-content">
-                                            
                                             <div class="listing-detail-wrapper-box">
                                                 <div class="listing-detail-wrapper">
                                                     <div class="listing-short-detail">
@@ -64,31 +70,7 @@
 
                             <!-- Pagination -->
                             <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <ul class="pagination p-center">
-                                        @if (!$listings->onFirstPage())
-                                            <li class="page-item">
-                                                <a class="page-link" href="{{ $listings->previousPageUrl() }}" aria-label="Previous">
-                                                <span class="ti-arrow-left" disabled></span>
-                                                <span class="sr-only">Previous</span>
-                                                </a>
-                                            </li>
-                                        @endif
-                                        <li class="page-item active"><a class="page-link" href="#">{{ $listings->currentPage() }}</a></li>
-                                        @if ($listings->hasPages())
-                                            <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">{{ $listings->lastPage() }}</a></li>
-                                        @endif
-                                        @if ($listings->hasMorePages())
-                                            <li class="page-item">
-                                                <a class="page-link" href="{{ $listings->nextPageUrl() }}" aria-label="Next">
-                                                <span class="ti-arrow-right"></span>
-                                                <span class="sr-only">Next</span>
-                                                </a>
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </div>
+                                {{ $listings->links() }}
                             </div>
                         @endif                        
                     </div>
@@ -96,4 +78,4 @@
             </div>
         </div>
     </section>
-</x-app-layout>
+</div>

@@ -44,7 +44,7 @@
                             @else
                                 @if ((Auth::user()->isOfType('user')) && (Auth::user()->refereedata()->exists()))
                                     @if ($listing->bookings->contains('user_id', Auth::user()->id))
-                                        <p>You have already joined the waiting list for this room.</p>
+                                        <p>You are in the waiting list for this room.</p>
                                     @else
                                         <form action="{{ route('listing.submit.booking') }}" method="post">
                                             @csrf
@@ -258,7 +258,7 @@
                         @auth
                             @if ((Auth::user()->isOfType('user')) && (Auth::user()->refereedata()->exists()))
                                 @if ($listing->bookings->contains('user_id', Auth::user()->id))
-                                <p>You have already joined the waiting list for this room.</p>
+                                <p>You are in the waiting list for this room.</p>
                             @else
                                 <form action="{{ route('listing.submit.booking') }}" method="post">
                                     @csrf

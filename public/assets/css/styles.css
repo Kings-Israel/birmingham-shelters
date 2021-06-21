@@ -10784,6 +10784,18 @@ ul.booking-detail-list li span {
     background: linear-gradient(to left,rgba(255,255,255,0) 30%,rgba(255,255,255,0.1));
     background-color:#3a9dec;
 }
+.dashboard-stat.widget-7 {
+    background: linear-gradient(to left,rgba(255,255,255,0) 30%,rgba(255,255,255,0.1));
+    background-color:#6cec3a;
+}
+.dashboard-stat.widget-8 {
+    background: linear-gradient(to left,rgba(255,255,255,0) 30%,rgba(255,255,255,0.1));
+    background-color:#3ac2ec;
+}
+.dashboard-stat.widget-9 {
+    background: linear-gradient(to left,rgba(255,255,255,0) 30%,rgba(255,255,255,0.1));
+    background-color:#ec3a3a;
+}
 body #Packages {
     background: #ffffff !important;
     display: inline-block;
