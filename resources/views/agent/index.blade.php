@@ -41,7 +41,7 @@
                             <div class="property-listing property-1">
                                 <div class="listing-img-wrapper">
                                     <a href="{{ route('listing.one', $booking->listing->id) }}">
-                                        <img src="{{ asset('storage/listing/images/'.$booking->listing->listingimage[0]->image_name) }}" class="img-fluid mx-auto" alt="" />
+                                        <img src="{!! $booking->listing->coverImageUrl() !!}" class="img-fluid mx-auto" alt="" />
                                     </a>
                                 </div>
                                 <div class="listing-content">
@@ -54,7 +54,15 @@
                                                     <img src="{{ asset('/assets/img/star.png') }}" class="img-fluid" width="20px" style="float: right;"/>
                                                 @endif
                                                 <h4 class="listing-name"><a href="{{ route('listing.one', $booking->listing->id) }}">{{ $booking->listing->name }}</a></h4>
-                                                <p class="listing-description">{{ $booking->listing->description }}</p>
+                                                @if ($booking->status == 'pending')
+                                                    <p class="listing-description">Status: <strong>Pending</strong></p>
+                                                @elseif ($booking->status == 'awaiting_payment')
+                                                    <p class="listing-description">Status: <strong>Awaiting Payment</strong></p>
+                                                @elseif ($booking->status == 'unsuccessful')
+                                                    <p class="listing-description">Status: <strong>Unsuccessful</strong></p>
+                                                @elseif ($booking->status == 'approved')
+                                                    <p class="listing-description">Status: <strong>Approved</strong></p>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

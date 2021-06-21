@@ -39,6 +39,9 @@
                                 <p>Please login or sign up to join the waiting list for this room</p>
                             @endguest
                             @auth
+                            @if ($listing->isBooked($listing->bookings))
+                                <p>This listing has already been booked</p>
+                            @else
                                 @if ((Auth::user()->isOfType('user')) && (Auth::user()->refereedata()->exists()))
                                     @if ($listing->bookings->contains('user_id', Auth::user()->id))
                                         <p>You have already joined the waiting list for this room.</p>
@@ -87,6 +90,7 @@
                                 @else
                                     <p>Fill the Referral Form to Join the Waiting List for This Property</p>
                                 @endif
+                            @endif
                             @endauth
                         </div>
 

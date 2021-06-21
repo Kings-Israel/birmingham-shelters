@@ -11,6 +11,7 @@ use App\Models\ApplicantIncomeInfo;
 use App\Models\ApplicantSupportNeeds;
 use App\Models\ApplicantRiskAssessment;
 use App\Models\ListingInquiry;
+use App\Enums\BookingStatusEnum;
 use App\Rules\PhoneNumber;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -43,7 +44,9 @@ class HomeController extends Controller
         foreach ($listings->load('bookings') as $booking) {
             if(count($booking->bookings) != 0 ) {
                 foreach($booking->bookings as $newBooking) {
-                    $bookings_total_number++;
+                    if($newBooking->status == BookingStatusEnum::pending()) {
+                        $bookings_total_number++;
+                    };
                 }
             }
         }

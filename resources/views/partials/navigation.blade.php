@@ -30,6 +30,13 @@
                     <x-site-nav-link :active="Request::is('/contact')">
                         <a href="{{ url('/contact') }}">Contact Us</a>
                     </x-site-nav-link>
+
+                    @guest
+                        <x-site-nav-link :active="Request::is('/listing')">
+                            <a href="{{ url('/listing/all') }}">View Listings</a>
+                        </x-site-nav-link>
+                    @endguest
+
                     @auth
                         @if (Auth::user()->isOfType('agent') || Auth::user()->isOfType('user'))
                             <x-site-nav-link :active="Request::is('/listing')">

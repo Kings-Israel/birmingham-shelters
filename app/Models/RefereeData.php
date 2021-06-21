@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\BookingStatusEnum;
 
 class RefereeData extends Model
 {
@@ -78,6 +79,16 @@ class RefereeData extends Model
         return $this->hasOne(Consent::class);
     }
 
+    public function coverImageUrl(): string
+    {
+        return $this->getImageUrl($this->images->first());
+    }
+
+    public function getImageUrl(string $filename): string
+    {
+        return Storage::disk('referee')->url('image/'.$filename);
+    }
+
     public function canBook($user_id, $referee_data_id, $listing_id)
     {
         $booking = Booking::where([
@@ -93,5 +104,30 @@ class RefereeData extends Model
         }
     }
 
+    public function bookingStatus($user_id, $referee_data_id, $listing_id)
+    {
+        $status = Booking::where([
+            ['user_id', '=', $user_id],
+            ['referee_data_id', '=', $referee_data_id],
+            ['listing_id', '=', $listing_id]
+        ])->pluck('status')->first();
+
+        return $status;
+    }
+
+    public function canApproveBooking($referee_data_id, $listing_id)
+    {
+        $bookingStatus = Booking::where([
+            ['referee_data_id', $referee_data_id],
+            ['listing_id', '!=', $listing_id]
+        ])->pluck('status');
+        $bookingStatus = $bookingStatus->toArray();
+        $status = array(BookingStatusEnum::approved(), BookingStatusEnum::awaiting_payment());
+        if(count(array_intersect($bookingStatus, $status)) > 0) {
+            return false;
+        }
+
+        return true;
+    }
     
 }

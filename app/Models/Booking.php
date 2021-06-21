@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     protected $fillable = [
-        'listing_id', 'user_id', 'referee_data_id'
+        'listing_id', 'user_id', 'referee_data_id', 'status',
+    ];
+
+    protected $attributes = [
+        'status' => 'pending',
     ];
     
     use HasFactory;
@@ -41,5 +45,10 @@ class Booking extends Model
     public function listing()
     {
         return $this->belongsTo(Listing::class);
+    }
+
+    public function invoice()
+    {
+        return $this->morphOne(Invoice::class, 'invoiceable');
     }
 }

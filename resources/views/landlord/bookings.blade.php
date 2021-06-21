@@ -38,9 +38,34 @@
                                         <button class="btn btn-sm btn-theme-light-2 rounded">View More</button>
                                     </a>
                                 </td>
-                                <td>
-                                    <button class="btn btn-sm btn-theme-light-2 rounded">Approve</button>
-                                </td>
+                                @if($details->canApproveBooking($details->id, $listing_id))
+                                    @if ($details->bookingStatus($details->user_id, $details->id, $listing_id) == "unsuccessful")
+                                    <td>
+                                        <a href="{{ url('/landlord/listing/booking/'.$details->user_id.'/'.$details->id.'/'.$listing_id.'/delete') }}">
+                                            <button class="btn btn-md btn-primary rounded">Delete</button>
+                                        </a>
+                                    </td>
+                                    @elseif ($details->bookingStatus($details->user_id, $details->id, $listing_id) == "pending")
+                                        <td>
+                                            <form action="{{ route('listing.booking.check') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="referee_details" value="{{ $details }}">
+                                                <input type="hidden" name="listing_id" value="{{ $listing_id }}">
+                                                <button type="submit" class="btn btn-sm btn-theme-light-2 rounded">Approve</button>
+                                            </form>
+                                        </td>
+                                    @elseif ($details->bookingStatus($details->user_id, $details->id, $listing_id) == "approved")
+                                        <td>
+                                            <i class="ti-check" style="font-size: 30px; color: rgb(10, 181, 115)"></i>
+                                        </td>
+                                    @endif
+                                @else
+                                    <td>
+                                        <a href="{{ url('/landlord/listing/booking/'.$details->user_id.'/'.$details->id.'/'.$listing_id.'/delete') }}">
+                                            <button class="btn btn-md btn-primary rounded">Delete</button>
+                                        </a>
+                                    </td>
+                                @endif
                             @endforeach
                         </tr>
                         @endforeach
