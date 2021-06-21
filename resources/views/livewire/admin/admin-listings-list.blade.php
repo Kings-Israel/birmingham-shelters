@@ -4,53 +4,10 @@
     <div class="page-title">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-10 col-md-12">
-
-                    <div class="full-search-2 eclip-search italian-search hero-search-radius shadow-hard">
-                        <div class="hero-search-content">
-                            <div class="row">
-
-                                <div class="col-lg-4 col-md-4 col-sm-12 b-r">
-                                    <div class="form-group">
-                                        <div class="choose-propert-type">
-                                            <ul>
-                                                <li>
-                                                    <input id="cp-1" class="checkbox-custom" name="cpt" type="radio"
-                                                        checked>
-                                                    <label for="cp-1" class="checkbox-custom-label">Buy</label>
-                                                </li>
-                                                <li>
-                                                    <input id="cp-2" class="checkbox-custom" name="cpt" type="radio">
-                                                    <label for="cp-2" class="checkbox-custom-label">Rent</label>
-                                                </li>
-                                                <li>
-                                                    <input id="cp-3" class="checkbox-custom" name="cpt" type="radio">
-                                                    <label for="cp-3" class="checkbox-custom-label">Sold</label>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-5 col-sm-12 p-0 elio">
-                                    <div class="form-group">
-                                        <div class="input-with-icon">
-                                            <input type="text" class="form-control" placeholder="Search for a location">
-                                            <img src="{{ asset('assets/img/pin.svg')}}" width="20"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-2 col-md-3 col-sm-12">
-                                    <div class="form-group">
-                                        <a href="#" class="btn search-btn black">Search</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="row justify-content-center">
+                        @include('partials.search')
                     </div>
-
                 </div>
             </div>
         </div>
@@ -64,19 +21,7 @@
                     <div class="item-shorting-box">
                         <div class="item-shorting clearfix">
                             <div class="left-column pull-left">
-                                <h4 class="m-0">
-                                    Found 1-10 of {{ $this->listings->total() }} {{  Str::plural('Result', $this->listings->total())}}
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="item-shorting-box-right">
-                            <div class="shorting-by" wire:ignore>
-                                <select id="shorty" class="form-control">
-                                    <option value="">&nbsp;</option>
-                                    <option value="1">Low Price</option>
-                                    <option value="2">High Price</option>
-                                    <option value="3">Most Popular</option>
-                                </select>
+                                <div class="left-column pull-left" @if(count($listings) <= 0) style="display: none" @endif><h4 class="m-0">Showing {{ $listings->currentPage() }}-{{ count($listings->items()) }} of {{ $listings->total() }} Results</h4></div>
                             </div>
                         </div>
                     </div>
@@ -87,7 +32,7 @@
 
                 <div class="col-lg-12 col-sm-12 list-layout">
                     <div class="row">
-                        @foreach ($this->listings as $listing)
+                        @foreach ($listings as $listing)
                             <!-- Single Property Start -->
                             <div class="col-lg-6 col-md-6">
                                 <div class="property-listing property-1">
@@ -148,7 +93,7 @@
                     </div>
 
                     <div class="row">
-                        {{ $this->listings->links() }}
+                        {{ $listings->links() }}
                     </div>
                     <!-- Pagination -->
                     <div style="display: none" class="row">

@@ -66,7 +66,7 @@
                                         <p class="error-message"><strong>{{ $message }}</strong></p>
                                     @enderror
                                 </div>
-                                <br>
+                                <hr>
                             @endforeach
                         </div>
                         <br>

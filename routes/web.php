@@ -13,6 +13,8 @@ use App\Http\Controllers\UserBookingController;
 use App\Http\Controllers\UserListingController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Livewire\AdminListingsList;
+use App\Http\Livewire\UserListing;
+use App\Http\Livewire\AdminBookingsList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -86,8 +88,7 @@ Route::group(
 
 // User listing controller
 Route::group(['prefix' => '/listing', 'as' => 'listing.'], function () {
-    Route::get('/all', [UserListingController::class, 'listings'])->name('all');
-    Route::post('/search', [UserListingController::class, 'searchListings'])->name('search');
+    Route::get('/all', UserListing::class)->name('all');
     Route::get('/{listing}', [UserListingController::class, 'listing'])->name('one');
     Route::post('/booking/submit', [UserListingController::class, 'submitBooking'])->middleware(['auth', 'verified'])->name('submit.booking');
     Route::post('/inquiry', [ListingInquiryController::class, 'submitInquiry'])->name('inquiry');
@@ -135,7 +136,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     // Listing management
     Route::prefix('listings')->name('admin.listings.')->group(function () {
         Route::get('/', AdminListingsList::class)->name('index');
-        Route::get('/{listing}', AdminShowListingController::class)->name('show');
+        Route::get('/{listing}', [AdminShowListingController::class, 'showListing'])->name('show');
+    });
+
+    // Bookings
+    Route::prefix('bookings')->name('admin.bookings.')->group(function() {
+        Route::get('/', AdminBookingsList::class)->name('show');
     });
 });
 

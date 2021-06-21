@@ -7,6 +7,7 @@ use App\Enums\ListingStatusEnum;
 use App\Models\Listing;
 use App\Models\ListingDocument;
 use App\Models\User;
+use App\Models\ListingInquiry;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
 
@@ -125,6 +126,11 @@ class ListingFactory extends Factory
     public function withRelationships(): Factory
     {
         return $this->forUser()->withDocuments();
+    }
+
+    public function withInquiries(): Factory
+    {
+        return $this->has(ListingInquiry::factory(3), 'inquiry');
     }
 
     public function basicInfoOnly(): Factory

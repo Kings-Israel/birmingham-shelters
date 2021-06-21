@@ -34,7 +34,7 @@ class Booking extends Model
      */
     public function refereedata()
     {
-        return $this->belongsTo(RefereeData::class);
+        return $this->belongsTo(RefereeData::class, 'referee_data_id');
     }
 
     /**
