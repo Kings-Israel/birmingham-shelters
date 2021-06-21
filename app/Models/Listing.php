@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Booking;
+use App\Enums\BookingStatusEnum;
 use App\Enums\ListingProofsEnum;
 use App\Enums\ListingStatusEnum;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
@@ -110,6 +112,19 @@ class Listing extends Model
 
         return tap($this, fn($instance) => $instance->status = ListingStatusEnum::verified());
     }
+
+    public function isBooked($bookings)
+    {
+        foreach($bookings as $booking) {
+            if($booking->status == BookingStatusEnum::approved()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    
 
     // public function hasNoUnResolvedFeedback(): bool
     // {

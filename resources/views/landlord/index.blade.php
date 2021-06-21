@@ -37,7 +37,6 @@
                 <div class="dashboard-stat-icon"><i class="ti-bookmark-alt"></i></div>
             </div>
         </div>
-
         <div class="col-lg-4 col-md-6 col-sm-12">
             <div class="dashboard-stat widget-5">
                 <div class="dashboard-stat-content">

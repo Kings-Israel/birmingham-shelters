@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Enums\ListingDocumentTypesEnum;
 use App\Enums\ListingProofsEnum;
+use App\Enums\BookingStatusEnum;
+use App\Enums\InvoiceTypeEnum;
 use App\Models\Listing;
 use App\Models\ListingInquiry;
 use App\Models\RefereeData;
 use App\Models\ListingDocument;
+use App\Models\Booking;
 use App\Rules\PhoneNumber;
 use Auth;
 use Illuminate\Http\Request;
@@ -30,6 +33,9 @@ class LandlordListingController extends Controller
         $listings->loadCount(['inquiry' => function($query) {
             $query->where('read_at', null);
         }]);
+        $listings->loadCount(['bookings' => function($query) {
+            $query->where('status', BookingStatusEnum::pending());
+        }]);
 
         return view('landlord.listing.all-listings')
                     ->with('listings', $listings);
@@ -41,9 +47,11 @@ class LandlordListingController extends Controller
             $query->where('read_at', null);
         }]);
 
-        return view('landlord.listing.show-listing', [
-            'listing' => $listing->load('bookings'),
-        ]);
+        $listing->loadCount(['bookings' => function($query) {
+            $query->where('status', BookingStatusEnum::pending());
+        }]);
+
+        return view('landlord.listing.show-listing')->with('listing', $listing);
     }
 
     public function viewListingBookings(Listing $listing)
@@ -54,6 +62,21 @@ class LandlordListingController extends Controller
         }
 
         return view('landlord.bookings')->with(['referee_data' => $referee_data, 'listing_id' => $listing->id]);
+    }
+
+    public function deleteBooking($user_id, $referee_data_id, $listing_id)
+    {
+        $deleted = Booking::where([
+            ['user_id', '=', $user_id],
+            ['referee_data_id', '=', $referee_data_id],
+            ['listing_id', '=', $listing_id]
+        ])->delete();
+
+        if ($deleted) {
+            return redirect()->back()->with('success', 'The Booking has been deleted');
+        } else {
+            return redirect()->back()->withError('An error occurred while deleting.');
+        }
     }
 
     public function viewListingInquiries(Listing $listing)
@@ -289,5 +312,39 @@ class LandlordListingController extends Controller
         $listing->delete();
 
         return redirect()->route('listing.view.all')->with('success', 'Listing has been deleted successfully');
+    }
+
+    public function checkBookingStatus(Request $request)
+    {
+        $referee_details = json_decode($request->referee_details);
+        // Check booking status
+        $bookings = Booking::where('referee_data_id', '=', $referee_details->id)->get();
+        foreach ($bookings as $booking) {
+            // if status == awaiting payment | status == approved
+            // // redirect back with message User has been approved for another listing
+            if ($booking->status == BookingStatusEnum::awaiting_payment() || $booking->status == BookingStatusEnum::approved()) {
+                return redirect()->back()->withError('The User has aleady been approved for another listing.');
+            }
+        }
+
+        // Get the listing id, user id and referee data id to change the booking status to awaiting payment
+
+        $listing = Listing::find($request->listing_id);
+
+        $booking = $bookings->where('listing_id', $listing->id)->where('user_id', $referee_details->user_id);
+        foreach($booking as $getBooking) {
+            $getBooking->status = BookingStatusEnum::awaiting_payment();
+            $getBooking->save();
+
+
+            $invoice = $getBooking->invoice()->create([
+                'user_id' => Auth::user()->id,
+                'invoice_type' => InvoiceTypeEnum::referral_fee(),
+                'description' => 'Approval for booking for the user: '.$referee_details->applicant_name.', for the listing: '.$listing->name.'',
+                'total' => 100,
+            ]);
+    
+            return redirect()->route('invoice.checkout.page', $invoice->id);
+        }
     }
 }

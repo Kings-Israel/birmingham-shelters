@@ -22,7 +22,7 @@
                         </p>
                         
                         <a href="{{ route('listing.bookings.all', $listing->id) }}">
-                            <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Bookings ({{ count($listing->bookings) }})</button>
+                            <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Bookings ({{ $listing->bookings_count }})</button>
                         </a>
                         <a href="{{ route('listing.inquiries.all', $listing->id) }}">
                             <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Inquiries ({{ $listing->inquiry_count }})</button>

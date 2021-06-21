@@ -11,7 +11,7 @@ class UserListingController extends Controller
 {
     public function listings()
     {
-        $listings = Listing::paginate(10);
+        $listings = Listing::where('is_available', true)->paginate(10);
         return view('listings.all-listings', compact('listings'));
     }
 
