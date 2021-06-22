@@ -115,14 +115,13 @@ class RefereeData extends Model
         return $status;
     }
 
-    public function canApproveBooking($referee_data_id, $listing_id)
+    public function canApproveBooking($referee_data_id)
     {
         $bookingStatus = Booking::where([
             ['referee_data_id', $referee_data_id],
-            ['listing_id', '!=', $listing_id]
         ])->pluck('status');
         $bookingStatus = $bookingStatus->toArray();
-        $status = array(BookingStatusEnum::approved(), BookingStatusEnum::awaiting_payment());
+        $status = array(BookingStatusEnum::approved()->label, BookingStatusEnum::awaiting_payment()->label);
         if(count(array_intersect($bookingStatus, $status)) > 0) {
             return false;
         }
