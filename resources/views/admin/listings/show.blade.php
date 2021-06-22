@@ -8,8 +8,12 @@
             @else
             <span class="badge rounded-pill fw-bold text-warning bg-light-warning m-l-4">Not Available</span>
             @endif
-            <h3 class="text-light">{{ $listing->name }}</h3>
+            <h3 class="text-light" id="listing_name">{{ $listing->name }}</h3>
             <div class="text-light fw-bold d-flex">
+                <div hidden>
+                    <h6>Address: </h6><span id="listing_address">{{ $listing->address }}</span><br>
+                    <h6>Postcode: </h6><span id="listing_postcode">{{ $listing->postcode }}</span>
+                </div>
                 <span><i class="ti ti-pin m-r-5"></i> {{$listing->address}} ({{ $listing->postcode }})</span>
                 <span class="m-l-15" title="Owner"><i class="ti ti-user m-r-5"></i>
                     {{ $listing->user->full_name }}</span>
@@ -120,13 +124,12 @@
                             </a>
                         </div>
 
-                        <div id="clSix" class="panel-collapse collapse" aria-expanded="true">
+                        <div id="clSix" class="panel-collapse collapse show" aria-expanded="true">
                             <div class="block-body">
-                                <div class="map-container">
-                                    <div id="singleMap" data-latitude="40.7427837" data-longitude="-73.11445617675781"
-                                        data-mapTitle="Our Location"></div>
+                                <div class="hm-map-container fw-map" id="map-container">
+                                    <div id="map"></div>
                                 </div>
-
+                                <div id="map-error" class="error-message">No Location data was provided.</div>
                             </div>
                         </div>
 

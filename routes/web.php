@@ -15,6 +15,10 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Livewire\AdminListingsList;
 use App\Http\Livewire\UserListing;
 use App\Http\Livewire\AdminBookingsList;
+use App\Http\Livewire\AdminPaymentsView;
+use App\Http\Livewire\AdminLandlordsView;
+use App\Http\Livewire\AdminAgentsView;
+use App\Http\Livewire\AdminUsersView;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -134,14 +138,31 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     });
 
     // Listing management
-    Route::prefix('listings')->name('admin.listings.')->group(function () {
-        Route::get('/', AdminListingsList::class)->name('index');
-        Route::get('/{listing}', [AdminShowListingController::class, 'showListing'])->name('show');
+    Route::prefix('listings')->name('admin.')->group(function () {
+        Route::get('/', AdminListingsList::class)->name('listings.index');
+        Route::get('/{listing}', [AdminShowListingController::class, 'showListing'])->name('listings.show');
     });
 
     // Bookings
     Route::prefix('bookings')->name('admin.bookings.')->group(function() {
         Route::get('/', AdminBookingsList::class)->name('show');
+    });
+
+    // Payments
+    Route::prefix('payments')->name('admin.payments.')->group(function() {
+        Route::get('/', AdminPaymentsView::class)->name('show');
+    });
+
+    Route::prefix('landlords')->name('admin.landlords.')->group(function() {
+        Route::get('/', AdminLandlordsView::class)->name('show');
+    });
+
+    Route::prefix('agents')->name('admin.agents.')->group(function() {
+        Route::get('/', AdminAgentsView::class)->name('show');
+    });
+
+    Route::prefix('users')->name('admin.users.')->group(function() {
+        Route::get('/', AdminUsersView::class)->name('show');
     });
 });
 

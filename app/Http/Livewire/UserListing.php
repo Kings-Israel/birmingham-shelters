@@ -8,9 +8,6 @@ use Livewire\WithPagination;
 
 class UserListing extends Component
 {
-    use WithPagination;
-
-    protected $paginationTheme = 'bootstrap';
 
     public $listingSearch;
 
@@ -20,7 +17,7 @@ class UserListing extends Component
         $listings = Listing::where([
                 ['is_available', '=', true],
                 ['address', 'like', $listingSearch]
-            ])->paginate(10);
+            ])->orderBy('created_at', 'DESC')->get();
         return view('livewire.user-listing', ['listings' => $listings])->layout('layouts.app', ['pageTitle' => "Listings"]);
     }
 }

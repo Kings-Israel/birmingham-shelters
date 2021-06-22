@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\BookingStatusEnum;
 
 class Booking extends Model
 {
@@ -50,5 +51,11 @@ class Booking extends Model
     public function invoice()
     {
         return $this->morphOne(Invoice::class, 'invoiceable');
+    }
+
+    public function getStatusAttribute($status)
+    {
+        $bookings_status = BookingStatusEnum::toArray();
+        return $bookings_status[$status];
     }
 }

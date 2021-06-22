@@ -3,13 +3,12 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Booking;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\WithPagination;
 
-
-class AdminBookingsList extends Component
+class AdminUsersView extends Component
 {
     use WithPagination;
 
@@ -20,13 +19,13 @@ class AdminBookingsList extends Component
     public function mount(): void
     {
         $this->breadcrumb = [
-            'Bookings' => route('admin.bookings.show'),
+            'Users' => route('admin.users.show'),
         ];
     }
 
     public function render()
     {
-        $bookings = Booking::orderBy('created_at', 'DESC')->paginate(15);
-        return view('livewire.admin.admin-bookings-list', ['bookings' => $bookings])->layout('layouts.admin', ['pageTitle' => "Bookings"]);
+        $users = User::where('user_type', '=', 'user')->orderBy('created_at', 'DESC')->paginate(15);
+        return view('livewire.admin.admin-users-view', ['users' => $users])->layout('layouts.admin', ['pageTitle' => 'Users']);
     }
 }

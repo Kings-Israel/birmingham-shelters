@@ -3,13 +3,13 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Booking;
+use App\Models\Payment;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\WithPagination;
 
 
-class AdminBookingsList extends Component
+class AdminPaymentsView extends Component
 {
     use WithPagination;
 
@@ -20,13 +20,13 @@ class AdminBookingsList extends Component
     public function mount(): void
     {
         $this->breadcrumb = [
-            'Bookings' => route('admin.bookings.show'),
+            'Payments' => route('admin.payments.show'),
         ];
     }
 
     public function render()
     {
-        $bookings = Booking::orderBy('created_at', 'DESC')->paginate(15);
-        return view('livewire.admin.admin-bookings-list', ['bookings' => $bookings])->layout('layouts.admin', ['pageTitle' => "Bookings"]);
+        $payments = Payment::orderBy('created_at', 'DESC')->paginate(15);
+        return view('livewire.admin.admin-payments-view', ['payments' => $payments])->layout('layouts.admin', ['pageTitle' => "Payments"]);
     }
 }

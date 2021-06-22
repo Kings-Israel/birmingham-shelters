@@ -138,6 +138,43 @@
     <script src="{{ asset('assets/js/lightbox.js') }}"></script>
     <script src="{{ asset('assets/js/imagesloaded.js') }}"></script>
 
+    <script>
+        function initMap() {
+            var mapErrorContainer = document.getElementById('map-error');
+            var address = document.getElementById('listing_address').innerText;
+            var addressTitle = document.getElementById('listing_name').innerText;
+            var addressPostalCode = document.getElementById('listing_postcode').innerText;
+            var geocoder = new google.maps.Geocoder();
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 16,
+            });
+
+            geocoder.geocode({
+                'address': address,
+                componentRestrictions : {
+                    country: 'UK',
+                    postalCode: addressPostalCode
+                }
+            }, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    mapErrorContainer.style.display = "none";
+                    map.setCenter(results[0].geometry.location);
+                    new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location,
+                        title: addressTitle
+                    });
+                } else {
+                    const mapContainer = document.getElementById('map-container').style.display = "none";
+                    // alert('Geocode was not successful for the following reasons: ' + status)
+                }
+            })
+        }
+    </script>
+
+    <!-- Map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCisnVFSnc5QVfU2Jm2W3oRLqMDrKwOEoM&callback=initMap" defer></script>
     <!-- Datatables -->
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
