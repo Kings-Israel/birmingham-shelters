@@ -19,8 +19,6 @@
                         <tr>
                             <td>Name</td>
                             <td>Referral Type</td>
-                            <td>Email</td>
-                            <td>Phone Number</td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -31,21 +29,19 @@
                             @foreach ($referee as $details)
                                 <td>{{ $details->applicant_name }}</td>
                                 <td><strong>{{ $details->referral_type }}</strong></td>
-                                <td>{{ $details->applicant_email }}</td>
-                                <td>{{ $details->applicant_phone_number }}</td>
                                 <td>
                                     <a href="{{ route('referees.referee', $details->id) }}">
                                         <button class="btn btn-sm btn-theme-light-2 rounded">View More</button>
                                     </a>
                                 </td>
-                                @if($details->canApproveBooking($details->id, $listing_id))
-                                    @if ($details->bookingStatus($details->user_id, $details->id, $listing_id) == "unsuccessful")
-                                    <td>
-                                        <a href="{{ url('/landlord/listing/booking/'.$details->user_id.'/'.$details->id.'/'.$listing_id.'/delete') }}">
-                                            <button class="btn btn-md btn-primary rounded">Delete</button>
-                                        </a>
-                                    </td>
-                                    @elseif ($details->bookingStatus($details->user_id, $details->id, $listing_id) == "pending")
+                                @if ($details->bookingStatus($details->user_id, $details->id, $listing_id) == "Unsuccessful")
+                                <td>
+                                    <a href="{{ url('/landlord/listing/booking/'.$details->user_id.'/'.$details->id.'/'.$listing_id.'/delete') }}">
+                                        <button class="btn btn-md btn-primary rounded">Delete</button>
+                                    </a>
+                                </td>
+                                @elseif ($details->bookingStatus($details->user_id, $details->id, $listing_id) == "Pending")
+                                    @if ($details->canApproveBooking($details->id))
                                         <td>
                                             <form action="{{ route('listing.booking.check') }}" method="post">
                                                 @csrf
@@ -54,16 +50,16 @@
                                                 <button type="submit" class="btn btn-sm btn-theme-light-2 rounded">Approve</button>
                                             </form>
                                         </td>
-                                    @elseif ($details->bookingStatus($details->user_id, $details->id, $listing_id) == "approved")
+                                    @else
                                         <td>
-                                            <i class="ti-check" style="font-size: 30px; color: rgb(10, 181, 115)"></i>
+                                            <a href="{{ url('/landlord/listing/booking/'.$details->user_id.'/'.$details->id.'/'.$listing_id.'/delete') }}">
+                                                <button class="btn btn-md btn-primary rounded">Delete</button>
+                                            </a>
                                         </td>
                                     @endif
-                                @else
+                                @elseif ($details->bookingStatus($details->user_id, $details->id, $listing_id) == "Approved")
                                     <td>
-                                        <a href="{{ url('/landlord/listing/booking/'.$details->user_id.'/'.$details->id.'/'.$listing_id.'/delete') }}">
-                                            <button class="btn btn-md btn-primary rounded">Delete</button>
-                                        </a>
+                                        <i class="ti-check" style="font-size: 30px; color: rgb(10, 181, 115)"></i>
                                     </td>
                                 @endif
                             @endforeach

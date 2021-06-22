@@ -71,7 +71,7 @@ class CheckoutController extends Controller
     public function cancelPayment(Invoice $invoice)
     {
         $booking = $invoice->invoiceable;
-        $booking->status = BookingStatusEnum::pending();
+        $booking->status = BookingStatusEnum::pending()->value;
         $deleteInvoice = Invoice::destroy($invoice);
         
         if($booking->save() && $deleteInvoice == 0) {

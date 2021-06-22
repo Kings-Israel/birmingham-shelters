@@ -124,8 +124,6 @@ class Listing extends Model
         return false;
     }
 
-    
-
     // public function hasNoUnResolvedFeedback(): bool
     // {
 
