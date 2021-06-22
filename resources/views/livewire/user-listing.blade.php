@@ -18,15 +18,6 @@
     <section class="bg-light">
         <div class="container">
             <div class="row">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="item-shorting-box">
-                            <div class="item-shorting clearfix">
-                                <div class="left-column pull-left" @if(count($listings) <= 0) style="display: none" @endif><h4 class="m-0">Showing {{ $listings->currentPage() }}-{{ count($listings->items()) }} of {{ $listings->total() }} Results</h4></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-lg-12 col-sm-12 list-layout">
                     <div class="row">
                         @if (count($listings) <= 0)
@@ -67,11 +58,6 @@
                                     </div>
                                 </div>
                             @endforeach
-
-                            <!-- Pagination -->
-                            <div class="row">
-                                {{ $listings->links() }}
-                            </div>
                         @endif                        
                     </div>
                 </div>

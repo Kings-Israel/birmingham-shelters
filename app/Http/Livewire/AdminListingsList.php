@@ -30,7 +30,7 @@ class AdminListingsList extends Component
         $listingSearch = '%'.$this->listingSearch.'%';
         $listings = Listing::with('user')->where([
                 ['address', 'like', $listingSearch],
-            ])->paginate(10);
+            ])->orderBy('created_at', 'DESC')->paginate(10);
         return view('livewire.admin.admin-listings-list', ['listings' => $listings])->layout('layouts.admin', ['pageTitle' => "Property Listings"]);
     }
 }

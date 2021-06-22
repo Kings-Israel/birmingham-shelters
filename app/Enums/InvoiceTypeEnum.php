@@ -10,4 +10,11 @@ use Spatie\Enum\Laravel\Enum;
  */
 final class InvoiceTypeEnum extends Enum
 {
+    protected static function labels(): array
+    {
+        return [
+            'referral_fee' => 'Referral Fee',
+            'sponsored_listing' => 'Sponsored Listing',
+        ];
+    }
 }

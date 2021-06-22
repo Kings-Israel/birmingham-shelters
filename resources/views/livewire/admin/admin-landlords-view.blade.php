@@ -7,20 +7,20 @@
                     <thead>
                         <tr>
                             <td>Name</td>
-                            <td>Referral Type</td>
-                            <td>Listing</td>
-                            <td>Status</td>
-                            <td>Date</td>
+                            <td>Email</td>
+                            <td>Phone Number</td>
+                            <td>Registration Date</td>
+                            <td>Number of Listings</td>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($bookings as $booking)
+                        @foreach ($landlords as $landlord)
                         <tr class="booking-details-row">
-                            <td>{{ $booking->refereedata->applicant_name }}</td>
-                            <td><strong>{{ $booking->refereedata->applicant_email }}</strong></td>
-                            <td>{{ $booking->listing->name }}</td>
-                            <td>{{ $booking->status }}</td>
-                            <td> {{ $booking->created_at->format('d-m-Y') }}</td>
+                            <td>{{ $landlord->full_name }}</td>
+                            <td><strong>{{ $landlord->email }}</strong></td>
+                            <td>{{ $landlord->phone_number }}</td>
+                            <td><strong>{{ $landlord->created_at->format('d-m-Y') }}</strong></td>
+                            <td>{{ count($landlord->listings) }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -28,7 +28,7 @@
             </div>
             <!-- Pagination -->
             <div class="row">
-                {{ $bookings->links() }}
+                {{ $landlords->links() }}
             </div>
         </div>
     </div>

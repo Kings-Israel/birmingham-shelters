@@ -16,7 +16,7 @@ final class BookingStatusEnum extends Enum
     {
         return [
             'pending' => 'Pending',
-            'Approved' => 'Approved',
+            'approved' => 'Approved',
             'awaiting_payment' => 'Awaiting Payment',
             'unsuccessful' => 'Unsuccessful',
         ];
