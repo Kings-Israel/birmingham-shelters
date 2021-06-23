@@ -21,7 +21,7 @@ class AdminDashboardController extends Controller
         foreach ($listings->load('bookings') as $booking) {
             if(count($booking->bookings) != 0 ) {
                 foreach($booking->bookings as $newBooking) {
-                    if($newBooking->status == BookingStatusEnum::pending()) {
+                    if($newBooking->status == BookingStatusEnum::pending()->label) {
                         $bookings_total_number++;
                     };
                 }

@@ -54,6 +54,8 @@
                                                     <img src="{{ asset('/assets/img/star.png') }}" class="img-fluid" width="20px" style="float: right;"/>
                                                 @endif
                                                 <h4 class="listing-name"><a href="{{ route('listing.one', $booking->listing->id) }}">{{ $booking->listing->name }}</a></h4>
+                                                <hr>
+                                                <p>Referee: <strong>{{ $booking->refereedata->applicant_name }}</strong></p>
                                                 <p class="listing-description">Status: <strong>{{ $booking->status }}</strong></p>
                                             </div>
                                         </div>

@@ -84,7 +84,7 @@
                             <div class="form-group col-md-4">
                                 <label>
                                     Available Rooms
-                                    <input type="number" name="available_rooms" class="form-control" min="0" value="{{ old('available_rooms') }}" required>
+                                    <input type="number" name="available_rooms" class="form-control" min="1" value="{{ old('available_rooms') }}" required>
                                 </label>
                                 <x-input-error for="available_rooms" />
                             </div>

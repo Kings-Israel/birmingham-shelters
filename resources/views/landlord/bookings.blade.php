@@ -19,6 +19,7 @@
                         <tr>
                             <td>Name</td>
                             <td>Referral Type</td>
+                            <td>Date</td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -29,6 +30,7 @@
                             @foreach ($referee as $details)
                                 <td>{{ $details->applicant_name }}</td>
                                 <td><strong>{{ $details->referral_type }}</strong></td>
+                                <td>{{ $details->created_at->format('d-m-Y') }}</td>
                                 <td>
                                     <a href="{{ route('referees.referee', $details->id) }}">
                                         <button class="btn btn-sm btn-theme-light-2 rounded">View More</button>

@@ -46,15 +46,18 @@ class CheckoutController extends Controller
         $booking = $invoice->invoiceable;
         $bookings = Booking::where('listing_id', '=', $booking->listing_id)->get();
         foreach($bookings as $other_booking) {
-            $other_booking->status = BookingStatusEnum::unsuccessful();
+            $other_booking->status = BookingStatusEnum::unsuccessful()->value;
             $other_booking->save();
         }
-        $booking->status = BookingStatusEnum::approved();
+        $booking->status = BookingStatusEnum::approved()->value;
         $booking->save();
 
-        // Make listing unavailable
+        // Reduce available room by 1 and if available rooms is 0 make the listing unavailable
         $listing = $booking->listing;
-        $listing->is_available = false;
+        $listing->available_rooms -= 1;
+        if ($listing->available_rooms == 0) {
+            $listing->is_available = false;
+        }
         $listing->save();
 
         // Send email to user with approval message

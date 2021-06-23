@@ -111,7 +111,7 @@ class RefereeData extends Model
             ['referee_data_id', '=', $referee_data_id],
             ['listing_id', '=', $listing_id]
         ])->pluck('status')->first();
-
+        
         return $status;
     }
 

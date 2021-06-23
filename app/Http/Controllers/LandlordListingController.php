@@ -34,7 +34,7 @@ class LandlordListingController extends Controller
             $query->where('read_at', null);
         }]);
         $listings->loadCount(['bookings' => function($query) {
-            $query->where('status', BookingStatusEnum::pending());
+            $query->where('status', BookingStatusEnum::pending()->value);
         }]);
 
         return view('landlord.listing.all-listings')
@@ -48,7 +48,7 @@ class LandlordListingController extends Controller
         }]);
 
         $listing->loadCount(['bookings' => function($query) {
-            $query->where('status', BookingStatusEnum::pending());
+            $query->where('status', BookingStatusEnum::pending()->value);
         }]);
 
         return view('landlord.listing.show-listing')->with('listing', $listing);
