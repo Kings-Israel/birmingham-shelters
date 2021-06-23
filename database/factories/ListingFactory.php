@@ -33,6 +33,7 @@ class ListingFactory extends Factory
                     'living_rooms' => $this->faker->numberBetween(0, 3),
                     'bedrooms' => $this->faker->numberBetween(1, 4),
                     'bathrooms' => $this->faker->numberBetween(1, 3),
+                    'available_rooms' => $this->faker->numberBetween(1, 5),
                     'toilets' => $this->faker->numberBetween(1, 3),
                     'kitchen' => $this->faker->numberBetween(1, 3),
                     'features' => $this->getFeatures(),

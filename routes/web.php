@@ -56,11 +56,12 @@ Route::get('/landlord', [HomeController::class, 'landlord'])->name('landlord.ind
 Route::get('/agent', [HomeController::class, 'agent'])->name('agent.index');
 Route::get('/messages/{user}', [HomeController::class, 'messages'])->name('messages.show');
 Route::get('/agent/referees', [HomeController::class, 'agentReferees'])->name('agent.referees.all');
-Route::get('/referee/{referee}', [HomeController::class, 'referee'])->name('referees.referee');
+Route::get('/referee/{referee}/{listing?}', [HomeController::class, 'referee'])->name('referees.referee');
 Route::group(['prefix' => '/profile', 'as' => 'profile.'], function() {
     Route::get('/{user}', [HomeController::class, 'showProfile'])->name('show');
     Route::post('/update', [HomeController::class, 'updateProfile'])->name('update');
 });
+
 
 Route::group(
     [
@@ -120,6 +121,7 @@ Route::prefix('/referral')->group(function () {
     Route::post('/risk-assessment/submit', [RefereeDataController::class, 'submitRiskAssessment'])->name('risk-assessment-form.submit');
     Route::post('/consent/submit', [RefereeDataController::class, 'submitConsentForm'])->name('consent-form.submit');
     Route::delete('/delete/{refereeData}', [RefereeDataController::class, 'deleteReferee'])->name('referee.delete');
+    Route::get('/referee/cancel/{id?}', [RefereeDataController::class, 'cancelRefereeAddition'])->name('referee.cancel');
 });
 
 // Admin routes

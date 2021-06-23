@@ -22,6 +22,9 @@
                                 Inquiries: <strong>{{ $listing->inquiry_count }}</strong>
                             </div>
                             <div class="user_dashboard_listed">
+                                Available Rooms: <strong>{{ $listing->available_rooms }}</strong>
+                            </div>
+                            <div class="user_dashboard_listed">
                                 Status:
                                 @if ($listing->verified_at == null)
                                     <strong> Not Verified </strong>

@@ -58,6 +58,7 @@
                             <li><strong>Bathrooms:</strong>{{ $listing->bathrooms }}</li>
                             <li><strong>Toilets:</strong>{{ $listing->toilets }}</li>
                             <li><strong>Kitchen:</strong>{{ $listing->kitchen }}</li>
+                            <li><strong>Available Rooms:</strong>{{ $listing->available_rooms }}</li>
                         </ul>
                         @if ($listing->other_rooms != null || count($listing->other_rooms) != 0)
                             <h6 class="property_block_title">Other Rooms:</h6>

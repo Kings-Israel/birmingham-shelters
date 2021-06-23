@@ -157,6 +157,7 @@ class LandlordListingController extends Controller
             'living_rooms' => 'required|numeric',
             'bedrooms' => 'required|numeric',
             'bathrooms' => 'required|numeric',
+            'available_rooms' => 'required|numeric',
             'toilets' => 'required|numeric',
             'kitchen' => 'required|numeric',
             'contact_name' => 'required|string',

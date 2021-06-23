@@ -20,6 +20,7 @@ class CreateListingsTable extends Migration
             $table->integer('bathrooms');
             $table->integer('toilets');
             $table->integer('kitchen');
+            $table->integer('available_rooms');
             $table->json('other_rooms')->nullable();
             $table->json('features')->nullable();
             $table->foreignId('user_id')->constrained();
