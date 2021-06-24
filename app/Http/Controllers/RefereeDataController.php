@@ -13,6 +13,7 @@ use App\Models\ApplicantRiskAssessment;
 use App\Models\Consent;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\PhoneNumber;
+use Auth;
 use PDF;
 
 class RefereeDataController extends Controller
@@ -98,6 +99,7 @@ class RefereeDataController extends Controller
 
     public function submitReferralForm(Request $request)
     {
+        
         $rules = [
             'referral_type' => 'required|string',
             'referrer_name' => 'required|string',
@@ -108,9 +110,9 @@ class RefereeDataController extends Controller
             'applicant_email' => 'required|email',
             'applicant_phone_number' => new PhoneNumber,
             'applicant_date_of_birth' => 'required|date',
-            'applicant_ni_number' => 'required',
+            'applicant_ni_number' => 'required|unique:referee_data',
             'applicant_current_address' => 'required',
-            'applicant_gender' => 'required',
+            'applicant_gender.0' => 'required',
             'applicant_sexual_orientation' => 'required',
             'applicant_ethnicity' => 'required',
             'applicant_kin_name' => 'nullable',
@@ -121,13 +123,14 @@ class RefereeDataController extends Controller
         ];
 
         $messages = [
+            'applicant_ni_number.unique' => 'This National Insurance Number is already in use.',
+            'applicant_gender.0.required' => 'Please select an option',
             'required' => 'Please enter this information',
             'email' => 'Please enter a valid email address',
             'date' => 'Please enter a valid date'
         ];
 
         Validator::make($request->all(), $rules, $messages)->validate();
-        
         if ($request->has('applicant_image')) {
             pathinfo($request->file('applicant_image')->store('image', 'referee'), PATHINFO_BASENAME);
         }
@@ -145,7 +148,11 @@ class RefereeDataController extends Controller
         $refereeData->applicant_date_of_birth = $request->applicant_date_of_birth;
         $refereeData->applicant_ni_number = $request->applicant_ni_number;
         $refereeData->applicant_current_address = $request->applicant_current_address;
-        $refereeData->applicant_gender = $request->applicant_gender;
+        if ($request->applicant_gender[0] == "Male" || $request->applicant_gender[0] == "Female") {
+            $refereeData->applicant_gender = $request->applicant_gender[0];
+        } elseif($request->applicant_gender[0] == "Other") {
+            $refereeData->applicant_gender = $request->applicant_gender[1];
+        }
         $refereeData->applicant_sexual_orientation = $request->applicant_sexual_orientation;
         $refereeData->applicant_ethnicity = $request->applicant_ethnicity;
         $refereeData->applicant_kin_name = $request->applicant_kin_name;
@@ -392,5 +399,48 @@ class RefereeDataController extends Controller
             'risk_assessment' => $applicant_risk_assessment
         ]);
         return $pdf->stream($refereeData->applicant_name.'.pdf');
+    }
+
+    public function cancelRefereeAddition($id = null)
+    {
+        $user_type = Auth::user()->user_type;
+        if($id == null) {
+            if ($user_type == 'user') {
+                return redirect()->route('user.index');
+            } elseif($user_type == 'agent') {
+                return redirect()->route('agent.index');
+            }
+        }
+
+        if (ApplicantRiskAssessment::where('referee_data_id', $id)->exists()) {
+            ApplicantRiskAssessment::where('referee_data_id', $id)->delete();
+        }
+
+        if (ApplicantSupportNeeds::where('referee_data_id', $id)->exists()) {
+            ApplicantSupportNeeds::where('referee_data_id', $id)->delete();
+        }
+
+        if(ApplicantHealthInfo::where('referee_data_id', $id)->exists()) {
+            ApplicantHealthInfo::where('referee_data_id', $id)->delete();
+        }
+
+        if(ApplicantAddressInfo::where('referee_data_id', $id)->exists()) {
+            ApplicantAddressInfo::where('referee_data_id', $id)->delete();
+        }
+
+        if (ApplicantIncomeInfo::where('referee_data_id', $id)->exists()) {
+            ApplicantIncomeInfo::where('referee_data_id', $id)->delete();
+        }
+
+        if(RefereeData::where('id', $id)->delete()) {
+            if ($user_type == 'user') {
+                return redirect()->route('user.index');
+            } elseif($user_type == 'agent') {
+                return redirect()->route('agent.index');
+            }
+        } else {
+            return redirect()->back()->withError('An error occurred. Please try again');
+        }
+
     }
 }

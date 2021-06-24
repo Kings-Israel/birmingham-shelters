@@ -21,12 +21,6 @@
                     <h3>{{ $referee->applicant_name }}</h3>
                     <div class="referee-details">
                         <div class="details">
-                            <h6>Email: </h6><span>{{ $referee->applicant_email }}</span><br>
-                        </div>
-                        <div class="details">
-                            <h6>Phone Number: </h6><span>{{ $referee->applicant_phone_number }}</span>
-                        </div>
-                        <div class="details">
                             <h6>Gender: </h6><span>{{ $referee->applicant_gender }}</span>
                         </div>
                         <div class="details">

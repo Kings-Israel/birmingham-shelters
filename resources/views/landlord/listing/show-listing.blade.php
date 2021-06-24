@@ -13,12 +13,7 @@
                             <span><i class="lni-map-marker"></i> {{ $listing->address }}, {{ $listing->postcode }}</span>
                         </div>
                         <p style="margin-bottom: 0;">
-                            Status:
-                            @if ($listing->verified_at == null)
-                                <strong class="text-warning">Not Verified</strong>
-                            @else
-                                <strong class="text-success">Verified </strong>
-                            @endif
+                            Status: {{ $listing->status }}
                         </p>
                         
                         <a href="{{ route('listing.bookings.all', $listing->id) }}">
@@ -58,14 +53,16 @@
                             <li><strong>Bathrooms:</strong>{{ $listing->bathrooms }}</li>
                             <li><strong>Toilets:</strong>{{ $listing->toilets }}</li>
                             <li><strong>Kitchen:</strong>{{ $listing->kitchen }}</li>
+                            <li><strong>Available Rooms:</strong>{{ $listing->available_rooms }}</li>
                         </ul>
-                        @if ($listing->other_rooms != null || count($listing->other_rooms) != 0)
+                        @if ($listing->other_rooms != null)
                             <h6 class="property_block_title">Other Rooms:</h6>
-                            <p>{{ $listing->other_rooms->implode(', ') }}</p>
+                            <p>{{ $listing->other_rooms }}</p>
                         @endif
+                        
+
                     </div>
                 </div>
-
             </div>
 
             <!-- Description Single Block Wrap -->
@@ -80,6 +77,8 @@
                 <div id="clTwo" class="panel-collapse collapse show" aria-expanded="true">
                     <div class="block-body">
                         <p>{{ $listing->description }}</p>
+                        <button class="btn btn-md btn-theme-light-2 rounded" data-bs-toggle="modal" data-bs-target="#listing-features-update" style="float: right;">Update</button>
+                        @include('partials.listing-features-update')
                     </div>
                 </div>
             </div>
@@ -109,6 +108,8 @@
 
                     <div class="block-body">
                         <p class="property_block_title"><strong>Client Support Hours per week:</strong> {{ $listing->support_hours }}</h6>
+                        <button class="btn btn-md btn-theme-light-2 rounded" data-bs-toggle="modal" data-bs-target="#listing-support-group-update" style="float: right;">Update</button>
+                        @include('partials.listing-support-group-update')
                     </div>
                 </div>
             </div>
@@ -129,6 +130,7 @@
                             <div id="map"></div>
                         </div>
                         <div id="map-error" class="error-message">No Location data was provided.</div>
+                        <p style="margin-top:5px; float: right;">*Note: Update the address and postcode to update location.</p>
                     </div>
                 </div>
 
@@ -154,10 +156,21 @@
                             </li>
                             @endforeach
                         </ul>
+                        @if(count($listing->images) > 0)
+                        <a href="{{ route('listing.delete.images', $listing->id) }}">
+                            <button class="btn btn-md btn-primary rounded" style="float: right; margin-left: 5px">Delete All Images</button>
+                        </a>
+                        @endif
+                        <button class="btn btn-md btn-theme-light-2 rounded" data-bs-toggle="modal" data-bs-target="#listing-images-update" style="float: right;">Add</button>
+                        @include('partials.listing-images-update')
                     </div>
                 </div>
             </div>
-
+            <div>
+                <button class="btn btn-md btn-theme-light-2 rounded" data-bs-toggle="modal" data-bs-target="#listing-documents-update" >Update Documents</button>
+                @include('partials.listing-documents-update')
+            </div>
+            <hr>
             <!-- Feedback Messages -->
             <div class="property_block_wrap style-2">
 

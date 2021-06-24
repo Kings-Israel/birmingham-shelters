@@ -45,15 +45,15 @@
                             <div class="block-body">
                                 <ul class="deatil_features">
                                     <li><strong>Living Rooms:</strong>{{ $listing->living_rooms }}</li>
-                                    <li><strong>Bedsitting Rooms:</strong>{{ $listing->bedsitting_rooms }}</li>
+                                    <li><strong>Available Rooms:</strong>{{ $listing->available_rooms }}</li>
                                     <li><strong>Bedrooms:</strong>{{ $listing->bedrooms }}</li>
                                     <li><strong>Bathrooms:</strong>{{ $listing->bathrooms }}</li>
                                     <li><strong>Toilets:</strong>{{ $listing->toilets }}</li>
                                     <li><strong>Kitchen:</strong>{{ $listing->kitchen }}</li>
                                 </ul>
                                 @if ($listing->other_rooms)
-                                <h6 class="property_block_title">Other Rooms:</h6>
-                                <p>{{ $listing->other_rooms->implode(', ') }}</p>
+                                    <h6 class="property_block_title">Other Rooms:</h6>
+                                    <p>{{ $listing->other_rooms }}</p>
                                 @endif
                             </div>
 

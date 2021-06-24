@@ -35,7 +35,6 @@ class Listing extends Model
         'proofs' => ListingProofsEnum::class.':collection',
         'images' => AsCollection::class,
         'features' => 'collection',
-        'other_rooms' => 'collection',
     ];
 
     protected static function booted(): void
@@ -116,7 +115,7 @@ class Listing extends Model
     public function isBooked($bookings)
     {
         foreach($bookings as $booking) {
-            if($booking->status == BookingStatusEnum::approved()) {
+            if($booking->status == BookingStatusEnum::approved()->value) {
                 return true;
             }
         }

@@ -59,12 +59,12 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="file-upload">
-                                        <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Profile Image</button>
+                                        <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Profile Image(Optional)</button>
                                       
                                         <div class="image-upload-wrap">
                                           <input class="file-upload-input" type='file' name="applicant_image" onchange="readURL(this);" accept="image/*" />
                                           <div class="drag-text">
-                                            <h3>Drag and drop a file or select add Profile Image</h3>
+                                            <h3>Drag and drop a file or select add Profile Image(Optional)</h3>
                                           </div>
                                         </div>
                                         <div class="file-upload-content">
@@ -109,7 +109,13 @@
                                 
                                 <div class="form-group col-md-3">
                                     <label>Gender</label>
-                                    <input type="text" id="applicant_gender" name="applicant_gender" class="form-control" value="{{ old('applicant_gender') }}" required>
+                                    <input id="male" class="checkbox-custom" name="applicant_gender[]" type="radio" value="Male" {{ (old('applicant_gender.0') == 'Male') ? 'checked' : '' }} onchange="selected()">
+                                    <label for="male" class="checkbox-custom-label">Male</label>
+                                    <input id="female" class="checkbox-custom" name="applicant_gender[]" type="radio" value="Female" {{ (old('applicant_gender.0') == 'Female') ? 'checked' : '' }} onchange="selected()">
+                                    <label for="female" class="checkbox-custom-label">Female</label>
+                                    <input id="other" class="checkbox-custom" name="applicant_gender[]" type="radio" value="Other" {{ (old('applicant_gender.0') == 'Other') ? 'checked' : '' }} onchange="selected()">
+                                    <label for="other" class="checkbox-custom-label">Other</label>
+                                    <input type="text" id="applicant_gender" hidden name="applicant_gender[]" class="form-control" placeholder="Please specify" value="{{ old('applicant_gender.1') }}">
                                     @error('applicant_gender')
                                         <strong class="error-message">{{ $message }}</strong>
                                     @enderror
@@ -155,7 +161,15 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label>Sexual Orientation</label>
-                                    <input type="text" id="applicant_sexual_orientation" name="applicant_sexual_orientation" class="form-control" value="{{ old('applicant_sexual_orientation') }}" required>
+                                    <div class="input-with-icon">
+                                        <select class="form-control" id="applicant_sexual_orientation" name="applicant_sexual_orientation" required>
+                                            <option value="">Please select</option>
+                                            <option value="Male" @if (old('applicant_sexual_orientation') == 'Male') selected="selected" @endif>Male</option>
+                                            <option value="Female" @if (old('applicant_sexual_orientation') == 'Female') selected="selected" @endif>Female</option>
+                                            <option value="Not Disclosed" @if (old('applicant_sexual_orientation') == 'Not Disclosed') selected="selected" @endif>Prefer Not to Disclose</option>
+                                        </select>
+                                        <i class="ti-user"></i>
+                                    </div>
                                     @error('applicant_sexual_orientation')
                                         <strong class="error-message">{{ $message }}</strong>
                                     @enderror
@@ -163,7 +177,15 @@
 
                                 <div class="form-group col-md-6">
                                     <label>Ethnic Group</label>
-                                    <input type="text" id="applicant_ethnicity" name="applicant_ethnicity" class="form-control" value="{{ old('applicant_ethnicity') }}" required>
+                                    <div class="input-with-icon">
+                                        <select class="form-control" id="applicant_ethnicity" name="applicant_ethnicity" required>
+                                            <option value="">Please select</option>
+                                            <option value="Group 1" @if (old('applicant_ethnicity') == 'Group 1') selected="selected" @endif>Group 1</option>
+                                            <option value="Group 2" @if (old('applicant_ethnicity') == 'Group 2') selected="selected" @endif>Group 1</option>
+                                            <option value="Group 3" @if (old('applicant_ethnicity') == 'Group 3') selected="selected" @endif>Group 3</option>
+                                        </select>
+                                        <i class="ti-user"></i>
+                                    </div>
                                     @error('applicant_ethnicity')
                                         <strong class="error-message">{{ $message }}</strong>
                                     @enderror
@@ -173,7 +195,12 @@
                 </div>
                 <br>
                 <div class="listing-submit-button">
-                    @include('partials.referral-buttons')
+                    <div class="form-group col-lg-12 col-md-12" id="listing-buttons">
+                        <a href="{{ route('referee.cancel', $refereeData->id ?? '') }}" class="btn btn-md btn-outline-theme">
+                            Cancel
+                        </a>
+                        <button class="btn btn-theme-light-2 rounded" type="submit">Submit</button>
+                    </div>
                 </div>
             
             </div>

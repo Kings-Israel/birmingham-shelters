@@ -11,6 +11,7 @@
                             <td>Phone Number</td>
                             <td>Registration Date</td>
                             <td>Number of Referees</td>
+                            <td>Delete Agent</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -21,6 +22,11 @@
                             <td>{{ $agent->phone_number }}</td>
                             <td><strong>{{ $agent->created_at->format('d-m-Y') }}</strong></td>
                             <td>{{ count($agent->refereedata) }}</td>
+                            <td>
+                                <button wire:click="deleteUser({{ $agent }})" class="btn btn-primary btn-sm">
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

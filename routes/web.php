@@ -25,7 +25,10 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'index')->name('home');
 Route::view('/contact', 'pages.contact');
 Route::view('/about', 'pages.about');
+Route::view('/faq', 'pages.faq');
 Route::view('/privacy', 'pages.privacy-policy');
+Route::view('/get-involved', 'pages.get-involved');
+
 Route::view('/inquiry-template', 'landlord.inquiry-reply-template');
 
 Auth::routes(['verify' => true]);
@@ -56,11 +59,12 @@ Route::get('/landlord', [HomeController::class, 'landlord'])->name('landlord.ind
 Route::get('/agent', [HomeController::class, 'agent'])->name('agent.index');
 Route::get('/messages/{user}', [HomeController::class, 'messages'])->name('messages.show');
 Route::get('/agent/referees', [HomeController::class, 'agentReferees'])->name('agent.referees.all');
-Route::get('/referee/{referee}', [HomeController::class, 'referee'])->name('referees.referee');
+Route::get('/referee/{referee}/{listing?}', [HomeController::class, 'referee'])->name('referees.referee');
 Route::group(['prefix' => '/profile', 'as' => 'profile.'], function() {
     Route::get('/{user}', [HomeController::class, 'showProfile'])->name('show');
     Route::post('/update', [HomeController::class, 'updateProfile'])->name('update');
 });
+
 
 Route::group(
     [
@@ -79,6 +83,11 @@ Route::group(
         Route::post('/add/clientinfo', [LandlordListingController::class, 'submitClientgroupInfo'])->name('add.submit_client_info');
         Route::post('/add/listingdocuments', [LandlordListingController::class, 'submitListingDocuments'])->name('add.submit_documents');
         Route::post('/add/listingimages', [LandlordListingController::class, 'submitListingImages'])->name('add.submit_images');
+        Route::post('/update/basicinfo', [LandlordListingController::class, 'updateBasicInfo'])->name('update.basic_info');
+        Route::post('/update/clientinfo', [LandlordListingController::class, 'updateClientGroupInfo'])->name('update.client_info');
+        Route::post('/update/documents', [LandlordListingController::class, 'updateListingDocuments'])->name('update.documents');
+        Route::get('/delete/images/{id}', [LandlordListingController::class, 'deleteAllImages'])->name('delete.images');
+        Route::post('/update/images', [LandlordListingController::class, 'updateListingImages'])->name('update.images');
         Route::delete('/{listing}/delete', [LandlordListingController::class, 'deleteListing'])->name('delete');
         Route::get('/bookings/{listing}', [LandlordListingController::class, 'viewListingBookings'])->name('bookings.all');
         Route::get('/inquiries/{listing}', [LandlordListingController::class, 'viewListingInquiries'])->name('inquiries.all');
@@ -86,6 +95,7 @@ Route::group(
         Route::get('/referee/pdf/{refereeData}', [RefereeDataController::class, 'getPdf'])->name('referee.pdf');
         Route::delete('/{listing}/delete-image', [LandlordListingController::class, 'deleteRemovedImage'])->name('images.delete');
         Route::post('/booking/check', [LandlordListingController::class, 'checkBookingStatus'])->name('booking.check');
+        Route::get('/cancel/{id?}', [LandlordListingController::class, 'cancelListingAddition'])->name('addition.cancel');
         Route::get('/booking/{user_id}/{referee_id}/{listing_id}/delete', [LandlordListingController::class, 'deleteBooking'])->name('booking.delete');
     }
 );
@@ -120,6 +130,7 @@ Route::prefix('/referral')->group(function () {
     Route::post('/risk-assessment/submit', [RefereeDataController::class, 'submitRiskAssessment'])->name('risk-assessment-form.submit');
     Route::post('/consent/submit', [RefereeDataController::class, 'submitConsentForm'])->name('consent-form.submit');
     Route::delete('/delete/{refereeData}', [RefereeDataController::class, 'deleteReferee'])->name('referee.delete');
+    Route::get('/referee/cancel/{id?}', [RefereeDataController::class, 'cancelRefereeAddition'])->name('referee.cancel');
 });
 
 // Admin routes

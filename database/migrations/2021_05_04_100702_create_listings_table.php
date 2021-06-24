@@ -11,6 +11,7 @@ class CreateListingsTable extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->string('name');
             $table->text('address');
             $table->text('postcode');
@@ -20,9 +21,9 @@ class CreateListingsTable extends Migration
             $table->integer('bathrooms');
             $table->integer('toilets');
             $table->integer('kitchen');
-            $table->json('other_rooms')->nullable();
+            $table->integer('available_rooms');
+            $table->text('other_rooms')->nullable();
             $table->json('features')->nullable();
-            $table->foreignId('user_id')->constrained();
             $table->boolean('is_available')->default(true);
             $table->string('contact_name');
             $table->string('contact_email');
