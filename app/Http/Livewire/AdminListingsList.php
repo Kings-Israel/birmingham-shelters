@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Enums\ListingStatusEnum;
 
 class AdminListingsList extends Component
 {
@@ -29,6 +30,7 @@ class AdminListingsList extends Component
     {
         $listingSearch = '%'.$this->listingSearch.'%';
         $listings = Listing::with('user')->where([
+                ['status', '!=', ListingStatusEnum::draft()],
                 ['address', 'like', $listingSearch],
             ])->orderBy('created_at', 'DESC')->paginate(10);
         return view('livewire.admin.admin-listings-list', ['listings' => $listings])->layout('layouts.admin', ['pageTitle' => "Property Listings"]);

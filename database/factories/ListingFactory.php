@@ -53,6 +53,7 @@ class ListingFactory extends Factory
             ->when($this->with_images, function (Collection $attributes) {
                 return $attributes->merge([
                     'images' => $this->setSampleImages(),
+                    'status' => ListingStatusEnum::pending()
                 ]);
             })
             ->all();
