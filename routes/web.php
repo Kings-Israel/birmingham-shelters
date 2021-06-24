@@ -80,6 +80,11 @@ Route::group(
         Route::post('/add/clientinfo', [LandlordListingController::class, 'submitClientgroupInfo'])->name('add.submit_client_info');
         Route::post('/add/listingdocuments', [LandlordListingController::class, 'submitListingDocuments'])->name('add.submit_documents');
         Route::post('/add/listingimages', [LandlordListingController::class, 'submitListingImages'])->name('add.submit_images');
+        Route::post('/update/basicinfo', [LandlordListingController::class, 'updateBasicInfo'])->name('update.basic_info');
+        Route::post('/update/clientinfo', [LandlordListingController::class, 'updateClientGroupInfo'])->name('update.client_info');
+        Route::post('/update/documents', [LandlordListingController::class, 'updateListingDocuments'])->name('update.documents');
+        Route::get('/delete/images/{id}', [LandlordListingController::class, 'deleteAllImages'])->name('delete.images');
+        Route::post('/update/images', [LandlordListingController::class, 'updateListingImages'])->name('update.images');
         Route::delete('/{listing}/delete', [LandlordListingController::class, 'deleteListing'])->name('delete');
         Route::get('/bookings/{listing}', [LandlordListingController::class, 'viewListingBookings'])->name('bookings.all');
         Route::get('/inquiries/{listing}', [LandlordListingController::class, 'viewListingInquiries'])->name('inquiries.all');
@@ -87,6 +92,7 @@ Route::group(
         Route::get('/referee/pdf/{refereeData}', [RefereeDataController::class, 'getPdf'])->name('referee.pdf');
         Route::delete('/{listing}/delete-image', [LandlordListingController::class, 'deleteRemovedImage'])->name('images.delete');
         Route::post('/booking/check', [LandlordListingController::class, 'checkBookingStatus'])->name('booking.check');
+        Route::get('/cancel/{id?}', [LandlordListingController::class, 'cancelListingAddition'])->name('addition.cancel');
         Route::get('/booking/{user_id}/{referee_id}/{listing_id}/delete', [LandlordListingController::class, 'deleteBooking'])->name('booking.delete');
     }
 );

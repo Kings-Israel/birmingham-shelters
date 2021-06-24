@@ -40,7 +40,7 @@
                             <div class="form-group col-md-4">
                                 <label>
                                     Living Rooms
-                                    <input type="number" name="living_rooms" class="form-control" min="0" value="{{ old('living_rooms') }}" required>
+                                    <input type="text" name="living_rooms" class="form-control" min="0" value="{{ old('living_rooms') }}" required>
                                 </label>
                                 <x-input-error for="living_rooms" />
                             </div>
@@ -48,7 +48,7 @@
                             <div class="form-group col-md-4">
                                 <label>
                                     Bedrooms
-                                    <input type="number" name="bedrooms" class="form-control" min="0" value="{{ old('bedrooms') }}" required>
+                                    <input type="text" name="bedrooms" class="form-control" min="0" value="{{ old('bedrooms') }}" required>
                                 </label>
                                 <x-input-error for="bedrooms" />
                             </div>
@@ -56,7 +56,7 @@
                             <div class="form-group col-md-4">
                                 <label>
                                     Bathrooms
-                                    <input type="number" name="bathrooms" class="form-control" min="0" value="{{ old('bathrooms') }}" required>
+                                    <input type="text" name="bathrooms" class="form-control" min="0" value="{{ old('bathrooms') }}" required>
                                 </label>
                                 <x-input-error for="bathrooms" />
                             </div>
@@ -68,7 +68,7 @@
                             <div class="form-group col-md-4">
                                 <label>
                                     Toilets
-                                    <input type="number" name="toilets" class="form-control" min="0" value="{{ old('toilets') }}" required>
+                                    <input type="text" name="toilets" class="form-control" min="0" value="{{ old('toilets') }}" required>
                                 </label>
                                 <x-input-error for="toilets" />
                             </div>
@@ -76,7 +76,7 @@
                             <div class="form-group col-md-4">
                                 <label>
                                     Kitchens
-                                    <input type="number" name="kitchen" class="form-control" min="0" value="{{ old('kitchen') }}" required>
+                                    <input type="text" name="kitchen" class="form-control" min="0" value="{{ old('kitchen') }}" required>
                                 </label>
                                 <x-input-error for="kitchen" />
                             </div>
@@ -84,7 +84,7 @@
                             <div class="form-group col-md-4">
                                 <label>
                                     Available Rooms
-                                    <input type="number" name="available_rooms" class="form-control" min="1" value="{{ old('available_rooms') }}" required>
+                                    <input type="text" name="available_rooms" class="form-control" min="1" value="{{ old('available_rooms') }}" required>
                                 </label>
                                 <x-input-error for="available_rooms" />
                             </div>
@@ -148,7 +148,12 @@
                 </div>
             </div>
             <div class="listing-submit-button">
-                @include('partials.listing-buttons')
+                <div class="form-group col-lg-12 col-md-12" id="listing-buttons">
+                    <a href="{{ route('listing.addition.cancel', $id ?? '') }}" class="btn btn-md btn-outline-theme">
+                        Cancel
+                    </a>
+                    <button class="btn btn-theme-light-2 rounded" type="submit">Submit</button>
+                </div>
             </div>
         </div>
     </form>

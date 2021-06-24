@@ -25,12 +25,7 @@
                                 Available Rooms: <strong>{{ $listing->available_rooms }}</strong>
                             </div>
                             <div class="user_dashboard_listed">
-                                Status:
-                                @if ($listing->verified_at == null)
-                                    <strong> Not Verified </strong>
-                                @else
-                                    <strong>Verified</strong>
-                                @endif
+                                Status: {{ $listing->status }}
                             </div>
                             <div class="action">
                                 <a href="JavaScript:Void(0);" data-bs-toggle="modal"

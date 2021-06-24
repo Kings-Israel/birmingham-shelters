@@ -43,6 +43,8 @@ class LandlordListingController extends Controller
 
     public function viewListing(Listing $listing)
     {
+        $supported_groups = $this->clientInfo($listing->id)->supported_groups;
+
         $listing->loadCount(['inquiry' => function($query) {
             $query->where('read_at', null);
         }]);
@@ -51,7 +53,14 @@ class LandlordListingController extends Controller
             $query->where('status', BookingStatusEnum::pending()->value);
         }]);
 
-        return view('landlord.listing.show-listing')->with('listing', $listing);
+        return view('landlord.listing.show-listing')->with(
+            [
+                'listing' => $listing, 
+                'supported_groups' => $supported_groups,
+                'listing_document_types' => ListingDocumentTypesEnum::toArray(),
+                'proofs' => ListingProofsEnum::toArray()
+            ]
+        );
     }
 
     public function viewListingBookings(Listing $listing)
@@ -173,15 +182,42 @@ class LandlordListingController extends Controller
 
         $validated_data = $request->validate($rules, $messages);
 
-        if (isset($validated_data['other_rooms'])) {
-            $validated_data['other_rooms'] = collect(explode(',', $validated_data['other_rooms']))
-                                                ->map(fn ($value) => trim($value))
-                                                ->all();
-        }
-
         $listing = Auth::user()->listings()->create($validated_data);
 
         return redirect()->route('listing.add.client_info', $listing->id);
+    }
+
+    public function updateBasicInfo(Request $request)
+    {
+        $rules = [
+            'name' => 'required|string',
+            'address' => 'required',
+            'postcode' => 'required',
+            'description' => 'required',
+            'living_rooms' => 'required|numeric',
+            'bedrooms' => 'required|numeric',
+            'bathrooms' => 'required|numeric',
+            'available_rooms' => 'required|numeric',
+            'toilets' => 'required|numeric',
+            'kitchen' => 'required|numeric',
+            'contact_name' => 'required|string',
+            'contact_email' => 'required|email',
+            'contact_number' => ['nullable', new PhoneNumber],
+            'other_rooms' => 'nullable|string',
+            'features' => 'sometimes|array'
+        ];
+
+        $messages = [
+            'numeric' => 'The input in this field must be a number'
+        ];
+
+        $validated_data = $request->validate($rules, $messages);
+
+        $listing = Listing::where('id', $request->listing_id)->update($validated_data);
+
+        if($listing) {
+            return response()->json("success");
+        }
     }
 
     private function _checkOtherClientGroup(Request $request, string $value)
@@ -232,6 +268,43 @@ class LandlordListingController extends Controller
         return redirect()->route('listing.add.listing_documents', $request->listing_id);
     }
 
+    public function updateClientGroupInfo(Request $request) 
+    {
+        $rules = [
+            'supported_groups' => ['required', 'array', 'min:1'],
+            'other_supported_groups' => ''.($this->_checkOtherClientGroup($request, 'Other') ? 'required' : '').'',
+            'support_description' => 'required|string',
+            'support_hours' => 'required|numeric'
+        ];
+
+        $message = [
+            'supported_groups.required' => 'Please pick at least one option.',
+            'string' => 'The input value must be text.',
+            'numeric' => 'The input value must be a number.'
+        ];
+
+        $validated = Validator::make($request->all(), $rules, $message)->validate();
+
+        $update_data = collect($validated)
+            ->when($request->filled('other_supported_groups'), function (Collection $collection) {
+                $collection['supported_groups'] = collect($collection['supported_groups'])
+                            ->reject(fn ($value) => $value === 'Other')
+                            ->merge(
+                                collect(explode(',', $collection['other_supported_groups']))->map(fn ($value) => trim($value))
+                            )->all();
+                return $collection;
+            })
+            ->except('listing_id')
+            ->all();
+            $update_data = collect($update_data)->except('other_supported_groups')->toArray();
+
+        $listing = Listing::whereId($request->listing_id)->update($update_data);
+
+        if($listing) {
+            return response()->json("success");
+        }
+    }
+
     public function submitListingDocuments(Request $request)
     {
         $this->authorize('update', Listing::findOrFail($request->listing_id));
@@ -252,7 +325,7 @@ class LandlordListingController extends Controller
             'listing_documents.*.mimes' => 'Only PDFs are accepted.',
             'expiry_dates.*.required' => 'An expiry date is required',
         ];
-        
+
         $validated = $request->validate($rules, $messages);
         foreach ($validated['listing_documents'] as $document_type => $file) {
             ListingDocument::create([
@@ -267,7 +340,56 @@ class LandlordListingController extends Controller
             Listing::whereId($request->listing_id)->update(['proofs' => array_keys($input)]);
         });
 
+        if(!$request->has('proof')) {
+            Listing::whereId($request->listing_id)->update(['proofs' => []]);
+        }
+
+        
         return redirect()->route('listing.add.listing_images', $request->listing_id);
+
+    }
+
+    public function updateListingDocuments(Request $request)
+    {   
+        $document = ListingDocument::where('listing_id', $request->listing_id)->get();
+        $document->each(fn (ListingDocument $document) => $document->delete());
+        $rules = [
+            'listing_id' => ['required', 'integer'],
+            'listing_documents' => ['required', 'array', 'size:'.count(ListingDocumentTypesEnum::toArray())],
+            'listing_documents.*' => ['required', 'mimes:pdf'],
+            'expiry_dates' => ['required', 'array'],
+            'expiry_dates.*' => ['required', 'date'],
+            'proof' => ['sometimes', 'array'],
+        ];
+
+        $messages = [
+            'listing_documents.required' => 'Please upload all required documents.',
+            'listing_documents.*.required' => 'Please upload all documents',
+            'listing_documents.size' => 'Please upload all required documents.',
+            'listing_documents.*.mimes' => 'Only PDFs are accepted.',
+            'expiry_dates.*.required' => 'An expiry date is required',
+        ];
+        
+        $validated = $request->validate($rules, $messages);
+
+        foreach ($validated['listing_documents'] as $document_type => $file) {
+            ListingDocument::create([
+                'listing_id' => $validated['listing_id'],
+                'document_type' => $document_type,
+                'filename' => pathinfo($file->store('documents', 'listing'), PATHINFO_BASENAME),
+                'expiry_date' => $validated['expiry_dates'][$document_type],
+            ]);
+        }
+
+        $request->whenFilled('proof', function ($input) use ($request) {
+            Listing::whereId($request->listing_id)->update(['proofs' => array_keys($input)]);
+        });
+
+        if(!$request->has('proof')) {
+            Listing::whereId($request->listing_id)->update(['proofs' => []]);
+        }
+
+        return redirect()->back()->with('success', 'Documents Updated');
     }
 
     public function submitListingImages(Request $request)
@@ -280,12 +402,26 @@ class LandlordListingController extends Controller
             $filename = pathinfo($request->file('file')->store('images', 'listing'), PATHINFO_BASENAME)
         );
 
+        $listing->status = ListingStatusEnum::pending();
+
         $listing->save();
 
         return response()->json([
             'listingId' => $listing->id,
             'filename' => $filename,
         ]);
+    }
+
+    public function deleteAllImages($id)
+    {
+        // Get images and delete from disk
+        $listing = Listing::where('id', $id)->get();
+        $listing_images = $listing->first()->images;
+        $listing_images->each(fn ($image) => Storage::disk('listing')->delete('images/'.$image));
+        $listing->first()->images = [];
+        $listing->first()->status = ListingStatusEnum::draft();
+        $listing->first()->save();
+        return redirect()->back()->with('success', 'All images are deleted');
     }
 
     public function deleteRemovedImage(Listing $listing)
@@ -313,6 +449,26 @@ class LandlordListingController extends Controller
         $listing->delete();
 
         return redirect()->route('listing.view.all')->with('success', 'Listing has been deleted successfully');
+    }
+
+    public function cancelListingAddition($id = null)
+    {
+        $user_type = Auth::user()->user_type;
+        if($id == null) {
+            return redirect()->route('listing.view.all');
+        }
+
+        if (ListingDocument::where('listing_id', $id)->exists()) {
+            $listing_documents = ListingDocument::where('listing_id', $id)->get();
+            $listing_documents->each(fn (ListingDocument $document) => $document->delete());
+        }
+
+        if(Listing::where('id', $id)->delete()) {
+            return redirect()->route('listing.view.all');
+        } else {
+            return redirect()->back()->withError('An error occurred. Please try again');
+        }
+
     }
 
     public function checkBookingStatus(Request $request)

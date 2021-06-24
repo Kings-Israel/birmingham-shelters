@@ -37,7 +37,7 @@ class ListingFactory extends Factory
                     'toilets' => $this->faker->numberBetween(1, 3),
                     'kitchen' => $this->faker->numberBetween(1, 3),
                     'features' => $this->getFeatures(),
-                    'other_rooms' => [],
+                    'other_rooms' => 'Home Office',
                     'contact_name' => $this->faker->name(),
                     'contact_email' => $this->faker->freeEmail(),
                     'contact_number' => $this->faker->unique()->regexify('44\d{10}'),
