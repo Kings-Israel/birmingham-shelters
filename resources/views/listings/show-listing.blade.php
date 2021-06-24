@@ -114,12 +114,10 @@
                                     <li><strong>Kitchen:</strong>{{ $listing->kitchen }}</li>
                                 </ul>
                                 <br>
-                                @if (count($listing->other_rooms) != 0 || $listing->other_rooms != null)
+                                @if ($listing->other_rooms != null)
                                     <h5 class="property_block_title">Other Rooms</h5>
                                     <ul class="deatil_features">
-                                        @foreach ($listing->other_rooms as $room)
-                                            <li><strong>{{ $room }}</strong></li>
-                                        @endforeach
+                                        {{ $listing->other_rooms }}
                                     </ul>
                                 @endif
                             </div>

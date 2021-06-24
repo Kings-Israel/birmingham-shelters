@@ -11,6 +11,7 @@
                             <td>Phone Number</td>
                             <td>Registration Date</td>
                             <td>Bookings Made</td>
+                            <td>Delete User</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -21,6 +22,11 @@
                             <td>{{ $user->phone_number }}</td>
                             <td><strong>{{ $user->created_at->format('d-m-Y') }}</strong></td>
                             <td>{{ count($user->bookings) }}</td>
+                            <td>
+                                <button wire:click="deleteUser({{ $user }})" class="btn btn-primary btn-sm">
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

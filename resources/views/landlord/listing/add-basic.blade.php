@@ -40,7 +40,7 @@
                             <div class="form-group col-md-4">
                                 <label>
                                     Living Rooms
-                                    <input type="text" name="living_rooms" class="form-control" min="0" value="{{ old('living_rooms') }}" required>
+                                    <input type="text" name="living_rooms" class="form-control" autocomplete="off" min="0" value="{{ old('living_rooms') }}" required>
                                 </label>
                                 <x-input-error for="living_rooms" />
                             </div>
@@ -48,7 +48,7 @@
                             <div class="form-group col-md-4">
                                 <label>
                                     Bedrooms
-                                    <input type="text" name="bedrooms" class="form-control" min="0" value="{{ old('bedrooms') }}" required>
+                                    <input type="text" name="bedrooms" class="form-control" autocomplete="off" min="0" value="{{ old('bedrooms') }}" required>
                                 </label>
                                 <x-input-error for="bedrooms" />
                             </div>
@@ -56,7 +56,7 @@
                             <div class="form-group col-md-4">
                                 <label>
                                     Bathrooms
-                                    <input type="text" name="bathrooms" class="form-control" min="0" value="{{ old('bathrooms') }}" required>
+                                    <input type="text" name="bathrooms" class="form-control" autocomplete="off" min="0" value="{{ old('bathrooms') }}" required>
                                 </label>
                                 <x-input-error for="bathrooms" />
                             </div>
@@ -68,7 +68,7 @@
                             <div class="form-group col-md-4">
                                 <label>
                                     Toilets
-                                    <input type="text" name="toilets" class="form-control" min="0" value="{{ old('toilets') }}" required>
+                                    <input type="text" name="toilets" class="form-control" autocomplete="off" min="0" value="{{ old('toilets') }}" required>
                                 </label>
                                 <x-input-error for="toilets" />
                             </div>
@@ -76,7 +76,7 @@
                             <div class="form-group col-md-4">
                                 <label>
                                     Kitchens
-                                    <input type="text" name="kitchen" class="form-control" min="0" value="{{ old('kitchen') }}" required>
+                                    <input type="text" name="kitchen" class="form-control" autocomplete="off" min="0" value="{{ old('kitchen') }}" required>
                                 </label>
                                 <x-input-error for="kitchen" />
                             </div>
@@ -84,7 +84,7 @@
                             <div class="form-group col-md-4">
                                 <label>
                                     Available Rooms
-                                    <input type="text" name="available_rooms" class="form-control" min="1" value="{{ old('available_rooms') }}" required>
+                                    <input type="text" name="available_rooms" class="form-control" autocomplete="off" min="1" value="{{ old('available_rooms') }}" required>
                                 </label>
                                 <x-input-error for="available_rooms" />
                             </div>

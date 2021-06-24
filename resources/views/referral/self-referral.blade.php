@@ -59,12 +59,12 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="file-upload">
-                                        <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Profile Image</button>
+                                        <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Profile Image(Optional)</button>
                                       
                                         <div class="image-upload-wrap">
                                           <input class="file-upload-input" type='file' name="applicant_image" onchange="readURL(this);" accept="image/*" />
                                           <div class="drag-text">
-                                            <h3>Drag and drop a file or select add Profile Image</h3>
+                                            <h3>Drag and drop a file or select add Profile Image(Optional)</h3>
                                           </div>
                                         </div>
                                         <div class="file-upload-content">

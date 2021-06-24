@@ -6,6 +6,7 @@ use App\Enums\ListingDocumentTypesEnum;
 use App\Enums\ListingProofsEnum;
 use App\Enums\BookingStatusEnum;
 use App\Enums\InvoiceTypeEnum;
+use App\Enums\ListingStatusEnum;
 use App\Models\Listing;
 use App\Models\ListingInquiry;
 use App\Models\RefereeData;
@@ -440,11 +441,15 @@ class LandlordListingController extends Controller
     {
         $this->authorize('delete', $listing);
 
-        $listing->load(['documents', 'bookings']);
+        $listing->load(['documents', 'bookings', 'inquiry' , 'listingFeedback']);
 
         $listing->documents->each(fn (ListingDocument $document) => $document->delete());
 
         $listing->bookings()->delete();
+
+        $listing->inquiry()->delete();
+
+        $listing->listingFeedback()->delete();
 
         $listing->delete();
 

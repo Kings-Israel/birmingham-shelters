@@ -25,7 +25,10 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'index')->name('home');
 Route::view('/contact', 'pages.contact');
 Route::view('/about', 'pages.about');
+Route::view('/faq', 'pages.faq');
 Route::view('/privacy', 'pages.privacy-policy');
+Route::view('/get-involved', 'pages.get-involved');
+
 Route::view('/inquiry-template', 'landlord.inquiry-reply-template');
 
 Auth::routes(['verify' => true]);

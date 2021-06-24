@@ -11,6 +11,7 @@
                             <td>Phone Number</td>
                             <td>Registration Date</td>
                             <td>Number of Listings</td>
+                            <td>Delete Landlord</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -21,6 +22,11 @@
                             <td>{{ $landlord->phone_number }}</td>
                             <td><strong>{{ $landlord->created_at->format('d-m-Y') }}</strong></td>
                             <td>{{ count($landlord->listings) }}</td>
+                            <td>
+                                <button wire:click="deleteUser({{ $landlord }})" class="btn btn-primary btn-sm">
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
