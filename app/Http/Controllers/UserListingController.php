@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Validator;
 
 class UserListingController extends Controller
 {
+
+    public function listing(Listing $listing)
+    {
+        return view('listings.show-listing', [
+            'listing' => $listing->load('bookings')
+        ]);
+    }
+
     public function submitBooking(Request $request)
     {
         if(Booking::create($request->all())) {
