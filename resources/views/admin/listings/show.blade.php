@@ -46,6 +46,7 @@
                                 <ul class="deatil_features">
                                     <li><strong>Living Rooms:</strong>{{ $listing->living_rooms }}</li>
                                     <li><strong>Available Rooms:</strong>{{ $listing->available_rooms }}</li>
+                                    <li><strong>Occupied Rooms:</strong>{{ $listing->occupied_rooms }}</li>
                                     <li><strong>Bedrooms:</strong>{{ $listing->bedrooms }}</li>
                                     <li><strong>Bathrooms:</strong>{{ $listing->bathrooms }}</li>
                                     <li><strong>Toilets:</strong>{{ $listing->toilets }}</li>

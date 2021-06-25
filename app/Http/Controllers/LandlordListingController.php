@@ -509,4 +509,9 @@ class LandlordListingController extends Controller
             return redirect()->route('invoice.checkout.page', $invoice->id);
         }
     }
+
+    public function createSponsoredListing(Request $request)
+    {
+        
+    }
 }

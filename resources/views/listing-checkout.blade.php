@@ -38,12 +38,11 @@
                     </div>
                 </div>
             </div>
-            <a href="{{ route('listing.bookings.all', $invoice->invoiceable->listing_id) }}">
-                <button class="btn btn-theme-light-2 rounded">Back to Bookings</button>
-            </a>
+            {{-- Return to Listing --}}
             <a href="{{ route('listing.view.all') }}">
-                <button class="btn btn-theme-light-2 rounded">Back to My Properties</button>
+                <button class="btn btn-theme-light-2 rounded">Back to Listing</button>
             </a>
+            {{-- Download PDF --}}
             <a href="{{ route('invoice.download', $invoice->id) }}">
                 <button class="btn btn-theme-light-2 rounded">Download PDF</button>
             </a>

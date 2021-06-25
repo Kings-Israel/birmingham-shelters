@@ -9,6 +9,7 @@ use App\PaymentGateway;
 use Braintree\Transaction;
 use App\Enums\BookingStatusEnum;
 use App\Jobs\SendInquiryEmailReply;
+use PDF;
 
 class CheckoutController extends Controller
 {
@@ -58,6 +59,7 @@ class CheckoutController extends Controller
         if ($listing->available_rooms == 0) {
             $listing->is_available = false;
         }
+        $listing->occupied_rooms += 1;
         $listing->save();
 
         // Send email to user with approval message
@@ -82,5 +84,11 @@ class CheckoutController extends Controller
         } else {
             return redirect()->back()->withError('An error occurred during cancellation. Please try again.');
         }
+    }
+
+    public function downloadPdf(Invoice $invoice)
+    {
+        $pdf = PDF::loadView('invoice.invoice-pdf', ['invoice' => $invoice]);
+        return $pdf->download($invoice->payment->transaction_id.'.pdf');
     }
 }

@@ -182,4 +182,5 @@ Route::group(['middleware' => ['auth', 'verified'], 'as' => 'invoice.'], functio
     Route::get('invoices/{invoice}/checkout', [CheckoutController::class, 'show'])->name('checkout.page');
     Route::post('invoices/{invoice}/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::get('invoices/{invoice}/cancel', [CheckoutController::class, 'cancelPayment'])->name('cancel');
+    Route::get('invoice/{invoice}/download', [CheckoutController::class, 'downloadPdf'])->name('download');
 });

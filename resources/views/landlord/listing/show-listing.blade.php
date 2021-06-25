@@ -54,6 +54,7 @@
                             <li><strong>Toilets:</strong>{{ $listing->toilets }}</li>
                             <li><strong>Kitchen:</strong>{{ $listing->kitchen }}</li>
                             <li><strong>Available Rooms:</strong>{{ $listing->available_rooms }}</li>
+                            <li><strong>Occupied Rooms:</strong>{{ $listing->occupied_rooms }}</li>
                         </ul>
                         @if ($listing->other_rooms != null)
                             <h6 class="property_block_title">Other Rooms:</h6>
