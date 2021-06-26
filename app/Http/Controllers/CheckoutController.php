@@ -8,7 +8,7 @@ use App\Models\Booking;
 use App\PaymentGateway;
 use Braintree\Transaction;
 use App\Enums\BookingStatusEnum;
-use App\Jobs\SendInquiryEmailReply;
+use App\Jobs\SendBookingApprovalMail;
 use Carbon\Carbon;
 use App\Enums\InvoiceTypeEnum;
 use PDF;
@@ -69,9 +69,9 @@ class CheckoutController extends Controller
             $data = [
                 'email' => $booking->user->email,
                 'subject' => 'Approval of Application for listing '.$booking->listing->name,
-                'content' => 'We are hereby glad to inform you that you have been approved to occupy the listing as stated above.\n Please make contact with '.$booking->listing->contact_name.' through the details: Email: '.$booking->listing->contact_email.' or Phone Number: '.$booking->listing->contact_phone_number.' for further instructions', 
+                'content' => 'We are hereby glad to inform you that you have been approved to occupy the listing as stated above. Please make contact with '.$booking->listing->contact_name.' through the details: Email: '.$booking->listing->contact_email.' or Phone Number: '.$booking->listing->contact_phone_number.' for further instructions', 
             ];
-            dispatch(new SendInquiryEmailReply($data['email'], $data['subject'], $data['content']));
+            SendBookingApprovalMail::dispatch($data['email'], $data['subject'], $data['content']);
     
             return back()->with(['success' => "Invoice has been settled successfully.", "invoice" => $invoice, "listing" => $listing->id]);
             

@@ -29,7 +29,7 @@
                                     Bookings: <strong>{{ $listing->bookings_count }}</strong>
                                 </div>
                                 <div class="user_dashboard_listed">
-                                    Bookings: <strong>{{ $listing->bookings_count }}</strong>
+                                    Inquiries: <strong>{{ $listing->inquiry_count }}</strong>
                                 </div>
                                 <div class="user_dashboard_listed">
                                     Occupied Rooms: <strong>{{ $listing->occupied_rooms }}</strong>

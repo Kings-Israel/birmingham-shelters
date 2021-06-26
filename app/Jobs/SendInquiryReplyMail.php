@@ -9,10 +9,13 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\Inquiry;
 
-class SendInquiryEmailReply implements ShouldQueue
+class SendInquiryReplyMail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    protected $inquiry;
     protected $email;
     protected $subject;
     protected $content;
@@ -22,8 +25,9 @@ class SendInquiryEmailReply implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($email, $subject, $content)
+    public function __construct($inquiry, $email, $subject, $content)
     {
+        $this->inquiry = $inquiry;
         $this->email = $email;
         $this->subject = $subject;
         $this->content = $content;
@@ -36,16 +40,6 @@ class SendInquiryEmailReply implements ShouldQueue
      */
     public function handle()
     {
-        $data = [
-            'email' => $this->email,
-            'subject' => $this->subject,
-            'content' => $this->content,
-        ];
-
-        Mail::send('landlord.inquiry-reply-template', $data, function ($message) use ($data) {
-            $message->to($this->email);
-            $message->replyTo($this->email);
-            $message->subject($this->subject);
-        });
+        Mail::to($this->email)->send(new Inquiry($this->inquiry, $this->subject, $this->content));
     }
 }

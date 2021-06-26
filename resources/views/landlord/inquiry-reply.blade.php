@@ -7,12 +7,15 @@
                     <a href="{{ route('listing.inquiries.all', $listingInquiry->listing->id) }}">
                         <i class="ti-angle-left"></i> 
                     </a>
-                    Inquiry Email Reply:
+                    Inquiry Through Mail:
                 </h4>
             </a>
         </div>
         <div id="clTwo" class="panel-collapse collapse show" aria-expanded="true">
             <div class="block-body">
+                <h4>Inquiry:</h4>
+                <p>{{ $listingInquiry->listing_message }}</p>
+                <h4>Response:</h4>
                 <form action="{{ route('listing.submit.email.reply') }}" method="post">
                     @csrf
                     <input type="hidden" name="inquiry_id" value="{{ $listingInquiry->id }}">

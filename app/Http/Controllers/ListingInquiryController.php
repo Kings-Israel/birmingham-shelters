@@ -8,7 +8,7 @@ use App\Models\Listing;
 use App\Models\UserMetadata;
 use App\Models\ListingInquiry;
 use Illuminate\Support\Facades\Validator;
-use App\Jobs\SendInquiryEmailReply;
+use App\Jobs\SendInquiryReplyMail;
 
 class ListingInquiryController extends Controller
 {
@@ -78,17 +78,19 @@ class ListingInquiryController extends Controller
             'inquiry_reply_email.email' => 'Please enter a valid email'
         ];
 
-        Validator::make($request->all(), $rules, $messages);
-
-        $data = [
-            'email' => $request->inquiry_reply_email,
-            'subject' => $request->inquiry_reply_subject,
-            'content' => $request->inquiry_reply
-        ];
-
-        dispatch(new SendInquiryEmailReply($data['email'], $data['subject'], $data['content']));
+        Validator::make($request->all(), $rules, $messages)->validate();
 
         $listingInquiry = ListingInquiry::find($request->inquiry_id);
+
+        $data = [
+            'inquiry' => $listingInquiry->listing_message,
+            'reply_email' => $request->inquiry_reply_email,
+            'subject' => $request->inquiry_reply_subject,
+            'content' => $request->inquiry_reply_content,
+        ];
+
+        SendInquiryReplyMail::dispatch($data['inquiry'], $data['reply_email'], $data['subject'], $data['content']);
+
         $listingInquiry->read_at = now();
 
         if ($listingInquiry->save()) {
