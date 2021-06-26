@@ -9,16 +9,18 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
-        "barryvdh/laravel-snappy": "^0.4.8",
+        "barryvdh/laravel-dompdf": "^0.9.0",
         "braintree/braintree_php": "^6.2",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "h4cc/wkhtmltopdf-amd64": "0.12.x",
+        "infobip/infobip-api-php-client": "2.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "livewire/livewire": "^2.4",
+        "pnlinh/laravel-infobip-sms": "^1.0",
         "spatie/laravel-enum": "^2.5"
     },
     "require-dev": {

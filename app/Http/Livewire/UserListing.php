@@ -9,6 +9,9 @@ use App\Enums\ListingStatusEnum;
 
 class UserListing extends Component
 {
+    use WithPagination;
+
+    protected $paginationTheme = 'bootstrap';
 
     public $listingSearch;
 
@@ -19,7 +22,7 @@ class UserListing extends Component
                 ['is_available', '=', true],
                 ['status', '!=', ListingStatusEnum::draft()],
                 ['address', 'like', $listingSearch]
-            ])->orderBy('created_at', 'DESC')->get();
+            ])->orderBy('is_sponsored', 'DESC')->inRandomOrder()->paginate(25);
         return view('livewire.user-listing', ['listings' => $listings])->layout('layouts.app', ['pageTitle' => "Listings"]);
     }
 }

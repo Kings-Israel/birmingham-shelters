@@ -95,6 +95,7 @@ Route::group(
         Route::get('/referee/pdf/{refereeData}', [RefereeDataController::class, 'getPdf'])->name('referee.pdf');
         Route::delete('/{listing}/delete-image', [LandlordListingController::class, 'deleteRemovedImage'])->name('images.delete');
         Route::post('/booking/check', [LandlordListingController::class, 'checkBookingStatus'])->name('booking.check');
+        Route::post('/sponsored', [LandlordListingController::class, 'createSponsoredListing'])->name('sponsored');
         Route::get('/cancel/{id?}', [LandlordListingController::class, 'cancelListingAddition'])->name('addition.cancel');
         Route::get('/booking/{user_id}/{referee_id}/{listing_id}/delete', [LandlordListingController::class, 'deleteBooking'])->name('booking.delete');
     }
@@ -182,4 +183,5 @@ Route::group(['middleware' => ['auth', 'verified'], 'as' => 'invoice.'], functio
     Route::get('invoices/{invoice}/checkout', [CheckoutController::class, 'show'])->name('checkout.page');
     Route::post('invoices/{invoice}/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::get('invoices/{invoice}/cancel', [CheckoutController::class, 'cancelPayment'])->name('cancel');
+    Route::get('invoice/{invoice}/download', [CheckoutController::class, 'downloadPdf'])->name('download');
 });

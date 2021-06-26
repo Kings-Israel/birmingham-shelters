@@ -4,30 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
     <title>{{ $referee->applicant_name }}</title>
 </head>
 <body>
 <div class="container">
+    {{-- <img src="/opt/lampp/htdocs/projects/laravel/birmingham/public/storage/referee/image/{{ $referee->applicant_image }}" alt=""> --}}
     <h1> {{ $referee->applicant_name }}</h1>
     <div class="row">
-        <div class="col-4">
-            <h6>Email: <strong>{{ $referee->applicant_email }}</strong></h6>
-            <h6>Phone Number: <strong>{{ $referee->applicant_phone_number }}</strong></h6>
-            <h6>National Insurance Number: <strong>{{ $referee->applicant_ni_number }}</strong></h6>
-        </div>
-        <div class="col-4">
-            <h6>Gender: <strong>{{ $referee->applicant_gender }}</strong></h6>
-            <h6>Current Address: <strong>{{ $referee->applicant_current_address }}</strong></h6>
-        </div>
-        <div class="col-4">
-            <h6>Date Of Birth: <strong>{{ $referee->applicant_date_of_birth }}</strong></h6>
-            <h6>Sexual Orientation: <strong>{{ $referee->applicant_sexual_orientation }}</strong></h6>
-            <h6>Ethnicity: <strong>{{ $referee->applicant_ethnicity }}</strong></h6>
-        </div>
+        <div class="col-4">Email: <strong>{{ $referee->applicant_email }}</strong></div>
+        <div class="col-4">Phone Number: <strong>{{ $referee->applicant_phone_number }}</strong></div>
+        <div class="col-4">National Insurance Number: <strong>{{ $referee->applicant_ni_number }}</strong></div>
     </div>
+    <div class="row">
+        <div class="col-4">Gender: <strong>{{ $referee->applicant_gender }}</strong></div>
+        <div class="col-4">Date of Birth: <strong>{{ $referee->applicant_date_of_birth }}</strong></div>
+        <div class="col-4">Current Address: <strong>{{ $referee->applicant_current_address }}</strong></div>
+    </div>
+
+    Sexual Orientation: <strong>{{ $referee->applicant_sexual_orientation }}</strong><br>
+    Ethnicity: <strong>{{ $referee->applicant_ethnicity }}</strong>
     <hr>
-    <h5>Referral Type: <strong>{{ $referee->referral_type }}</strong></h5>
+    <h4>Referral Type: <strong>{{ $referee->referral_type }}</strong></h4>
     @if ($referee->referral_type == 'Agency Referral')
         <div class="row">
             <div class="col-4">Referrer Name: <strong>{{ $referee->referrer_name }}</strong></div>
@@ -47,30 +44,29 @@
         <div class="col-3">Phone Number: <strong>{{ $referee->applicant_kin_phone_number }}</strong></div>
     </div>
     <hr>
+    
     <h4>Address Information</h4>
-    <div class="row">
-        <div class="col-2"><strong>Address</strong></div>
-        <div class="col-2"><strong>Move In</strong></div>
-        <div class="col-2"><strong>Move Out</strong></div>
-        <div class="col-6"><strong>Reason For Leaving</strong></div>
-    </div>
-    @foreach ($address_info as $info)
-    <div class="row">
-        <div class="col-2">
-            {{ $info->address }}
-        </div>
-        <div class="col-2">
-            {{ $info->moved_in }}
-        </div>
-        <div class="col-2">
-            {{ $info->moved_out }}
-        </div>
-        <div class="col-6">
-            {{ $info->reason_for_leaving }}
-        </div>
-    </div>
-    <hr>
-    @endforeach
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>Address</td>
+                <td>Moved In</td>
+                <td>Moved Out</td>
+                <td>Reason For Leaving</td>
+            </tr>
+        </thead>
+        <hr>
+        <tbody>
+            @foreach ($address_info as $info)
+                <tr>
+                    <td><strong>{{ $info->address }}</strong></td>
+                    <td>{{ $info->moved_in }}</td>
+                    <td><strong>{{ $info->moved_out }}</strong></td>
+                    <td>{{ $info->reason_for_leaving }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 
     <h4>Health Information</h4>
     <table class="table table-bordered">
@@ -147,7 +143,7 @@
     <h4>Income Information</h4>
     @foreach ($income_info as $income)
         <div class="block-body">
-            <h6>Source Of Income</h6>
+            <h5>Source Of Income</h5>
             <ul class="income-info">
                 @foreach ($income->source_of_income_list as $item)
                     <li class="text-capitalize">{{ $item }}</li>
@@ -187,7 +183,7 @@
             @foreach ($risk_assessment as $assessment)
                 <tr>
                     <td><strong>{{ $assessment->risk }}</strong></td>
-                    <td><strong>{{ $assessment->risk_level }}</strong></td>
+                    <td>{{ $assessment->risk_level }}</td>
                     <td><strong>{{ $assessment->risk_details }}</strong></td>
                 </tr>
             @endforeach

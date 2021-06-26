@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Payment;
 use App\Models\Booking;
 use App\Enums\BookingStatusEnum;
+use App\Enums\ListingStatusEnum;
 
 class AdminDashboardController extends Controller
 {
@@ -14,7 +15,7 @@ class AdminDashboardController extends Controller
     {
         $listings = Listing::all();
         $total_listings = count($listings);
-        $verified_listings = count($listings->where('verified_at', '!=', null));
+        $verified_listings = count($listings->where('status', '=', ListingStatusEnum::verified()));
         $occupied_listings = count($listings->where('is_available', '=', false));
         $unoccupied_listings = $total_listings - $occupied_listings;
         $bookings_total_number = 0;
