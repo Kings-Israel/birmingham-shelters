@@ -35,8 +35,7 @@
                                             <div class="listing-detail-wrapper-box">
                                                 <div class="listing-detail-wrapper">
                                                     <div class="listing-short-detail">
-                                                        {{-- TODO: Change the condition to show only when listing is verified --}}
-                                                        @if ($listing->status == "verified")
+                                                        @if ($listing->status->label == "Verified")
                                                             <img src="{{ asset('/assets/img/star.png') }}" class="img-fluid" width="20px" style="float: right;"/>
                                                         @endif
                                                         <h4 class="listing-name"><a href="{{ route('listing.one', $listing->id) }}">{{ $listing->name }}</a></h4>
@@ -58,6 +57,9 @@
                                     </div>
                                 </div>
                             @endforeach
+                            <div class="row">
+                                {{ $listings->links() }}
+                            </div>
                         @endif                        
                     </div>
                 </div>

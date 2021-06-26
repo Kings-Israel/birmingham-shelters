@@ -38,9 +38,7 @@
                     </div>
                 </div>
             </div>
-            <a href="{{ route('listing.bookings.all', $invoice->invoiceable->listing_id) }}">
-                <button class="btn btn-theme-light-2 rounded">Back to Bookings</button>
-            </a>
+            
             <a href="{{ route('listing.view.all') }}">
                 <button class="btn btn-theme-light-2 rounded">Back to My Properties</button>
             </a>

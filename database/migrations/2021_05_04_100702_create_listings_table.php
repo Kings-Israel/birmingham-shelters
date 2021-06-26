@@ -35,6 +35,7 @@ class CreateListingsTable extends Migration
             $table->integer('support_hours')->nullable();
             $table->json('proofs')->nullable();
             $table->string('status');
+            $table->date('is_sponsored')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

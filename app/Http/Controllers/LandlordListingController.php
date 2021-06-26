@@ -512,6 +512,15 @@ class LandlordListingController extends Controller
 
     public function createSponsoredListing(Request $request)
     {
+        $listing = json_decode($request->listing);
+        $listing = Listing::find($listing->id);
+        $invoice = $listing->invoices()->create([
+            'user_id' => $listing->user_id,
+            'invoice_type' => InvoiceTypeEnum::sponsored_listing(),
+            'description' => 'Make '.$listing->name.' a sponsored listing',
+            'total' => 50
+        ]);
         
+        return redirect()->route('invoice.checkout.page', $invoice->id);
     }
 }

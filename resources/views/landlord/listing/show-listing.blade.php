@@ -13,7 +13,7 @@
                             <span><i class="lni-map-marker"></i> {{ $listing->address }}, {{ $listing->postcode }}</span>
                         </div>
                         <p style="margin-bottom: 0;">
-                            Status: {{ $listing->status }}
+                            Status: {{ $listing->status->label }}
                         </p>
                         
                         <a href="{{ route('listing.bookings.all', $listing->id) }}">
@@ -22,9 +22,15 @@
                         <a href="{{ route('listing.inquiries.all', $listing->id) }}">
                             <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Inquiries ({{ $listing->inquiry_count }})</button>
                         </a>
-                        <a href="#">
-                            <button class="btn btn-theme-light-2 rounded mt-3" type="submit">Make Sponsored</button>
-                        </a>
+                        @if ($listing->is_sponsored == NULL || $listing->is_sponsored <= date('Y-m-d'))
+                            <form action="{{ route('listing.sponsored') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="listing" value="{{ $listing }}">
+                                <button class="btn btn-theme-light-2 rounded mt-3" type="submit">Make Sponsored</button>
+                            </form>
+                        @else
+                            <p>Sponsored upto {{ $listing->is_sponsored }}</p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -42,7 +48,7 @@
                 <div class="property_block_wrap_header">
                     <a data-bs-toggle="collapse" data-parent="#features" data-bs-target="#clOne" aria-controls="clOne"
                         href="javascript:void(0);" aria-expanded="false">
-                        <h4 class="property_block_title">Detail & Features</h4>
+                        <h4 class="property_block_title">Details & Features</h4>
                     </a>
                 </div>
                 <div id="clOne" class="panel-collapse collapse show" aria-labelledby="clOne" aria-expanded="true">
@@ -78,8 +84,10 @@
                 <div id="clTwo" class="panel-collapse collapse show" aria-expanded="true">
                     <div class="block-body">
                         <p>{{ $listing->description }}</p>
-                        <button class="btn btn-md btn-theme-light-2 rounded" data-bs-toggle="modal" data-bs-target="#listing-features-update" style="float: right;">Update</button>
-                        @include('partials.listing-features-update')
+                        @if ($listing->status->label != "Verified")
+                            <button class="btn btn-md btn-theme-light-2 rounded" data-bs-toggle="modal" data-bs-target="#listing-features-update" style="float: right;">Update</button>
+                            @include('partials.listing-features-update')
+                        @endif
                     </div>
                 </div>
             </div>
@@ -108,9 +116,11 @@
                     </div>
 
                     <div class="block-body">
-                        <p class="property_block_title"><strong>Client Support Hours per week:</strong> {{ $listing->support_hours }}</h6>
-                        <button class="btn btn-md btn-theme-light-2 rounded" data-bs-toggle="modal" data-bs-target="#listing-support-group-update" style="float: right;">Update</button>
-                        @include('partials.listing-support-group-update')
+                        <p class="property_block_title"><strong>Client Support Hours per week:</strong> {{ $listing->support_hours }}</p>
+                        @if ($listing->status->label != "Verified")
+                            <button class="btn btn-md btn-theme-light-2 rounded" data-bs-toggle="modal" data-bs-target="#listing-support-group-update" style="float: right;">Update</button>
+                            @include('partials.listing-support-group-update')
+                        @endif
                     </div>
                 </div>
             </div>
@@ -168,8 +178,10 @@
                 </div>
             </div>
             <div>
-                <button class="btn btn-md btn-theme-light-2 rounded" data-bs-toggle="modal" data-bs-target="#listing-documents-update" >Update Documents</button>
-                @include('partials.listing-documents-update')
+                @if ($listing->status != "Verified")
+                    <button class="btn btn-md btn-theme-light-2 rounded" data-bs-toggle="modal" data-bs-target="#listing-documents-update" >Update Documents</button>
+                    @include('partials.listing-documents-update')
+                @endif
             </div>
             <hr>
             <!-- Feedback Messages -->

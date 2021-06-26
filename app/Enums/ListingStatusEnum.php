@@ -12,4 +12,13 @@ use Spatie\Enum\Laravel\Enum;
  */
 final class ListingStatusEnum extends Enum
 {
+    protected static function labels()
+    {
+        return [
+            'draft' => 'Draft',
+            'pending' => 'Pending',
+            'verified' => 'Verified',
+            'needs_review' => 'Needs Review'
+        ];
+    }
 }

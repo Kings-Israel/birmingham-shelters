@@ -32,7 +32,7 @@
         <div class="col-lg-4 col-md-6 col-sm-12">
             <div class="dashboard-stat widget-4">
                 <div class="dashboard-stat-content">
-                    <h4>{{ $unoccupied_listings }}</h4> <span>Listings Unccupied</span>
+                    <h4>{{ $unoccupied_listings }}</h4> <span>Listings Unoccupied</span>
                 </div>
                 <div class="dashboard-stat-icon"><i class="ti-bookmark-alt"></i></div>
             </div>
