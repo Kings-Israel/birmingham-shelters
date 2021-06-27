@@ -15,7 +15,7 @@
                         <div class="sd-list-right">
                             <h4 class="listing_dashboard_title"><a href="{{ route('listing.view.one', $listing->id) }}"
                                 class="theme-cl">{{ $listing->name }}</a>
-                                @if($listing->is_sponsored != null)
+                                @if($listing->is_sponsored != null && $listing->is_sponsored > date('Y-m-d'))
                                 <span class="badge rounded-pill fw-bold text-success bg-light-success m-l-4">Sponsored</span>
                                 @endif 
                             </h4>
@@ -29,7 +29,7 @@
                                     Bookings: <strong>{{ $listing->bookings_count }}</strong>
                                 </div>
                                 <div class="user_dashboard_listed">
-                                    Bookings: <strong>{{ $listing->bookings_count }}</strong>
+                                    Inquiries: <strong>{{ $listing->inquiry_count }}</strong>
                                 </div>
                                 <div class="user_dashboard_listed">
                                     Occupied Rooms: <strong>{{ $listing->occupied_rooms }}</strong>

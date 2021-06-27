@@ -28,6 +28,7 @@ Route::view('/about', 'pages.about');
 Route::view('/faq', 'pages.faq');
 Route::view('/privacy', 'pages.privacy-policy');
 Route::view('/get-involved', 'pages.get-involved');
+Route::view('/landlord/inquiry-reply-template', 'landlord.inquiry-reply-template');
 
 Route::view('/inquiry-template', 'landlord.inquiry-reply-template');
 

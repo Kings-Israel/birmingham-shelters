@@ -91,16 +91,23 @@ class RefereeData extends Model
 
     public function canBook($user_id, $referee_data_id, $listing_id)
     {
-        $booking = Booking::where([
+        $booking_exists = Booking::where([
             ['user_id', '=', $user_id],
             ['referee_data_id', '=', $referee_data_id],
             ['listing_id', '=', $listing_id]
-        ])->get();
+        ])->exists();
 
-        if(count($booking) <= 0) {
-            return true;
+        $is_approved = Booking::where([
+            ['referee_data_id', '=', $referee_data_id],
+            ['status', '=', BookingStatusEnum::approved()->value]
+        ])->exists();
+            
+        if($is_approved) {
+            return false;
+        } elseif($booking_exists) {
+            return false;
         } else {
-            return  false;
+            return true;
         }
     }
 
