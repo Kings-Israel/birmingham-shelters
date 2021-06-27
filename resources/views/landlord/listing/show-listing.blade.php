@@ -22,7 +22,7 @@
                         <a href="{{ route('listing.inquiries.all', $listing->id) }}">
                             <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Inquiries ({{ $listing->inquiry_count }})</button>
                         </a>
-                        @if ($listing->is_sponsored == NULL || $listing->is_sponsored <= date('Y-m-d'))
+                        @if ($listing->is_sponsored == NULL || $listing->is_sponsored < date('Y-m-d'))
                             <form action="{{ route('listing.sponsored') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="listing" value="{{ $listing }}">
