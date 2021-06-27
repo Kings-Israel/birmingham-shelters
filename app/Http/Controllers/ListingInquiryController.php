@@ -89,7 +89,7 @@ class ListingInquiryController extends Controller
             'content' => $request->inquiry_reply_content,
         ];
 
-        SendInquiryReplyMail::dispatch($data['inquiry'], $data['reply_email'], $data['subject'], $data['content']);
+        SendInquiryReplyMail::dispatchAfterResponse($data['inquiry'], $data['reply_email'], $data['subject'], $data['content']);
 
         $listingInquiry->read_at = now();
 

@@ -22,7 +22,7 @@ class Inquiry extends Mailable
      *
      * @return void
      */
-    public function __construct($reply, $subject, $inquiry)
+    public function __construct( $inquiry, $subject, $reply)
     {
         $this->reply = $reply;
         $this->subject = $subject;

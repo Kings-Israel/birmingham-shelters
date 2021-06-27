@@ -71,7 +71,7 @@ class CheckoutController extends Controller
                 'subject' => 'Approval of Application for listing '.$booking->listing->name,
                 'content' => 'We are hereby glad to inform you that you have been approved to occupy the listing as stated above. Please make contact with '.$booking->listing->contact_name.' through the details: Email: '.$booking->listing->contact_email.' or Phone Number: '.$booking->listing->contact_phone_number.' for further instructions', 
             ];
-            SendBookingApprovalMail::dispatch($data['email'], $data['subject'], $data['content']);
+            SendBookingApprovalMail::dispatchAfterResponse($data['email'], $data['subject'], $data['content']);
     
             return back()->with(['success' => "Invoice has been settled successfully.", "invoice" => $invoice, "listing" => $listing->id]);
             
