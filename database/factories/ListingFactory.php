@@ -27,6 +27,7 @@ class ListingFactory extends Factory
             ->when($this->with_basic_info, function (Collection $attributes) {
                 return $attributes->merge([
                     'name' => $this->faker->sentence(4),
+                    'assessment_date' => $this->faker->date('Y-m-d'),
                     'address' => $this->faker->streetAddress(),
                     'postcode' => $this->faker->postcode(),
                     'description' => $this->faker->paragraph(),

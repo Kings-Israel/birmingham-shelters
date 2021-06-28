@@ -17,6 +17,7 @@
                 <span><i class="ti ti-pin m-r-5"></i> {{$listing->address}} ({{ $listing->postcode }})</span>
                 <span class="m-l-15" title="Owner"><i class="ti ti-user m-r-5"></i>
                     {{ $listing->user->full_name }}</span>
+                <span class="m-l-15"><i class="ti ti-calendar m-r-5"></i>{{ $listing->assessment_date }}</span>
             </div>
             <div class="m-t-10">
                 <livewire:admin-verify-listing :listing="$listing" />

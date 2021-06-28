@@ -97,10 +97,15 @@
         } 
 
         today = yyyy+'-'+mm+'-'+dd;
-        let expiry_date_fields = document.querySelectorAll("#date");
-        expiry_date_fields.forEach(field => {
+        let date_fields = document.querySelectorAll("#date");
+        date_fields.forEach(field => {
             field.setAttribute("max", today);
         });
+
+        $(function() {
+            var tomorrow = new Date();
+            $('#assessment-date').attr('min', today)
+        })
 
         function readURL(input) {
             if (input.files && input.files[0]) {
