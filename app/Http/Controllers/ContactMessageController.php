@@ -11,7 +11,6 @@ class ContactMessageController extends Controller
 {
     public function contactFormSubmit(Request $request)
     {
-        dd($request->all());
         $rules = [
             'message_contact_name' => 'required|string',
             'message_contact_email' => 'required|email',
