@@ -16,6 +16,14 @@ class AdminMessagesView extends Component
 
     public array $breadcrumb;
 
+    public $inquiry_id;
+
+    public $inquiry_sender_email;
+
+    public $inquiry_message;
+
+    public $inquiry_response;
+
     public function mount(): void
     {
         $this->breadcrumb = [
@@ -26,6 +34,11 @@ class AdminMessagesView extends Component
     public function deleteMessage(ContactMessage $message)
     {
         $message->delete();
+    }
+
+    public function contactMessageReply()
+    {
+        dd($this->inquiry_id);
     }
 
     public function render()
