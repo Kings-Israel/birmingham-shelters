@@ -104,9 +104,7 @@
 
         $(function() {
             var tomorrow = new Date();
-            // let max_date_fields = document.getElementById("assessment-date");
             $('#assessment-date').attr('min', today)
-            // max_date_fields.attr('min', tomorrow)
         })
 
         function readURL(input) {
