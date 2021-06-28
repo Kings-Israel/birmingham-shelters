@@ -1,5 +1,14 @@
 <div>
     <x-breadcrumb :items="$breadcrumb" />
+    @if (session('error'))
+        <div class="alert alert-danger">
+            <p>{{ session('error') }}</p>
+        </div>
+    @elseif (session('success'))
+        <div class="alert alert-success">
+            <p>{{ session('success') }}</p>
+        </div>
+    @endif
     <div class="property_block_wrap style-2">
         <div id="clTwo" class="panel-collapse collapse show" aria-expanded="true">
             <div class="block-body">
@@ -40,7 +49,7 @@
                                             <p style="text-align: center">{{ $message->message_contact }}</p>
                                             </div>
                                             <div class="login-form container">
-                                                <form action="{{ route('contact.reply') }}" method="POST">
+                                                <form action="{{ route('contact.reply') }}" id="contactMessageReplyForm" method="POST">
                                                     @csrf
                                                     <div class="form-group">
                                                         <input type="hidden" name="inquiry_id" value="{{ $message->id }}">
@@ -52,7 +61,7 @@
                                                             <strong class="error-message">{{ $message }}</strong>
                                                         @enderror
                                                     </div>
-                                                    <button type="submit" id="replyContactMessageButton" class="btn btn-md btn-theme-light-2 rounded">Reply</button>
+                                                    <button type="submit" id="contactMessageReplyButton" class="btn btn-md btn-theme-light-2 rounded">Reply</button>
                                                 </form>
                                                 <hr>
                                             </div>
