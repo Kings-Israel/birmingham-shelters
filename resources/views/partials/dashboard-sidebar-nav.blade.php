@@ -3,6 +3,7 @@
     <x-nav-link href="{{ route('admin.listings.index') }}" :active="Route::is('admin.listings.index')"> Listings</x-nav-link>
     <x-nav-link href="{{ route('admin.bookings.show') }}" :active="Route::is('admin.bookings.show')">Bookings</x-nav-link>
     <x-nav-link href="{{ route('admin.payments.show') }}" :active="Route::is('admin.payments.show')">Payments</x-nav-link>
+    <x-nav-link href="{{ route('admin.messages.show') }}" :active="Route::is('admin.messages.show')">Messages</x-nav-link>
 
     <h3>User management</h3>
     @can('manageAdmins', App\Models\User::class)
