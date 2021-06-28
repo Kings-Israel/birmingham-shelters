@@ -12,10 +12,16 @@
                 <div class="submit-section">
                     <div class="row">
 
-                        <div class="form-group col-md-12">
-                            <label>Property Name<span class="tip-topdata" data-tip="Property Title"><i class="ti-help"></i></span></label>
+                        <div class="form-group col-md-6">
+                            <label>Property Name</label>
                             <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" required>
                             <x-input-error for="name" />
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Select Assessment Date<span class="tip-topdata" data-tip="Set Date for Physical assessment of the property"><i class="ti-help"></i></span></label>
+                            <input type="date" id="assessment-date" name="assessment-date" class="form-control" value="{{ old('assessment-date') }}" required>
+                            <x-input-error for="assessment-date" />
                         </div>
 
                         <div class="form-group col-md-6">
