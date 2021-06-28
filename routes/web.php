@@ -11,6 +11,7 @@ use App\Http\Controllers\PostAjaxRedirect;
 use App\Http\Controllers\RefereeDataController;
 use App\Http\Controllers\UserBookingController;
 use App\Http\Controllers\UserListingController;
+use App\Http\Controllers\ContactMessageController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Livewire\AdminListingsList;
 use App\Http\Livewire\UserListing;
@@ -19,6 +20,7 @@ use App\Http\Livewire\AdminPaymentsView;
 use App\Http\Livewire\AdminLandlordsView;
 use App\Http\Livewire\AdminAgentsView;
 use App\Http\Livewire\AdminUsersView;
+use App\Http\Livewire\AdminMessagesView;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,11 +30,16 @@ Route::view('/about', 'pages.about');
 Route::view('/faq', 'pages.faq');
 Route::view('/privacy', 'pages.privacy-policy');
 Route::view('/get-involved', 'pages.get-involved');
+
+Route::post('/contact/message', [ContactMessageController::class, 'contactFormSubmit'])->name('contact.form.submit');
+
 Route::view('/landlord/inquiry-reply-template', 'landlord.inquiry-reply-template');
 
 Route::view('/inquiry-template', 'landlord.inquiry-reply-template');
 
 Auth::routes(['verify' => true]);
+
+Route::post('contact/message/reply', [ContactMessageController::class, 'contactMessageReply'])->middleware('auth')->name('contact.reply');
 
 Route::view('/email/verify', 'verify')->middleware('auth')->name('verification.notice');
 
@@ -176,6 +183,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
 
     Route::prefix('users')->name('admin.users.')->group(function() {
         Route::get('/', AdminUsersView::class)->name('show');
+    });
+
+    Route::prefix('messages')->name('admin.messages.')->group(function() {
+        Route::get('/', AdminMessagesView::class)->name('show');
     });
 });
 

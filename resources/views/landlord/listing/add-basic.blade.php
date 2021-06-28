@@ -20,8 +20,8 @@
 
                         <div class="form-group col-md-6">
                             <label>Select Assessment Date<span class="tip-topdata" data-tip="Set Date for Physical assessment of the property"><i class="ti-help"></i></span></label>
-                            <input type="date" id="assessment-date" name="assessment-date" class="form-control" value="{{ old('assessment-date') }}" required>
-                            <x-input-error for="assessment-date" />
+                            <input type="date" id="assessment-date" name="assessment_date" class="form-control" value="{{ old('assessment_date') }}" required>
+                            <x-input-error for="assessment_date" />
                         </div>
 
                         <div class="form-group col-md-6">
