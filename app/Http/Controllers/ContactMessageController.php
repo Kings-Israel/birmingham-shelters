@@ -24,9 +24,9 @@ class ContactMessageController extends Controller
             'string' => 'Please enter a valid input'
         ];
 
-        Validator::make($request->all(), $rules, $messages)->validate();
+        $validated_data = $request->validate($rules, $messages);
 
-        if (ContactMessage::create($request->all())) {
+        if (ContactMessage::create($validated_data)) {
             return back()->with('success', 'Your message has been sent');
         } else {
             return back()->withError('There was a problem while sending your message. Please try again');
