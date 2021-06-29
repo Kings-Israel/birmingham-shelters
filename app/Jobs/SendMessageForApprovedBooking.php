@@ -47,7 +47,7 @@ class SendMessageForApprovedBooking implements ShouldQueue
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => ''.env('INFOBIP_BASEURL').'/sms/2/text/single',
+            CURLOPT_URL => 'https://mp8d92.api.infobip.com/sms/2/text/single',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -57,7 +57,7 @@ class SendMessageForApprovedBooking implements ShouldQueue
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS =>'{"from":"Sheltered Housing","to":"'.$this->user_number.'","text":"Your booking for the listing '.$this->listing_name.' has been approved. Please contact '.$this->contact_name.' through the number +'.$this->contact_number.' or through the email '.$this->contact_email.'"}',
             CURLOPT_HTTPHEADER => array(
-                'Authorization: App '.env('INFOBIP_API_KEY').'',
+                'Authorization: App d4d4ad3f8195976fa13f867cc0a45714-7d589ea3-d109-41fa-acb0-24506329513a',
                 'Content-Type: application/json',
                 'Accept: application/json'
             ),
