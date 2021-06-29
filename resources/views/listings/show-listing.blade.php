@@ -24,7 +24,7 @@
                     
                         <div class="pbw-flex-1">
                             <div class="pbw-flex-thumb">
-                                <img src="{!! $listing->coverImageUrl() !!}" class="img-fluid" width="400" alt="" />
+                                <img src="{!! $listing->coverImageUrl() !!}" class="img-fluid" width="300" alt="" />
                             </div>
                         </div>
 
