@@ -61,7 +61,10 @@
                                     @endif
                                 @elseif ($details->bookingStatus($details->user_id, $details->id, $listing_id) == "Approved")
                                     <td>
-                                        <i class="ti-check" style="font-size: 30px; color: rgb(10, 181, 115)"></i>
+                                        <div>
+                                            <i class="ti-check" style="font-size: 30px; color: rgb(10, 181, 115)"></i>
+                                            <a style="float: right" href="{{ route('listing.referee.pdf', $details->id) }}">Download PDF</a>
+                                        </div>
                                     </td>
                                 @endif
                             @endforeach
