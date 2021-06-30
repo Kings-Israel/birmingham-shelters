@@ -4,7 +4,7 @@
         <div class="modal-content" id="registermodal">
             <span class="mod-close" data-bs-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
             <div class="modal-body">
-                <h4 class="modal-header-title">Log In</h4>
+                <h4 class="modal-header-title">Sign In</h4>
                 <div class="login-form">
                     <form method="POST" id="login-form" action="{{ route('login') }}">
                         @csrf

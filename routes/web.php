@@ -114,6 +114,7 @@ Route::group(['prefix' => '/listing', 'as' => 'listing.'], function () {
     Route::get('/all', UserListing::class)->name('all');
     Route::get('/{listing}', [UserListingController::class, 'listing'])->name('one');
     Route::post('/booking/submit', [UserListingController::class, 'submitBooking'])->middleware(['auth', 'verified'])->name('submit.booking');
+    Route::get('/booking/{user_id}/{referee_id}/{listing_id}/delete', [UserListingController::class, 'deleteBooking'])->name('booking.delete');
     Route::post('/inquiry', [ListingInquiryController::class, 'submitInquiry'])->name('inquiry');
     Route::post('/inquiry/response', [ListingInquiryController::class, 'replyToInquiry'])->name('inquiry.response');
     Route::get('/inquiry/response/email/{inquiry}', [ListingInquiryController::class, 'replyThroughMail'])->middleware(['auth', 'verified'])->name('reply.mail');

@@ -50,19 +50,24 @@ class CheckoutController extends Controller
             // Change status of booking to approved and other bookings as unsuccessful
             $booking = $invoice->invoiceable;
             $bookings = Booking::where('listing_id', '=', $booking->listing_id)->get();
-            foreach($bookings as $other_booking) {
-                $other_booking->status = BookingStatusEnum::unsuccessful()->value;
-                $other_booking->save();
-            }
-            $booking->status = BookingStatusEnum::approved()->value;
-            $booking->save();
     
             // Reduce available room by 1 and if available rooms is 0 make the listing unavailable
             $listing = $booking->listing;
             $listing->available_rooms -= 1;
             if ($listing->available_rooms == 0) {
+                foreach($bookings as $other_booking) {
+                    if($other_booking->status = BookingStatusEnum::pending()->value) {
+                        $other_booking->status = BookingStatusEnum::unsuccessful()->value;
+                        $other_booking->save();
+                    }
+                }
+                
                 $listing->is_available = false;
             }
+
+            $booking->status = BookingStatusEnum::approved()->value;
+            $booking->save();
+
             $listing->occupied_rooms += 1;
             $listing->save();
     
@@ -72,7 +77,7 @@ class CheckoutController extends Controller
                 'subject' => 'Approval of Application for listing '.$booking->listing->name,
                 'content' => 'We are hereby glad to inform you that you have been approved to occupy the listing as stated above. Please make contact with '.$booking->listing->contact_name.' through the details: Email: '.$booking->listing->contact_email.' or Phone Number: '.$booking->listing->contact_phone_number.' for further instructions', 
             ];
-            SendMessageForApprovedBooking::dispatchAfterResponse('254707137687', $booking->listing->name, $booking->listing->contact_name, $booking->listing->contact_number, $booking->listing->contact_email);
+            // SendMessageForApprovedBooking::dispatchAfterResponse('254707137687', $booking->listing->name, $booking->listing->contact_name, $booking->listing->contact_number, $booking->listing->contact_email);
             SendBookingApprovalMail::dispatchAfterResponse($data['email'], $data['subject'], $data['content']);
     
             return back()->with(['success' => "Invoice has been settled successfully.", "invoice" => $invoice, "listing" => $listing->id]);
@@ -101,7 +106,7 @@ class CheckoutController extends Controller
 
     public function downloadPdf(Invoice $invoice)
     {
-        $pdf = PDF::loadView('invoice.invoice-pdf', ['invoice' => $invoice]);
-        return $pdf->download($invoice->payment->transaction_id.'.pdf');
+        $pdf = PDF::loadView('invoice.pdf', ['invoice' => $invoice]);
+        return $pdf->stream($invoice->payment->transaction_id.'.pdf');
     }
 }

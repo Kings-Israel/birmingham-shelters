@@ -35,6 +35,9 @@
                                             <div class="listing-detail-wrapper-box">
                                                 <div class="listing-detail-wrapper">
                                                     <div class="listing-short-detail">
+                                                        @if($listing->is_sponsored != null && $listing->is_sponsored > date('Y-m-d'))
+                                                            <span class="badge rounded-pill fw-bold text-success bg-light-success m-l-4" style="float: right;">Top</span>
+                                                        @endif 
                                                         @if ($listing->status->label == "Verified")
                                                             <img src="{{ asset('/assets/img/star.png') }}" class="img-fluid" width="20px" style="float: right;"/>
                                                         @endif
