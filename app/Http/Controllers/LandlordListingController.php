@@ -484,7 +484,7 @@ class LandlordListingController extends Controller
         foreach ($bookings as $booking) {
             // if status == awaiting payment | status == approved
             // // redirect back with message User has been approved for another listing
-            if ($booking->status == BookingStatusEnum::awaiting_payment()->label || $booking->status == BookingStatusEnum::approved()->label) {
+            if ($booking->status == BookingStatusEnum::awaiting_payment()->value || $booking->status == BookingStatusEnum::approved()->value) {
                 return redirect()->back()->withError('The User has aleady been approved for another listing.');
             }
         }
@@ -495,7 +495,7 @@ class LandlordListingController extends Controller
 
         $booking = $bookings->where('listing_id', $listing->id)->where('user_id', $referee_details->user_id);
         foreach($booking as $getBooking) {
-            $getBooking->status = BookingStatusEnum::awaiting_payment()->label;
+            $getBooking->status = BookingStatusEnum::awaiting_payment()->value;
             $getBooking->save();
 
 

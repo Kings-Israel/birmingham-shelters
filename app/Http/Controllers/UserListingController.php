@@ -23,7 +23,7 @@ class UserListingController extends Controller
         $listing = Listing::find($request->listing_id);
         $listing_name = $listing->name;
         $admin_phone_number = $listing->user->phone_number;
-        SendBookingMessageToAdmin::dispatchAfterResponse('254707137687', $listing_name);
+        // SendBookingMessageToAdmin::dispatchAfterResponse('254707137687', $listing_name);
 
         if(Booking::create($request->all())) {
             return redirect()->back()->with('success', 'You have been added to the waiting list');
