@@ -36,7 +36,7 @@
                     </x-site-nav-link>
 
                     <x-site-nav-link :active="Request::is('/privacy')">
-                        <a href="{{ url('/privacy') }}">Privacy Policy</a>
+                        <a href="{{ url('/privacy') }}">Privacy & Data</a>
                     </x-site-nav-link>
 
                     @guest
