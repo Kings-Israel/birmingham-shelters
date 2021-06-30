@@ -106,7 +106,7 @@ class CheckoutController extends Controller
 
     public function downloadPdf(Invoice $invoice)
     {
-        $pdf = PDF::loadView('invoice.invoice-pdf', ['invoice' => $invoice]);
-        return $pdf->download($invoice->payment->transaction_id.'.pdf');
+        $pdf = PDF::loadView('invoice.pdf', ['invoice' => $invoice]);
+        return $pdf->stream($invoice->payment->transaction_id.'.pdf');
     }
 }

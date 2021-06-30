@@ -49,8 +49,10 @@
                                     <div class="listing-detail-wrapper-box">
                                         <div class="listing-detail-wrapper">
                                             <div class="listing-short-detail">
-                                                {{-- TODO: Change the condition to show only when listing is verified --}}
-                                                @if ($booking->listing->verified_at == null)
+                                                @if($booking->listing->is_sponsored != null && $booking->listing->is_sponsored > date('Y-m-d'))
+                                                    <span class="badge rounded-pill fw-bold text-success bg-light-success m-l-4">Sponsored</span>
+                                                @endif 
+                                                @if ($booking->listing->status == "Verified")
                                                     <img src="{{ asset('/assets/img/star.png') }}" class="img-fluid" width="20px" style="float: right;"/>
                                                 @endif
                                                 <h4 class="listing-name"><a href="{{ route('listing.one', $booking->listing->id) }}">{{ $booking->listing->name }}</a></h4>
@@ -68,6 +70,11 @@
                                         <div class="listing-detail-btn">
                                             <a href="{{ route('listing.one', $booking->listing->id) }}" class="more-btn">View</a>
                                         </div>
+                                        @if ($booking->listing->status == "Unsuccessful")
+                                            <div class="listing-detail-btn">
+                                                <a href="{{ url('/listing/booking/'.$booking->refereedata->user_id.'/'.$booking->refereedata->id.'/'.$booking->listing->id.'/delete') }}" class="delete-btn">Delete</a>
+                                            </div>
+                                        @endif
                                     </div>
                                     
                                 </div>

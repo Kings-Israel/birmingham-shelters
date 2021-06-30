@@ -39,10 +39,6 @@
                         <a href="{{ url('/privacy') }}">Privacy Policy</a>
                     </x-site-nav-link>
 
-                    <x-site-nav-link :active="Request::is('/contact')">
-                        <a href="{{ url('/contact') }}">Contact Us</a>
-                    </x-site-nav-link>
-
                     @guest
                         <x-site-nav-link :active="Request::is('/listing')">
                             <a href="{{ url('/listing/all') }}">View Listings</a>
@@ -56,9 +52,10 @@
                             </x-site-nav-link>
                         @endif
                     @endauth
-                    @auth
-                        
-                    @endauth
+
+                    <x-site-nav-link :active="Request::is('/contact')">
+                        <a href="{{ url('/contact') }}">Contact Us</a>
+                    </x-site-nav-link>
                 </ul>
                 @auth
                     <ul class="nav-menu nav-menu-social align-to-right">

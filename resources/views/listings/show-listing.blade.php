@@ -30,7 +30,15 @@
 
                         <div class="pbw-flex">
                             <div class="prt-detail-title-desc">
-                                <h3 id="listing_name">{{ $listing->name }}</h3>
+                                <div>
+                                    <h3 id="listing_name">{{ $listing->name }}</h3>
+                                    @if($listing->is_sponsored != null && $listing->is_sponsored > date('Y-m-d'))
+                                        <span class="badge rounded-pill fw-bold text-success bg-light-success m-l-4" style="float: right">Top</span>
+                                    @endif 
+                                    @if ($listing->status->label == "Verified")
+                                        <img src="{{ asset('/assets/img/star.png') }}" class="img-fluid" width="20px" style="float: right"/>
+                                    @endif
+                                </div>
                                 <h6>Address: </h6><span id="listing_address">{{ $listing->address }}</span><br>
                                 <h6>Postcode: </h6><span id="listing_postcode">{{ $listing->postcode }}</span>
                             </div>
@@ -112,6 +120,7 @@
                                     <li><strong>Bathrooms:</strong>{{ $listing->bathrooms }}</li>
                                     <li><strong>Toilets:</strong>{{ $listing->toilets }}</li>
                                     <li><strong>Kitchen:</strong>{{ $listing->kitchen }}</li>
+                                    <li><strong>Available Rooms:</strong>{{ $listing->available_rooms }}</li>
                                 </ul>
                                 <br>
                                 @if ($listing->other_rooms != null)

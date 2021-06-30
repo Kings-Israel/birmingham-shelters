@@ -6041,6 +6041,13 @@ span.tag_t {
 	background:#ff9800;
 	border-radius:2px;
 }
+.listing-detail-btn .delete-btn{
+	padding:6px 15px;
+	color:#ffffff;
+	border:1px solid #ff9800;
+	background:#f10404;
+	border-radius:25px;
+}
 .rate-btn {
     font-weight: 800;
     color: #FF9800;

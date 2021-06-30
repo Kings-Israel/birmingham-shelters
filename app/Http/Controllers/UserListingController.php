@@ -31,4 +31,19 @@ class UserListingController extends Controller
             return redirect()->back()->withError('There was an error adding you to the waiting list. Please try again');
         }
     }
+
+    public function deleteBooking($user_id, $referee_data_id, $listing_id)
+    {
+        $deleted = Booking::where([
+            ['user_id', '=', $user_id],
+            ['referee_data_id', '=', $referee_data_id],
+            ['listing_id', '=', $listing_id]
+        ])->delete();
+
+        if ($deleted) {
+            return redirect()->back()->with('success', 'The Booking has been deleted');
+        } else {
+            return redirect()->back()->withError('An error occurred while deleting.');
+        }
+    }
 }
