@@ -10,10 +10,8 @@
             </div>
 
             <div class="col-lg-7 col-md-7">
-                <div class="story-wrap explore-content">
-
                     <h2>Introduction</h2>
-                    <p>Sheltered Housing Ltd links homeless persons with quality supported accommodation. It exists to
+                    <p class="lead">Sheltered Housing Ltd links homeless persons with quality supported accommodation. It exists to
                         help the homeless people find a suitable accommodation that will meet their needs. In addition,
                         we ensure that the accommodations are a safe and secure environment for the homeless persons. We
                         work with social landlord whose properties have been inspected and cleared by the Birmingham
@@ -23,7 +21,6 @@
                             Our aim is to improve the lives of the homeless people in the
                             community.
                         </strong></p>
-                </div>
             </div>
 
         </div>
