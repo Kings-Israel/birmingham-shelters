@@ -6,6 +6,7 @@ use App\Enums\ListingStatusEnum;
 use App\Models\Listing;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use App\Jobs\SendSMSNotification;
 use Livewire\Component;
 
 class ListingFeedbackList extends Component
@@ -41,6 +42,9 @@ class ListingFeedbackList extends Component
         if($this->listing->unresolved_feedback_count == 0) {
             $this->listing->status = ListingStatusEnum::pending();
             $this->listing->save();
+
+            // Send message to admin after addressing all the issues
+            SendSMSNotification::dispatchAfterResponse(env('ADMIN_PHONE_NUMBER'), 'The landlord has addressed all the issues that were raised for the listing '. $this->listing->name);
         }
     }
 

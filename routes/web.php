@@ -12,6 +12,7 @@ use App\Http\Controllers\RefereeDataController;
 use App\Http\Controllers\UserBookingController;
 use App\Http\Controllers\UserListingController;
 use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\ResetPasswordController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Livewire\AdminListingsList;
 use App\Http\Livewire\UserListing;
@@ -30,6 +31,14 @@ Route::view('/about', 'pages.about');
 Route::view('/faq', 'pages.faq');
 Route::view('/privacy', 'pages.privacy-policy');
 Route::view('/get-involved', 'pages.get-involved');
+
+Route::get('/forgot-password', [ResetPasswordController::class, 'enterEmail'])->middleware('guest')->name('password.request');
+
+Route::post('/forgot-password', [ResetPasswordController::class, 'confirmEmail'])->middleware('guest')->name('password.email');
+
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'resetPassword'])->middleware('guest')->name('password.reset');
+
+Route::post('/reset-password', [ResetPasswordController::class, 'passwordUpdate'])->middleware('guest')->name('password.update');
 
 Route::post('/contact/message', [ContactMessageController::class, 'contactFormSubmit'])->name('contact.form.submit');
 

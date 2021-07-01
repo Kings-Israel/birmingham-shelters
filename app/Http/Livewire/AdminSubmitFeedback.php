@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Enums\ListingStatusEnum;
 use App\Models\Listing;
 use App\Models\ListingFeedback;
+use App\Jobs\SendSMSNotification;
 use Auth;
 use Livewire\Component;
 
@@ -49,6 +50,8 @@ class AdminSubmitFeedback extends Component
         $this->initialiseFeedbackInstance();
 
         $this->emit('feedbackSubmitted');
+        // TODO: Change phone number to the landlord's phone number
+        SendSMSNotification::dispatchAfterResponse('254707137687', 'Please review the listing '.$this->listing->name.' in regards to feedback provoded by the administrator. Log in to find out more details. Regards, Birmingham Shelteres');
     }
 
     public function render()

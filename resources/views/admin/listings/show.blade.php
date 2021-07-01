@@ -17,10 +17,18 @@
                 <span><i class="ti ti-pin m-r-5"></i> {{$listing->address}} ({{ $listing->postcode }})</span>
                 <span class="m-l-15" title="Owner"><i class="ti ti-user m-r-5"></i>
                     {{ $listing->user->full_name }}</span>
-                <span class="m-l-15"><i class="ti ti-calendar m-r-5"></i>{{ $listing->assessment_date }}</span>
+                
+                <livewire:listing-assessmet-date :listing="$listing" />
             </div>
-            <div class="m-t-10">
-                <livewire:admin-verify-listing :listing="$listing" />
+            <div style="display: flex">
+                <div class="m-t-10 mr-2">
+                    <livewire:admin-verify-listing :listing="$listing" />
+                </div>
+                <h5 style="color: white; margin-top: 10px; margin-right:5px">Set Assessment Date:</h5>
+                <div class="m-t-10">
+                    <livewire:admin-listing-assessment :listing="$listing" />
+                </div>
+
             </div>
         </div>
     </div>

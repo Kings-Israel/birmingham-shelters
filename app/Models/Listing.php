@@ -123,8 +123,8 @@ class Listing extends Model
         return false;
     }
 
-    // public function hasNoUnResolvedFeedback(): bool
-    // {
-
-    // }
+    public function setAssessmentDate($date): Listing
+    {
+        return tap($this, fn($instance) => $instance->assessment_date = $date);
+    }
 }
