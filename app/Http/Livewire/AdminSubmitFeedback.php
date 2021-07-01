@@ -50,8 +50,9 @@ class AdminSubmitFeedback extends Component
         $this->initialiseFeedbackInstance();
 
         $this->emit('feedbackSubmitted');
-        // TODO: Change phone number to the landlord's phone number
-        SendSMSNotification::dispatchAfterResponse('254707137687', 'Please review the listing '.$this->listing->name.' in regards to feedback provoded by the administrator. Log in to find out more details. Regards, Birmingham Shelteres');
+
+        // Send SMS notification to landlord.
+        SendSMSNotification::dispatchAfterResponse($this->listing->user->phone_number, 'Please review the listing '.$this->listing->name.' in regards to feedback provoded by the administrator. Log in to find out more details. Regards, Birmingham Shelteres');
     }
 
     public function render()
