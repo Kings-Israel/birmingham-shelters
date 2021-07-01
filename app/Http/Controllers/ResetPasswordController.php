@@ -18,7 +18,7 @@ class ResetPasswordController extends Controller
 
     public function enterEmail()
     {
-        return view('forgot-password');
+        return view('auth.passwords.forgot-password');
     }
 
     public function confirmEmail(Request $request)
@@ -36,7 +36,7 @@ class ResetPasswordController extends Controller
 
     public function resetPassword($token)
     {
-        return view('reset-password')->with('token', $token);
+        return view('auth.passwords.reset')->with('token', $token);
     }
 
     public function passwordUpdate(Request $request)
@@ -59,9 +59,19 @@ class ResetPasswordController extends Controller
                 event(new PasswordReset($user));
             }
         );
+
+        $redirectUrl = '';
+
+        if(Auth::user()->isOfType('landlord')){
+            $redirectUrl = '/landlord';
+        } elseif(Auth::user()->isOfType('agent')) {
+            $redirectUrl = '/agent';
+        } elseif(Auth::user()->isOfType('user')) {
+            $redirectUrl = '/user';
+        }
     
         return $status === Password::PASSWORD_RESET
-                    ? redirect()->route('home')->with('success', __($status))
+                    ? redirect()->url($redirectUrl)->with('success', __($status))
                     : back()->withErrors(['email' => [__($status)]]);
     }
 }

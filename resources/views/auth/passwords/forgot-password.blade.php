@@ -1,19 +1,4 @@
 <x-app-layout pageTitle="Reset">
-    @if (session('error'))
-    <div class="alert alert-danger alert-dismissible flash">
-        <p>{{ session('error') }}</p>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @elseif (session('success'))
-    <div class="alert alert-success alert-dismissible flash">
-        <p>{{ session('success') }}</p>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
-
-    @if (session('success'))
-        {{ dd(session('success')) }}
-    @endif
     
     <!-- ============================ User Dashboard ================================== -->
     <section class="bg-light">
@@ -24,6 +9,11 @@
                         <div class="card-header"><h3>Forgot Password</h3></div>
         
                         <div class="card-body">
+                            @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
                             {{ __('Please enter your email address.') }}
 
                             <form class="d-inline" method="POST" action="{{ route('password.email') }}">
