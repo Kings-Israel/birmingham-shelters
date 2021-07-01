@@ -6,7 +6,7 @@ use App\Models\Listing;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Jobs\SendBookingMessageToAdmin;
+use App\Jobs\SendSMSNotification;
 
 class UserListingController extends Controller
 {
@@ -22,8 +22,9 @@ class UserListingController extends Controller
     {
         $listing = Listing::find($request->listing_id);
         $listing_name = $listing->name;
-        $admin_phone_number = $listing->user->phone_number;
-        // SendBookingMessageToAdmin::dispatchAfterResponse('254707137687', $listing_name);
+        
+        // Send new booking SMS notification to the landlord
+        SendSMSNotification::dispatchAfterResponse($listing->user->phone_number, 'A new booking has been made on the listing '.$listing_name.'. Please login to view details. Regards, Sheltered Birmingham.');
 
         if(Booking::create($request->all())) {
             return redirect()->back()->with('success', 'You have been added to the waiting list');

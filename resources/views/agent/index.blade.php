@@ -70,7 +70,7 @@
                                         <div class="listing-detail-btn">
                                             <a href="{{ route('listing.one', $booking->listing->id) }}" class="more-btn">View</a>
                                         </div>
-                                        @if ($booking->listing->status == "Unsuccessful")
+                                        @if ($booking->status == "Unsuccessful")
                                             <div class="listing-detail-btn">
                                                 <a href="{{ url('/listing/booking/'.$booking->refereedata->user_id.'/'.$booking->refereedata->id.'/'.$booking->listing->id.'/delete') }}" class="delete-btn">Delete</a>
                                             </div>

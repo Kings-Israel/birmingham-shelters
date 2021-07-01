@@ -9,7 +9,8 @@ use App\PaymentGateway;
 use Braintree\Transaction;
 use App\Enums\BookingStatusEnum;
 use App\Jobs\SendBookingApprovalMail;
-use App\Jobs\SendMessageForApprovedBooking;
+// use App\Jobs\SendMessageForApprovedBooking;
+use App\Jobs\SendSMSNotification;
 use Carbon\Carbon;
 use App\Enums\InvoiceTypeEnum;
 use PDF;
@@ -65,6 +66,16 @@ class CheckoutController extends Controller
                 $listing->is_available = false;
             }
 
+            // Change other bookings for the user to unsuccessful
+            $user_other_bookings = Booking::where([
+                    ['referee_data_id', '=', $booking->referee_data_id],
+                    ['listing_id', '!=', $booking->listing_id]
+                ])->get();
+            foreach ($user_other_bookings as $bookings) {
+                $bookings->status = BookingStatusEnum::unsuccessful()->value;
+                $bookings->save();
+            }
+
             $booking->status = BookingStatusEnum::approved()->value;
             $booking->save();
 
@@ -77,7 +88,8 @@ class CheckoutController extends Controller
                 'subject' => 'Approval of Application for listing '.$booking->listing->name,
                 'content' => 'We are hereby glad to inform you that you have been approved to occupy the listing as stated above. Please make contact with '.$booking->listing->contact_name.' through the details: Email: '.$booking->listing->contact_email.' or Phone Number: '.$booking->listing->contact_phone_number.' for further instructions', 
             ];
-            // SendMessageForApprovedBooking::dispatchAfterResponse('254707137687', $booking->listing->name, $booking->listing->contact_name, $booking->listing->contact_number, $booking->listing->contact_email);
+            // Send notification to user on approval of listing booking
+            SendSMSNotification::dispatchAfterResponse($booking->user->phone_number, 'Your Booking for the listing '.$booking->listing->name.' has been approved. Please contact '.$booking->listing->contact_name.' through the details, Phone Number: '.$booking->listing->contact_number.', Email: '.$booking->listing->contact_email.', for more Information. Regards, Sheltered Birmingham.');
             SendBookingApprovalMail::dispatchAfterResponse($data['email'], $data['subject'], $data['content']);
     
             return back()->with(['success' => "Invoice has been settled successfully.", "invoice" => $invoice, "listing" => $listing->id]);

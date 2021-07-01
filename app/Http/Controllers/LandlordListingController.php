@@ -20,6 +20,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use App\Jobs\SendSMSNotification;
 
 class LandlordListingController extends Controller
 {
@@ -406,6 +407,9 @@ class LandlordListingController extends Controller
         $listing->status = ListingStatusEnum::pending();
 
         $listing->save();
+
+        // Send notification to admin on addition of the new listing
+        SendSMSNotification::dispatchAfterResponse(env('ADMIN_PHONE_NUMBER'), 'A new listing, '.$listing->name.', has been added to the system by '.$listing->user->full_name);
 
         return response()->json([
             'listingId' => $listing->id,

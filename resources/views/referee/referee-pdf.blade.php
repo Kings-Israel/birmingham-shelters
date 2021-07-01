@@ -110,6 +110,9 @@
             margin-right: 10px;
             float: right;
         }
+        .page-break {
+            page-break-after: always;
+        }
     </style>
 </head>
 <body>
@@ -221,14 +224,13 @@
                 </div>
             </div>
         </div>
-
         <div class="property_block_wrap style-2">
             <div class="property_block_wrap_header">
                 <h4 class="property_block_title">Address Information:</h4>
             </div>
             <div id="clTwo" class="panel-collapse collapse show" aria-expanded="true">
                 <div class="block-body">
-                    <table>
+                    <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <td><strong>Address</strong></td>
@@ -238,14 +240,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                @foreach ($address_info as $info)
+                            @foreach ($address_info as $info)
+                                <tr>
                                     <td>{{ $info->address }}</td>
                                     <td>{{ $info->moved_in }}</td>
                                     <td>{{ $info->moved_out }}</td>
                                     <td>{{ $info->reason_for_leaving }}</td>
-                                @endforeach
-                            </tr>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
