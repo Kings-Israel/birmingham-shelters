@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-5 col-md-5">
-                <img src="{{ asset('img/choosing-house.svg') }}" class="img-fluid" alt="" />
+                <img src="{{ asset('assets/img/istockphoto.jpg') }}" class="img-fluid" alt="" />
             </div>
 
             <div class="col-lg-7 col-md-7">

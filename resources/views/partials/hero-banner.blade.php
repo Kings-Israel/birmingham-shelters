@@ -1,5 +1,5 @@
 
-<div class="image-cover hero-banner" style="background:#2540a2 url({{ asset('assets/img/banner-6.png') }}) no-repeat;">
+<div class="image-cover hero-banner light-text" style="background:#0c4cd6 url({{ asset('assets/img/banner-7.png') }}) no-repeat;">
     <div class="container">
         <div class="simple-search-wrap">
             <div class="hero-search-2">
