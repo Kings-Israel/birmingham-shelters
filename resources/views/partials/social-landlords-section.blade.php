@@ -17,7 +17,7 @@
                         <button class="btn btn-outline-theme-2 mt-2 mb-4" data-bs-toggle="modal" data-bs-target="#signup">Create an account</button>
                     @endguest
 
-                    <div class="alert alert-info font-weight-bold fs-5">
+                    <div class="social-landlord font-weight-bold fs-5">
                         All room providers must be accredited by Birmingham City Council and or a government-registered Social landlord and meet our quality standards.
                     </div>
                 </div>

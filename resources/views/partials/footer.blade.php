@@ -18,10 +18,10 @@
                     <div class="footer-widget">
                         <h4 class="widget-title">Navigations</h4>
                         <ul class="footer-menu">
-                            <li><a href="{{ url('/about') }}">About Us</a></li>
-                            <li><a href="{{ url('/contact') }}">Contact</a></li>
-                            <li><a href="{{ url('/privacy') }}">Privacy & Data</a></li>
-                        </ul>
+                            <li><i class="ti-info-alt"></i> <a href="{{ url('/about') }}">About Us</a></li>
+                            <li><i class="lni-phone-handset"></i> <a href="{{ url('/contact') }}">Contact</a></li>
+                            <li><i class="ti-shield"></i> <a href="{{ url('/privacy') }}">Privacy & Data</a></li>
+                        </ul> 
                     </div>
                 </div>
 
