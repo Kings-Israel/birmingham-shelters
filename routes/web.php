@@ -22,10 +22,17 @@ use App\Http\Livewire\AdminLandlordsView;
 use App\Http\Livewire\AdminAgentsView;
 use App\Http\Livewire\AdminUsersView;
 use App\Http\Livewire\AdminMessagesView;
+use App\Http\Livewire\AdminSupportingAgency;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Models\SupportingAgency;
 
-Route::view('/', 'index')->name('home');
+Route::get('/', function () {
+    $agencies = SupportingAgency::all();
+    return view('index', compact('agencies'));
+});
+
+// Route::view('/', 'index')->name('home');
 Route::view('/contact', 'pages.contact');
 Route::view('/about', 'pages.about');
 Route::view('/faq', 'pages.faq');
@@ -198,6 +205,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::prefix('messages')->name('admin.messages.')->group(function() {
         Route::get('/', AdminMessagesView::class)->name('show');
     });
+
+    Route::prefix('supportingagencies')->name('admin.agencies.')->group(function() {
+        Route::get('/', AdminSupportingAgency::class)->name('show');
+    });
+
 });
 
 // Payment routes

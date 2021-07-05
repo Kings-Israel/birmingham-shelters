@@ -11,4 +11,6 @@
 
     @include('partials.rights-charter')
 
+    @include('partials.supporting-agencies')
+
 </x-app-layout>
