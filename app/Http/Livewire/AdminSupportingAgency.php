@@ -23,9 +23,6 @@ class AdminSupportingAgency extends Component
         $this->breadcrumb = [
             'Supporting Agency' => route('admin.agencies.show'),
         ];
-        if (old('agency_name')) {
-            $this->agency_name = old('agency_name');
-        }
     }
 
     public function resetFields()
@@ -33,7 +30,7 @@ class AdminSupportingAgency extends Component
         $this->agency_name = '';
         $this->agency_description = '';
         $this->agency_image = null;
-        $this->iteration++;
+        // $this->iteration++;
     }
 
     public function addAgency()
@@ -52,7 +49,7 @@ class AdminSupportingAgency extends Component
 
         $this->validate($rules, $messages);
 
-        $response = SupportingAgency::create([
+        SupportingAgency::create([
             'user_id' => Auth::user()->id,
             'agency_name' => $this->agency_name,
             'agency_description' => $this->agency_description,
@@ -72,6 +69,6 @@ class AdminSupportingAgency extends Component
     public function render()
     {
         $agencies = SupportingAgency::orderBy('created_at', 'DESC')->get();
-        return view('livewire.admin.admin-supporting-agency', ['agencies' => $agencies, 'iteration' => $this->iteration])->layout('layouts.admin', ['pageTitle' => 'Supporting Agencies']);
+        return view('livewire.admin.admin-supporting-agency', ['agencies' => $agencies])->layout('layouts.admin', ['pageTitle' => 'Supporting Agencies']);
     }
 }
