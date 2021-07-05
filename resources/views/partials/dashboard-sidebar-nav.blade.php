@@ -12,4 +12,7 @@
     <x-nav-link href="{{ route('admin.landlords.show') }}" :active="Route::is('admin.landlords.show')">Landlords</x-nav-link>
     <x-nav-link href="{{ route('admin.agents.show') }}" :active="Route::is('admin.agents.show')">Agents</x-nav-link>
     <x-nav-link href="{{ route('admin.users.show') }}" :active="Route::is('admin.users.show')">Users</x-nav-link>
+
+    <h3>Supporting Agencies</h3>
+    <x-nav-link href="{{ route('admin.agencies.show') }}" :active="Route::is('admin.agencies.show')">View Agencies</x-nav-link>
 </nav>
