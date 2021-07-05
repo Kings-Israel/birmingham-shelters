@@ -51,7 +51,7 @@
 
                                         <div class="form-group">
                                             <label>Agency Image</label>
-                                            <input type="file" name="agency_image" wire:model="agency_image" id="agency_image{{$iteration}}" class="form-control">
+                                            <input type="file" name="agency_image" wire:model.defer="agency_image" id="agency_image{{$iteration}}" class="form-control">
                                             <x-input-error for="agency_image" />
                                         </div>
                 

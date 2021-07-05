@@ -47,7 +47,7 @@ class AdminSupportingAgency extends Component
         $messages = [
             'agency_name.required' => 'Please enter the Agency Name',
             'agency_description.required' => 'Please enter a brief description for the agency',
-            'agency_image.required' => 'Please upload an image that represents the agency'
+            'agency_image.required' => 'Please upload an image'
         ];
 
         $this->validate($rules, $messages);
