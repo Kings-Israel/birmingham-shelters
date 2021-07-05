@@ -30,7 +30,7 @@ class AdminSupportingAgency extends Component
         $this->agency_name = '';
         $this->agency_description = '';
         $this->agency_image = null;
-        // $this->iteration++;
+        $this->iteration++;
     }
 
     public function addAgency()
@@ -69,6 +69,6 @@ class AdminSupportingAgency extends Component
     public function render()
     {
         $agencies = SupportingAgency::orderBy('created_at', 'DESC')->get();
-        return view('livewire.admin.admin-supporting-agency', ['agencies' => $agencies])->layout('layouts.admin', ['pageTitle' => 'Supporting Agencies']);
+        return view('livewire.admin.admin-supporting-agency', ['agencies' => $agencies, 'iteration' => $this->iteration])->layout('layouts.admin', ['pageTitle' => 'Supporting Agencies']);
     }
 }
