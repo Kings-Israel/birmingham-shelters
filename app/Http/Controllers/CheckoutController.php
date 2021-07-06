@@ -9,7 +9,6 @@ use App\PaymentGateway;
 use Braintree\Transaction;
 use App\Enums\BookingStatusEnum;
 use App\Jobs\SendBookingApprovalMail;
-// use App\Jobs\SendMessageForApprovedBooking;
 use App\Jobs\SendSMSNotification;
 use Carbon\Carbon;
 use App\Enums\InvoiceTypeEnum;
