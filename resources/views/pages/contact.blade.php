@@ -62,8 +62,6 @@
                     <div class="contact-info">
 
                         <h2>Get In Touch</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. </p>
 
                         <div class="cn-info-detail">
                             <div class="cn-info-icon">
@@ -71,7 +69,7 @@
                             </div>
                             <div class="cn-info-content">
                                 <h4 class="cn-info-title">Reach Us</h4>
-                                2512, New Market,<br>Eliza Road, Sincher 80 CA,<br>Canada, USA
+                                Charity House, High Street,<br>Coleshill,<br>Birmingham, B46 3BP
                             </div>
                         </div>
 
@@ -81,7 +79,7 @@
                             </div>
                             <div class="cn-info-content">
                                 <h4 class="cn-info-title">Drop A Mail</h4>
-                                support@Rikada.com<br>Rikada@gmail.com
+                                support@Rikada.com
                             </div>
                         </div>
 
@@ -91,7 +89,7 @@
                             </div>
                             <div class="cn-info-content">
                                 <h4 class="cn-info-title">Call Us</h4>
-                                (41) 123 521 458<br>+91 235 548 7548
+                                (41) 123 521 458
                             </div>
                         </div>
 

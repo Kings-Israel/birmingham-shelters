@@ -7,7 +7,8 @@
                     <div class="footer-widget">
                         <img src="{{ asset('img/sb-mock-logo.png') }}" class="img-footer" alt="" />
                         <div class="footer-add">
-                            <p>Collins Street West, Victoria 8007, Australia.</p>
+                            <p>Charity House, High Street, Coleshill,</p>
+                            <p>Birmingham, B46 3BP</p>
                             <p>+1 246-345-0695</p>
                             <p>info@example.com</p>
                         </div>
