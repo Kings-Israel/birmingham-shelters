@@ -30,7 +30,7 @@ use App\Models\SupportingAgency;
 Route::get('/', function () {
     $agencies = SupportingAgency::all();
     return view('index', compact('agencies'));
-});
+})->name('home');
 
 // Route::view('/', 'index')->name('home');
 Route::view('/contact', 'pages.contact');
