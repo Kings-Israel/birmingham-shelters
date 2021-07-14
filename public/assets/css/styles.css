@@ -3385,9 +3385,11 @@ nav a:hover {
     border: none !important
 }
 
-.navigation-portrait .nav-menu.nav-menu-social>li:last-child {
-    /* width: auto */
-    margin-left: 20px;
+.navigation-portrait .nav-menu.nav-menu-social>li {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 0 20px;
 }
 
 .nav-menu.nav-menu-social>li>a>[class*=ion-] {
