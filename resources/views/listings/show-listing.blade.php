@@ -19,9 +19,9 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12 col-md-12">
-            
+
                     <div class="property_block_wrap style-3">
-                    
+
                         <div class="pbw-flex-1">
                             <div class="pbw-flex-thumb">
                                 <img src="{!! $listing->coverImageUrl() !!}" class="img-fluid" width="300" alt="" />
@@ -34,7 +34,7 @@
                                     <h3 id="listing_name">{{ $listing->name }}</h3>
                                     @if($listing->is_sponsored != null && $listing->is_sponsored > date('Y-m-d'))
                                         <span class="badge rounded-pill fw-bold text-success bg-light-success m-l-4" style="float: right">Top</span>
-                                    @endif 
+                                    @endif
                                     @if ($listing->status->label == "Verified")
                                         <img src="{{ asset('/assets/img/star.png') }}" class="img-fluid" width="20px" style="float: right"/>
                                     @endif
@@ -64,7 +64,7 @@
                                     @endif
                                 @elseif(Auth::user()->isOfType('agent'))
                                 <button type="submit" class="btn btn-black btn-md rounded full-width" data-bs-toggle="modal" data-bs-target="#view_users">Add Referee To Waiting List</button>
-                                
+
                                 <div class="modal fade" id="view_users" tabindex="-1" role="dialog" aria-labelledby="view_users_modal" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
                                         <div class="modal-content" id="view_users_modal">
@@ -84,7 +84,7 @@
                                                                         <input id="{{ $metadata->id }}" class="checkbox-custom" name="referee_data_id" value="{{ $metadata->id }} {{ (old('user['.$metadata->id.']')) ? 'checked' : '' }}" type="radio" onchange="selected()">
                                                                         <label for="{{ $metadata->id }}" class="checkbox-custom-label">{{ $metadata->applicant_name }}</label>
                                                                     </li>
-                                                                @endif      
+                                                                @endif
                                                             @endforeach
                                                         </ul>
                                                         <button type="submit" id="add-users-button" disabled  class="btn btn-md full-width btn-theme-light-2 rounded">Submit</button>
@@ -108,7 +108,7 @@
             <div class="row">
                 <div class="col-lg-8 col-md-12">
                     <div class="property_block_wrap style-2">
-								
+
                         <div class="property_block_wrap_header">
                             <a data-bs-toggle="collapse" data-parent="#features" data-bs-target="#clOne" aria-controls="clOne" href="javascript:void(0);" aria-expanded="false"><h4 class="property_block_title">Details</h4></a>
                         </div>
@@ -145,7 +145,7 @@
                         </div>
                     </div>
                     <div class="property_block_wrap style-2">
-                                        
+
                         <div class="property_block_wrap_header">
                             <a data-bs-toggle="collapse" data-parent="#dsrp" data-bs-target="#clTwo" aria-controls="clTwo" href="javascript:void(0);" aria-expanded="true"><h4 class="property_block_title">Description</h4></a>
                         </div>
@@ -156,7 +156,7 @@
                         </div>
                     </div>
                     <div class="property_block_wrap style-2">
-                                        
+
                         <div class="property_block_wrap_header">
                             <a data-bs-toggle="collapse" data-parent="#dsrp" data-bs-target="#clTwo" aria-controls="clTwo" href="javascript:void(0);" aria-expanded="true"><h4 class="property_block_title">Supported Client Groups</h4></a>
                         </div>
@@ -201,9 +201,9 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12">
-                    
-                    <div class="details-sidebar">
-                    
+
+                    <div class="details-sidebar" id="listing-contact-form">
+
                         <!-- Agent Detail -->
                         <div class="sides-widget">
                             <div class="sides-widget-header">
@@ -223,7 +223,7 @@
                                     <input type="hidden" name="user_phone_number" value="{{ Auth::user()->phone_number }}">
                                     <input type="hidden" name="user_email" value="{{ Auth::user()->email }}">
                                 @endauth
-                                
+
                                 <div class="sides-widget-body simple-form">
                                     @guest
                                         <div class="form-group">
@@ -284,7 +284,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </section>
     @push('scripts')

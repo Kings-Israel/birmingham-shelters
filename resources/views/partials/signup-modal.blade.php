@@ -49,7 +49,7 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <div class="input-with-icon">
-                                        <input type="number" class="form-control" name="phone_number" placeholder="123 546 5847" required>
+                                        <input type="tel" class="form-control" id="phone_number_input" name="phone_number" placeholder="123 546 5847" onfocus="showIntNumber()" required>
                                         <i class="lni-phone-handset"></i>
                                     </div>
                                     <span id="phone_numberError">
@@ -115,6 +115,10 @@
     </div>
     @push('scripts')
         <script>
+            function showIntNumber() {
+                let phone_number_input = document.getElementById('phone_number_input')
+                phone_number_input.value = '44'
+            }
             $('#register-form').on('submit', function (e) {
                 e.preventDefault();
                 let formData = $(this).serializeArray();

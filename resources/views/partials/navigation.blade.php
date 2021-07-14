@@ -3,7 +3,7 @@
         <nav id="navigation" class="navigation navigation-landscape">
             <div class="nav-header">
                 <a class="nav-brand" href="#">
-                    <img src="{{ asset('img/sb-mock-logo.png') }}" class="logo" alt="" />
+                    <img src="{{ asset('img/b-shelters.jpeg') }}" class="logo" alt="" />
                 </a>
                 <div class="nav-toggle"></div>
             </div>
@@ -11,49 +11,46 @@
                 <ul class="nav-menu">
                     <x-site-nav-link :active="Request::is('/')">
                         @auth
-                            @if (Auth::user()->user_type == 'user')
+                            @if (Auth::user()->user_type == 'user' || Auth::user()->user_type == 'agent')
                                 <a href="{{ route('home') }}">Home</a>
                             @elseif (Auth::user()->user_type == 'landlord')
                                 <a href="{{ route('landlord.index') }}">Home</a>
-                            @elseif (Auth::user()->user_type == 'agent')
-                                <a href="{{ route('home') }}">Home</a>
                             @endif
                         @endauth
                         @guest
                             <a href="{{ url('/') }}">Home</a>
                         @endguest
                     </x-site-nav-link>
-                    <x-site-nav-link :active="Request::is('/about')">
+                    <x-site-nav-link :active="Request::is('about')">
                         <a href="{{ url('/about') }}">About Us</a>
                     </x-site-nav-link>
 
-                    <x-site-nav-link :active="Request::is('/faq')">
+                    <x-site-nav-link :active="Request::is('faq')">
                         <a href="{{ url('/faq') }}">FAQ</a>
                     </x-site-nav-link>
 
-                    <x-site-nav-link :active="Request::is('/get-involved')">
+                    <x-site-nav-link :active="Request::is('get-involved')">
                         <a href="{{ url('/get-involved') }}">Get Involved</a>
                     </x-site-nav-link>
 
-                    <x-site-nav-link :active="Request::is('/privacy')">
+                    <x-site-nav-link :active="Request::is('privacy')">
                         <a href="{{ url('/privacy') }}">Privacy & Data</a>
                     </x-site-nav-link>
-
                     @guest
-                        <x-site-nav-link :active="Request::is('/listing')">
+                        <x-site-nav-link :active="Request::is('listing/all')">
                             <a href="{{ url('/listing/all') }}">View Listings</a>
                         </x-site-nav-link>
                     @endguest
 
                     @auth
                         @if (Auth::user()->isOfType('agent') || Auth::user()->isOfType('user'))
-                            <x-site-nav-link :active="Request::is('/listing')">
+                            <x-site-nav-link :active="Request::is('listing')">
                                 <a href="{{ route('listing.all') }}">View Listings</a>
                             </x-site-nav-link>
                         @endif
                     @endauth
 
-                    <x-site-nav-link :active="Request::is('/contact')">
+                    <x-site-nav-link :active="Request::is('contact')">
                         <a href="{{ url('/contact') }}">Contact Us</a>
                     </x-site-nav-link>
                 </ul>

@@ -6,7 +6,7 @@
         <div class="row align-items-center">
 
             <div class="col-lg-5 col-md-5">
-                <img src="{{ asset('assets/img/undraw_House_searching.svg') }}" class="img-fluid" alt="" />
+                <img src="{{ asset('img/house_searching_2.svg') }}" class="img-fluid" alt="" />
             </div>
 
             <div class="col-lg-7 col-md-7">

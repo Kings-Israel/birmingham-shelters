@@ -54,15 +54,15 @@ class RefereeDataController extends Controller
     public function addSupportInfo(RefereeData $refereeData)
     {
         $support_group_list = [
-            'Mental Health Problems', 
-            'Single Homeless with support needs', 
-            'Training Educator Employment', 
-            'Leisure, Cultural, Faith, Informal Learning Activities', 
-            'Primary Health Care/Mental Health or Drug/Alcohol Services', 
-            'Accomodation/Housing', 
-            'Safeguarding: Avoid self-harm and/or harm to others', 
-            'Independent Living Skills', 
-            'Inclusion in Community', 
+            'Mental Health Problems',
+            'Single Homeless with support needs',
+            'Training Educator Employment',
+            'Leisure, Cultural, Faith, Informal Learning Activities',
+            'Primary Health Care/Mental Health or Drug/Alcohol Services',
+            'Accomodation/Housing',
+            'Safeguarding: Avoid self-harm and/or harm to others',
+            'Independent Living Skills',
+            'Inclusion in Community',
             'Social Isolation/Contact with family/friends',
             'Other'
         ];
@@ -99,7 +99,7 @@ class RefereeDataController extends Controller
 
     public function submitReferralForm(Request $request)
     {
-        
+
         $rules = [
             'referral_type' => 'required|string',
             'referrer_name' => 'required|string',
@@ -213,16 +213,16 @@ class RefereeDataController extends Controller
             'reason_for_leaving' => 'array|min:1',
             'reason_for_leaving.0' => 'required|string'
         ];
-        
+
         $messages = [
             'required' => 'Please enter the information.',
             'min:1' => 'Please fill an entire row',
             'date' => 'Please enter valid dates.'
         ];
-        
+
         Validator::make($request->all(), $rules, $messages)->validate();
-        
-        for ($i=0; $i < 4; $i++) { 
+
+        for ($i=0; $i < 4; $i++) {
             if($request->address[$i] != null && $request->moved_in_date[$i] != null && $request->moved_out_date[$i] != null && $request->tenure[$i] != null && $request->landlord_details[$i] && $request->reason_for_leaving != null) {
                 ApplicantAddressInfo::create([
                     'referee_data_id' => $request->referee_data_id,
@@ -286,7 +286,7 @@ class RefereeDataController extends Controller
         $rules = [];
         $messages = [];
         foreach($request->support_needs as $key => $need) {
-            for ($i=0; $i < count($request->support_group); $i++) { 
+            for ($i=0; $i < count($request->support_group); $i++) {
                 if ($request->support_group[$i] === $key) {
                     $rules[$key] = 'required|string';
                     $messages[$key.'.required'] = 'Please enter the support needs';
@@ -321,7 +321,7 @@ class RefereeDataController extends Controller
                 }
             }
         }
-        
+
         Validator::make($request->risk_description, $rules, $messages)->validate();
 
         foreach($request->risk_description as $key => $description) {

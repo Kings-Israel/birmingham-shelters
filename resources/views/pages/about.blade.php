@@ -10,7 +10,7 @@
             <div class="row align-items-center">
 
                 <div class="col-lg-6 col-md-6">
-                    <img src="{{ asset('img/select-house.svg')}}" class="img-fluid" alt="" />
+                    <img src="{{ asset('img/select-house-2.svg')}}" class="img-fluid" alt="" />
                 </div>
 
                 <div class="col-lg-6 col-md-6">
@@ -202,7 +202,7 @@
 
     <!-- Get Involved -->
     <section>
-        
+
     </section>
     <!-- END Get Involved -->
 

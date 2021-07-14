@@ -119,7 +119,7 @@
                                 </div>
                                 <div class="form-group col-lg-4 col-md-12">
                                     <label>Applicant's Phone Number</label>
-                                    <input type="number" id="applicant_phone_number" name="applicant_phone_number" class="form-control" value="{{ old('applicant_phone_number') }}" required>
+                                    <input type="tel" id="applicant_phone_number" name="applicant_phone_number" class="form-control" value="{{ old('applicant_phone_number') }}" required>
                                     @error('applicant_phone_number')
                                         <strong class="error-message">{{ $message }}</strong>
                                     @enderror
@@ -186,7 +186,7 @@
 
                                 <div class="form-group col-md-3">
                                     <label>Next of Kin's Phone Number</label>
-                                    <input type="number" id="applicant_kin_phone_number" name="applicant_kin_phone_number" class="form-control" value="{{ old('applicant_kin_phone_number') }}" required>
+                                    <input type="tel" id="applicant_kin_phone_number" name="applicant_kin_phone_number" class="form-control" value="{{ old('applicant_kin_phone_number') }}" onfocus="showIntNumber()" required>
                                     @error('applicant_kin_phone_number')
                                         <strong class="error-message">{{ $message }}</strong>
                                     @enderror
@@ -253,6 +253,14 @@
 </section>
 @push('scripts')
     <script>
+        let applicant_phone_number = document.getElementById('applicant_phone_number')
+        let applicant_kin_phone_number = document.getElementById('applicant_kin_phone_number')
+        applicant_phone_number.addEventListener('focus', () => {
+            applicant_phone_number.value = '44'
+        })
+        applicant_kin_phone_number.addEventListener('focus', () => {
+            applicant_kin_phone_number.value = '44'
+        })
         function selected() {
             var result = document.querySelector('input[name="applicant_gender[]"]:checked').value;
             if(result == "Other"){
