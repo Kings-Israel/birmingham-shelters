@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>BIRMINGHAM SHELTERS#{{ $invoice->id }}</title>
+    <title>BIRMINGHAM SHELTERS #{{ $invoice->id }}</title>
     <style>
         .nav-brand img {
-            max-width:150px;
+            max-width: 50px;
             position: relative;
             top: 2px;
         }
@@ -35,14 +35,14 @@
         html {
             position: relative;
             min-height: 100%;
-            background: #ffffff; 
+            background: #ffffff;
         }
     </style>
 </head>
 <body>
     <header>
         <a class="nav-brand" href="#">
-            <img src="{{ asset('img/sb-mock-logo.png') }}" class="logo" alt="" />
+            <img src="{{ asset('img/b-shelters.jpeg') }}" class="logo" alt="" />
         </a>
     </header>
     <div class="container">

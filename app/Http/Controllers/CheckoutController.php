@@ -104,14 +104,24 @@ class CheckoutController extends Controller
 
     public function cancelPayment(Invoice $invoice)
     {
-        $booking = $invoice->invoiceable;
-        $booking->status = BookingStatusEnum::pending()->value;
-        $deleteInvoice = Invoice::destroy($invoice);
+        if ($invoice->invoice_type == InvoiceTypeEnum::referral_fee()->label) {
+            $booking = $invoice->invoiceable;
+            $booking->status = BookingStatusEnum::pending()->value;
+            $deleteInvoice = Invoice::destroy($invoice->id);
 
-        if($booking->save() && $deleteInvoice == 0) {
-            return redirect()->route('listing.bookings.all', $booking->listing_id);
-        } else {
-            return redirect()->back()->withError('An error occurred during cancellation. Please try again.');
+            if($booking->save() && $deleteInvoice == 0) {
+                return redirect()->route('listing.bookings.all', $booking->listing_id);
+            } else {
+                return redirect()->back()->withError('An error occurred during cancellation. Please try again.');
+            }
+        } elseif($invoice->invoice_type == InvoiceTypeEnum::sponsored_listing()->label) {
+            $listing = $invoice->invoiceable;
+            $deleteInvoice = Invoice::destroy($invoice->id);
+            if ($deleteInvoice) {
+                return redirect()->route('listing.view.one', $listing->id);
+            } else {
+                return redirect()->back()->withError('An error occurred. Please try again.');
+            }
         }
     }
 
