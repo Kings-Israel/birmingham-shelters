@@ -5,7 +5,7 @@
 
                 <div class="col-lg-3 col-md-4">
                     <div class="footer-widget">
-                        <img src="{{ asset('img/sb-mock-logo.png') }}" class="img-footer" alt="" />
+                        <img src="{{ asset('img/b-shelters.jpeg') }}" class="img-footer" alt="" />
                         <div class="footer-add">
                             <p>Charity House, High Street, Coleshill,</p>
                             <p>Birmingham, B46 3BP</p>
@@ -22,7 +22,7 @@
                             <li><i class="ti-info-alt"></i> <a href="{{ url('/about') }}">About Us</a></li>
                             <li><i class="lni-phone-handset"></i> <a href="{{ url('/contact') }}">Contact</a></li>
                             <li><i class="ti-shield"></i> <a href="{{ url('/privacy') }}">Privacy & Data</a></li>
-                        </ul> 
+                        </ul>
                     </div>
                 </div>
 
@@ -31,7 +31,7 @@
                         <div class="footer-widget">
                             <h4 class="widget-title">My Account</h4>
                             <ul class="footer-menu">
-                                <li><a href="{{ route('user-profile') }}">My Profile</a></li>
+                                <li><a href="{{ route('profile.show', auth()->user()) }}">My Profile</a></li>
                                 @if (Auth::user()->isOfType('landlord'))
                                     <li><a href="{{ route('listing.view.all') }}">My Properties</a></li>
                                 @endif

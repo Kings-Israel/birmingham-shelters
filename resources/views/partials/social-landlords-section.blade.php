@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="col-lg-5 col-md-5">
-                <img src="{{ asset('img/for-sale-house.svg') }}" class="img-fluid" alt="" />
+                <img src="{{ asset('img/for_sale_2.svg') }}" class="img-fluid" alt="" />
             </div>
         </div>
     </div>

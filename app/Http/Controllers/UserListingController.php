@@ -22,7 +22,7 @@ class UserListingController extends Controller
     {
         $listing = Listing::find($request->listing_id);
         $listing_name = $listing->name;
-        
+
         // Send new booking SMS notification to the landlord
         SendSMSNotification::dispatchAfterResponse($listing->user->phone_number, 'A new booking has been made on the listing '.$listing_name.'. Please login to view details. Regards, Sheltered Birmingham.');
 

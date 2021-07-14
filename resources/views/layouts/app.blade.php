@@ -33,6 +33,24 @@
 </head>
 
 <body class="blue-skin">
+    @auth
+    @if (!Auth::user()->isOfType('admin'))
+        <!--Start of Tawk.to Script-->
+        <script type="text/javascript">
+            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+            (function(){
+                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                s1.async=true;
+                s1.src='https://embed.tawk.to/60e73c79649e0a0a5ccb39af/1fa3k8f40';
+                s1.charset='UTF-8';
+                s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1,s0);
+            })();
+        </script>
+        <!--End of Tawk.to Script-->
+    @endif
+        
+    @endauth
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -47,7 +65,7 @@
 
         @include('partials.footer')
 
-        <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+        <a id="back2Top" class="top-scroll" title="Back to top" href="#" style="left: 20px"><i class="ti-arrow-up"></i></a>
     </div>
 
     @include('partials.login-modal')

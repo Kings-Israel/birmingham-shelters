@@ -50,7 +50,7 @@ class CheckoutController extends Controller
             // Change status of booking to approved and other bookings as unsuccessful
             $booking = $invoice->invoiceable;
             $bookings = Booking::where('listing_id', '=', $booking->listing_id)->get();
-    
+
             // Reduce available room by 1 and if available rooms is 0 make the listing unavailable
             $listing = $booking->listing;
             $listing->available_rooms -= 1;
@@ -61,7 +61,7 @@ class CheckoutController extends Controller
                         $other_booking->save();
                     }
                 }
-                
+
                 $listing->is_available = false;
             }
 
@@ -80,19 +80,19 @@ class CheckoutController extends Controller
 
             $listing->occupied_rooms += 1;
             $listing->save();
-    
+
             // Send email to user with approval message
             $data = [
                 'email' => $booking->user->email,
                 'subject' => 'Approval of Application for listing '.$booking->listing->name,
-                'content' => 'We are hereby glad to inform you that you have been approved to occupy the listing as stated above. Please make contact with '.$booking->listing->contact_name.' through the details: Email: '.$booking->listing->contact_email.' or Phone Number: '.$booking->listing->contact_number.' for further instructions', 
+                'content' => 'We are hereby glad to inform you that you have been approved to occupy the listing as stated above. Please make contact with '.$booking->listing->contact_name.' through the details: Email: '.$booking->listing->contact_email.' or Phone Number: '.$booking->listing->contact_number.' for further instructions',
             ];
             // Send notification to user on approval of listing booking
             SendSMSNotification::dispatchAfterResponse($booking->user->phone_number, 'Your Booking for the listing '.$booking->listing->name.' has been approved. Please contact '.$booking->listing->contact_name.' through the details, Phone Number: '.$booking->listing->contact_number.', Email: '.$booking->listing->contact_email.', for more Information. Regards, Sheltered Birmingham.');
             SendBookingApprovalMail::dispatchAfterResponse($data['email'], $data['subject'], $data['content']);
-    
+
             return back()->with(['success' => "Invoice has been settled successfully.", "invoice" => $invoice, "listing" => $listing->id]);
-            
+
         } elseif($invoice->invoice_type == InvoiceTypeEnum::sponsored_listing()->label) {
             $listing = $invoice->invoiceable;
             $listing->is_sponsored = Carbon::now()->addMonth();
@@ -107,7 +107,7 @@ class CheckoutController extends Controller
         $booking = $invoice->invoiceable;
         $booking->status = BookingStatusEnum::pending()->value;
         $deleteInvoice = Invoice::destroy($invoice);
-        
+
         if($booking->save() && $deleteInvoice == 0) {
             return redirect()->route('listing.bookings.all', $booking->listing_id);
         } else {

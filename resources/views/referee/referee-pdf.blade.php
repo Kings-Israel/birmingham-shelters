@@ -18,7 +18,7 @@
         html {
             position: relative;
             min-height: 100%;
-            background: #ffffff; 
+            background: #ffffff;
         }
         h1,
         h2,
@@ -34,7 +34,7 @@
 
         h5,
         h6 {
-            color:#2D3954;  
+            color:#2D3954;
         }
         h1 {
         line-height: 40px;
@@ -88,7 +88,7 @@
             font-weight: 600;
         }
         .nav-brand img {
-            max-width:100px;
+            max-width:50px;
             position: relative;
             top: 2px;
         }
@@ -119,7 +119,7 @@
     <!-- Define header and footer blocks before your content -->
     <header>
         <a class="nav-brand" href="#">
-            <img src="{{ asset('img/sb-mock-logo.png') }}" class="logo" alt="" />
+            <img src="{{ asset('img/b-shelters.jpeg') }}" class="logo" alt="" />
         </a>
     </header>
     <div class="container">
@@ -413,7 +413,7 @@
                                 <td><strong>Support Group</strong></td>
                                 <td><strong>Support Need Details</strong></td>
                             </tr>
-                        </thead>    
+                        </thead>
                         <tbody>
                             @foreach ($support_info as $support)
                                 <tr>
