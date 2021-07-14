@@ -48,6 +48,26 @@
         @include('partials.footer')
 
         <a id="back2Top" class="top-scroll" title="Back to top" href="#" style="left: 20px"><i class="ti-arrow-up"></i></a>
+
+        @auth
+            @if (! Auth::user()->isOfType('admin'))
+                <!-- GetButton.io widget -->
+                <script type="text/javascript">
+                    (function () {
+                        var options = {
+                            whatsapp: "+254707137687", // WhatsApp number
+                            call_to_action: "Send Us a Message", // Call to action
+                            position: "right", // Position may be 'right' or 'left'
+                        };
+                        var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
+                        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+                        s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+                        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+                    })();
+                </script>
+                <!-- /GetButton.io widget -->
+            @endif
+        @endauth
     </div>
 
     @include('partials.login-modal')
@@ -173,26 +193,6 @@
             })
         }
     </script>
-<!-- GetButton.io widget -->
-<script type="text/javascript">
-    (function () {
-        var options = {
-            whatsapp: "+254707137687", // WhatsApp number
-            call_to_action: "Send Us a Message", // Call to action
-            position: "right", // Position may be 'right' or 'left'
-        };
-        var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
-        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
-        s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
-        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
-    })();
-</script>
-<!-- /GetButton.io widget -->
-
-    @auth
-        @if (! Auth::user()->isOfType('admin'))
-        @endif
-    @endauth
 
     <!-- Map -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCisnVFSnc5QVfU2Jm2W3oRLqMDrKwOEoM&callback=initMap" defer></script>
