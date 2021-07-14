@@ -33,24 +33,6 @@
 </head>
 
 <body class="blue-skin">
-    @auth
-    @if (!Auth::user()->isOfType('admin'))
-        <!--Start of Tawk.to Script-->
-        <script type="text/javascript">
-            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-            (function(){
-                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-                s1.async=true;
-                s1.src='https://embed.tawk.to/60e73c79649e0a0a5ccb39af/1fa3k8f40';
-                s1.charset='UTF-8';
-                s1.setAttribute('crossorigin','*');
-                s0.parentNode.insertBefore(s1,s0);
-            })();
-        </script>
-        <!--End of Tawk.to Script-->
-    @endif
-        
-    @endauth
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -87,7 +69,7 @@
     <script src="{{ asset('assets/js/imagesloaded.js') }}"></script>
     <script src="{{ asset('assets/js/dropzone.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-    
+
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->
@@ -109,10 +91,10 @@
         var yyyy = today.getFullYear();
         if(dd<10){
         dd='0'+dd
-        } 
+        }
         if(mm<10){
         mm='0'+mm
-        } 
+        }
 
         today = yyyy+'-'+mm+'-'+dd;
         let date_fields = document.querySelectorAll("#date");
@@ -191,6 +173,26 @@
             })
         }
     </script>
+<!-- GetButton.io widget -->
+<script type="text/javascript">
+    (function () {
+        var options = {
+            whatsapp: "+254707137687", // WhatsApp number
+            call_to_action: "Send Us a Message", // Call to action
+            position: "right", // Position may be 'right' or 'left'
+        };
+        var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+        s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+    })();
+</script>
+<!-- /GetButton.io widget -->
+
+    @auth
+        @if (! Auth::user()->isOfType('admin'))
+        @endif
+    @endauth
 
     <!-- Map -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCisnVFSnc5QVfU2Jm2W3oRLqMDrKwOEoM&callback=initMap" defer></script>
