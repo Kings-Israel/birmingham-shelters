@@ -298,6 +298,40 @@
                 document.getElementById("add-users-button").setAttribute('disabled', true);
             }
         }
+
+        function initMap() {
+            var mapErrorContainer = document.getElementById('map-error');
+            var address = document.getElementById('listing_address').innerText;
+            var addressTitle = document.getElementById('listing_name').innerText;
+            var addressPostalCode = document.getElementById('listing_postcode').innerText;
+            var geocoder = new google.maps.Geocoder();
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 16,
+            });
+
+            geocoder.geocode({
+                'address': address,
+                componentRestrictions : {
+                    country: 'UK',
+                    postalCode: addressPostalCode
+                }
+            }, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    mapErrorContainer.style.display = "none";
+                    map.setCenter(results[0].geometry.location);
+                    new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location,
+                        title: addressTitle
+                    });
+                } else {
+                    const mapContainer = document.getElementById('map-container').style.display = "none";
+                    // alert('Geocode was not successful for the following reasons: ' + status)
+                }
+            })
+        }
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAPS_API_KEY') }}&callback=initMap" defer></script>
     @endpush
 </x-app-layout>
