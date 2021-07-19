@@ -6,7 +6,7 @@
             <div class="col-lg-7 col-md-10 text-center">
                 <div class="sec-heading center">
                     <h2>How It Works?</h2>
-                    <p>Birmingham Shelters acts as a link between the homeless and supported quality assured accommodation.</p>
+                    <p class="lead">Birmingham Shelters acts as a link between the homeless and supported quality assured accommodation.</p>
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
                     </div>
                     <div class="middle-icon-features-content">
                         <h4>Property Submissions</h4>
-                        <p>Social landlords submit their properties which have been inspected and cleared by the BVSC to have supported accommodation. </p>
+                        <p class="lead">Social landlords submit their properties which have been inspected and cleared by the BVSC to have supported accommodation. </p>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="middle-icon-features-content">
                         <h4>Homeless Applications</h4>
-                        <p>Homeless in the Birmingham area provide detailed information that is used to place them in available supported rooms.</p>
+                        <p class="lead">Homeless in the Birmingham area provide detailed information that is used to place them in available supported rooms.</p>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="middle-icon-features-content">
                         <h4>Close The Deal</h4>
-                        <p>Referrals are made to the social landlords in charge of the rooms to accommodate a homeless person based on their needs.</p>
+                        <p class="lead">Referrals are made to the social landlords in charge of the rooms to accommodate a homeless person based on their needs.</p>
                     </div>
                 </div>
             </div>

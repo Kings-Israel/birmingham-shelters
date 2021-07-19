@@ -47,8 +47,6 @@
 
         @include('partials.footer')
 
-        <a id="back2Top" class="top-scroll" title="Back to top" href="#" style="left: 20px"><i class="ti-arrow-up"></i></a>
-
         @auth
             @if (! Auth::user()->isOfType('admin'))
                 <!-- GetButton.io widget -->
@@ -56,7 +54,7 @@
                     (function () {
                         var options = {
                             whatsapp: "+254707137687", // WhatsApp number
-                            call_to_action: "Send Us a Message", // Call to action
+                            call_to_action: "Reach Us on Whatsapp", // Call to action
                             position: "right", // Position may be 'right' or 'left'
                         };
                         var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
@@ -68,6 +66,9 @@
                 <!-- /GetButton.io widget -->
             @endif
         @endauth
+
+        <a id="back2Top" class="top-scroll" title="Back to top" href="#" style="left: 20px"><i class="ti-arrow-up"></i></a>
+
     </div>
 
     @include('partials.login-modal')

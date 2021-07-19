@@ -9,19 +9,22 @@
                         <div class="footer-add">
                             <p>Charity House, High Street, Coleshill,</p>
                             <p>Birmingham, B46 3BP</p>
-                            <p>+1 246-345-0695</p>
-                            <p>info@example.com</p>
+                            <p>+44 7450 310532</p>
+                            <p>
+                                <a class="link link-primary" href="mailto:info@birminghamshelters.co.uk">info@birminghamshelters.co.uk</a>
+                            </p>
                         </div>
 
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4">
                     <div class="footer-widget">
-                        <h4 class="widget-title">Navigations</h4>
                         <ul class="footer-menu">
                             <li><i class="ti-info-alt"></i> <a href="{{ url('/about') }}">About Us</a></li>
-                            <li><i class="lni-phone-handset"></i> <a href="{{ url('/contact') }}">Contact</a></li>
+                            <li><i class="ti-help-alt"></i> <a href="{{ url('/faq') }}">Frequently Asked Questions</a></li>
+                            <li><i class="ti-flag-alt-2"></i> <a href="{{ url('/get-involved') }}">Get Invloved</a></li>
                             <li><i class="ti-shield"></i> <a href="{{ url('/privacy') }}">Privacy & Data</a></li>
+                            <li><i class="lni-phone-handset"></i> <a href="{{ url('/contact') }}">Contact</a></li>
                         </ul>
                     </div>
                 </div>
