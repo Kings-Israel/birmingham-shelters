@@ -14,7 +14,7 @@
                     <div>
                         <dt>Can Birmingham Shelters provide accommodation?</dt>
                         <dd>
-                            Birmingham Shelters does NOT provide accommodation. Birmingham Shelters is a website that acts as a way of connecting homeless people who are rough sleeping to supported accommodation. If you need accommodation advice you can contact Birmingham Shelters on ?????????, open Monday to Friday 9am to 5pm.
+                            Birmingham Shelters does NOT provide accommodation. Birmingham Shelters is a website that acts as a way of connecting homeless people who are rough sleeping to supported accommodation. If you need accommodation advice you can contact Birmingham Shelters on <a class="link link-primary" href="mailto:info@birminghamshelters.co.uk">info@birminghamshelters.co.uk</a>, open Monday to Friday 9am to 5pm.
                         </dd>
                     </div>
 

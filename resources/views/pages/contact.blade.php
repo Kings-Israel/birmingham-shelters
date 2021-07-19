@@ -17,9 +17,9 @@
 
             <!-- row Start -->
             <div class="row">
-                
+
                 <div class="col-lg-7 col-md-7">
-                    
+
                     <form action="{{ route('contact.form.submit') }}" method="post">
                         @csrf
                         <div class="row">
@@ -38,23 +38,23 @@
                                 </div>
                             </div>
                         </div>
-    
+
                         <div class="form-group">
                             <label>Subject</label>
                             <input type="text" name="message_contact_subject" class="form-control simple" value="{{ old('message_contact_subject') }}">
                             <x-input-error for="message_contact_subject" />
                         </div>
-    
+
                         <div class="form-group">
                             <label>Message</label>
                             <textarea class="form-control simple" name="message_contact">{{ old('message_contact') }}</textarea>
                             <x-input-error for="message_contact" />
                         </div>
-    
+
                         <div class="form-group">
                             <button class="btn btn-theme-light-2 rounded" type="submit">Submit Request</button>
                         </div>
-                        
+
                     </div>
                 </form>
 
@@ -79,7 +79,7 @@
                             </div>
                             <div class="cn-info-content">
                                 <h4 class="cn-info-title">Drop A Mail</h4>
-                                support@Rikada.com
+                                <a style="color: #2D3954" class="link link-primary" href="mailto:info@birminghamshelters.co.uk">info@birminghamshelters.co.uk</a>
                             </div>
                         </div>
 
@@ -89,7 +89,7 @@
                             </div>
                             <div class="cn-info-content">
                                 <h4 class="cn-info-title">Call Us</h4>
-                                (41) 123 521 458
+                                (44) 7450 310532
                             </div>
                         </div>
 

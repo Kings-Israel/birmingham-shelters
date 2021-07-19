@@ -2,9 +2,22 @@
     <div class="container">
         <nav id="navigation" class="navigation navigation-landscape">
             <div class="nav-header">
-                <a class="nav-brand" href="#">
-                    <img src="{{ asset('img/b-shelters.jpeg') }}" class="logo" alt="" />
-                </a>
+                @auth
+                    @if (Auth::user()->user_type == 'user' || Auth::user()->user_type == 'agent')
+                        <a class="nav-brand" href="{{ route('home') }}">
+                            <img src="{{ asset('img/b-shelters.jpeg') }}" class="logo" alt="" />
+                        </a>
+                    @elseif (Auth::user()->user_type == 'landlord')
+                        <a class="nav-brand" href="{{ route('landlord.index') }}">
+                            <img src="{{ asset('img/b-shelters.jpeg') }}" class="logo" alt="" />
+                        </a>
+                    @endif
+                @endauth
+                @guest
+                    <a class="nav-brand" href="{{ url('/') }}">
+                        <img src="{{ asset('img/b-shelters.jpeg') }}" class="logo" alt="" />
+                    </a>
+                @endguest
                 <div class="nav-toggle"></div>
             </div>
             <div class="nav-menus-wrapper" style="transition-property: none;">

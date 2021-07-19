@@ -14,10 +14,10 @@
                 </div>
 
                 <div class="col-lg-6 col-md-6">
-                    <div class="story-wrap explore-content">
+                    <div class="">
 
                         <h2>What We Do</h2>
-                        <p>Everything we do is about people – whether that is ensuring we link the homeless persons with
+                        <p class="lead">Everything we do is about people – whether that is ensuring we link the homeless persons with
                             a good quality, safe home or helping this vulnerable group of people to live an independent
                             life. Birmingham Shelters links the various accommodation to homeless persons of all ages
                             and difficulties or diagnoses in all sections of the Birmingham community. We provide a
@@ -47,7 +47,7 @@
                         <i class="ti-flag-alt-2 theme-cl"></i>
                         <div class="icon-mi-left-content">
                             <h2 class="fs-4">Our Mission</h2>
-                            <p>Birmingham Shelters provides a service that has been designed to address the homelessness
+                            <p class="lead">Birmingham Shelters provides a service that has been designed to address the homelessness
                                 crisis in the UK by linking persons impacted by homelessness with quality-assured
                                 supported accommodation.</p>
                         </div>
@@ -59,7 +59,7 @@
                         <i class="ti-eye theme-cl"></i>
                         <div class="icon-mi-left-content">
                             <h2 class="fs-4">Our Vision</h2>
-                            <p>To become the best link up for homeless persons with rightly suited accommodation that
+                            <p class="lead">To become the best link up for homeless persons with rightly suited accommodation that
                                 meets the needs of the homeless and empower them to become more independent within the
                                 community.</p>
                         </div>
@@ -86,7 +86,7 @@
                 <div class="col-md-6 col-lg-6">
                     <div class="bg-white px-5 py-4 shadow rounded-3 h-full">
                         <h4>Integrity</h4>
-                        <p>Being honest and truthful with carrying out our tasks as we are working to meet the interests
+                        <p class="lead">Being honest and truthful with carrying out our tasks as we are working to meet the interests
                             of the homeless persons and the social landlords.</p>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                 <div class="col-md-6 col-lg-6">
                     <div class="bg-white px-5 py-4 rounded-3 shadow h-full">
                         <h4>Teamwork</h4>
-                        <p>Bringing skilled people from various backgrounds together to attain the goal of reducing
+                        <p class="lead">Bringing skilled people from various backgrounds together to attain the goal of reducing
                             homelessness in Birmingham City.</p>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                 <div class="col-md-6 col-lg-6">
                     <div class="bg-white px-5 py-4 rounded-3 shadow h-full">
                         <h4>Empowerment</h4>
-                        <p>Empowering the homeless persons by matching them with the right accommodations that will seek
+                        <p class="lead">Empowering the homeless persons by matching them with the right accommodations that will seek
                             to focus on their needs.</p>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                 <div class="col-md-6 col-lg-6">
                     <div class="bg-white px-5 py-4 rounded-3 shadow h-full">
                         <h4>Commitment</h4>
-                        <p>Devoting ourselves to the great social goals that we want to attain within the community with
+                        <p class="lead">Devoting ourselves to the great social goals that we want to attain within the community with
                             regards to reduction of homelessness within the community.</p>
                     </div>
                 </div>
