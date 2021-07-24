@@ -15,6 +15,7 @@ class CreateBookingsTable extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
+            $table->unique(['listing_id', 'user_id', 'referee_data_id']);
             $table->foreignId('listing_id');
             $table->foreignId('user_id');
             $table->foreignId('referee_data_id');
