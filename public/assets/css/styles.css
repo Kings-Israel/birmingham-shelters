@@ -384,7 +384,7 @@ ul.list-style li:before {
     left: 0;
     font-size: 16px;
     top: 0;
-    color: #27b737;
+    color: #2CA9E3;
     font-family: 'themify';
 }
 ul.list-style.style-2 li:before {
@@ -5753,9 +5753,9 @@ span.hm_nav_clear {
 }
 .property-listing.property-1 .listing-detail-btn .more-btn {
     padding: 6px 12px;
-    color: #ffffff;
-    border: 1px solid #0fca98 !important;
-    background: #0fca98 !important;
+    color: #000000;
+    border: 1px solid #2CA9E3 !important;
+    background: #2CA9E3 !important;
     border-radius: 2px;
 }
 .property-listing.property-1 .listing-rating {
@@ -5880,16 +5880,20 @@ span.tag_t {
     color:#ffffff;
 }
 .btn.btn-theme-light {
-    color:#fd5332;
+    color:#2CA9E3;
     background:rgba(253, 83, 50,0.12);
     border-radius: 4px;
 	margin-bottom:5px;
 }
-.btn.btn-theme-light-2:hover, .btn.btn-theme-light-2:focus, .btn.btn-theme-light-2{
-    background: rgba(15,202,152,0.2) !important;
+.btn.btn-theme-light-2:focus, .btn.btn-theme-light-2{
+    background: #2CA9E3 !important;
     border:2px solid rgba(15,202,152,0.3) !important;
 	padding:16px 50px;
-    color: #0fca98 !important;
+    color: #114f6c !important;
+    transition: .1s ease;
+}
+.btn.btn-theme-light-2:hover{
+    background: #047db5 !important;
 }
 .btn.btn-theme-light:hover, .btn.btn-theme-light:focus, .btn.btn-theme-light{
     background: rgba(18,102,227,0.2) !important;
@@ -8621,7 +8625,7 @@ span.mod-close {
 .sides-widget-header {
     position: relative;
     display: flex;
-    background: #0fca98;
+    background: #2CA9E3;
     padding: 1.5rem 1.4rem;
     color: #ffffff;
     align-items: center;
@@ -11907,7 +11911,7 @@ a.blue2-theme {
 
   .file-upload {
     background-color: #fff;
-    width: 400px;
+    width: 300px;
     margin: 0 auto;
   }
 
@@ -11915,11 +11919,11 @@ a.blue2-theme {
     width: 100%;
     margin: 0;
     color: #fff;
-    background: #334e6f;
+    background: #2CA9E3;
     border: none;
     padding: 10px;
     border-radius: 4px;
-    border-bottom: 4px solid #15824B;
+    border-bottom: 4px solid #F6B833;
     transition: all .2s ease;
     outline: none;
     text-transform: uppercase;
@@ -11927,7 +11931,7 @@ a.blue2-theme {
   }
 
   .file-upload-btn:hover {
-    background: #1AA059;
+    background: #1B2132;
     color: #fff;
     transition: all .2s ease;
     cursor: pointer;
@@ -11955,6 +11959,7 @@ a.blue2-theme {
   }
 
   .image-upload-wrap {
+    height: 140px;
     margin-top: 20px;
     border: 4px dashed #334e6f;
     position: relative;
@@ -11963,7 +11968,7 @@ a.blue2-theme {
 
   .image-dropping,
   .image-upload-wrap:hover {
-    background-color: #020e1c;
+    background-color: #2CA9E3;
     border: 4px dashed #ffffff;
   }
 
@@ -11976,15 +11981,15 @@ a.blue2-theme {
     text-align: center;
   }
 
-  .drag-text h3 {
+  .drag-text h5 {
     font-weight: 100;
     text-transform: uppercase;
-    color: #15824B;
-    padding: 60px 0;
+    color: #1B2132;
+    padding: 20px 0;
   }
 
   .file-upload-image {
-    max-height: 200px;
+    max-height: 150px;
     max-width: 200px;
     margin: auto;
     padding: 20px;

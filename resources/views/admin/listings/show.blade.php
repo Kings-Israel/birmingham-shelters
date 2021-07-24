@@ -3,11 +3,7 @@
     <!-- ============================ Property Header Info Start================================== -->
     <div class="bg-title">
         <div class="container px-4 py-3">
-            @if($listing->is_available)
-            <span class="badge rounded-pill fw-bold text-success bg-light-success m-l-4">Available</span>
-            @else
-            <span class="badge rounded-pill fw-bold text-warning bg-light-warning m-l-4">Not Available</span>
-            @endif
+
             <h3 class="text-light" id="listing_name">{{ $listing->name }}</h3>
             <div class="text-light fw-bold d-flex">
                 <div hidden>
@@ -17,14 +13,21 @@
                 <span><i class="ti ti-pin m-r-5"></i> {{$listing->address}} ({{ $listing->postcode }})</span>
                 <span class="m-l-15" title="Owner"><i class="ti ti-user m-r-5"></i>
                     {{ $listing->user->full_name }}</span>
-                
+
                 <livewire:listing-assessmet-date :listing="$listing" />
             </div>
             <div style="display: flex">
                 <div class="m-t-10 mr-2">
+                    @if($listing->is_available)
+                    <span class="badge rounded-pill fw-bold text-success bg-light-success m-l-4" style="font-size: 15px">Available</span>
+                    @else
+                    <span class="badge rounded-pill fw-bold text-warning bg-light-warning m-l-4" style="font-size: 15px">Not Available</span>
+                    @endif
+                </div>
+                <div class="m-t-10 mr-2">
                     <livewire:admin-verify-listing :listing="$listing" />
                 </div>
-                <h5 style="color: white; margin-top: 10px; margin-right:5px">Set Assessment Date:</h5>
+                <h5 class="m-t-15 mr-1" style="color: white;">Set Assessment Date:</h5>
                 <div class="m-t-10">
                     <livewire:admin-listing-assessment :listing="$listing" />
                 </div>

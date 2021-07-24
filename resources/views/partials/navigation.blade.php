@@ -79,8 +79,7 @@
                                     </li>
                                     @endif
                                 </ul>
-                            @endif
-                            @if (Auth::user()->user_type == 'agent')
+                            @elseif (Auth::user()->user_type == 'agent')
                                 <ul class="nav-dropdown nav-submenu">
                                     <li><a class="active" href="{{ route('agent.index') }}">My Dashboard</a></li>
                                     @if(Auth::user()->isOfType('agent'))

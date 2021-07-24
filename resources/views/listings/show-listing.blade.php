@@ -46,21 +46,29 @@
                             @guest
                                 <p>Please login or sign up to join the waiting list for this room</p>
                             @endguest
+
                             @auth
                             @if ($listing->isBooked($listing->bookings))
-                                <p>This listing has already been booked</p>
+                                <p>This listing has been booked occuppied</p>
                             @else
+                                {{-- Check if user has filled referral form --}}
                                 @if ((Auth::user()->isOfType('user')) && (Auth::user()->refereedata()->exists()))
-                                    @if ($listing->bookings->contains('user_id', Auth::user()->id))
-                                        <p>You are in the waiting list for this room.</p>
+                                    {{-- Check if user has been approved for another booking --}}
+                                    @if (! Auth::user()->refereedata->first()->canBook(Auth::user(), Auth::user()->refereedata->first()->id, $listing->id))
+                                        You have been approved for another listing.
                                     @else
-                                        <form action="{{ route('listing.submit.booking') }}" method="post">
-                                            @csrf
-                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                            <input type="hidden" name="referee_data_id" value="{{ Auth::user()->refereedata()->first()->id }}">
-                                            <input type="hidden" name="listing_id" value="{{ $listing->id }}">
-                                            <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
-                                        </form>
+                                        {{-- Check if user has already made a booking in this listing --}}
+                                        @if ($listing->bookings->contains('user_id', Auth::user()->id))
+                                            <p>You are in the waiting list for this room.</p>
+                                        @else
+                                            <form action="{{ route('listing.submit.booking') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                                <input type="hidden" name="referee_data_id" value="{{ Auth::user()->refereedata()->first()->id }}">
+                                                <input type="hidden" name="listing_id" value="{{ $listing->id }}">
+                                                <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
+                                            </form>
+                                        @endif
                                     @endif
                                 @elseif(Auth::user()->isOfType('agent'))
                                 <button type="submit" class="btn btn-black btn-md rounded full-width" data-bs-toggle="modal" data-bs-target="#view_users">Add Referee To Waiting List</button>

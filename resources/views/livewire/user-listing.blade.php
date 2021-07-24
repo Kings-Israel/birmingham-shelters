@@ -36,17 +36,17 @@
                                                 <div class="listing-detail-wrapper">
                                                     <div class="listing-short-detail">
                                                         @if($listing->is_sponsored != null && $listing->is_sponsored > date('Y-m-d'))
-                                                            <span class="badge rounded-pill fw-bold text-success bg-light-success m-l-4" style="float: right;">Top</span>
-                                                        @endif 
-                                                        @if ($listing->status->label == "Verified")
-                                                            <img src="{{ asset('/assets/img/star.png') }}" class="img-fluid" width="20px" style="float: right;"/>
+                                                            <span class="badge rounded-pill fw-bold m-l-4" style="float: right; background-color: #2CA9E3; color: #000000">Top</span>
+                                                        @endif
+                                                        @if ($listing->is_verified)
+                                                            <i class="ti-star mr-1" style="float: right; font-size: 20px; color: #2CA9E3"></i>
                                                         @endif
                                                         <h4 class="listing-name"><a href="{{ route('listing.one', $listing->id) }}">{{ $listing->name }}</a></h4>
                                                         <p class="listing-description">{{ $listing->description }}</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                        
+
                                             <div class="listing-footer-wrapper">
                                                 <div class="listing-locate">
                                                     <span class="listing-location"><i class="ti-location-pin"></i>{{ $listing->address }}</span>
@@ -55,7 +55,7 @@
                                                     <a href="{{ route('listing.one', $listing->id) }}" class="more-btn">View</a>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                             <div class="row">
                                 {{ $listings->links() }}
                             </div>
-                        @endif                        
+                        @endif
                     </div>
                 </div>
             </div>
