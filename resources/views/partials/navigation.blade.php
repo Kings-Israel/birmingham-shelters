@@ -49,18 +49,17 @@
                     <x-site-nav-link :active="Request::is('privacy')">
                         <a href="{{ url('/privacy') }}">Privacy & Data</a>
                     </x-site-nav-link>
-                    @guest
-                        <x-site-nav-link :active="Request::is('listing/all')">
-                            <a href="{{ url('/listing/all') }}">View Listings</a>
-                        </x-site-nav-link>
-                    @endguest
 
                     @auth
                         @if (Auth::user()->isOfType('agent') || Auth::user()->isOfType('user'))
-                            <x-site-nav-link :active="Request::is('listing')">
+                            <x-site-nav-link :active="Request::is('listing/all')">
                                 <a href="{{ route('listing.all') }}">View Listings</a>
                             </x-site-nav-link>
                         @endif
+                    @else
+                        <x-site-nav-link :active="Request::is('listing/all')">
+                            <a href="{{ url('/listing/all') }}">View Listings</a>
+                        </x-site-nav-link>
                     @endauth
 
                     <x-site-nav-link :active="Request::is('contact')">

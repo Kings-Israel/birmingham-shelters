@@ -57,7 +57,7 @@ class LandlordListingController extends Controller
 
         return view('landlord.listing.show-listing')->with(
             [
-                'listing' => $listing, 
+                'listing' => $listing,
                 'supported_groups' => $supported_groups,
                 'listing_document_types' => ListingDocumentTypesEnum::toArray(),
                 'proofs' => ListingProofsEnum::toArray()
@@ -69,7 +69,10 @@ class LandlordListingController extends Controller
     {
         $referee_data = collect([]);
         foreach ($listing->bookings as $booking) {
-            $referee_data->push(RefereeData::where('id', '=', $booking->referee_data_id)->paginate(10));
+            $referee_data->push(RefereeData::where(
+                ['id', '=', $booking->referee_data_id],
+                ['consent', true]
+            )->paginate(10));
         }
 
         return view('landlord.bookings')->with(['referee_data' => $referee_data, 'listing_id' => $listing->id]);
@@ -94,13 +97,13 @@ class LandlordListingController extends Controller
     {
         return view('landlord.inquiries')
                 ->with(
-                    'inquiries',  
+                    'inquiries',
                     $listing->load(['inquiry' => function($query) {
                         $query->orderBy('id', 'DESC');
                     }]));
     }
 
-    public function deleteInquiry($id) 
+    public function deleteInquiry($id)
     {
         if (ListingInquiry::destroy($id)) {
             return redirect()->back()->with('success', 'Inquiry deleted');
@@ -270,7 +273,7 @@ class LandlordListingController extends Controller
         return redirect()->route('listing.add.listing_documents', $request->listing_id);
     }
 
-    public function updateClientGroupInfo(Request $request) 
+    public function updateClientGroupInfo(Request $request)
     {
         $rules = [
             'supported_groups' => ['required', 'array', 'min:1'],
@@ -346,13 +349,13 @@ class LandlordListingController extends Controller
             Listing::whereId($request->listing_id)->update(['proofs' => []]);
         }
 
-        
+
         return redirect()->route('listing.add.listing_images', $request->listing_id);
 
     }
 
     public function updateListingDocuments(Request $request)
-    {   
+    {
         $document = ListingDocument::where('listing_id', $request->listing_id)->get();
         $document->each(fn (ListingDocument $document) => $document->delete());
         $rules = [
@@ -371,7 +374,7 @@ class LandlordListingController extends Controller
             'listing_documents.*.mimes' => 'Only PDFs are accepted.',
             'expiry_dates.*.required' => 'An expiry date is required',
         ];
-        
+
         $validated = $request->validate($rules, $messages);
 
         foreach ($validated['listing_documents'] as $document_type => $file) {
@@ -462,7 +465,6 @@ class LandlordListingController extends Controller
 
     public function cancelListingAddition($id = null)
     {
-        $user_type = Auth::user()->user_type;
         if($id == null) {
             return redirect()->route('listing.view.all');
         }
@@ -509,7 +511,7 @@ class LandlordListingController extends Controller
                 'description' => 'Approval for booking for the user: '.$referee_details->applicant_name.', for the listing: '.$listing->name.'',
                 'total' => 100,
             ]);
-    
+
             return redirect()->route('invoice.checkout.page', $invoice->id);
         }
     }
@@ -524,7 +526,7 @@ class LandlordListingController extends Controller
             'description' => 'Make '.$listing->name.' a sponsored listing',
             'total' => 50
         ]);
-        
+
         return redirect()->route('invoice.checkout.page', $invoice->id);
     }
 }

@@ -1,11 +1,13 @@
 <footer class="dark-footer skin-dark-footer">
-    <div>
-        <div class="container">
+    <div class="container">
             <div class="row">
-
-                <div class="col-lg-3 col-md-4">
+                <div class="col-lg-3 col-md-3">
                     <div class="footer-widget">
                         <img src="{{ asset('img/b-shelters.jpeg') }}" class="img-footer" alt="" />
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="footer-widget">
                         <div class="footer-add">
                             <p>Charity House, High Street, Coleshill,</p>
                             <p>Birmingham, B46 3BP</p>
@@ -14,10 +16,9 @@
                                 <a class="link link-primary" href="mailto:info@birminghamshelters.co.uk">info@birminghamshelters.co.uk</a>
                             </p>
                         </div>
-
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4">
+                <div class="col-lg-3 col-md-3">
                     <div class="footer-widget">
                         <ul class="footer-menu">
                             <li><i class="ti-info-alt"></i> <a href="{{ url('/about') }}">About Us</a></li>
@@ -30,7 +31,7 @@
                 </div>
 
                 @auth
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-3">
                         <div class="footer-widget">
                             <h4 class="widget-title">My Account</h4>
                             <ul class="footer-menu">
@@ -52,7 +53,6 @@
                     <li><a href="#"><i class="ti-linkedin" style="font-size: 20px"></i></a></li>
                 </ul>
             </div>
-        </div>
     </div>
 
     <div class="footer-bottom">

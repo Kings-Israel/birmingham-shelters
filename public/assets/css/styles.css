@@ -214,7 +214,7 @@ p {
 	background:#f3f7fd;
 }
 .bg-title{
-	background:#2540a2;
+	background:#2CA9E3;
 }
 .bg-1{
 	background:#f7d0cb;
@@ -6926,7 +6926,7 @@ ul.fr-grid-social li a{
     margin: 0;
 }
 .nav-tabs .nav-link {
-    background: #3151B7;
+    background: #2CA9E3;
     color: #ffffff;
     border-radius: .22rem;
     margin-right: 10px;
@@ -6938,11 +6938,11 @@ ul.fr-grid-social li a{
 }
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
     color:#ffffff;
-    background-color:#fd5332;
+    background-color:#2CA9E3;
     border-color: #fd5332;
 }
 .nav-tabs.customize-tab .nav-item.show .nav-link, .nav-tabs .nav-link.active{
-    background: #2f4ba5 !important;
+    background: #2CA9E3 !important;
     color:#ffffff;
     border-radius:0rem;
     margin-right:0px;
@@ -8064,12 +8064,12 @@ ul.deatil_features li strong {
 }
 .prt-price-fix {
     line-height: 1.4;
-    color: #0fca98;
+    color: #020c10;
 }
 .prt-price-fix sub {
     font-size: 15px;
     font-weight: 400;
-    color: #929fc5;
+    color: #2CA9E3;
 }
 .featured_slick_gallery {
     position: relative;
@@ -8164,7 +8164,7 @@ ul.deatil_features li strong {
     border: 1px solid #ffffff;
 }
 .property_block_wrap.style-4 .prt-price-fix sub {
-    color: #6e88e8;
+    color: #2CA9E3;
 }
 
 /*----------------- Vedio -----------------*/
@@ -9841,14 +9841,14 @@ h3.pa-name {
     border-bottom:none;
 }
 .d-navigation ul li.active {
-    background:rgba(15,202,152,0.2) !important;
+    background:rgba(44,169,227,0.3) !important;
 }
 .d-navigation ul li.active a {
     color:#0fca98 !important;
 }
 .d-navigation ul li a {
     padding: 3px 0;
-    color: #455892;
+    color: #2CA9E3;
     font-size: 15px;
     display: inline-block;
     font-weight: 600;
@@ -10004,7 +10004,7 @@ footer.footer-small {
     padding: 50px 0 0 0;
 }
 img.img-footer {
-    max-width: 90px;
+    max-width: 310px;
     margin-bottom: 2rem;
 }
 .ft-itext {
@@ -10067,8 +10067,15 @@ h4.widget-title {
     margin-top:15px;
     display: block;
 }
+.footer-widget ul li:first-child {
+    margin-top: 0px;
+}
 .footer-widget ul li a{
 	color:#626a70;
+}
+
+.footer-menu li i {
+    margin-right: 5px;
 }
 
 footer.skin-dark-footer h4{

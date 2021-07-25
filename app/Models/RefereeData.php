@@ -11,27 +11,31 @@ class RefereeData extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 
-        'referral_type', 
-        'referrer_name', 
-        'referrer_phone_number', 
-        'referrer_email', 
-        'referral_reason', 
-        'applicant_name', 
-        'applicant_email', 
-        'applicant_phone_number', 
-        'applicant_date_of_birth', 
-        'applicant_ni_number', 
-        'applicant_current_address', 
-        'applicant_gender', 
-        'applicant_sexual_orientation', 
-        'applicant_ethnicity', 
-        'applicant_kin_name', 
-        'applicant_kin_relationship', 
-        'applicant_kin_phone_number', 
+        'user_id',
+        'referral_type',
+        'referrer_name',
+        'referrer_phone_number',
+        'referrer_email',
+        'referral_reason',
+        'applicant_name',
+        'applicant_email',
+        'applicant_phone_number',
+        'applicant_date_of_birth',
+        'applicant_ni_number',
+        'applicant_current_address',
+        'applicant_gender',
+        'applicant_sexual_orientation',
+        'applicant_ethnicity',
+        'applicant_kin_name',
+        'applicant_kin_relationship',
+        'applicant_kin_phone_number',
         'applicant_kin_email',
         'applicant_image',
         'consent'
+    ];
+
+    protected $casts = [
+        'consent' => 'bool'
     ];
 
     /**
@@ -43,7 +47,7 @@ class RefereeData extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
+
     public function booking()
     {
         return $this->hasMany(Booking::class);
@@ -74,7 +78,7 @@ class RefereeData extends Model
         return $this->hasOne(ApplicantSupportNeeds::class);
     }
 
-    public function consent() 
+    public function consent()
     {
         return $this->hasOne(Consent::class);
     }
@@ -101,10 +105,12 @@ class RefereeData extends Model
             ['referee_data_id', '=', $referee_data_id],
             ['status', '=', BookingStatusEnum::approved()->value]
         ])->exists();
-            
+
         if($is_approved) {
             return false;
         } elseif($booking_exists) {
+            return false;
+        } elseif($this->consent == false) {
             return false;
         } else {
             return true;
@@ -118,7 +124,7 @@ class RefereeData extends Model
             ['referee_data_id', '=', $referee_data_id],
             ['listing_id', '=', $listing_id]
         ])->pluck('status')->first();
-        
+
         return $status;
     }
 
@@ -135,5 +141,5 @@ class RefereeData extends Model
 
         return true;
     }
-    
+
 }
