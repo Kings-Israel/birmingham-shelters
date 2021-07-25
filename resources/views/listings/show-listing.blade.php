@@ -46,26 +46,34 @@
                             @guest
                                 <p>Please login or sign up to join the waiting list for this room</p>
                             @endguest
+
                             @auth
                             @if ($listing->isBooked($listing->bookings))
-                                <p>This listing has already been booked</p>
+                                <p>This listing has been fully occuppied</p>
                             @else
+                                {{-- Check if user has filled referral form --}}
                                 @if ((Auth::user()->isOfType('user')) && (Auth::user()->refereedata()->exists()))
-                                    @if ($listing->bookings->contains('user_id', Auth::user()->id))
-                                        <p>You are in the waiting list for this room.</p>
+                                    {{-- Check if user has been approved for another booking --}}
+                                    @if (! Auth::user()->refereedata->first()->canBook(Auth::user(), Auth::user()->refereedata->first()->id, $listing->id))
+                                        You have been approved for another listing.
                                     @else
-                                        <form action="{{ route('listing.submit.booking') }}" method="post">
-                                            @csrf
-                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                            <input type="hidden" name="referee_data_id" value="{{ Auth::user()->refereedata()->first()->id }}">
-                                            <input type="hidden" name="listing_id" value="{{ $listing->id }}">
-                                            <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
-                                        </form>
+                                        {{-- Check if user has already made a booking in this listing --}}
+                                        @if ($listing->bookings->contains('user_id', Auth::user()->id))
+                                            <p>You are in the waiting list for this room.</p>
+                                        @else
+                                            <form action="{{ route('listing.submit.booking') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                                <input type="hidden" name="referee_data_id" value="{{ Auth::user()->refereedata()->first()->id }}">
+                                                <input type="hidden" name="listing_id" value="{{ $listing->id }}">
+                                                <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
+                                            </form>
+                                        @endif
                                     @endif
                                 @elseif(Auth::user()->isOfType('agent'))
                                 <button type="submit" class="btn btn-black btn-md rounded full-width" data-bs-toggle="modal" data-bs-target="#view_users">Add Referee To Waiting List</button>
 
-                                <div class="modal fade" id="view_users" tabindex="-1" role="dialog" aria-labelledby="view_users_modal" aria-hidden="true">
+                                <div wire:ignore class="modal fade" id="view_users" tabindex="-1" role="dialog" aria-labelledby="view_users_modal" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
                                         <div class="modal-content" id="view_users_modal">
                                             <span class="mod-close" data-bs-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
@@ -73,22 +81,7 @@
                                                 <h4 class="modal-header-title">My Referees</h4>
                                                 <p style="text-align: center">Select a referee to add to waiting list</p>
                                                 <div class="login-form">
-                                                    <form method="POST" id="add-users-form" action="{{ route('listing.submit.booking') }}">
-                                                        @csrf
-                                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                                        <input type="hidden" name="listing_id" value="{{ $listing->id }}">
-                                                        <ul>
-                                                            @foreach (Auth::user()->refereedata()->get() as $metadata)
-                                                                @if ($metadata->canBook(Auth::user()->id, $metadata->id, $listing->id))
-                                                                    <li>
-                                                                        <input id="{{ $metadata->id }}" class="checkbox-custom" name="referee_data_id" value="{{ $metadata->id }} {{ (old('user['.$metadata->id.']')) ? 'checked' : '' }}" type="radio" onchange="selected()">
-                                                                        <label for="{{ $metadata->id }}" class="checkbox-custom-label">{{ $metadata->applicant_name }}</label>
-                                                                    </li>
-                                                                @endif
-                                                            @endforeach
-                                                        </ul>
-                                                        <button type="submit" id="add-users-button" disabled  class="btn btn-md full-width btn-theme-light-2 rounded">Submit</button>
-                                                    </form>
+                                                    <livewire:referee-booking-list :listing="$listing" />
                                                     <h5 id="error-message" style="color: red; display: none">Please select a referee</h5>
                                                 </div>
                                             </div>
@@ -260,25 +253,34 @@
                             </form>
                         </div>
                         @guest
-                                <p>Please login or sign up to join the waiting list for this property</p>
-                            @endguest
+                            <p>Please login or sign up to join the waiting list for this property</p>
+                        @endguest
                         @auth
-                            @if ((Auth::user()->isOfType('user')) && (Auth::user()->refereedata()->exists()))
-                                @if ($listing->bookings->contains('user_id', Auth::user()->id))
-                                <p>You are in the waiting list for this room.</p>
+                            @if ($listing->isBooked($listing->bookings))
+                                <p>This listing has been fully occuppied</p>
                             @else
-                                <form action="{{ route('listing.submit.booking') }}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                    <input type="hidden" name="referee_data_id" value="{{ Auth::user()->refereedata()->first()->id }}">
-                                    <input type="hidden" name="listing_id" value="{{ $listing->id }}">
-                                    <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
-                                </form>
-                            @endif
-                            @elseif(Auth::user()->isOfType('agent'))
-                                <button type="submit" class="btn btn-black btn-md rounded full-width" data-bs-toggle="modal" data-bs-target="#view_users">Add Referee To Waiting List</button>
-                            @else
-                                <p>Fill the Referral Form to Join the Waiting List for This Property</p>
+                                @if ((Auth::user()->isOfType('user')) && (Auth::user()->refereedata()->exists()))
+                                {{-- Check if user has been approved for another booking --}}
+                                @if (! Auth::user()->refereedata->first()->canBook(Auth::user(), Auth::user()->refereedata->first()->id, $listing->id))
+                                    You have been approved for another listing.
+                                @else
+                                    @if ($listing->bookings->contains('user_id', Auth::user()->id))
+                                        <p>You are in the waiting list for this room.</p>
+                                    @else
+                                        <form action="{{ route('listing.submit.booking') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                            <input type="hidden" name="referee_data_id" value="{{ Auth::user()->refereedata()->first()->id }}">
+                                            <input type="hidden" name="listing_id" value="{{ $listing->id }}">
+                                            <button type="submit" class="btn btn-black btn-md rounded full-width">Join Waiting List</button>
+                                        </form>
+                                    @endif
+                                @endif
+                                @elseif(Auth::user()->isOfType('agent'))
+                                    <button type="submit" class="btn btn-black btn-md rounded full-width" data-bs-toggle="modal" data-bs-target="#view_users">Add Referee To Waiting List</button>
+                                @else
+                                    <p>Fill the Referral Form to Join the Waiting List for This Property</p>
+                                @endif
                             @endif
                         @endauth
                     </div>

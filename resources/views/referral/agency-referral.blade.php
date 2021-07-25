@@ -13,14 +13,14 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10 col-md-12">
-                    
+
                     <h1 style="color: white; text-align:center">SUPPORTED ACCOMMODATION REFERRAL FORM</h1>
-                    
+
                 </div>
             </div>
         </div>
     </div>
-    
+
    <!-- ============================ Add Listing Form ================================== -->
    <section class="bg-light">
     <div class="container-fluid">
@@ -29,10 +29,10 @@
             <input type="hidden" name="referral_type" value="Agency Referral">
             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
             <div class="submit-page">
-                            
+
                 <!-- Basic Information -->
-                <div class="form-submit">	
-                    
+                <div class="form-submit">
+
                     <h6><strong>PLEASE READ CAREFULLY</strong></h6>
                     <p>All sections of this form must be completed. Failure to do so may cause delays. If for any reason a section cannot be filled out, please state why. Blank sections will not be accepted.</p>
                     <p>It is important that applicants are aware that a bed space within our Supported Accommodation requires active engagement with key working sessions to address issues that may be linked to their homelessness.</p>
@@ -84,17 +84,17 @@
                                 <div class="col-md-4">
                                     <div class="file-upload">
                                         <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Profile Image(optional)</button>
-                                      
+
                                         <div class="image-upload-wrap">
                                           <input class="file-upload-input" type='file' name="applicant_image" onchange="readURL(this);" accept="image/*" />
                                           <div class="drag-text">
-                                            <h3>Drag and drop a file or select add Profile Image(optional)</h3>
+                                            <h5>Drag and drop a file or select add Profile Image(optional)</h5>
                                           </div>
                                         </div>
                                         <div class="file-upload-content">
                                           <img class="file-upload-image" src="#" alt="your image" />
                                           <div class="image-title-wrap">
-                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove</button>
                                           </div>
                                         </div>
                                     </div>
@@ -199,7 +199,7 @@
                                         <strong class="error-message">{{ $message }}</strong>
                                     @enderror
                                 </div>
-                                
+
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-6">
@@ -246,9 +246,9 @@
                         <button class="btn btn-theme-light-2 rounded" type="submit">Submit</button>
                     </div>
                 </div>
-            
+
             </div>
-        </form> 
+        </form>
     </div>
 </section>
 @push('scripts')

@@ -13,15 +13,19 @@ class UserListing extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $listingSearch;
+    public $listingLocation;
+
+    public $listingTitle;
 
     public function render()
     {
-        $listingSearch = '%'.$this->listingSearch.'%';
+        $listingLocation = '%'.$this->listingLocation.'%';
+        $listingTitle = '%'.$this->listingTitle.'%';
         $listings = Listing::where([
                 ['is_available', '=', true],
                 ['status', '!=', ListingStatusEnum::draft()],
-                ['address', 'like', $listingSearch]
+                ['name', 'like', $listingTitle],
+                ['address', 'like', $listingLocation]
             ])->orderBy('is_sponsored', 'DESC')->inRandomOrder()->paginate(25);
         return view('livewire.user-listing', ['listings' => $listings])->layout('layouts.app', ['pageTitle' => "Listings"]);
     }

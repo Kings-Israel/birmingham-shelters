@@ -15,7 +15,7 @@ class Booking extends Model
     protected $attributes = [
         'status' => 'pending',
     ];
-    
+
     use HasFactory;
 
     /**

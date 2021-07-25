@@ -19,20 +19,19 @@ class AdminVerifyListing extends Component
     {
         $this->authorize('verify', $this->listing);
 
-        // Send verification status to the landlord
-        SendSMSNotification::dispatchAfterResponse($this->listing->user->phone_number, 'The property '.$this->listing->name.' has been verified by the administrator. Regards, Birmingham Shelteres');
-
         $this->listing->markAsVerified()->save();
 
+        // Send verification status to the landlord
+        SendSMSNotification::dispatchAfterResponse($this->listing->user->phone_number, 'The property '.$this->listing->name.' has been verified by the administrator. Regards, Birmingham Shelteres');
     }
 
     public function render()
     {
         return <<<'blade'
             @if($listing->is_verified)
-            <span class="badge bg-success tex-white"> Verified </span>
+            <span class="badge rounded-pill fw-bold text-success bg-light-success m-l-4" style="font-size: 15px"> Verified </span>
             @else
-            <button wire:click="markAsVerified" class="btn btn-primary btn-sm">
+            <button wire:click="markAsVerified" class="badge rounded-pill fw-bold text-warning bg-light-warning m-l-4" style="font-size: 15px">
                 Verify Listing
             </button>
             @endif

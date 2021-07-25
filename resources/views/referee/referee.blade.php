@@ -1,11 +1,13 @@
 <x-app-dashboard-layout pageTitle="Referee">
     <div class="container">
+        <div>
             <h4 class="property_block_title">
                 <a href="{{ url()->previous() }}">
-                    <i class="ti-angle-left"></i> 
+                    <i class="ti-angle-left"></i>
                 </a>
                 Referee:
             </h4>
+        </div>
             <div class="pbw-flex-1">
                 <div class="pbw-flex-thumb">
                     <img src="{{ asset('storage/referee/image/'.$referee->applicant_image) }}" class="img-fluid" width="300" style="height: 200px; object-fit:cover" alt="" />
@@ -304,7 +306,7 @@
                                 <td><strong>Support Group</strong></td>
                                 <td><strong>Support Need Details</strong></td>
                             </tr>
-                        </thead>    
+                        </thead>
                         <tbody>
                             @foreach ($support_info as $support)
                                 <tr>

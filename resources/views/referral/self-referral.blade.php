@@ -13,9 +13,9 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10 col-md-12">
-                    
+
                     <h1 style="color: white; text-align:center">SUPPORTED ACCOMMODATION REFERRAL FORM</h1>
-                    
+
                 </div>
             </div>
         </div>
@@ -31,16 +31,16 @@
             <input type="hidden" name="referrer_email" value="{{ Auth::user()->email }}">
             <input type="hidden" name="referrer_phone_number" value="{{ Auth::user()->phone_number }}">
             <div class="submit-page">
-                            
+
                 <!-- Basic Information -->
-                <div class="form-submit">	
-                    
+                <div class="form-submit">
+
                     <h6><strong>PLEASE READ CAREFULLY</strong></h6>
                     <p>Please ensure you enter the correct information as this form will be filled only once.</p>
                     <p>All sections of this form must be completed. Failure to do so may cause delays. If for any reason a section cannot be filled out, please state why. Blank sections will not be accepted.</p>
                     <p>It is important that applicants are aware that a bed space within our Supported Accommodation requires active engagement with key working sessions to address issues that may be linked to their homelessness.</p>
                     <p>In a case where the required value does not apply, please enter 'Not Applicable'</p>
-                    
+
                     <br><hr>
                     <div class="submit-section">
                         <p>Section 1 of 6</p>
@@ -60,7 +60,7 @@
                                 <div class="col-md-4">
                                     <div class="file-upload">
                                         <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Profile Image(Optional)</button>
-                                      
+
                                         <div class="image-upload-wrap">
                                           <input class="file-upload-input" type='file' name="applicant_image" onchange="readURL(this);" accept="image/*" />
                                           <div class="drag-text">
@@ -70,7 +70,7 @@
                                         <div class="file-upload-content">
                                           <img class="file-upload-image" src="#" alt="your image" />
                                           <div class="image-title-wrap">
-                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove</button>
                                           </div>
                                         </div>
                                     </div>
@@ -106,7 +106,7 @@
                                         <strong class="error-message">{{ $message }}</strong>
                                     @enderror
                                 </div>
-                                
+
                                 <div class="form-group col-md-3">
                                     <label>Gender</label>
                                     <input id="male" class="checkbox-custom" name="applicant_gender[]" type="radio" value="Male" {{ (old('applicant_gender.0') == 'Male') ? 'checked' : '' }} onchange="selected()">
@@ -155,7 +155,7 @@
                                         <strong class="error-message">{{ $message }}</strong>
                                     @enderror
                                 </div>
-                                
+
                             </div>
 
                             <div class="row">
@@ -202,9 +202,9 @@
                         <button class="btn btn-theme-light-2 rounded" type="submit">Submit</button>
                     </div>
                 </div>
-            
+
             </div>
-        </form> 
+        </form>
     </div>
 </section>
 </x-app-layout>

@@ -358,8 +358,11 @@ class RefereeDataController extends Controller
 
         if (Consent::create($request->all())) {
             $refereeData = refereeData::find($request->referee_data_id);
-            $refereeData->consent = 0;
+            $refereeData->consent = true;
             if($refereeData->save()){
+                if($request->has('referee-list')) {
+                    return redirect()->back()->with('success', 'Status has been updated');
+                }
                 return redirect()->route('listing.all')->with('success', "Your information has been saved successfully");
             }
         }
