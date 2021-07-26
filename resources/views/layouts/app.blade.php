@@ -55,7 +55,7 @@
                 <script type="text/javascript">
                     (function () {
                         var options = {
-                            whatsapp: "+254707137687", // WhatsApp number
+                            whatsapp: "+44 7450 310532", // WhatsApp number
                             call_to_action: "Reach Us on Whatsapp", // Call to action
                             position: "right", // Position may be 'right' or 'left'
                         };
