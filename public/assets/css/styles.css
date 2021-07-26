@@ -159,9 +159,9 @@ a:focus {
   text-decoration: none; }
 
 a.link {
-  color:#fd5332; }
+  color:#2CA9E3; }
 a.link:hover, a.link:focus, a:hover, a:focus {
-    color:#fd5332;
+    color:#2CA9E3;
 }
 a.text-success:focus, a.text-success:hover {
     color:#0fca98 !important;
@@ -12098,4 +12098,8 @@ input[type="date"]::-webkit-inner-spin-button {
 
 #signUpPhoneNumber {
     margin-left: 15px;
+}
+
+#involved-page img {
+    width: 250px;
 }
