@@ -67,12 +67,9 @@ class LandlordListingController extends Controller
 
     public function viewListingBookings(Listing $listing)
     {
-        $referee_data = collect([]);
+        $referee_data = [];
         foreach ($listing->bookings as $booking) {
-            $referee_data->push(RefereeData::where(
-                ['id', '=', $booking->referee_data_id],
-                ['consent', true]
-            )->paginate(10));
+            array_push($referee_data, $booking->refereedata()->where('consent', true)->get());
         }
 
         return view('landlord.bookings')->with(['referee_data' => $referee_data, 'listing_id' => $listing->id]);
@@ -412,7 +409,7 @@ class LandlordListingController extends Controller
         $listing->save();
 
         // Send notification to admin on addition of the new listing
-        SendSMSNotification::dispatchAfterResponse(env('ADMIN_PHONE_NUMBER'), 'A new listing, '.$listing->name.', has been added to the system by '.$listing->user->full_name);
+        // SendSMSNotification::dispatchAfterResponse(env('ADMIN_PHONE_NUMBER'), 'A new listing, '.$listing->name.', has been added to the system by '.$listing->user->full_name);
 
         return response()->json([
             'listingId' => $listing->id,

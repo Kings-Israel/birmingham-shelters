@@ -1,4 +1,3 @@
-<!-- Log In Modal -->
 <div class="modal fade signup" id="listing-images-update" tabindex="-1" role="dialog" aria-labelledby="listing-images-modal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
         <div class="modal-content" id="sign-up">

@@ -1,11 +1,11 @@
 $(function() {
     "use strict";
-	
+
 	$(window).on('load', function () {
 		$('#preloader').delay(350).fadeOut('slow');
 		$('body').delay(350).css({ 'overflow': 'visible' });
 	})
-	
+
 	/*---- Bottom To Top Scroll Script ---*/
 	$(window).on('scroll', function() {
 		var height = $(window).scrollTop();
@@ -15,7 +15,7 @@ $(function() {
 			$('#back2Top').fadeOut();
 		}
 	});
-	
+
 	$("#back2Top").on('click', function(event) {
 		event.preventDefault();
 		$("html, body").animate({ scrollTop: 0 }, "slow");
@@ -167,8 +167,8 @@ $(function() {
 	(jQuery, window, document), $(document).ready(function() {
 		$("#navigation").navigation()
 	});
-	
-	$(window).scroll(function() {    
+
+	$(window).scroll(function() {
 		var scroll = $(window).scrollTop();
 
 		if (scroll >= 50) {
@@ -177,8 +177,8 @@ $(function() {
 			$(".header").removeClass("header-fixed");
 		}
 	});
-	
-	
+
+
 	// Compare Slide
 	$('.csm-trigger').on('click', function() {
 		$('.compare-slide-menu').toggleClass('active');
@@ -186,7 +186,7 @@ $(function() {
 	$('.compare-button').on('click', function() {
 		$('.compare-slide-menu').addClass('active');
 	});
-	
+
 	// smart-textimonials
 	$('#smart-textimonials').slick({
 	  slidesToShow:3,
@@ -210,7 +210,7 @@ $(function() {
 		}
 	  ]
 	});
-	
+
 	// Property Slide
 	$('.property-slide').slick({
 	  slidesToShow:3,
@@ -234,7 +234,7 @@ $(function() {
 		}
 	  ]
 	});
-	
+
 	// location Slide
 	$('.location-slide').slick({
 	  slidesToShow:4,
@@ -258,7 +258,7 @@ $(function() {
 		}
 	  ]
 	});
-	
+
 	// Property Slide
 	$('.team-slide').slick({
 	  slidesToShow:4,
@@ -290,7 +290,7 @@ $(function() {
 		}
 	  ]
 	});
-	
+
 	// Featured Slick Slider
 	$('.featured_slick_gallery-slide').slick({
 		centerMode: true,
@@ -318,7 +318,7 @@ $(function() {
 		}
 		]
 	});
-	
+
 	// Range Slider Script
 	$(".js-range-slider").ionRangeSlider({
 		type: "double",
@@ -328,103 +328,103 @@ $(function() {
 		to: 500,
 		grid: true
 	});
-	
+
 	// Select Bedrooms
 	// $('#bedrooms').select2({
 	// 	placeholder: "No Min",
 	// 	allowClear: true
 	// });
-	
+
 	// Select Bathrooms
 	// $('#bathrooms').select2({
 	// 	placeholder: "Bathrooms",
 	// 	allowClear: true
 	// });
-	
+
 	// Select Property Types
 	$('#ptypes').select2({
 		placeholder: "Show All",
 		allowClear: true
 	});
-	
+
 	// Select Property Types
 	$('#status').select2({
 		placeholder: "Show All",
 		allowClear: true
 	});
-	
+
 	// specialisms
 	$('#shorty').select2({
 		placeholder: "Show All",
 		allowClear: true
 	});
-	
+
 	// Select Min price
 	$('#minprice').select2({
 		placeholder: "No Min",
 		allowClear: true
 	});
-	
+
 	// Select built
 	$('#built').select2({
 		placeholder: "Year Built",
 		allowClear: true
 	});
-	
+
 	// Select Max Price
 	$('#maxprice').select2({
 		placeholder: "No Max",
 		allowClear: true
 	});
-	
+
 	// Select Country
 	$('#country').select2({
 		placeholder: "Country",
 		allowClear: true
 	});
-	
+
 	// Select Town
 	$('#town').select2({
 		placeholder: "City/Town",
 		allowClear: true
 	});
-	
+
 	// Select Town
 	$('#location').select2({
 		placeholder: "Shaow All",
 		allowClear: true
 	});
-	
+
 	// Select Cities
 	$('#cities').select2({
 		placeholder: "All Cities",
 		allowClear: true
 	});
-	
+
 	// Select Status
 	$('#status').select2({
 		placeholder: "Select Status",
 		allowClear: true
 	});
-	
+
 	// Select Rooms
 	$('#rooms').select2({
 		placeholder: "Choose Rooms",
 		allowClear: true
 	});
-	
+
 	// Select Garage
 	$('#garage').select2({
 		placeholder: "Choose Rooms",
 		allowClear: true
 	});
-	
+
 	// Select Rooms
 	$('#bage').select2({
 		placeholder: "Select An Option",
 		allowClear: true
 	});
-	
+
 	// Home Slider
 	$('.home-slider').slick({
 	  centerMode:false,
@@ -446,16 +446,16 @@ $(function() {
 		}
 	  ]
 	});
-	
+
 	$('.click').slick({
 	  slidesToShow:1,
 	  slidesToScroll: 1,
 	  autoplay:false,
 	  autoplaySpeed: 2000,
 	});
-	
+
 	// Advance Single Slider
-	$(function() { 
+	$(function() {
 	// Card's slider
 	  var $carousel = $('.slider-for');
 
@@ -522,10 +522,10 @@ $(function() {
 		centerMode: false,
 		focusOnSelect: true
 	  });
-	  
-	  
+
+
 	});
-	
+
 	// Featured Slick Slider
 	$('.featured-slick-slide').slick({
 		centerMode: true,
@@ -552,7 +552,7 @@ $(function() {
 		}
 		]
 	});
-	
+
 	// MagnificPopup
 	$('body').magnificPopup({
 		type: 'image',
@@ -568,7 +568,7 @@ $(function() {
 			enabled: true
 		}
 	});
-	
+
 	// fullwidth home slider
 	function inlineCSS() {
 		$(".home-slider .item").each(function() {
@@ -583,7 +583,7 @@ $(function() {
 		});
 	}
 	inlineCSS();
-	
+
 	// Search Radio
 	function searchTypeButtons() {
 		$('.property-search-type label.active input[type="radio"]').prop('checked', true);
@@ -607,5 +607,38 @@ $(function() {
 			searchTypeButtons();
 		});
 	}
-	
+
+    function initMap() {
+        var mapErrorContainer = document.getElementById('map-error');
+        var address = document.getElementById('listing_address').innerText;
+        var addressTitle = document.getElementById('listing_name').innerText;
+        var addressPostalCode = document.getElementById('listing_postcode').innerText;
+        var geocoder = new google.maps.Geocoder();
+
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 16,
+        });
+
+        geocoder.geocode({
+            'address': address,
+            componentRestrictions : {
+                country: 'UK',
+                postalCode: addressPostalCode
+            }
+        }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                mapErrorContainer.style.display = "none";
+                map.setCenter(results[0].geometry.location);
+                new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    title: addressTitle
+                });
+            } else {
+                const mapContainer = document.getElementById('map-container').style.display = "none";
+                // alert('Geocode was not successful for the following reasons: ' + status)
+            }
+        })
+    }
+
 });

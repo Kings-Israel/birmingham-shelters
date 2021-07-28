@@ -111,7 +111,6 @@ Route::group(
         Route::post('/update/clientinfo', [LandlordListingController::class, 'updateClientGroupInfo'])->name('update.client_info');
         Route::post('/update/documents', [LandlordListingController::class, 'updateListingDocuments'])->name('update.documents');
         Route::get('/delete/images/{id}', [LandlordListingController::class, 'deleteAllImages'])->name('delete.images');
-        Route::post('/update/images', [LandlordListingController::class, 'updateListingImages'])->name('update.images');
         Route::delete('/{listing}/delete', [LandlordListingController::class, 'deleteListing'])->name('delete');
         Route::get('/bookings/{listing}', [LandlordListingController::class, 'viewListingBookings'])->name('bookings.all');
         Route::get('/inquiries/{listing}', [LandlordListingController::class, 'viewListingInquiries'])->name('inquiries.all');
