@@ -6,7 +6,7 @@
                 href="javascript:void(0);" aria-expanded="true">
                 <h4 class="property_block_title">
                     <a href="{{ route('listing.view.one', $listing_id) }}">
-                        <i class="ti-angle-left"></i> 
+                        <i class="ti-angle-left"></i>
                     </a>
                     Bookings:
                 </h4>
@@ -19,7 +19,6 @@
                         <tr>
                             <td>Name</td>
                             <td>Referral Type</td>
-                            <td>Date</td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -30,7 +29,6 @@
                             @foreach ($referee as $details)
                                 <td>{{ $details->applicant_name }}</td>
                                 <td><strong>{{ $details->referral_type }}</strong></td>
-                                <td>{{ $details->created_at->format('d-m-Y') }}</td>
                                 <td>
                                     <a href="{{ route('referees.referee', $details->id) }}">
                                         <button class="btn btn-sm btn-theme-light-2 rounded">View More</button>
