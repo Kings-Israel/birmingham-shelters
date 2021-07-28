@@ -121,6 +121,7 @@ Route::group(
         Route::post('/sponsored', [LandlordListingController::class, 'createSponsoredListing'])->name('sponsored');
         Route::get('/cancel/{id?}', [LandlordListingController::class, 'cancelListingAddition'])->name('addition.cancel');
         Route::get('/booking/{user_id}/{referee_id}/{listing_id}/delete', [LandlordListingController::class, 'deleteBooking'])->name('booking.delete');
+        Route::get('/uploadedImages/{id}', [LandlordListingController::class, 'updateListingAfterImagesUploaded']);
     }
 );
 

@@ -55,7 +55,7 @@ class SendSMSNotification implements ShouldQueue
         ));
 
         $response = curl_exec($curl);
-        
+
         curl_close($curl);
     }
 }

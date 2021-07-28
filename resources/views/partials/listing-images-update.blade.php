@@ -36,20 +36,39 @@
     </div>
     @push('scripts')
     <script>
+        let listing = ''
         function finish(dropzoneInstance) {
             $('#finish-update-button').prop('hidden', dropzoneInstance.files.length === 0);
         }
 
+        function imagesUploaded(id) {
+            $.ajax({
+                url: `${BASE_URL}/landlord/listing/uploadedImages/${id}`,
+                type: 'GET',
+                data: {
+                    "_token": $("meta[name='csrf-token']").attr("content"),
+                }
+            })
+        }
+
         Dropzone.options.listingDropzone = {
+
             addRemoveLinks: true,
             init: function () {
-
                 this.on('error', function (file, message) {
                     $('.file-upload-message').css('color', 'red');
                     $(".file-upload-message").text(message);
                 });
 
-                this.on('success', (file, response) => finish(this));
+                this.on('success', (file, response) => {
+                    finish(this)
+                    listing = response.listingId
+                });
+
+                this.on('queuecomplete', () => {
+                    imagesUploaded(listing)
+                })
+
 
                 this.on('removedfile', function (file) {
 
@@ -71,7 +90,6 @@
                             $('.file-upload-message').text('')
                             clearTimeout(timeOutId);
                         }, 4000);
-
                         finish(this);
                     });
                 });
