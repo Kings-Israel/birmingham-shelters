@@ -40,8 +40,19 @@
     </div>
     @push('scripts')
     <script>
+        let listing = ''
         function finish(dropzoneInstance) {
             $('.redirect-home-button').prop('hidden', dropzoneInstance.files.length === 0);
+        }
+
+        function imagesUploaded(id) {
+            $.ajax({
+                url: `${BASE_URL}/landlord/listing/uploadedImages/${id}`,
+                type: 'GET',
+                data: {
+                    "_token": $("meta[name='csrf-token']").attr("content"),
+                }
+            })
         }
 
         Dropzone.options.listingDropzone = {
@@ -53,7 +64,14 @@
                     $(".file-upload-message").text(message);
                 });
 
-                this.on('success', (file, response) => finish(this));
+                this.on('success', (file, response) => {
+                    finish(this)
+                    listing = response.listingId
+                });
+
+                this.on('queuecomplete', () => {
+                    imagesUploaded(listing)
+                })
 
                 this.on('removedfile', function (file) {
 

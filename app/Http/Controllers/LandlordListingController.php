@@ -404,17 +404,23 @@ class LandlordListingController extends Controller
             $filename = pathinfo($request->file('file')->store('images', 'listing'), PATHINFO_BASENAME)
         );
 
-        $listing->status = ListingStatusEnum::pending();
-
         $listing->save();
-
-        // Send notification to admin on addition of the new listing
-        // SendSMSNotification::dispatchAfterResponse(env('ADMIN_PHONE_NUMBER'), 'A new listing, '.$listing->name.', has been added to the system by '.$listing->user->full_name);
 
         return response()->json([
             'listingId' => $listing->id,
             'filename' => $filename,
         ]);
+    }
+
+    public function updateListingAfterImagesUploaded($id)
+    {
+        $listing = Listing::find($id);
+
+        $listing->status = ListingStatusEnum::pending();
+
+        $listing->save();
+        // Send notification to admin on addition of the new listing
+        SendSMSNotification::dispatchAfterResponse(env('ADMIN_PHONE_NUMBER'), 'A new listing, '.$listing->name.', has been added to the system by '.$listing->user->full_name);
     }
 
     public function deleteAllImages($id)
