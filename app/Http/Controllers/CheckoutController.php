@@ -108,8 +108,8 @@ class CheckoutController extends Controller
             $booking = $invoice->invoiceable;
             $booking->status = BookingStatusEnum::pending()->value;
             $deleteInvoice = Invoice::destroy($invoice->id);
-
-            if($booking->save() && $deleteInvoice == 0) {
+            
+            if($booking->save() && $deleteInvoice) {
                 return redirect()->route('listing.bookings.all', $booking->listing_id);
             } else {
                 return redirect()->back()->withError('An error occurred during cancellation. Please try again.');
