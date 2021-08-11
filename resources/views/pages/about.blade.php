@@ -10,7 +10,7 @@
             <div class="row align-items-center">
 
                 <div class="col-lg-6 col-md-6">
-                    <img src="{{ asset('img/select-house-2.svg')}}" class="img-fluid" alt="" />
+                    <img src="{{ asset('assets/img/')}}" class="img-fluid" alt="" />
                 </div>
 
                 <div class="col-lg-6 col-md-6">
@@ -44,7 +44,7 @@
 
                 <div class="col-lg-6 col-md-6">
                     <div class="icon-mi-left">
-                        <i class="ti-flag-alt-2 theme-cl"></i>
+                        <i class="ti-flag-alt-2 theme-cl" style="color: brown"></i>
                         <div class="icon-mi-left-content">
                             <h2 class="fs-4">Our Mission</h2>
                             <p class="lead">Birmingham Shelters provides a service that has been designed to address the homelessness
@@ -56,7 +56,7 @@
 
                 <div class="col-lg-6 col-md-6">
                     <div class="icon-mi-left">
-                        <i class="ti-eye theme-cl"></i>
+                        <i class="ti-eye theme-cl" style="color: brown"></i>
                         <div class="icon-mi-left-content">
                             <h2 class="fs-4">Our Vision</h2>
                             <p class="lead">To become the best link up for homeless persons with rightly suited accommodation that
@@ -150,7 +150,7 @@
                 </div>
 
                 <div class="col-md-6 col-lg-6">
-                    <img src="{{ asset('img/good-team.svg') }}" alt="" class="img-fluid">
+                    <img src="{{ asset('assets/img/good-team.png') }}" alt="" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -172,7 +172,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h2>Executive Board</h2>
-                    <h4>Christopher Kirui <span class="theme-cl">– Chief Administrator</span> </h4>
+                    <h4>Christopher Kirui <span style="color: #4F5665">– Chief Administrator</span> </h4>
                     <div class="lead">
                         <p>
                             Christopher is passionate about the importance of housing and care & support services, having more than 10 years working with the vulnerable group in the society- the elderly.

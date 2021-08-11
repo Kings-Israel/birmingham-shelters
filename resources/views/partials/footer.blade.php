@@ -3,7 +3,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-3">
                     <div class="footer-widget">
-                        <img src="{{ asset('img/b-shelters.jpeg') }}" class="img-footer" alt="" />
+                        <img src="{{ asset('assets/img/logo.png') }}" class="img-footer" alt="" />
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3">
@@ -33,7 +33,7 @@
                 @auth
                     <div class="col-lg-3 col-md-3">
                         <div class="footer-widget">
-                            <h4 class="widget-title">My Account</h4>
+                            <h4 class="widget-title" style="color: #000">My Account</h4>
                             <ul class="footer-menu">
                                 <li><a href="{{ route('profile.show', auth()->user()) }}">My Profile</a></li>
                                 @if (Auth::user()->isOfType('landlord'))

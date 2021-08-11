@@ -32,7 +32,7 @@
                     <h5 id="error-message" style="color: red; display: none">Invalid Credentials</h5>
                 </div>
                 <div class="text-center">
-                    <p class="mt-5"><a href="{{ url('/forgot-password') }}" class="link">Forgot password?</a></p>
+                    <p class="mt-5 forgot-password-link"><a href="{{ url('/forgot-password') }}" class="link">Forgot password?</a></p>
                 </div>
             </div>
         </div>

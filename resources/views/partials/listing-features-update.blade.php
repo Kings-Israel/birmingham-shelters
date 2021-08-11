@@ -11,7 +11,7 @@
                         <input type="hidden" name="listing_id" value="{{ $listing->id }}">
                         <div class="submit-section">
                             <div class="row">
-        
+
                                 <div class="form-group col-md-6">
                                     <label>Property Name<span class="tip-topdata" data-tip="Property Title"><i class="ti-help"></i></span></label>
                                     <input type="text" id="name" name="name" class="form-control" value="{{ $listing->name }} {{ old('name') }}">
@@ -21,21 +21,13 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label>Select Assessment Date<span class="tip-topdata" data-tip="Set Date for Physical assessment of the property"><i class="ti-help"></i></span></label>
-                                    <input type="date" id="assessment-date" name="assessment_date" class="form-control" value="{{ $listing->assessment_date }}{{ old('assessment-date') }}" required>
-                                    <span id="assessment_dateError">
-                                        <strong></strong>
-                                    </span>
-                                </div>
-        
-                                <div class="form-group col-md-6">
                                     <label>Address (e.g 308 Witton Road, Birmingham, UK)</label>
                                     <input type="text" id="address" class="form-control" name="address" placeholder="" value="{{ $listing->address }} {{ old('address') }}">
                                     <span id="addressError">
                                         <strong></strong>
                                     </span>
                                 </div>
-        
+
                                 <div class="form-group col-md-6">
                                     <label>Postcode</label>
                                     <input type="text" id="postcode" name="postcode" class="form-control" value="{{ $listing->postcode }} {{ old('postcode') }}">
@@ -43,7 +35,7 @@
                                         <strong></strong>
                                     </span>
                                 </div>
-        
+
                                 <div class="form-group col-md-12">
                                     <label>Description</label>
                                     <textarea class="form-control h-120" id="description" name="description">{{ $listing->description }} {{ old('description') }}</textarea>
@@ -52,7 +44,7 @@
                                     </span>
                                 </div>
                                 <div class="row">
-        
+
                                     <div class="form-group col-md-4">
                                         <label>
                                             Living Rooms
@@ -62,7 +54,7 @@
                                             <strong></strong>
                                         </span>
                                     </div>
-        
+
                                     <div class="form-group col-md-4">
                                         <label>
                                             Bedrooms
@@ -72,7 +64,7 @@
                                             <strong></strong>
                                         </span>
                                     </div>
-        
+
                                     <div class="form-group col-md-4">
                                         <label>
                                             Bathrooms
@@ -83,10 +75,10 @@
                                         </span>
                                     </div>
                                 </div>
-        
-        
+
+
                                 <div class="row">
-        
+
                                     <div class="form-group col-md-4">
                                         <label>
                                             Toilets
@@ -96,7 +88,7 @@
                                             <strong></strong>
                                         </span>
                                     </div>
-        
+
                                     <div class="form-group col-md-4">
                                         <label>
                                             Kitchens
@@ -106,7 +98,7 @@
                                             <strong></strong>
                                         </span>
                                     </div>
-        
+
                                     <div class="form-group col-md-4">
                                         <label>
                                             Available Rooms
@@ -117,9 +109,9 @@
                                         </span>
                                     </div>
                                 </div>
-        
+
                             </div>
-        
+
                             <div class="form-group col-md-12">
                                 <label>Other Rooms (Enter each separated by a comma)<span class="tip-topdata" data-tip="E.g: Laundry Room, Home Office, e.t.c."><i class="ti-help"></i></span></label>
                                 <input type="text" id="other_rooms" name="other_rooms" class="form-control" value="{{ $listing->other_rooms }} {{ old('other_rooms') }}">
@@ -131,7 +123,7 @@
 
                         <div class="submit-section">
                             <div class="row">
-        
+
                                 <div class="form-group col-md-4">
                                     <label>Name</label>
                                     <input type="text" class="form-control" name="contact_name" value="{{ $listing->contact_name }}{{ old('contact_name') }}" required>
@@ -139,7 +131,7 @@
                                         <strong></strong>
                                     </span>
                                 </div>
-        
+
                                 <div class="form-group col-md-4">
                                     <label>Email</label>
                                     <input type="text" class="form-control" name="contact_email" value="{{ $listing->contact_email }}{{ old('contact_email') }}" required>
@@ -147,7 +139,7 @@
                                         <strong></strong>
                                     </span>
                                 </div>
-        
+
                                 <div class="form-group col-md-4">
                                     <label>Phone</label>
                                     <input type="text" class="form-control" name="contact_number" value="{{ $listing->contact_number }}{{ old('contact_number') }}">
@@ -155,7 +147,7 @@
                                         <strong></strong>
                                     </span>
                                 </div>
-        
+
                             </div>
                         </div>
 
