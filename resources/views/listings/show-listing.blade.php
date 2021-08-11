@@ -33,10 +33,10 @@
                                 <div>
                                     <h3 id="listing_name">{{ $listing->name }}</h3>
                                     @if($listing->is_sponsored != null && $listing->is_sponsored > date('Y-m-d'))
-                                        <span class="badge rounded-pill fw-bold text-success bg-light-success m-l-4" style="float: right">Top</span>
+                                        <span class="badge rounded-pill fw-bold m-l-4" style="float: right; background-color: brown; color: #fff">Top</span>
                                     @endif
                                     @if ($listing->status->label == "Verified")
-                                        <img src="{{ asset('/assets/img/star.png') }}" class="img-fluid" width="20px" style="float: right"/>
+                                        <i class="ti-star mr-1" style="float: right; font-size: 20px; color: brown"></i>
                                     @endif
                                 </div>
                                 <h6>Address: </h6><span id="listing_address">{{ $listing->address }}</span><br>
@@ -203,8 +203,8 @@
                                 <div class="sides-widget-details">
                                     <p>Listing Contact Details</p>
                                     <h4><a href="#">{{ $listing->contact_name }}</a></h4>
-                                    <span><i class="lni-envelope"></i>{{ $listing->contact_email }}</span><br>
-                                    <span><i class="lni-phone-handset"></i>{{ $listing->contact_number }}</span>
+                                    <span><i class="lni-envelope" style="color: #fff"></i>{{ $listing->contact_email }}</span><br>
+                                    <span><i class="lni-phone-handset" style="color: #fff"></i>{{ $listing->contact_number }}</span>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>

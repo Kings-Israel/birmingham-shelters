@@ -65,7 +65,7 @@
 
                         <div class="cn-info-detail">
                             <div class="cn-info-icon">
-                                <i class="ti-home"></i>
+                                <i class="ti-home" style="color: brown"></i>
                             </div>
                             <div class="cn-info-content">
                                 <h4 class="cn-info-title">Reach Us</h4>
@@ -75,7 +75,7 @@
 
                         <div class="cn-info-detail">
                             <div class="cn-info-icon">
-                                <i class="ti-email"></i>
+                                <i class="ti-email" style="color: brown"></i>
                             </div>
                             <div class="cn-info-content">
                                 <h4 class="cn-info-title">Drop A Mail</h4>
@@ -85,7 +85,7 @@
 
                         <div class="cn-info-detail">
                             <div class="cn-info-icon">
-                                <i class="ti-mobile"></i>
+                                <i class="ti-mobile" style="color: brown"></i>
                             </div>
                             <div class="cn-info-content">
                                 <h4 class="cn-info-title">Call Us</h4>

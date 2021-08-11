@@ -1,5 +1,5 @@
 
-<div class="image-cover hero-banner light-text" style="background:#2540a2 url({{ asset('assets/img/banner-7.png') }}) no-repeat;">
+<div class="image-cover hero-banner light-text" style="background:#FEF4EF url({{ asset('assets/img/') }}) no-repeat;">
     <div class="container">
         <div class="simple-search-wrap">
             <div class="hero-search-2">
@@ -9,10 +9,10 @@
                 <p>
                     <div class="mt-4">
                         @guest
-                        <button class="btn btn-black" data-bs-toggle="modal" data-bs-target="#signup" style="background-color: #e44500; color: rgb(255, 255, 255)">Get started</button>
+                        <button class="btn btn-black" data-bs-toggle="modal" data-bs-target="#signup">Get started</button>
                         @endguest
                         <a href="{{ route('listing.all') }}">
-                            <button class="btn btn-black" style="background-color: #e44500; color: rgb(255, 255, 255)">View Rooms</button>
+                            <button class="btn btn-black">View Rooms</button>
                         </a>
                         @guest
                         <p class="mt-2">

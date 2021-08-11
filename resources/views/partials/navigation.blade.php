@@ -5,17 +5,17 @@
                 @auth
                     @if (Auth::user()->user_type == 'user' || Auth::user()->user_type == 'agent')
                         <a class="nav-brand" href="{{ route('home') }}">
-                            <img src="{{ asset('img/b-shelters.jpeg') }}" class="logo" alt="" />
+                            <img src="{{ asset('assets/img/logo.png') }}" class="logo" alt="" />
                         </a>
                     @elseif (Auth::user()->user_type == 'landlord')
                         <a class="nav-brand" href="{{ route('landlord.index') }}">
-                            <img src="{{ asset('img/b-shelters.jpeg') }}" class="logo" alt="" />
+                            <img src="{{ asset('assets/img/logo.png') }}" class="logo" alt="" />
                         </a>
                     @endif
                 @endauth
                 @guest
                     <a class="nav-brand" href="{{ url('/') }}">
-                        <img src="{{ asset('img/b-shelters.jpeg') }}" class="logo" alt="" />
+                        <img src="{{ asset('assets/img/logo.png') }}" class="logo" alt="" />
                     </a>
                 @endguest
                 <div class="nav-toggle"></div>

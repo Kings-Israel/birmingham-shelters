@@ -17,16 +17,16 @@
                         </p>
 
                         <a href="{{ route('listing.bookings.all', $listing->id) }}">
-                            <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Bookings ({{ $listing->bookings_count }})</button>
+                            <button class="btn rounded mt-3 landlord-listing-btn" type="submit">View Bookings ({{ $listing->bookings_count }})</button>
                         </a>
                         <a href="{{ route('listing.inquiries.all', $listing->id) }}">
-                            <button class="btn btn-theme-light-2 rounded mt-3" type="submit">View Inquiries ({{ $listing->inquiry_count }})</button>
+                            <button class="btn rounded mt-3 landlord-listing-btn" type="submit">View Inquiries ({{ $listing->inquiry_count }})</button>
                         </a>
                         @if ($listing->is_sponsored == NULL || $listing->is_sponsored < date('Y-m-d'))
                             <form action="{{ route('listing.sponsored') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="listing" value="{{ $listing }}">
-                                <button class="btn btn-theme-light-2 rounded mt-3" type="submit">Make Sponsored</button>
+                                <button class="btn rounded mt-3 landlord-listing-btn" type="submit">Make Sponsored</button>
                             </form>
                         @else
                             <p>Sponsored upto {{ $listing->is_sponsored }}</p>

@@ -23,10 +23,10 @@
     @if (count($bookings) > 0)
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <h4>Your <span class="pc-title theme-cl">Booked Listings</span></h4>
+                <h4>Your Booked Listings</h4>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-lg-12 col-sm-12 list-layout">
                 <div class="row">
@@ -45,15 +45,15 @@
                                     </a>
                                 </div>
                                 <div class="listing-content">
-                                    
+
                                     <div class="listing-detail-wrapper-box">
                                         <div class="listing-detail-wrapper">
                                             <div class="listing-short-detail">
                                                 @if($booking->listing->is_sponsored != null && $booking->listing->is_sponsored > date('Y-m-d'))
-                                                    <span class="badge rounded-pill fw-bold text-success bg-light-success m-l-4">Sponsored</span>
-                                                @endif 
+                                                <span class="badge rounded-pill fw-bold m-l-4" style="float: right; background-color: brown; color: #fff">Top</span>
+                                                @endif
                                                 @if ($booking->listing->status == "Verified")
-                                                    <img src="{{ asset('/assets/img/star.png') }}" class="img-fluid" width="20px" style="float: right;"/>
+                                                    <i class="ti-star mr-1" style="float: right; font-size: 20px; color: brown"></i>
                                                 @endif
                                                 <h4 class="listing-name"><a href="{{ route('listing.one', $booking->listing->id) }}">{{ $booking->listing->name }}</a></h4>
                                                 <hr>
@@ -62,7 +62,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                
+
                                     <div class="listing-footer-wrapper">
                                         <div class="listing-locate">
                                             <span class="listing-location"><i class="ti-location-pin"></i>{{ $booking->listing->address }}</span>
@@ -76,12 +76,12 @@
                                             </div>
                                         @endif
                                     </div>
-                                    
+
                                 </div>
                             </div>
-                        </div>                      
+                        </div>
                     @endforeach
-    
+
                     <!-- Pagination -->
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -110,7 +110,7 @@
                             </ul>
                         </div>
                     </div>
-                    @endif  
+                    @endif
                 </div>
             </div>
         </div>

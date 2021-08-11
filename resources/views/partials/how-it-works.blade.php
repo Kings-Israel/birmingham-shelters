@@ -1,5 +1,5 @@
 <!-- ============================ Step How To Use Start ================================== -->
-<section class="bg-light">
+<section class="how-it-works">
     <div class="container">
 
         <div class="row justify-content-center">

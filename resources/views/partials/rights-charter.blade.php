@@ -1,5 +1,5 @@
 <!-- ============================ Charter of Rights ================================== -->
-<section class="bg-light">
+<section>
     <div class="container">
 
         <div class="row justify-content-center">

@@ -14,10 +14,10 @@
                         </div>
                         <div class="sd-list-right">
                             <h4 class="listing_dashboard_title"><a href="{{ route('listing.view.one', $listing->id) }}"
-                                class="theme-cl">{{ $listing->name }}</a>
+                                >{{ $listing->name }}</a>
                                 @if($listing->is_sponsored != null && $listing->is_sponsored > date('Y-m-d'))
                                 <span class="badge rounded-pill fw-bold text-success bg-light-success m-l-4">Sponsored</span>
-                                @endif 
+                                @endif
                             </h4>
                             <div class="action">
                                 <a href="JavaScript:Void(0);" data-bs-toggle="modal"
@@ -73,7 +73,7 @@
                 </div>
                 <!-- End Modal -->
                 @endforeach
-                
+
             </div>
     </div>
 </x-app-dashboard-layout>

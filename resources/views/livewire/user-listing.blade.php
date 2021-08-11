@@ -36,10 +36,10 @@
                                                 <div class="listing-detail-wrapper">
                                                     <div class="listing-short-detail">
                                                         @if($listing->is_sponsored != null && $listing->is_sponsored > date('Y-m-d'))
-                                                            <span class="badge rounded-pill fw-bold m-l-4" style="float: right; background-color: #2CA9E3; color: #000000">Top</span>
+                                                            <span class="badge rounded-pill fw-bold m-l-4" style="float: right; background-color: brown; color: #fff">Top</span>
                                                         @endif
                                                         @if ($listing->is_verified)
-                                                            <i class="ti-star mr-1" style="float: right; font-size: 20px; color: #2CA9E3"></i>
+                                                            <i class="ti-star mr-1" style="float: right; font-size: 20px; color: brown"></i>
                                                         @endif
                                                         <h4 class="listing-name"><a href="{{ route('listing.one', $listing->id) }}">{{ $listing->name }}</a></h4>
                                                         <p class="listing-description">{{ $listing->description }}</p>
