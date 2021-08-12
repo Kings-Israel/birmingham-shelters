@@ -2989,8 +2989,8 @@ outline:none;
 	background-clip: initial;
 }
 .submit-form .form-control, .submit-page .form-control, .form-submit .form-control{
-    background: #f9fafc;
-    border: 1px solid #ebedf5;
+    background: #ded9d9;
+    border: 1px solid #ded9d9;
     border-radius: 3px;
 	color: #646e77;
 }
@@ -3000,7 +3000,7 @@ outline:none;
 }
 
 .form-control.simple {
-    background: #f2f3f5;
+    background: #ded9d9;
     border-color: #f2f3f5;
     border-radius: 4px;
 }
@@ -9966,7 +9966,7 @@ footer{
 	position:relative;
 }
 footer.dark-footer{
-	background: rgb(79,86,101);
+	background: rgb(120, 124, 132);
 }
 .footer-logo {
     padding: 20px 0;
@@ -10078,7 +10078,7 @@ footer.skin-dark-footer .footer-widget ul li a:hover, footer.skin-dark-footer .f
 .skin-dark-footer .footer-bottom {
     color: #fff;
     font-weight: bolder;
-    background:#E34728;
+    background:#4F5665;
 	border-top:none;
 }
 ul.footer-bottom-social {
@@ -11892,11 +11892,11 @@ a.blue2-theme {
     width: 100%;
     margin: 0;
     color: #fff;
-    background: #333c56;
+    background: #F66E61;
     border: none;
     padding: 10px;
     border-radius: 4px;
-    border-bottom: 4px solid #00a94f;
+    border-bottom: 4px solid #4F5665;
     transition: all .2s ease;
     outline: none;
     text-transform: uppercase;
@@ -11904,7 +11904,7 @@ a.blue2-theme {
   }
 
   .file-upload-btn:hover {
-    background: #1B2132;
+    background: #4F5665;
     color: #fff;
     transition: all .2s ease;
     cursor: pointer;
@@ -11934,14 +11934,14 @@ a.blue2-theme {
   .image-upload-wrap {
     height: 140px;
     margin-top: 20px;
-    border: 4px dashed #334e6f;
+    border: 3px dashed #4F5665;
     position: relative;
-    transition: all .2s ease;
+    transition: all .1s ease;
   }
 
   .image-dropping,
   .image-upload-wrap:hover {
-    background-color: #334e6f;
+    background-color: #4F5665;
     border: 4px dashed #ffffff;
   }
 
@@ -11955,14 +11955,14 @@ a.blue2-theme {
   }
 
   .drag-text h5 {
-    font-weight: 100;
+    font-weight: 900;
     text-transform: uppercase;
-    color: #27b737;
+    color: #4F5665 !important;
     padding: 20px 0;
   }
 
   .drag-text h5:hover {
-      color: #fff;
+      color: #fff !important;
   }
 
   .file-upload-image {
