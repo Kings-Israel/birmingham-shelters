@@ -10,7 +10,7 @@
             <div class="row align-items-center">
 
                 <div class="col-lg-6 col-md-6">
-                    <img src="{{ asset('assets/img/')}}" class="img-fluid" alt="" />
+                    <img src="{{ asset('assets/img/ink.png')}}" class="img-fluid" alt="" />
                 </div>
 
                 <div class="col-lg-6 col-md-6">

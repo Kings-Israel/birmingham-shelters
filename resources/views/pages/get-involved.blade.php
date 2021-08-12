@@ -25,7 +25,7 @@
                         <div class="bg-white px-5 py-4 shadow rounded-3 h-full" id="involved-page">
                             <img src="{{ asset('assets/img/volunteer.jpg') }}" alt="">
                             <h4>Become a volunteer</h4>
-                            <p class="lead">You can assist us to attain a mission by becoming a volunteer in our organization in handling social work. If you're interested in joining the team, please email <a href="mailto:info@birminghamshelters.co.uk">info@birminghamshelters.co.uk</a>
+                            <p class="lead">You can assist us to attain a mission by becoming a volunteer in our organization in handling social work. If you're interested in joining the team, please email <a href="mailto:info@birminghamshelters.co.uk" class="link link-primary">info@birminghamshelters.co.uk</a>
                             </p>
                         </div>
                     </div>
