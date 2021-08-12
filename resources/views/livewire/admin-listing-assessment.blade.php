@@ -8,7 +8,7 @@
             </div>
 
             <div class="col-sm-6">
-                <button class="rounded btn btn-primary btn-sm" type="submit" style="margin-left: 20px">
+                <button class="rounded btn btn-secondary btn-sm" type="submit" style="margin-left: 20px; color: brown;">
                     Set Date
                 </button>
             </div>

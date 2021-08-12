@@ -46,7 +46,7 @@
 	Preloader
 ------------------------------------*/
 .dark #preloader {
-  background-color: #232323;
+  background-color: #F66E61;
 }
 
 #preloader {
@@ -81,7 +81,7 @@
   width: 50px;
   height: 50px;
   border-radius: 100%;
-  background:#00a94f;
+  background:#F66E61;
   -webkit-animation: preloader 1.3s linear infinite;
   animation: preloader 1.3s linear infinite;
 }
@@ -1461,7 +1461,7 @@ html body .bg-light-extra {
   background-color: #ebf3f5; }
 
 html body .bg-light-warning {
-  background-color: #fff8ec; }
+  background-color: brown; }
 
 html body .bg-light-danger {
   background-color: #f9e7eb; }

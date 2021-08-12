@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="col-sm-12 form-group">
-                    <button class="rounded btn btn-theme" type="submit">
+                    <button class="rounded btn btn-theme-light-2" type="submit">
                         Submit Feedback
                     </button>
                 </div>
