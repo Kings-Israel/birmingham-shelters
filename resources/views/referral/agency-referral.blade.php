@@ -88,7 +88,7 @@
                                         <div class="image-upload-wrap">
                                           <input class="file-upload-input" type='file' name="applicant_image" onchange="readURL(this);" accept="image/*" />
                                           <div class="drag-text">
-                                            <h5>Drag and drop a file or select add Profile Image(optional)</h5>
+                                            <h5>Drag and drop a file or select a Profile Image(optional)</h5>
                                           </div>
                                         </div>
                                         <div class="file-upload-content">
