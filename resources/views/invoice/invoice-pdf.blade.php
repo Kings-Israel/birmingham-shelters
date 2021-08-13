@@ -7,7 +7,7 @@
     <title>BIRMINGHAM SHELTERS #{{ $invoice->id }}</title>
     <style>
         .nav-brand img {
-            max-width: 50px;
+            max-width: 120px;
             position: relative;
             top: 2px;
         }
@@ -42,7 +42,7 @@
 <body>
     <header>
         <a class="nav-brand" href="#">
-            <img src="{{ asset('img/b-shelters.jpeg') }}" class="logo" alt="" />
+            <img src="{{ asset('assets/img/logo.png') }}" class="logo" alt="" />
         </a>
     </header>
     <div class="container">
