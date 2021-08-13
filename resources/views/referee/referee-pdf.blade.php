@@ -88,7 +88,7 @@
             font-weight: 600;
         }
         .nav-brand img {
-            max-width:50px;
+            max-width:120px;
             position: relative;
             top: 2px;
         }
@@ -119,7 +119,7 @@
     <!-- Define header and footer blocks before your content -->
     <header>
         <a class="nav-brand" href="#">
-            <img src="{{ asset('img/b-shelters.jpeg') }}" class="logo" alt="" />
+            <img src="{{ asset('assets/img/logo.png') }}" class="logo" alt="" />
         </a>
     </header>
     <div class="container">
