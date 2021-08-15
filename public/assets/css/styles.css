@@ -1937,15 +1937,15 @@ a.btn-trans-video i {
 .btn-outline-theme-2 {
     color:#4F5665;
     background-color: transparent;
-    border:2px solid #E34728;
+    border:2px solid #a0473f;
     -webkit-transition: 0.2s ease-in;
     -o-transition: 0.2s ease-in;
     transition: 0.2s ease-in;
 }
 .btn-outline-theme-2:hover, .btn-outline-theme-2:focus {
     color:#ffffff;
-    background-color:#E34728;
-    border-color:#E34728;
+    background-color:#a0473f;
+    border-color:#a0473f;
 }
 .btn-secondary,
 .btn-secondary.disabled {
@@ -2005,9 +2005,9 @@ a.btn-trans-video i {
     border: 1px solid #028ee1;
 }
 .btn-black{
-  background:#F66E61;
+  background:#a0473f;
   color: #ffffff;
-  border:1px solid #F66E61;
+  border:1px solid #a0473f;
   font-weight: bold;
 }
 
@@ -4022,9 +4022,8 @@ nav a {
     border-radius:4px;
     top: 15px;
     position: relative;
-	background:#08184b;
     height: 50px;
-    background: #F66E61;
+    background: #a0473f;
 }
 .nav-menu.nav-menu-social>li.add-listing.green {
     border-radius:4px;
@@ -5749,8 +5748,8 @@ span.hm_nav_clear {
     padding: 6px 12px;
     color: #ffffff;
     font-weight: bolder;
-    border: 1px solid #F66E61 !important;
-    background: #F66E61 !important;
+    border: 1px solid #a0473f !important;
+    background: #a0473f !important;
     border-radius: 2px;
 }
 .property-listing.property-1 .listing-rating {
@@ -5881,8 +5880,8 @@ span.tag_t {
 	margin-bottom:5px;
 }
 .btn.btn-theme-light-2:hover, .btn.btn-theme-light-2:focus, .btn.btn-theme-light-2{
-    background: rgba(246,110,97,0.7) !important;
-    border:2px solid rgb(246,110,97) !important;
+    background: #a0473f!important;
+    border:2px solid #6d312b !important;
 	padding:16px 50px;
     color: #fff !important;
     font-weight: bold;
@@ -6868,7 +6867,7 @@ ul.fr-grid-social li a{
     content: "\e64c";
     font-family: 'themify';
     position: absolute;
-    color: #E34728;
+    color: #a0473f;
     width: 20px;
     height: 20px;
     background: rgba(246,110,97,0.1);
@@ -11762,6 +11761,7 @@ ul.packages-lists-list li {
     text-decoration: none;
     background:#E34728;
     color: #000;
+    transition: .2s ease;
 }
 #back2Top:hover {
     background-color: #4F5665;
