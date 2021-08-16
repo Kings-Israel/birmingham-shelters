@@ -1937,15 +1937,15 @@ a.btn-trans-video i {
 .btn-outline-theme-2 {
     color:#4F5665;
     background-color: transparent;
-    border:2px solid #a0473f;
+    border:2px solid #ED6E64;
     -webkit-transition: 0.2s ease-in;
     -o-transition: 0.2s ease-in;
     transition: 0.2s ease-in;
 }
 .btn-outline-theme-2:hover, .btn-outline-theme-2:focus {
     color:#ffffff;
-    background-color:#a0473f;
-    border-color:#a0473f;
+    background-color:#ED6E64;
+    border-color:#ED6E64;
 }
 .btn-secondary,
 .btn-secondary.disabled {
@@ -2005,10 +2005,11 @@ a.btn-trans-video i {
     border: 1px solid #028ee1;
 }
 .btn-black{
-  background:#a0473f;
+  background:#ED6E64;
   color: #ffffff;
-  border:1px solid #a0473f;
+  border:1px solid #ED6E64;
   font-weight: bold;
+  transition: .2s ease;
 }
 
 .btn-black:hover,
@@ -4023,7 +4024,11 @@ nav a {
     top: 15px;
     position: relative;
     height: 50px;
-    background: #a0473f;
+    background: #ED6E64;
+    transition: .2s ease;
+}
+.nav-menu.nav-menu-social>li.add-listing:hover {
+    background: #4F5665;
 }
 .nav-menu.nav-menu-social>li.add-listing.green {
     border-radius:4px;
@@ -5748,8 +5753,17 @@ span.hm_nav_clear {
     padding: 6px 12px;
     color: #ffffff;
     font-weight: bolder;
-    border: 1px solid #a0473f !important;
-    background: #a0473f !important;
+    border: 1px solid #ED6E64 !important;
+    background: #ED6E64 !important;
+    border-radius: 2px;
+    transition: .2s ease;
+}
+.property-listing.property-1:hover .listing-detail-btn:hover .more-btn:hover {
+    padding: 6px 12px;
+    color: #ffffff;
+    font-weight: bolder;
+    border: 1px solid #4F5665 !important;
+    background: #4F5665 !important;
     border-radius: 2px;
 }
 .property-listing.property-1 .listing-rating {
@@ -5880,8 +5894,8 @@ span.tag_t {
 	margin-bottom:5px;
 }
 .btn.btn-theme-light-2:hover, .btn.btn-theme-light-2:focus, .btn.btn-theme-light-2{
-    background: #a0473f!important;
-    border:2px solid #6d312b !important;
+    background: #ED6E64!important;
+    border:2px solid #ED6E64 !important;
 	padding:16px 50px;
     color: #fff !important;
     font-weight: bold;
@@ -6043,6 +6057,7 @@ span.tag_t {
 	background:#ff9800;
 	border-radius:2px;
 }
+
 .rate-btn {
     font-weight: 800;
     color: #FF9800;
@@ -11759,7 +11774,7 @@ ul.packages-lists-list li {
     font-size: 15px;
     border-radius: 4px;
     text-decoration: none;
-    background:#E34728;
+    background:#ED6E64;
     color: #000;
     transition: .2s ease;
 }
@@ -12091,3 +12106,4 @@ input[type="date"]::-webkit-inner-spin-button {
 .landlord-listing-btn {
     background-color: #4F5665 !important;
 }
+
