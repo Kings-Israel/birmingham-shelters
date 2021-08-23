@@ -29,6 +29,8 @@ use Carbon\Carbon;
 use App\Enums\InvoiceTypeEnum;
 use PDF;
 use Illuminate\Http\Request;
+use PayPal\Api\InputFields;
+use PayPal\Api\WebProfile;
 
 class CheckoutController extends Controller
 {
@@ -68,7 +70,16 @@ class CheckoutController extends Controller
         $redirect_urls->setReturnUrl(URL::route('invoice.status', $invoice->id))
             ->setCancelUrl(URL::route('invoice.checkout.page', $invoice->id));
 
+        $inputFields = new InputFields();
+        $inputFields->setNoShipping(1);
+
+        $webProfile = new WebProfile();
+        $webProfile->setName('test' . uniqid())->setInputFields($inputFields);
+
+        $webProfileId = $webProfile->create($this->_api_context)->getId();
+
         $payment = new Payment();
+        $payment->setExperienceProfileId($webProfileId);
         $payment->setIntent('Sale')
             ->setPayer($payer)
             ->setRedirectUrls($redirect_urls)
