@@ -115,7 +115,7 @@ class CheckoutController extends Controller
         $execution = new PaymentExecution();
         $execution->setPayerId($request->input('PayerID'));
         $result = $payment->execute($execution, $this->_api_context);
-        // dd($result->payer->payment_method, $result->transactions[0]->amount->total);
+
         /** @var Transaction */
         $invoice->payment()->create([
             'amount' => $result->transactions[0]->amount->total,
@@ -124,8 +124,6 @@ class CheckoutController extends Controller
         ]);
 
         if ($result->getState() == 'approved') {
-            // \Session::put('success','Payment success !!');
-            // return Redirect::route('paywithpaypal');
 
             if ($invoice->invoice_type == InvoiceTypeEnum::referral_fee()->label) {
                 // Change status of booking to approved and other bookings as unsuccessful
@@ -172,14 +170,14 @@ class CheckoutController extends Controller
                 SendSMSNotification::dispatchAfterResponse($booking->user->phone_number, 'Your Booking for the listing '.$booking->listing->name.' has been approved. Please contact '.$booking->listing->contact_name.' through the details, Phone Number: '.$booking->listing->contact_number.', Email: '.$booking->listing->contact_email.', for more Information. Regards, Sheltered Birmingham.');
                 SendBookingApprovalMail::dispatchAfterResponse($data['email'], $data['subject'], $data['content']);
 
-                return back()->with(['success' => "Invoice has been settled successfully.", "invoice" => $invoice, "listing" => $listing->id]);
+                return redirect()->route('invoice.checkout.page', $invoice->id)->with(['success' => 'Invoice settled successfully']);
 
             } elseif($invoice->invoice_type == InvoiceTypeEnum::sponsored_listing()->label) {
                 $listing = $invoice->invoiceable;
                 $listing->is_sponsored = Carbon::now()->addMonth();
                 $listing->save();
 
-                return back()->with(['success' => 'The listing is now a sponsored listing', "invoice" => $invoice, "listing" => $listing->id]);
+                return redirect()->route('invoice.checkout.page', $invoice->id)->with(['success' => 'Invoice settled successfully']);
             }
         }
 
