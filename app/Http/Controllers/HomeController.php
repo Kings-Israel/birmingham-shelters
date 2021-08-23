@@ -12,6 +12,7 @@ use App\Models\ApplicantSupportNeeds;
 use App\Models\ApplicantRiskAssessment;
 use App\Models\ListingInquiry;
 use App\Enums\BookingStatusEnum;
+use App\Models\Invoice;
 use App\Rules\PhoneNumber;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -60,13 +61,15 @@ class HomeController extends Controller
                 }
             }
         }
+
+
         return view('landlord.index')->with([
             'total_listings' => $total_listings,
             'verified_listings' => $verified_listings,
             'occupied_listings' => $occupied_listings,
             'unoccupied_listings' => $unoccupied_listings,
             'bookings_total_number' => $bookings_total_number,
-            'listing_inquiries_total_number' => $listing_inquiries_total_number
+            'listing_inquiries_total_number' => $listing_inquiries_total_number,
         ]);
     }
 
@@ -118,7 +121,7 @@ class HomeController extends Controller
             'required' => 'Please enter a value in this field',
             'email' => 'Please enter a valid email'
         ];
-        
+
         Validator::make($request->all(), $rules, $messages)->validate();
 
         if($request->new_password != null) {

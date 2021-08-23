@@ -11,7 +11,7 @@
                         <div class="form-group">
                             <label>Email</label>
                             <div class="input-with-icon">
-                                <input type="text" name="email" id="email" class="form-control" placeholder="Email">
+                                <input type="text" name="email" id="email" class="form-control" placeholder="Email" autofocus>
                                 <i class="ti-user"></i>
                             </div>
                         </div>

@@ -56,5 +56,7 @@
         </div>
 
     </div>
+    
+    <livewire:landlord-payments-view />
 
 </x-app-dashboard-layout>
