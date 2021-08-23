@@ -216,6 +216,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
 Route::group(['middleware' => ['auth', 'verified'], 'as' => 'invoice.'], function () {
     Route::get('invoices/{invoice}/checkout', [CheckoutController::class, 'show'])->name('checkout.page');
     Route::post('invoices/{invoice}/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+    Route::get('invoices/{invoice}/status', [CheckoutController::class, 'getPaymentStatus'])->name('status');
     Route::get('invoices/{invoice}/cancel', [CheckoutController::class, 'cancelPayment'])->name('cancel');
     Route::get('invoice/{invoice}/download', [CheckoutController::class, 'downloadPdf'])->name('download');
 });

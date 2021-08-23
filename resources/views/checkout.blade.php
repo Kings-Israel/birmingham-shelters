@@ -75,23 +75,18 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <form id="payment-form" class="text-center" action="{{ route('invoice.checkout', $invoice->id)}}" method="POST">
+                            <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{{ route('invoice.checkout', $invoice->id)}}" >
                                 @csrf
-                                <div class="bt-drop-in-wrapper">
-                                    <div id="bt-dropin"></div>
-                                </div>
-                                <input id="nonce" name="payment_method_nonce" type="hidden" />
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <div class="form-group text-center">
-                                            <button class="btn btn-theme-light-2 rounded full-width">Make
-                                                Payment</button>
-                                        </div>
-                                    </div>
+                                <input id="amount" type="text" class="form-control" name="amount" hidden value="{{ $invoice->total }}" autofocus>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-theme-light-2 rounded full-width">
+                                        Pay with Paypal
+                                    </button>
                                 </div>
                             </form>
                             <a href="{{ route('invoice.cancel', $invoice->id) }}">
-                                <button class="btn btn-primary rounded full-width">Cancel</button>
+                                <button class="btn btn-md btn-outline-theme rounded full-width">Cancel</button>
                             </a>
                         </div>
 
@@ -104,38 +99,39 @@
     </section>
 
     @push('scripts')
-    <script src="https://js.braintreegateway.com/web/dropin/1.30.0/js/dropin.min.js"></script>
+    {{-- <script src="https://www.paypal.com/sdk/js?client-id={{ env('PAYPAL_SANDBOX_CLIENT_ID') }}&currency=USD"></script>
     <script>
-        var form = document.querySelector('#payment-form');
+        paypal.Buttons({
 
-        braintree.dropin.create({
-            authorization: '{{ $token }}',
-            selector: '#bt-dropin',
-            // paypal: {
-            //     flow: 'vault'
-            // }
-        }, function (createErr, instance) {
-            if (createErr) {
-                console.log('Create Error', createErr);
-                return;
-            }
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-
-                instance.requestPaymentMethod(function (err, payload) {
-                    if (err) {
-                        console.log('Request Payment Method Error', err);
-                        return;
-                    }
-
-                    // Add the nonce to the form and submit
-                    document.querySelector('#nonce').value = payload.nonce;
-                    form.submit();
-                });
+          // Sets up the transaction when a payment button is clicked
+          createOrder: function(data, actions) {
+            return actions.order.create({
+              purchase_units: [{
+                amount: {
+                  value: '10.00' // Can reference variables or functions. Example: `value: document.getElementById('...').value`
+                }
+              }]
             });
-        });
+          },
 
-    </script>
+          // Finalize the transaction after payer approval
+          onApprove: function(data, actions) {
+            return actions.order.capture().then(function(orderData) {
+              // Successful capture! For dev/demo purposes:
+                  console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                  var transaction = orderData.purchase_units[0].payments.captures[0];
+                  alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+              // When ready to go live, remove the alert and show a success message within this page. For example:
+              // var element = document.getElementById('paypal-button-container');
+              // element.innerHTML = '';
+              // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+              // Or go to another URL:  actions.redirect('thank_you.html');
+            });
+          }
+        }).render('#paypal-button-container');
+
+      </script> --}}
 
     @endpush
 </x-app-layout>

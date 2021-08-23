@@ -13,7 +13,7 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <div class="input-with-icon">
-                                        <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
+                                        <input type="text" class="form-control" name="first_name" placeholder="First Name" required autofocus>
                                         <i class="ti-user"></i>
                                     </div>
                                     <span id="first_nameError">

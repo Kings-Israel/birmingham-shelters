@@ -5355,6 +5355,8 @@ form.search-big-form.search-shadow, form.search-form.search-shadow {
 }
 
 .simple-sidebar {
+    position: sticky;
+    top: 0;
     border-radius: 0.4rem;
     border: 1px solid #e6eaf1;
     background: #ffffff;
@@ -5893,12 +5895,18 @@ span.tag_t {
     border-radius: 4px;
 	margin-bottom:5px;
 }
-.btn.btn-theme-light-2:hover, .btn.btn-theme-light-2:focus, .btn.btn-theme-light-2{
+.btn.btn-theme-light-2:focus, .btn.btn-theme-light-2{
     background: #ED6E64!important;
     border:2px solid #ED6E64 !important;
 	padding:16px 50px;
     color: #fff !important;
     font-weight: bold;
+    transition: .2s ease;
+}
+.btn.btn-theme-light-2:hover {
+    border: 1px solid #4F5665 !important;
+    background: #4F5665 !important;
+    color:#ffffff !important;
 }
 .btn.btn-theme-light:hover, .btn.btn-theme-light:focus, .btn.btn-theme-light{
     background: rgba(18,102,227,0.2) !important;

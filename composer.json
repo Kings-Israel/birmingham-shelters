@@ -20,6 +20,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "livewire/livewire": "^2.4",
+        "paypal/rest-api-sdk-php": "^1.14",
         "pnlinh/laravel-infobip-sms": "^1.0",
         "spatie/laravel-enum": "^2.5"
     },
