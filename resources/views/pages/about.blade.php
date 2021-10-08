@@ -169,7 +169,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-md-6">
                     <h2>Executive Board</h2>
                     <h4>Christopher Kirui <span style="color: #4F5665">– Chief Administrator</span> </h4>
@@ -195,7 +195,7 @@
                 <div class="col-md-6">
                     <img src="https://via.placeholder.com/700x850" class="img-fluid" alt="" />
                 </div>
-            </div>
+            </div> --}}
         </div>
     </section>
     <!-- END Team -->
