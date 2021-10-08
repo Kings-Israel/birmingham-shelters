@@ -200,10 +200,4 @@
     </section>
     <!-- END Team -->
 
-    <!-- Get Involved -->
-    <section>
-
-    </section>
-    <!-- END Get Involved -->
-
 </x-app-layout>

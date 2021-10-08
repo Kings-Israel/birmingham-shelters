@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-8 col-md-12">
+                <div class="col-lg-12 col-md-12">
                     <div class="property_block_wrap style-2">
 
                         <div class="property_block_wrap_header">
@@ -193,7 +193,7 @@
 
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12 col-sm-12">
+                {{-- <div class="col-lg-4 col-md-12 col-sm-12">
 
                     <div class="details-sidebar" id="listing-contact-form">
 
@@ -260,7 +260,6 @@
                                 <p>This listing has been fully occuppied</p>
                             @else
                                 @if ((Auth::user()->isOfType('user')) && (Auth::user()->refereedata()->exists()))
-                                    {{-- Check if user has been approved for another booking --}}
                                     @if (! Auth::user()->refereedata->first()->canBook(Auth::user(), Auth::user()->refereedata->first()->id, $listing->id))
                                         You have been approved for another listing.
                                     @else
@@ -284,7 +283,7 @@
                             @endif
                         @endauth
                     </div>
-                </div>
+                </div> --}}
             </div>
 
         </div>
