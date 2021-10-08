@@ -12115,3 +12115,8 @@ input[type="date"]::-webkit-inner-spin-button {
     background-color: #4F5665 !important;
 }
 
+.mfp-gallery img {
+    height: 480px;
+    width: 900px;
+    object-fit: cover;
+}

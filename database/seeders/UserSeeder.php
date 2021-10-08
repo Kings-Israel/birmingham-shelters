@@ -43,8 +43,8 @@ class UserSeeder extends Seeder
                 User::factory()->create([
                     'user_type' => $type,
                     'first_name' => ucfirst($type),
-                    'last_name' => 'Test',
-                    'email' => $type.'@test.com',
+                    'last_name' => 'Admin',
+                    'email' => $type.'@admin.com',
                 ]);
             });
 
