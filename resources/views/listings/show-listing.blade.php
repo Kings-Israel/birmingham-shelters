@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12 col-md-12">
+                <div class="col-lg-8 col-md-12">
                     <div class="property_block_wrap style-2">
 
                         <div class="property_block_wrap_header">
@@ -193,13 +193,13 @@
 
                     </div>
                 </div>
-                {{-- <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class="col-lg-4 col-md-12 col-sm-12">
 
                     <div class="details-sidebar" id="listing-contact-form">
 
                         <!-- Agent Detail -->
                         <div class="sides-widget">
-                            <div class="sides-widget-header">
+                            {{-- <div class="sides-widget-header">
                                 <div class="sides-widget-details">
                                     <p>Listing Contact Details</p>
                                     <h4><a href="#">{{ $listing->contact_name }}</a></h4>
@@ -207,7 +207,7 @@
                                     <span><i class="lni-phone-handset" style="color: #fff"></i>{{ $listing->contact_number }}</span>
                                 </div>
                                 <div class="clearfix"></div>
-                            </div>
+                            </div> --}}
                             <form action="{{ route('listing.inquiry') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="listing_id" value="{{ $listing->id }}">
@@ -283,7 +283,7 @@
                             @endif
                         @endauth
                     </div>
-                </div> --}}
+                </div>
             </div>
 
         </div>
