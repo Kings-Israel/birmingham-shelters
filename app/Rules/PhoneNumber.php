@@ -8,11 +8,11 @@ class PhoneNumber implements Rule
 {
     public function passes($attribute, $value): bool
     {
-        return preg_match('/^44\d{10}$/i', $value);
+        return preg_match('/^07\d{10}$/i', $value);
     }
 
     public function message(): string
     {
-        return 'Enter a valid phone number 44xxxxxxxxxx.';
+        return 'Enter a valid phone number 07xxxxxxxxxx.';
     }
 }

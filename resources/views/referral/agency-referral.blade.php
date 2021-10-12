@@ -259,10 +259,10 @@
         let applicant_phone_number = document.getElementById('applicant_phone_number')
         let applicant_kin_phone_number = document.getElementById('applicant_kin_phone_number')
         applicant_phone_number.addEventListener('focus', () => {
-            applicant_phone_number.value = '44'
+            applicant_phone_number.value = '07'
         })
         applicant_kin_phone_number.addEventListener('focus', () => {
-            applicant_kin_phone_number.value = '44'
+            applicant_kin_phone_number.value = '07'
         })
         function selected() {
             var result = document.querySelector('input[name="applicant_gender[]"]:checked').value;
@@ -275,5 +275,5 @@
             }
         }
     </script>
-    @endpush
+@endpush
 </x-app-layout>

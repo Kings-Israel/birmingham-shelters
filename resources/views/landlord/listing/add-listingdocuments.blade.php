@@ -18,20 +18,20 @@
                     <p>All documents should be in PDF format.</p>
                 </div>
                 @foreach ($listing_document_types as $type => $label)
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="listing_documents.{{$type}}">{{$label}}</label>
-                        <input type="file" accept=".pdf" class="form-control" name="listing_documents[{{$type}}]"
-                            id="listing_documents.{{$type}}" required>
-                        <x-input-error for="listing_documents.{{$type}}" />
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="listing_documents.{{$type}}">{{$label}}</label>
+                            <input type="file" accept=".pdf" class="form-control" name="listing_documents[{{$type}}]"
+                                id="listing_documents.{{$type}}" >
+                            <x-input-error for="listing_documents.{{$type}}" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="expiry_dates.{{$type}}">{{ $label }} Expiry Date</label>
+                            <input type="date" class="form-control" value="{{ old('expiry_date['.$type.']') }}"
+                                name="expiry_dates[{{$type}}]" id="expiry_dates.{{$type}}" >
+                            <x-input-error for="expiry_dates.{{$type}}" />
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="expiry_dates.{{$type}}">Expiry Date</label>
-                        <input type="date" class="form-control" value="{{ old('expiry_date['.$type.']') }}"
-                            name="expiry_dates[{{$type}}]" id="expiry_dates.{{$type}}" required>
-                        <x-input-error for="expiry_dates.{{$type}}" />
-                    </div>
-                </div>
                 @endforeach
 
                 @php($old_proofs = array_keys(old('proof', [])))

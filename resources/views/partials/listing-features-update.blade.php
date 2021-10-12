@@ -22,7 +22,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label>Address (e.g 308 Witton Road, Birmingham, UK)</label>
-                                    <input type="text" id="address" class="form-control" name="address" placeholder="" value="{{ $listing->address }} {{ old('address') }}">
+                                    <input type="text" id="address-input" class="form-control" name="address" placeholder="" value="{{ $listing->address }} {{ old('address') }}">
                                     <span id="addressError">
                                         <strong></strong>
                                     </span>
@@ -142,7 +142,7 @@
 
                                 <div class="form-group col-md-4">
                                     <label>Phone</label>
-                                    <input type="text" class="form-control" name="contact_number" value="{{ $listing->contact_number }}{{ old('contact_number') }}">
+                                    <input type="text" class="form-control" id="contact_phone_number" name="contact_number" value="{{ $listing->contact_number }}{{ old('contact_number') }}">
                                     <span id="contact_numberError">
                                         <strong></strong>
                                     </span>
@@ -162,6 +162,7 @@
         </div>
     </div>
     @push('scripts')
+    {{-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCisnVFSnc5QVfU2Jm2W3oRLqMDrKwOEoM&sensor=false&libraries=places"></script> --}}
     <script>
         $(function () {
             $('#other-types-checkbox').on('change', function () {
@@ -207,6 +208,12 @@
                 }
             })
         });
+
+        let contact_phone_number = document.getElementById('contact_phone_number')
+
+        contact_phone_number.addEventListener('focus', () => {
+            contact_phone_number.value = '07'
+        })
     </script>
     @endpush
 </div>

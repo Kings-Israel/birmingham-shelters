@@ -140,7 +140,7 @@
 
                         <div class="form-group col-md-4">
                             <label>Phone</label>
-                            <input type="text" class="form-control" name="contact_number" value="{{ old('contact_number') }}">
+                            <input type="text" class="form-control" id="contact_phone_number" name="contact_number" value="{{ old('contact_number') }}">
                             <x-input-error for="contact_number" />
                         </div>
 
@@ -158,7 +158,7 @@
         </div>
     </form>
     @push('scripts')
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCisnVFSnc5QVfU2Jm2W3oRLqMDrKwOEoM&sensor=false&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCisnVFSnc5QVfU2Jm2W3oRLqMDrKwOEoM&libraries=places"></script>
     <script>
         function initialize() {
             var input = document.getElementById('address-input');
@@ -166,6 +166,12 @@
         }
 
         google.maps.event.addDomListener(window, 'load', initialize);
+
+        let contact_phone_number = document.getElementById('contact_phone_number')
+
+        contact_phone_number.addEventListener('focus', () => {
+            contact_phone_number.value = '07'
+        })
     </script>
     @endpush
 </x-app-dashboard-layout>

@@ -210,4 +210,23 @@
         </form>
     </div>
 </section>
+@push('scripts')
+    <script>
+        let applicant_kin_phone_number = document.getElementById('applicant_kin_phone_number')
+        
+        applicant_kin_phone_number.addEventListener('focus', () => {
+            applicant_kin_phone_number.value = '07'
+        })
+        function selected() {
+            var result = document.querySelector('input[name="applicant_gender[]"]:checked').value;
+            if(result == "Other"){
+                document.getElementById("applicant_gender").removeAttribute('hidden');
+                document.getElementById("applicant_gender").setAttribute('required', true)
+            }
+            else{
+                document.getElementById("applicant_gender").setAttribute('hidden', true);
+            }
+        }
+    </script>
+@endpush
 </x-app-layout>

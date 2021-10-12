@@ -117,7 +117,7 @@
         <script>
             function showIntNumber() {
                 let phone_number_input = document.getElementById('phone_number_input')
-                phone_number_input.value = '44'
+                phone_number_input.value = '07'
             }
             $('#register-form').on('submit', function (e) {
                 e.preventDefault();

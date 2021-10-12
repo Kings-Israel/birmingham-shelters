@@ -177,13 +177,13 @@
                     <div class="property_block_wrap style-2">
 
                         <div class="property_block_wrap_header">
-                            <a data-bs-toggle="collapse" data-parent="#loca" data-bs-target="#clSix"
-                                aria-controls="clSix" href="javascript:void(0);" aria-expanded="true" class="collapsed">
+                            <a data-bs-toggle="collapse" data-parent="#loca" data-bs-target="#clEight"
+                                aria-controls="clEight" href="javascript:void(0);" aria-expanded="true" class="collapsed">
                                 <h4 class="property_block_title">Documents & Proofs</h4>
                             </a>
                         </div>
 
-                        <div id="clSix" class="panel-collapse collapse" aria-expanded="true">
+                        <div id="clEight" class="panel-collapse collapse" aria-expanded="true">
                             <div class="block-body">
                                 <ul class="list-unstyled">
                                     @foreach ($listing->getProofs() as $proof)
