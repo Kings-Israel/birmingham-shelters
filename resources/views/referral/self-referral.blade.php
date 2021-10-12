@@ -180,9 +180,12 @@
                                     <div class="input-with-icon">
                                         <select class="form-control" id="applicant_ethnicity" name="applicant_ethnicity" required>
                                             <option value="">Please select</option>
-                                            <option value="Group 1" @if (old('applicant_ethnicity') == 'Group 1') selected="selected" @endif>Group 1</option>
-                                            <option value="Group 2" @if (old('applicant_ethnicity') == 'Group 2') selected="selected" @endif>Group 1</option>
-                                            <option value="Group 3" @if (old('applicant_ethnicity') == 'Group 3') selected="selected" @endif>Group 3</option>
+                                            <option value="White" @if (old('applicant_ethnicity') == 'White') selected="selected" @endif>White</option>
+                                            <option value="Black/ African/ Caribbean/ Black British/ Black Irish" @if (old('applicant_ethnicity') == 'Black/ African/ Caribbean/ Black British/ Black Irish') selected="selected" @endif>Black/ African/ Caribbean/ Black British/ Black Irish</option>
+                                            <option value="Mixed/ Multiple Ethnic Groups" @if (old('applicant_ethnicity') == 'Mixed/ Multiple Ethnic Groups') selected="selected" @endif>Mixed/ Multiple Ethnic Groups</option>
+                                            <option value="Asian/ British Asian/ Irish Asian" @if (old('applicant_ethnicity') == 'Asian/ British Asian/ Irish Asian') selected="selected" @endif>Asian/ British Asian/ Irish Asian</option>
+                                            <option value="Other Ethnic Group" @if (old('applicant_ethnicity') == 'Other Ethnic Group') selected="selected" @endif>Other Ethnic Group</option>
+                                            <option value="Not Disclosed" @if (old('applicant_ethnicity') == 'Not Disclosed') selected="selected" @endif>Prefer Not To Disclose</option>
                                         </select>
                                         <i class="ti-user"></i>
                                     </div>
