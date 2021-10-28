@@ -83,7 +83,8 @@ class Listing extends Model
 
     public function coverImageUrl(): string
     {
-        return $this->getImageUrl($this->images->first());
+        $image = $this->images != null ? $this->images->first() : null;
+        return $this->getImageUrl($image);
     }
 
     public function getImageUrl(?string $filename): string
