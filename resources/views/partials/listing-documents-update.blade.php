@@ -25,7 +25,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="listing_documents.{{$type}}">{{$label}}</label>
                                         <input type="file" accept=".pdf" class="form-control" name="listing_documents[{{$type}}]"
-                                            id="listing_documents.{{$type}}" required>
+                                            id="listing_documents.{{$type}}">
                                             <span id="listing_documents.{{$type}}">
                                                 <strong></strong>
                                             </span>
@@ -34,7 +34,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="expiry_dates.{{$type}}">Expiry Date</label>
                                         <input type="date" class="form-control" value="{{ old('expiry_date['.$type.']') }}"
-                                            name="expiry_dates[{{$type}}]" id="expiry_dates.{{$type}}" required>
+                                            name="expiry_dates[{{$type}}]" id="expiry_dates.{{$type}}">
                                             <span id="expiry_dates.{{$type}}">
                                                 <strong></strong>
                                             </span>

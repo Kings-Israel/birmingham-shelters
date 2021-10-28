@@ -307,25 +307,16 @@ class LandlordListingController extends Controller
         }
     }
 
-    private function _checkDatesForUploadedDocuments($request)
-    {
-        // Compare expiry dates with listing documents uploaded
-        // Require expiry date if listing document uploaded
-        foreach ($request->listing_documents as $document_name => $file) {
-            return [$request->expiry_dates[$document_name] => "required"];
-        }
-    }
-
     public function submitListingDocuments(Request $request)
     {
         $this->authorize('update', Listing::findOrFail($request->listing_id));
 
+        if (!$request->listing_documents) {
+            return redirect()->route('listing.add.listing_images', $request->listing_id);
+        }
+
         $rules = [
             'listing_id' => ['required', 'integer'],
-            // 'listing_documents' => ['required', 'array', 'size:'.count(ListingDocumentTypesEnum::toArray())],
-            // 'listing_documents.*' => ['mimes:pdf'],
-            // 'expiry_dates' => ['required', 'array'],
-            // 'expiry_dates.*' => ['date'],
             'proof' => ['sometimes', 'array'],
         ];
 
@@ -334,15 +325,7 @@ class LandlordListingController extends Controller
         }
 
 
-        $messages = [
-            // 'listing_documents.required' => 'Please upload all required documents.',
-            // 'listing_documents.*.required' => 'Please upload all documents',
-            // 'listing_documents.size' => 'Please upload all required documents.',
-            // 'listing_documents.*.mimes' => 'Only PDFs are accepted.',
-            // 'expiry_dates.*.required' => 'An expiry date is required',
-            // 'expiry_dates[gas_certificate].required' => "Please enter the date for gas certificate",
-            // 'expiry_dates[gas_certificate].date' => "Please enter a valid date"
-        ];
+        $messages = [];
 
         foreach ($request->listing_documents as $document_name => $file) {
             $messages['listing_documents['.$document_name.'].mimes'] = 'Please upload a valid document';
@@ -379,34 +362,54 @@ class LandlordListingController extends Controller
     {
         $document = ListingDocument::where('listing_id', $request->listing_id)->get();
         $document->each(fn (ListingDocument $document) => $document->delete());
-        $rules = [
-            'listing_id' => ['required', 'integer'],
-            'listing_documents' => ['required', 'array', 'size:'.count(ListingDocumentTypesEnum::toArray())],
-            'listing_documents.*' => ['required', 'mimes:pdf'],
-            'expiry_dates' => ['required', 'array'],
-            'expiry_dates.*' => ['required', 'date'],
-            'proof' => ['sometimes', 'array'],
-        ];
+        // $rules = [
+        //     'listing_id' => ['required', 'integer'],
+        //     'listing_documents' => ['required', 'array', 'size:'.count(ListingDocumentTypesEnum::toArray())],
+        //     'listing_documents.*' => ['required', 'mimes:pdf'],
+        //     'expiry_dates' => ['required', 'array'],
+        //     'expiry_dates.*' => ['required', 'date'],
+        //     'proof' => ['sometimes', 'array'],
+        // ];
 
-        $messages = [
-            'listing_documents.required' => 'Please upload all required documents.',
-            'listing_documents.*.required' => 'Please upload all documents',
-            'listing_documents.size' => 'Please upload all required documents.',
-            'listing_documents.*.mimes' => 'Only PDFs are accepted.',
-            'expiry_dates.*.required' => 'An expiry date is required',
-        ];
+        // $messages = [
+        //     'listing_documents.required' => 'Please upload all required documents.',
+        //     'listing_documents.*.required' => 'Please upload all documents',
+        //     'listing_documents.size' => 'Please upload all required documents.',
+        //     'listing_documents.*.mimes' => 'Only PDFs are accepted.',
+        //     'expiry_dates.*.required' => 'An expiry date is required',
+        // ];
 
-        $validated = $request->validate($rules, $messages);
+        if ($request->listing_documents) {
+            $rules = [
+                'listing_id' => ['required', 'integer'],
+                'proof' => ['sometimes', 'array'],
+            ];
 
-        foreach ($validated['listing_documents'] as $document_type => $file) {
-            ListingDocument::create([
-                'listing_id' => $validated['listing_id'],
-                'document_type' => $document_type,
-                'filename' => pathinfo($file->store('documents', 'listing'), PATHINFO_BASENAME),
-                'expiry_date' => $validated['expiry_dates'][$document_type],
-            ]);
+            foreach ($request->listing_documents as $document_name => $file) {
+                $rules['expiry_dates['.$document_name.']'] = ['required', 'date', 'mimes:pdf'];
+            }
+
+
+            $messages = [];
+
+            foreach ($request->listing_documents as $document_name => $file) {
+                $messages['listing_documents['.$document_name.'].mimes'] = 'Please upload a valid document';
+                $messages['expiry_dates['.$document_name.'].required'] = 'Please enter an expiry date';
+                $messages['expiry_dates['.$document_name.'].date'] = 'Please enter a valid date';
+            }
+
+            $validated = $request->validate($rules, $messages);
+
+            foreach ($validated['listing_documents'] as $document_type => $file) {
+                ListingDocument::create([
+                    'listing_id' => $validated['listing_id'],
+                    'document_type' => $document_type,
+                    'filename' => pathinfo($file->store('documents', 'listing'), PATHINFO_BASENAME),
+                    'expiry_date' => $validated['expiry_dates'][$document_type],
+                ]);
+            }
+
         }
-
         $request->whenFilled('proof', function ($input) use ($request) {
             Listing::whereId($request->listing_id)->update(['proofs' => array_keys($input)]);
         });
