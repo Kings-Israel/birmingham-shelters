@@ -86,9 +86,10 @@ class Listing extends Model
         return $this->getImageUrl($this->images->first());
     }
 
-    public function getImageUrl(string $filename): string
+    public function getImageUrl(?string $filename): string
     {
-        return Storage::disk('listing')->url('images/'.$filename);
+        $image = $filename != null ? $filename : 'no-image.jpg';
+        return Storage::disk('listing')->url('images/'.$image);
     }
 
     public function getProofs(): Collection
