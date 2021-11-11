@@ -93,7 +93,7 @@
 
                                 <div class="form-group col-md-3">
                                     <label>National Insurance Number</label>
-                                    <input type="number" id="applicant_ni_number" name="applicant_ni_number" class="form-control" value="{{ old('applicant_ni_number') }}" required>
+                                    <input type="text" id="applicant_ni_number" name="applicant_ni_number" class="form-control" value="{{ old('applicant_ni_number') }}" autocomplete="off" required>
                                     @error('applicant_ni_number')
                                         <strong class="error-message">{{ $message }}</strong>
                                     @enderror
@@ -213,7 +213,7 @@
 @push('scripts')
     <script>
         let applicant_kin_phone_number = document.getElementById('applicant_kin_phone_number')
-        
+
         applicant_kin_phone_number.addEventListener('focus', () => {
             applicant_kin_phone_number.value = '07'
         })

@@ -20,12 +20,12 @@ class CreateApplicantHealthInfosTable extends Migration
             $table->string('gp_name')->nullable();
             $table->string('gp_address')->nullable();
             $table->string('detained_for_mental_health');
-            $table->text('mental_health');
-            $table->text('physical_health');
-            $table->text('present_medication');
+            $table->text('mental_health')->nullable();
+            $table->text('physical_health')->nullable();
+            $table->text('present_medication')->nullable();
             $table->text('current_cpa')->nullable();
             $table->text('other_relevant_information')->nullable();
-            $table->string('has_criminal_offence');
+            $table->string('has_criminal_offence')->nullable();
             $table->text('criminal_offence_details')->nullable();
             $table->timestamps();
         });

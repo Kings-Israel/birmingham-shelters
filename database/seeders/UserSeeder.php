@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
                     'user_type' => $type,
                     'first_name' => ucfirst($type),
                     'last_name' => 'Admin',
-                    'email' => $type.'@admin.com',
+                    'email' => $type.'@test.com',
                 ]);
             });
 

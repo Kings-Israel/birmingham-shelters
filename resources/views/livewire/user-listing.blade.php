@@ -27,7 +27,7 @@
                                 <div class="col-lg-6 col-md-12">
                                     <div class="property-listing property-1">
                                         <div class="listing-img-wrapper">
-                                            <a href="{{ route('listing.one', $listing->id) }}">
+                                            <a href="{{ route('listing.one', $listing) }}">
                                                 <img src="{!! $listing->coverImageUrl() !!}" class="img-fluid mx-auto" alt="" />
                                             </a>
                                         </div>
@@ -41,7 +41,7 @@
                                                         @if ($listing->is_verified)
                                                             <i class="ti-star mr-1" style="float: right; font-size: 20px; color: brown"></i>
                                                         @endif
-                                                        <h4 class="listing-name"><a href="{{ route('listing.one', $listing->id) }}">{{ $listing->name }}</a></h4>
+                                                        <h4 class="listing-name"><a href="{{ route('listing.one', $listing) }}">{{ $listing->name }}</a></h4>
                                                         <p class="listing-description">{{ $listing->description }}</p>
                                                     </div>
                                                 </div>
@@ -52,7 +52,7 @@
                                                     <span class="listing-location"><i class="ti-location-pin"></i>{{ $listing->address }}</span>
                                                 </div>
                                                 <div class="listing-detail-btn">
-                                                    <a href="{{ route('listing.one', $listing->id) }}" class="more-btn">View</a>
+                                                    <a href="{{ route('listing.one', $listing) }}" class="more-btn">View</a>
                                                 </div>
                                             </div>
 

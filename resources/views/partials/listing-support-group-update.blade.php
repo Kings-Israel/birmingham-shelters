@@ -17,7 +17,7 @@
                                         <div class="o-features">
                                             <ul class="no-ul-list">
                                                 @php($old_supported_groups = old('supported_groups', []))
-            
+
                                                 @foreach ($supported_groups as $group)
                                                     <li>
                                                         <input type="checkbox" class="checkbox-custom" name="supported_groups[]"
@@ -35,11 +35,11 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <span id="supported_groups.*.Error">
+                                        <span id="supported_groupsError">
                                             <strong></strong>
                                         </span>
                                     </div>
-            
+
                                     <div class="form-group col-md-12 {{ !in_array('Other', $old_supported_groups) ? 'd-none' : '' }}">
                                         <label>Other (please specify)</label>
                                         <input type="text" id="other_support_types" name="other_supported_groups" class="form-control" value="{{ old('other_supported_groups') }}">
@@ -47,7 +47,7 @@
                                             <strong></strong>
                                         </span>
                                     </div>
-            
+
                                     <div class="form-group col-md-12">
                                         <label>Describe how support will be provided at the property</label>
                                         <textarea class="form-control h-120" id="support_description" name="support_description">{{ $listing->support_description }}{{ old('support_description') }}</textarea>
@@ -55,9 +55,9 @@
                                             <strong></strong>
                                         </span>
                                     </div>
-            
+
                                 </div>
-            
+
                                 <div class="form-group col-md-12">
                                     <label>Total Support Hours Provided at the premises</label>
                                     <input type="text" id="support_hours" name="support_hours" class="form-control" min="0"
@@ -67,7 +67,7 @@
                                     </span>
                                 </div>
                             </div>
-        
+
                         </div>
                         <div class="form-group">
                             <button type="submit" id="update-button" class="btn btn-md full-width btn-theme-light-2 rounded">Submit</button>
@@ -104,8 +104,6 @@
                         Object.keys(errors).forEach(function (key) {
                             $("#" + key + "Error").children("strong").text(errors[key][0]);
                         });
-                        $("#update-button").removeAttr('disabled')
-                        $("#update-button").text('Sign Up')
                     } else {
                         // window.location.reload();
                     }

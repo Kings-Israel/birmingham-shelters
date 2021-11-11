@@ -98,7 +98,7 @@ Route::group(
     ],
     function () {
         Route::get('/all', [LandlordListingController::class, 'allListings'])->name('view.all');
-        Route::get('/{listing}', [LandlordListingController::class, 'viewListing'])->name('view.one');
+        Route::get('/{listing:slug}', [LandlordListingController::class, 'viewListing'])->name('view.one');
         Route::get('/add/basicinfo', [LandlordListingController::class, 'basicInfo'])->name('add.basic_info');
         Route::get('/add/clientgroupinfo/{id}', [LandlordListingController::class, 'clientInfo'])->name('add.client_info');
         Route::get('/add/listingdocuments/{id}', [LandlordListingController::class, 'listingDocuments'])->name('add.listing_documents');
@@ -128,7 +128,7 @@ Route::group(
 // User listing controller
 Route::group(['prefix' => '/listing', 'as' => 'listing.'], function () {
     Route::get('/all', UserListing::class)->name('all');
-    Route::get('/{listing}', [UserListingController::class, 'listing'])->name('one');
+    Route::get('/{listing:slug}', [UserListingController::class, 'listing'])->name('one');
     Route::post('/booking/submit', [UserListingController::class, 'submitBooking'])->middleware(['auth', 'verified'])->name('submit.booking');
     Route::get('/booking/{user_id}/{referee_id}/{listing_id}/delete', [UserListingController::class, 'deleteBooking'])->name('booking.delete');
     Route::post('/inquiry', [ListingInquiryController::class, 'submitInquiry'])->name('inquiry');
@@ -177,7 +177,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     // Listing management
     Route::prefix('listings')->name('admin.')->group(function () {
         Route::get('/', AdminListingsList::class)->name('listings.index');
-        Route::get('/{listing}', [AdminShowListingController::class, 'showListing'])->name('listings.show');
+        Route::get('/{listing:slug}', [AdminShowListingController::class, 'showListing'])->name('listings.show');
     });
 
     // Bookings

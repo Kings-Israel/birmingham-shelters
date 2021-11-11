@@ -21,7 +21,7 @@ class UserFactory extends Factory
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'email' => $this->faker->unique()->freeEmail(),
-            'phone_number' => $this->faker->unique()->regexify('44\d{10}'),
+            'phone_number' => $this->faker->unique()->regexify('07\d{9}'),
             'email_verified_at' => now(),
             'phone_number_verified_at' => now(),
             'user_type' => $this->faker->randomEnumValue(UserTypeEnum::class),

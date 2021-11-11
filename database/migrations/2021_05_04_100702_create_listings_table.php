@@ -13,6 +13,7 @@ class CreateListingsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('name');
+            $table->string('slug')->nullable();
             $table->date('assessment_date')->nullable();
             $table->text('address');
             $table->text('postcode');

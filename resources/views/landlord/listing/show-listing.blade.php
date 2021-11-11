@@ -106,7 +106,7 @@
                     <div class="block-body">
                         <ul class="avl-features third color">
                             @foreach ($listing->supported_groups as $client)
-                            <li class="text-capitalize">{{ $client }}</li>
+                                <li class="text-capitalize">{{ $client }}</li>
                             @endforeach
                         </ul>
                     </div>
@@ -160,14 +160,17 @@
                 <div id="clSev" class="panel-collapse collapse show" aria-expanded="true">
                     <div class="block-body">
                         <ul class="list-gallery-inline">
+                            {{-- {{ dd($listing) }} --}}
+                            @if ($listing->images)
                             @foreach ($listing->images as $image)
                             <li>
                                 <a href="{!! $listing->getImageUrl($image) !!}" class="mfp-gallery"><img src="{!! $listing->getImageUrl($image) !!}"
                                         class="img-fluid mx-auto" alt="" /></a>
                             </li>
                             @endforeach
+                            @endif
                         </ul>
-                        @if(count($listing->images) > 0)
+                        @if($listing->images)
                         <a href="{{ route('listing.delete.images', $listing->id) }}">
                             <button class="btn btn-md btn-primary rounded" style="float: right; margin-left: 5px">Delete All Images</button>
                         </a>
@@ -177,12 +180,12 @@
                     </div>
                 </div>
             </div>
-            <div>
+            {{-- <div>
                 @if ($listing->status != "Verified")
                     <button class="btn btn-md btn-theme-light-2 rounded" data-bs-toggle="modal" data-bs-target="#listing-documents-update" >Update Documents</button>
                     @include('partials.listing-documents-update')
                 @endif
-            </div>
+            </div> --}}
             <hr>
             <!-- Feedback Messages -->
             <div class="property_block_wrap style-2">

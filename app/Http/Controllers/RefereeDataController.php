@@ -99,7 +99,7 @@ class RefereeDataController extends Controller
 
     public function submitReferralForm(Request $request)
     {
-
+        // dd($request->all());
         $rules = [
             'referral_type' => 'required|string',
             'referrer_name' => 'required|string',
@@ -131,9 +131,6 @@ class RefereeDataController extends Controller
         ];
 
         Validator::make($request->all(), $rules, $messages)->validate();
-        if ($request->has('applicant_image')) {
-            pathinfo($request->file('applicant_image')->store('image', 'referee'), PATHINFO_BASENAME);
-        }
 
         $refereeData = new RefereeData;
         $refereeData->user_id = $request->user()->id;
@@ -255,8 +252,8 @@ class RefereeDataController extends Controller
             'professional_officer' => 'nullable|string',
             'gp_name' => 'nullable|string',
             'detained_for_mental_health' => 'required',
-            'mental_health' => 'required|string',
-            'physical_health' => 'required|string',
+            'mental_health' => 'nullable|string',
+            'physical_health' => 'nullable|string',
             'present_medication' => 'nullable|string',
             'current_cpa' => 'nullable|string',
             'other_relevant_information' => 'nullable|string',
@@ -285,23 +282,25 @@ class RefereeDataController extends Controller
     {
         $rules = [];
         $messages = [];
-        foreach($request->support_needs as $key => $need) {
-            for ($i=0; $i < count($request->support_group); $i++) {
-                if ($request->support_group[$i] === $key) {
-                    $rules[$key] = 'required|string';
-                    $messages[$key.'.required'] = 'Please enter the support needs';
-                    $messages[$key.'.string'] = 'Enter the support description using only letters';
+        if ($request->has('support_group')) {
+            foreach($request->support_needs as $key => $need) {
+                for ($i=0; $i < count($request->support_group); $i++) {
+                    if ($request->support_group[$i] === $key) {
+                        $rules[$key] = 'required|string';
+                        $messages[$key.'.required'] = 'Please enter the support needs';
+                        $messages[$key.'.string'] = 'Enter the support description using only letters';
+                    }
                 }
             }
-        }
-        Validator::make($request->support_needs, $rules, $messages)->validate();
+            Validator::make($request->support_needs, $rules, $messages)->validate();
 
-        foreach ($request->support_group as $key => $group) {
-            $applicantSupport = new ApplicantSupportNeeds;
-            $applicantSupport->referee_data_id = $request->referee_data_id;
-            $applicantSupport->support_group = $group;
-            $applicantSupport->support_needs = $request->support_needs[$group];
-            $applicantSupport->save();
+            foreach ($request->support_group as $key => $group) {
+                $applicantSupport = new ApplicantSupportNeeds;
+                $applicantSupport->referee_data_id = $request->referee_data_id;
+                $applicantSupport->support_group = $group;
+                $applicantSupport->support_needs = $request->support_needs[$group];
+                $applicantSupport->save();
+            }
         }
 
         return redirect()->route('referral.add.risk-assessment', $request->referee_data_id);

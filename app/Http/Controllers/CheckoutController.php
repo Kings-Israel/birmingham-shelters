@@ -213,7 +213,7 @@ class CheckoutController extends Controller
             $listing = $invoice->invoiceable;
             $deleteInvoice = Invoice::destroy($invoice->id);
             if ($deleteInvoice) {
-                return redirect()->route('listing.view.one', $listing->id);
+                return redirect()->route('listing.view.one', $listing);
             } else {
                 return redirect()->back()->withError('An error occurred. Please try again.');
             }

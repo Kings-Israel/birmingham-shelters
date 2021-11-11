@@ -13,9 +13,9 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10 col-md-12">
-                    
+
                     <h1 style="color: white; text-align:center">SUPPORTED ACCOMMODATION REFERRAL FORM</h1>
-                    
+
                 </div>
             </div>
         </div>
@@ -27,12 +27,13 @@
                 @csrf
                 <input type="hidden" name="referee_data_id" value="{{ $refereeData->id }}">
                 <div class="submit-page">
-                                
+
                     <!-- Basic Information -->
                     <div class="form-submit">
                         <h5>HEALTH DETAILS</h5>
                         <div class="submit-section">
                             <p>Section 4 of 6</p>
+                            <h6>* Please fill N/A where not applicable</h6>
                             <label>Social Worker/Community Psychiatric Nurse/Probation Officer or Other Relevant Professional(s)</label>
                             <input type="text" id="professional_officer" name="professional_officer" class="form-control" value="{{ old('professional_officer') }}">
                             @error('professional_officer')
@@ -56,7 +57,7 @@
                                 </div>
                             </div>
                             <br>
-                            
+
                             <div class="row">
                                 <div class="col-lg-6 col-md-12">
                                     <label>Mental Health</label>
@@ -118,12 +119,12 @@
                                 @enderror
                             </div>
 
+                            @error('criminal_offence_details')
+                                <strong class="error-message">{{ $message }}</strong>
+                            @enderror
                             <div class="form-group" id="criminal_offence_details" hidden>
                                 <label>If Yes, Please provide details</label>
                                 <textarea class="form-control h-120"  name="criminal_offence_details"  value="{{ old('criminal_offence_details') }}"></textarea>
-                                @error('criminal_offence_details')
-                                    <strong class="error-message">{{ $message }}</strong>
-                                @enderror
                             </div>
                         </div>
                     </div>
@@ -151,6 +152,16 @@
                 document.getElementById("criminal_offence_details").setAttribute('hidden', true);
             }
         }
+
+        let criminal_input = $('input[name="has_criminal_offence"]:checked').val()
+
+        $(function() {
+            if(criminal_input == "Yes") {
+                $('#criminal_offence_details').attr('hidden', false)
+            } else {
+                $('#criminal_offence_details').attr('hidden', true)
+            }
+        })
     </script>
     @endpush
 </x-app-layout>

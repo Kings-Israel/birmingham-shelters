@@ -167,6 +167,23 @@
         $('.image-upload-wrap').bind('dragleave', function () {
             $('.image-upload-wrap').removeClass('image-dropping');
         });
+
+        function forceKeyPressUppercase(e)
+        {
+            var charInput = e.keyCode;
+            if((charInput >= 97) && (charInput <= 122)) { // lowercase
+            if(!e.ctrlKey && !e.metaKey && !e.altKey) { // no modifier key
+                var newChar = charInput - 32;
+                var start = e.target.selectionStart;
+                var end = e.target.selectionEnd;
+                e.target.value = e.target.value.substring(0, start) + String.fromCharCode(newChar) + e.target.value.substring(end);
+                e.target.setSelectionRange(start+1, start+1);
+                e.preventDefault();
+            }
+            }
+        }
+
+        document.getElementById('applicant_ni_number').addEventListener('keypress', forceKeyPressUppercase, false)
     </script>
 
     @livewireScripts

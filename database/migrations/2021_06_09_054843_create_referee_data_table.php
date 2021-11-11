@@ -25,7 +25,7 @@ class CreateRefereeDataTable extends Migration
             $table->string('applicant_email');
             $table->string('applicant_phone_number');
             $table->date('applicant_date_of_birth');
-            $table->bigInteger('applicant_ni_number');
+            $table->string('applicant_ni_number');
             $table->text('applicant_current_address');
             $table->string('applicant_gender');
             $table->string('applicant_sexual_orientation');

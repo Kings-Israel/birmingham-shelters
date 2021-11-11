@@ -88,7 +88,7 @@
                                     <div class="input-with-icon">
                                         <select class="form-control" name="user_type" required>
                                             <option value="">Select user type</option>
-                                            <option value="user">As a Customer</option>
+                                            <option value="user">As a Tenant</option>
                                             <option value="landlord">As a Landlord</option>
                                             <option value="agent">As a Referral Agent</option>
                                         </select>

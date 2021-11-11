@@ -4,8 +4,8 @@
             <a data-bs-toggle="collapse" data-parent="#dsrp" data-bs-target="#clTwo" aria-controls="clTwo"
                 href="javascript:void(0);" aria-expanded="true">
                 <h4 class="property_block_title">
-                    <a href="{{ route('listing.view.one', $inquiries->id) }}">
-                        <i class="ti-angle-left"></i> 
+                    <a href="{{ route('listing.view.one', $inquiries) }}">
+                        <i class="ti-angle-left"></i>
                     </a>
                     Inquiries:
                 </h4>

@@ -39,7 +39,7 @@
                                 @for ($i = 0; $i < count($support_group_list); $i++)
                                     <div class="row">
                                         <div class="form-group col-lg-5 col-md-6 col-sm-12">
-                                            <input id="{{ $support_group_list[$i] }}" class="checkbox-custom" name="support_group[]" value="{{ $support_group_list[$i] }}" type="checkbox">
+                                            <input id="{{ $support_group_list[$i] }}" class="checkbox-custom" name="support_group[]" value="{{ $support_group_list[$i] }} {{ (old('support_group.'.$i) == $support_group_list[$i]) ? 'checked' : '' }}" type="checkbox">
                                             <label for="{{ $support_group_list[$i] }}" class="checkbox-custom-label">{{ $support_group_list[$i] }}</label>
                                         </div>
                                         <div class="form-group col-lg-7 col-md-6 col-sm-12">

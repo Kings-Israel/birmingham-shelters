@@ -4,11 +4,7 @@
     <div class="page-title">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-8 col-md-12">
-                    <div class="row justify-content-center">
-                        @include('partials.search')
-                    </div>
-                </div>
+                @include('partials.search')
             </div>
         </div>
     </div>
@@ -38,7 +34,7 @@
                                 <div class="property-listing property-1">
 
                                     <div class="listing-img-wrapper">
-                                        <a href="{{ route('admin.listings.show', $listing->id) }}">
+                                        <a href="{{ route('admin.listings.show', $listing) }}">
                                             <img src="{!! $listing->coverImageUrl() !!}" class="img-fluid mx-auto" alt="" />
                                         </a>
                                     </div>
@@ -48,7 +44,7 @@
                                         <div class="listing-detail-wrapper-box">
                                             <div class="listing-detail-wrapper">
                                                 <div class="listing-short-detail">
-                                                    <h4 class="listing-name"><a href="{{ route('admin.listings.show', $listing->id) }}">{{ $listing->name }}</a></h4>
+                                                    <h4 class="listing-name"><a href="{{ route('admin.listings.show', $listing) }}">{{ $listing->name }}</a></h4>
 
                                                     <div class="d-flex">
                                                         @if ($listing->is_verified)
@@ -80,7 +76,7 @@
                                                 <span class="listing-location"><i class="ti-location-pin"></i>{{ $listing->address }}</span>
                                             </div>
                                             <div class="listing-detail-btn">
-                                                <a href="{{ route('admin.listings.show', $listing->id) }}" class="more-btn">View</a>
+                                                <a href="{{ route('admin.listings.show', $listing) }}" class="more-btn">View</a>
                                             </div>
                                         </div>
 

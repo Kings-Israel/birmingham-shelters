@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Enums\BookingStatusEnum;
 use App\Enums\ListingProofsEnum;
 use App\Enums\ListingStatusEnum;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,13 +20,24 @@ use Illuminate\Support\Facades\Storage;
 class Listing extends Model
 {
     use HasFactory;
+    use Sluggable;
     use SoftDeletes;
 
     protected $guarded = [];
 
     protected $attributes = [
         'status' => 'draft',
+        'proofs' => "[]",
     ];
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
 
     protected $casts = [
         'user_id' => 'integer',
@@ -41,8 +53,10 @@ class Listing extends Model
     protected static function booted(): void
     {
         static::deleted(function(Listing $listing) {
-            $listing->images
-                ->each(fn ($path) => Storage::disk('listing')->delete('images/'.$path));
+            if($listing->images) {
+                $listing->images
+                    ->each(fn ($path) => Storage::disk('listing')->delete('images/'.$path));
+            }
         });
     }
 

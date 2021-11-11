@@ -10,7 +10,6 @@
                         enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="listing_id" value="{{ $listing->id }}">
-                        <input type="hidden" name="update" value="update">
                         <div class="submit-page">
                             <!-- Basic Information -->
                             <div class="form-submit">
@@ -64,40 +63,40 @@
     </div>
     @push('scripts')
     <script>
-        // $('#update-listing-documents').on('submit', function (e) {
-        //     e.preventDefault();
-        //     let formData = $(this).serializeArray();
-        //     $("#update-button").attr('disabled', 'disabled')
-        //     $("#update-button").text('Please Wait...')
-        //     $.ajax({
-        //         method: "POST",
-        //         dataType: "json",
-        //         headers: {
-        //             Accept: "application/json"
-        //         },
-        //         url: "{{ route('listing.add.submit_documents') }}",
-        //         data: formData,
-        //         success: (response) => {
-        //             console.log(response)
-        //             if(response == "success") {
-        //                 window.location.reload()
-        //             }
-        //         },
-        //         error: (response) => {
-        //             console.log(response)
-        //             if(response.status === 422) {
-        //                 let errors = response.responseJSON.errors;
-        //                 Object.keys(errors).forEach(function (key) {
-        //                     $("#" + key + "Error").children("strong").text(errors[key][0]);
-        //                 });
-        //                 $("#update-button").removeAttr('disabled')
-        //                 $("#update-button").text('Sign Up')
-        //             } else {
-        //                 window.location.reload();
-        //             }
-        //         }
-        //     })
-        // });
+        $('#update-listing-documents').on('submit', function (e) {
+            e.preventDefault();
+            let formData = $(this).serializeArray();
+            $("#update-button").attr('disabled', 'disabled')
+            $("#update-button").text('Please Wait...')
+            $.ajax({
+                method: "POST",
+                dataType: "json",
+                headers: {
+                    Accept: "application/json"
+                },
+                url: "{{ route('listing.update.documents') }}",
+                data: formData,
+                success: (response) => {
+                    console.log(response)
+                    // if(response == "success") {
+                    //     window.location.reload()
+                    // }
+                },
+                error: (response) => {
+                    console.log(response)
+                    if(response.status === 422) {
+                        let errors = response.responseJSON.errors;
+                        Object.keys(errors).forEach(function (key) {
+                            $("#" + key + "Error").children("strong").text(errors[key][0]);
+                        });
+                        $("#update-button").removeAttr('disabled')
+                        $("#update-button").text('Sign Up')
+                    } else {
+                        // window.location.reload();
+                    }
+                }
+            })
+        });
     </script>
     @endpush
 </div>

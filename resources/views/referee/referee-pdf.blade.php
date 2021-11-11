@@ -268,7 +268,7 @@
                                     Social Worker/CPN/Probation Officer or Other Relevant Professional(s)
                                 </td>
                                 <td>
-                                    <strong>{{ $health->professional_officer }}</strong>
+                                    <strong>{{ $health->professional_officer ? $health->professional_officer : 'Information Not Disclosed' }}</strong>
                                 </td>
                             </tr>
                             <tr>
@@ -276,7 +276,7 @@
                                     GP Name:
                                 </td>
                                 <td>
-                                    <strong>{{ $health->gp_name }}</strong>
+                                    <strong>{{ $health->gp_name ? $health->gp_name : "Information Not Disclosed" }}</strong>
                                 </td>
                             </tr>
                             <tr>
@@ -284,7 +284,7 @@
                                     GP Address
                                 </td>
                                 <td>
-                                    <strong>{{ $health->gp_address }}</strong>
+                                    <strong>{{ $health->gp_address ? $health->gp_address : 'Information Not Disclosed' }}</strong>
                                 </td>
                             </tr>
                             <tr>
@@ -292,24 +292,24 @@
                                     Detained For Mental Reasons
                                 </td>
                                 <td>
-                                    <strong>{{ $health->detained_for_mental_reasons }}</strong>
+                                    <strong>{{ $health->detained_for_mental_health }}</strong>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Mental Health History</td>
-                                <td><strong>{{ $health->mental_health }}</strong></td>
+                                <td><strong>{{ $health->mental_health ? $health->mental_health : "Information not disclosed" }}</strong></td>
                             </tr>
                             <tr>
                                 <td>Physical Health</td>
-                                <td><strong>{{ $health->physical_health }}</strong></td>
+                                <td><strong>{{ $health->physical_health ? $health->physical_health : "Information not disclosed" }}</strong></td>
                             </tr>
                             <tr>
                                 <td>Present Medication or Treatment</td>
-                                <td><strong>{{ $health->present_medication }}</strong></td>
+                                <td><strong>{{ $health->present_medication ? $health->present_medication : "Information not disclosed" }}</strong></td>
                             </tr>
                             <tr>
                                 <td>Current Care Plan Approach</td>
-                                <td><strong>{{ $health->current_cpa }}</strong></td>
+                                <td><strong>{{ $health->current_cpa ? $health->current_cpa : "Information not disclosed" }}</strong></td>
                             </tr>
                             @if ($health->other_relevant_information != "")
                                 <tr>
@@ -378,6 +378,7 @@
             </div>
             <div id="clTwo" class="panel-collapse collapse show" aria-expanded="true">
                 <div class="block-body">
+                    @if (count($risk_assessment))
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -396,6 +397,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    @else
+                        <div>No Information was provided</div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -407,22 +411,26 @@
             </div>
             <div id="clTwo" class="panel-collapse collapse show" aria-expanded="true">
                 <div class="block-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <td><strong>Support Group</strong></td>
-                                <td><strong>Support Need Details</strong></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($support_info as $support)
+                    @if (count($support_info))
+                        <table class="table table-bordered">
+                            <thead>
                                 <tr>
-                                    <td>{{ $support->support_group }}</td>
-                                    <td>{{ $support->support_needs }}</td>
+                                    <td><strong>Support Group</strong></td>
+                                    <td><strong>Support Need Details</strong></td>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($support_info as $support)
+                                    <tr>
+                                        <td>{{ $support->support_group }}</td>
+                                        <td>{{ $support->support_needs }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <div>No Information was provided</div>
+                    @endif
                 </div>
             </div>
         </div>

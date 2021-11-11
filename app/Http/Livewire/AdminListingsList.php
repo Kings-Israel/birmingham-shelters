@@ -17,7 +17,9 @@ class AdminListingsList extends Component
 
     public array $breadcrumb;
 
-    public $listingSearch;
+    public $listingLocation;
+
+    public $listingTitle;
 
     public function mount(): void
     {
@@ -28,10 +30,12 @@ class AdminListingsList extends Component
 
     public function render()
     {
-        $listingSearch = '%'.$this->listingSearch.'%';
+        $listingLocation = '%'.$this->listingLocation.'%';
+        $listingTitle = '%'.$this->listingTitle.'%';
         $listings = Listing::with('user')->where([
                 ['status', '!=', ListingStatusEnum::draft()],
-                ['address', 'like', $listingSearch],
+                ['address', 'like', $listingLocation],
+                ['name', 'like', $listingTitle],
             ])->orderBy('created_at', 'DESC')->paginate(10);
         return view('livewire.admin.admin-listings-list', ['listings' => $listings])->layout('layouts.admin', ['pageTitle' => "Property Listings"]);
     }
