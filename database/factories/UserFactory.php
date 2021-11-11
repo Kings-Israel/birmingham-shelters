@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\UserTypeEnum;
 use App\Models\User;
+use Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Spatie\Enum\Laravel\Faker\FakerEnumProvider;
@@ -25,7 +26,8 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'phone_number_verified_at' => now(),
             'user_type' => $this->faker->randomEnumValue(UserTypeEnum::class),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => Hash::make('secretpassword'), // password
+            // 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ];
     }
