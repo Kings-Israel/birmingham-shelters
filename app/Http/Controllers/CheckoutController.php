@@ -59,7 +59,7 @@ class CheckoutController extends Controller
         $payer->setPaymentMethod('paypal');
 
         $amount = new Amount();
-        $amount->setCurrency('USD')
+        $amount->setCurrency('GBP')
             ->setTotal($request->amount);
 
         $transaction = new Transaction();
