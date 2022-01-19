@@ -44,35 +44,35 @@ class UserSeeder extends Seeder
             'last_name' => 'Admin',
             'email' => 'admin@hsc.co.uk',
         ]);
-        // collect(UserTypeEnum::toValues())
-        //     ->reject(fn ($value) => $value === 'super_admin')->each(function ($type) {
-        //     });
+        collect(UserTypeEnum::toValues())
+            ->reject(fn ($value) => $value === 'super_admin')->each(function ($type) {
+            });
 
-        // Listing::factory(10)
-        //     ->withDocuments()
-        //     ->ownerAs(User::whereEmail('landlord@test.com')->first())
-        //     ->create();
+        User::factory()->create([
+            'user_type' => 'user',
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'email' => $this->faker->unique()->email(),
+        ]);
 
-        // User::factory()->create([
-        //     'user_type' => 'user',
-        //     'first_name' => $this->faker->firstName(),
-        //     'last_name' => $this->faker->lastName(),
-        //     'email' => $this->faker->unique()->email(),
-        // ]);
+        User::factory()->create([
+            'user_type' => 'agent',
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'email' => $this->faker->unique()->email(),
+        ]);
 
-        // User::factory()->create([
-        //     'user_type' => 'agent',
-        //     'first_name' => $this->faker->firstName(),
-        //     'last_name' => $this->faker->lastName(),
-        //     'email' => $this->faker->unique()->email(),
-        // ]);
+        $landlord = User::factory()->create([
+            'user_type' => 'landlord',
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'email' => $this->faker->unique()->email(),
+        ]);
 
-        // User::factory()->create([
-        //     'user_type' => 'landlord',
-        //     'first_name' => $this->faker->firstName(),
-        //     'last_name' => $this->faker->lastName(),
-        //     'email' => $this->faker->unique()->email(),
-        // ]);
+        Listing::factory(10)
+            ->withDocuments()
+            ->ownerAs(User::whereEmail($landlord->email)->first())
+            ->create();
 
     }
 }

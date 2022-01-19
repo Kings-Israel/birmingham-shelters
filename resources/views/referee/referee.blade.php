@@ -92,8 +92,6 @@
                     <div class="row">
                         <div class="col-md-3">Name: <strong>{{ $referee->applicant_kin_name }}</strong></div>
                         <div class="col-md-3">Relationship: <strong>{{ $referee->applicant_kin_relationship }}</strong></div>
-                        <div class="col-md-3">Email: <strong>{{ $referee->applicant_kin_email }}</strong></div>
-                        <div class="col-md-3">Phone Number: <strong>{{ $referee->applicant_kin_phone_number }}</strong></div>
                     </div>
                 </div>
             </div>

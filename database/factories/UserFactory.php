@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\UserTypeEnum;
+use App\Models\RefereeData;
 use App\Models\User;
 use Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
