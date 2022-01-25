@@ -23,7 +23,8 @@
         "livewire/livewire": "^2.4",
         "paypal/rest-api-sdk-php": "^1.14",
         "pnlinh/laravel-infobip-sms": "^1.0",
-        "spatie/laravel-enum": "^2.5"
+        "spatie/laravel-enum": "^2.5",
+        "stripe/stripe-php": "^7.111"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
