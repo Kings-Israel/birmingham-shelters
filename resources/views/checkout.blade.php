@@ -75,19 +75,40 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{{ route('invoice.checkout', $invoice->id)}}" >
-                                @csrf
-                                <input id="amount" type="text" class="form-control" name="amount" hidden value="{{ $invoice->total }}" autofocus>
 
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-theme-light-2 rounded full-width">
-                                        Pay with Paypal
-                                    </button>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{{ route('invoice.checkout', $invoice->id)}}" >
+                                        @csrf
+                                        <input id="amount" type="text" class="form-control" name="amount" hidden value="{{ $invoice->total }}">
+
+                                        <div class="form-group">
+                                            <label style="font-size: 20px">Please select your preferred payment method: </label>
+                                            <input id="a-p" class="checkbox-custom" name="payment_method" type="radio" value="stripe" {{ (old('payment_method') == 'stripe') ? 'checked' : '' }}>
+                                            <label for="a-p" class="checkbox-custom-label">Pay With Credit/Debit Card</label>
+                                            <input id="a-q" class="checkbox-custom" name="payment_method" type="radio" value="paypal" {{ (old('payment_method') == 'paypal') ? 'checked' : '' }}>
+                                            <label for="a-q" class="checkbox-custom-label">Pay with Paypal</label>
+                                            <br>
+                                            @error('payment_method')
+                                                <strong class="error-message">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <button type="submit" class="btn btn-md btn-outline-theme-2 rounded">Pay</button>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <a href="{{ route('invoice.cancel', $invoice->id) }}" class="btn btn-md btn-outline-theme rounded">
+                                                        Cancel
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
-                            <a href="{{ route('invoice.cancel', $invoice->id) }}">
-                                <button class="btn btn-md btn-outline-theme rounded full-width">Cancel</button>
-                            </a>
+                            </div>
                         </div>
 
                     </div>
