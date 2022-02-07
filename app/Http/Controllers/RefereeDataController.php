@@ -318,7 +318,7 @@ class RefereeDataController extends Controller
                     $rules[$key] = 'required|string';
                     $messages[$key.'.required'] = 'Please enter a description';
                 }
-            }
+            }   
         }
 
         Validator::make($request->risk_description, $rules, $messages)->validate();

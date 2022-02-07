@@ -41,19 +41,21 @@
                                             </div>
                                             <div class="login-form container">
                                                 @if($inquiry->isRegistered($inquiry->user_email))
-                                                    <form method="POST" action="{{ route('listing.inquiry.response') }}">
+                                                    <form method="POST" action="{{ route('listing.inquiry.response') }}" id="listing-inquiry-reply">
                                                         @csrf
                                                         <div class="form-group">
                                                             <input type="hidden" name="inquiry_id" value="{{ $inquiry->id }}">
                                                             <label>Enter Reply Here</label>
-                                                            <textarea name="message_response" class="form-control">{{ old('message_response') }}</textarea>
+                                                            <textarea name="message_response" class="form-control" id="message_response">{{ old('message_response') }}</textarea>
+                                                            <p class="error-message" id="listing-inquiry-text-error"></p>
                                                         </div>
-                                                        <button type="submit" class="btn btn-md btn-theme-light-2 rounded">Reply</button>
+                                                        <button type="submit" class="btn btn-md btn-theme-light-2 rounded" id="listing-inquiry-reply-btn">Reply</button>
                                                     </form>
+                                                @else
+                                                    <a id="replyThroughMail" href="{{ route('listing.reply.mail', $inquiry->id) }}">
+                                                        <button type="submit" id="replyThroughMailButton" class="btn btn-md btn-theme-light-2 rounded">Reply Through Mail</button>
+                                                    </a>
                                                 @endif
-                                                <a id="replyThroughMail" href="{{ route('listing.reply.mail', $inquiry->id) }}">
-                                                    <button type="submit" id="replyThroughMailButton" class="btn btn-md btn-theme-light-2 rounded">Reply Through Mail</button>
-                                                </a>
                                                 <hr>
                                                 <form action="{{ route('listing.inquiry.delete', $inquiry->id) }}" method="post">
                                                     @csrf

@@ -208,7 +208,7 @@
                                 </div>
                                 <div class="clearfix"></div>
                             </div> --}}
-                            <form action="{{ route('listing.inquiry') }}" method="post">
+                            <form action="{{ route('listing.inquiry') }}" method="post" id="listing-inquiry-form">
                                 @csrf
                                 <input type="hidden" name="listing_id" value="{{ $listing->id }}">
                                 @auth
@@ -228,7 +228,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input type="text" class="form-control" placeholder="Your Email" name="user_email" value="{{ old('user_email') }}">
+                                            <input type="text" class="form-control" placeholder="Your Email" name="user_email" id="" value="{{ old('user_email') }}">
                                             @error('user_email')
                                                 <p class="error-message"><strong>{{ $message }}</strong></p>
                                             @enderror
@@ -243,12 +243,13 @@
                                     @endguest
                                     <div class="form-group">
                                         <label>Message</label>
-                                        <textarea name="listing_message" class="form-control">{{ old('listing_message') }}</textarea>
+                                        <textarea name="listing_message" class="form-control" id="listing-inquiry-message">{{ old('listing_message') }}</textarea>
+                                        <p class="error-message" id="listing-inquiry-text-error"></p>
                                         @error('listing_message')
                                             <p class="error-message"><strong>{{ $message }}</strong></p>
                                         @enderror
                                     </div>
-                                    <button class="btn btn-black btn-md rounded full-width">Send Message</button>
+                                    <button class="btn btn-black btn-md rounded full-width" id="listing-inquiry-submit-btn">Send Message</button>
                                 </div>
                             </form>
                         </div>
@@ -332,6 +333,28 @@
                 }
             })
         }
+        function checkIfEmailInString(text) {
+            var re = /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
+            return re.test(text);
+        }
+
+        function checkIfPhoneNumberInString(text) {
+            var phoneExp = /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/img;
+            return phoneExp.test(text)
+        }
+        $('#listing-inquiry-submit-btn').on('click', function(e) {
+            e.preventDefault();
+            if (checkIfEmailInString($('#listing-inquiry-message').val())) {
+                $('#listing-inquiry-text-error').text('Do not share emails in the text')
+                return
+            }
+            if (checkIfPhoneNumberInString($('#listing-inquiry-message').val())) {
+                $('#listing-inquiry-text-error').text('Do not share phone numbers in the text')
+                return
+            }
+
+            $('#listing-inquiry-form').submit()
+        })
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCisnVFSnc5QVfU2Jm2W3oRLqMDrKwOEoM&callback=initMap" defer></script>
     @endpush
