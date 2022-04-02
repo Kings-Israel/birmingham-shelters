@@ -44,7 +44,7 @@
                         </div>
                 </div>
                 <!-- Delete Listing Form Modal -->
-                <div class="modal fade signup" id="delete_listing_{{ $listing->id }}" tabindex="-1" role="dialog"
+                <div class="modal fade" id="delete_listing_{{ $listing->id }}" tabindex="-1" role="dialog"
                     aria-labelledby="sign-up" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
                         <div class="modal-content" id="sign-up">

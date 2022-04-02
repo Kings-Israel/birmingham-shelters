@@ -16,21 +16,19 @@
                                         <label>What Client Group will you look to house here?</label>
                                         <div class="o-features">
                                             <ul class="no-ul-list">
-                                                @php($old_supported_groups = old('supported_groups', []))
-
                                                 @foreach ($supported_groups as $group)
                                                     <li>
                                                         <input type="checkbox" class="checkbox-custom" name="supported_groups[]"
                                                             value="{{ $group }}"
                                                             id="a-{{$loop->index}}"
-                                                            {{ in_array($group, $old_supported_groups) ? 'checked' : '' }}>
+                                                            {{ in_array($group, $listing->supported_groups) ? 'checked' : '' }}>
                                                         <label for="a-{{$loop->index}}" class="checkbox-custom-label text-capitalize">{{ $group }}</label>
                                                     </li>
                                                 @endforeach
                                                 <li>
                                                     <input id="other-types-checkbox" class="checkbox-custom"
                                                         name="supported_groups[]" type="checkbox" value="Other"
-                                                        {{ in_array('Other', $old_supported_groups) ? 'checked' : '' }}>
+                                                        {{ in_array('Other', $listing->supported_groups) ? 'checked' : '' }}>
                                                     <label for="other-types-checkbox" class="checkbox-custom-label">Others</label>
                                                 </li>
                                             </ul>
@@ -40,7 +38,7 @@
                                         </span>
                                     </div>
 
-                                    <div class="form-group col-md-12 {{ !in_array('Other', $old_supported_groups) ? 'd-none' : '' }}">
+                                    <div class="form-group col-md-12 {{ !in_array('Other', $listing->supported_groups) ? 'd-none' : '' }}">
                                         <label>Other (please specify)</label>
                                         <input type="text" id="other_support_types" name="other_supported_groups" class="form-control" value="{{ old('other_supported_groups') }}">
                                         <span id="other_supported_groupsError">
