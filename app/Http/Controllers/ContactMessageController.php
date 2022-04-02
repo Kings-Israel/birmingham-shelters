@@ -24,12 +24,38 @@ class ContactMessageController extends Controller
             'string' => 'Please enter a valid input'
         ];
 
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+        $remoteip = $_SERVER['REMOTE_ADDR'];
+        $data = [
+            'secret' => config('services.recaptcha.secret'),
+            'response' => $request->get('recaptcha'),
+            'remoteip' => $remoteip
+        ];
+        $options = [
+            'http' => [
+            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method' => 'POST',
+            'content' => http_build_query($data)
+            ]
+        ];
+
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        $resultJson = json_decode($result);
+
         $validated_data = $request->validate($rules, $messages);
 
-        if (ContactMessage::create($validated_data)) {
-            return back()->with('success', 'Your message has been sent');
+        if ($resultJson->success != true) {
+            return back()->withErrors(['captcha' => 'ReCaptcha Error']);
+        }
+        if ($resultJson->score >= 0.3) {
+            if (ContactMessage::create($validated_data)) {
+                return back()->with('success', 'Your message has been sent');
+            } else {
+                return back()->withError('There was a problem while sending your message. Please try again');
+            }
         } else {
-            return back()->withError('There was a problem while sending your message. Please try again');
+            return back()->withErrors(['captcha' => 'ReCaptcha Error']);
         }
     }
 

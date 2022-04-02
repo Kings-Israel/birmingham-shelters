@@ -20,7 +20,7 @@
 
                 <div class="col-lg-7 col-md-7">
 
-                    <form action="{{ route('contact.form.submit') }}" method="post">
+                    <form action="{{ route('contact') }}" method="post">
                         @csrf
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
@@ -50,9 +50,9 @@
                             <textarea class="form-control simple" name="message_contact">{{ old('message_contact') }}</textarea>
                             <x-input-error for="message_contact" />
                         </div>
-
+                        <input type="hidden" name="recaptcha" id="recaptcha">
                         <div class="form-group">
-                            <button class="btn btn-theme-light-2 rounded" type="submit">Submit Request</button>
+                            <button class="btn btn-theme-light-2 rounded" type="submit">Submit Message</button>
                         </div>
 
                     </div>
@@ -103,4 +103,16 @@
 
     </section>
     <!-- ============================ Agency List End ================================== -->
+    @push('scripts')
+        <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.sitekey') }}"></script>
+        <script>
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('{{ config('services.recaptcha.sitekey') }}', {action: 'contact'}).then(function(token) {
+                        if (token) {
+                        document.getElementById('recaptcha').value = token;
+                        }
+                    });
+                });
+        </script>
+    @endpush
 </x-app-layout>

@@ -48,7 +48,7 @@ Route::get('/reset-password/{token}', [ResetPasswordController::class, 'resetPas
 
 Route::post('/reset-password', [ResetPasswordController::class, 'passwordUpdate'])->middleware('guest')->name('password.update');
 
-Route::post('/contact/message', [ContactMessageController::class, 'contactFormSubmit'])->name('contact.form.submit');
+Route::post('/contact/message', [ContactMessageController::class, 'contactFormSubmit'])->name('contact');
 
 Route::view('/landlord/inquiry-reply-template', 'landlord.inquiry-reply-template');
 
