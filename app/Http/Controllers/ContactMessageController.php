@@ -48,9 +48,9 @@ class ContactMessageController extends Controller
         if ($resultJson->success != true) {
             return back()->withErrors(['captcha' => 'ReCaptcha Error']);
         }
-        if ($resultJson->score >= 0.3) {
+        if ($resultJson->score >= 0.4) {
             if (ContactMessage::create($validated_data)) {
-                return back()->with('success', 'Your message has been sent');
+                return back()->with('success', 'Thank you for your message.');
             } else {
                 return back()->withError('There was a problem while sending your message. Please try again');
             }

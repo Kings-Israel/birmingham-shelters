@@ -57,7 +57,7 @@
         @auth
             @if (! Auth::user()->isOfType('admin'))
                 <!-- GetButton.io widget -->
-                <script type="text/javascript">
+                {{-- <script type="text/javascript">
                     (function () {
                         var options = {
                             whatsapp: "+44 7450 310532", // WhatsApp number
@@ -69,10 +69,32 @@
                         s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
                         var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
                     })();
-                </script>
+                </script> --}}
                 <!-- /GetButton.io widget -->
             @endif
         @endauth
+        <!--Start of Tawk.to Script-->
+        <script type="text/javascript">
+            var Tawk_API=Tawk_API||{};
+            Tawk_API.visitor = {
+                name : 'visitor name',
+                email : 'visitor@email.com'
+            };
+            window.Tawk_API.customStyle = {
+                background : '#000'
+            };
+
+            Tawk_LoadStart=new Date();
+            (function(){
+                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                s1.async=true;
+                s1.src='https://embed.tawk.to/60e73c79649e0a0a5ccb39af/1fa3k8f40';
+                s1.charset='UTF-8';
+                s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1,s0);
+            })();
+        </script>
+        <!--End of Tawk.to Script-->
 
         <a id="back2Top" class="top-scroll" title="Back to top" href="#" style="left: 20px"><i class="ti-arrow-up"></i></a>
 
@@ -118,10 +140,10 @@
         var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
         var yyyy = today.getFullYear();
         if(dd<10){
-        dd='0'+dd
+            dd='0'+dd
         }
         if(mm<10){
-        mm='0'+mm
+            mm='0'+mm
         }
 
         today = yyyy+'-'+mm+'-'+dd;
