@@ -194,8 +194,8 @@ class CheckoutController extends Controller
                 'content' => 'We are hereby glad to inform you that you have been approved to occupy the listing as stated above. Please make contact with '.$booking->listing->contact_name.' through the details: Email: '.$booking->listing->contact_email.' or Phone Number: '.$booking->listing->contact_number.' for further instructions',
             ];
             // Send notification to user on approval of listing booking
-            // SendSMSNotification::dispatchAfterResponse($booking->user->phone_number, 'Your Booking for the listing '.$booking->listing->name.' has been approved. Please contact '.$booking->listing->contact_name.' through the details, Phone Number: '.$booking->listing->contact_number.', Email: '.$booking->listing->contact_email.', for more Information. Regards, Sheltered Birmingham.');
-            // SendBookingApprovalMail::dispatchAfterResponse($data['email'], $data['subject'], $data['content']);
+            SendSMSNotification::dispatchAfterResponse($booking->user->phone_number, 'Your Booking for the listing '.$booking->listing->name.' has been approved. Please contact '.$booking->listing->contact_name.' through the details, Phone Number: '.$booking->listing->contact_number.', Email: '.$booking->listing->contact_email.', for more Information. Regards, Sheltered Birmingham.');
+            SendBookingApprovalMail::dispatchAfterResponse($data['email'], $data['subject'], $data['content']);
 
             return redirect()->route('invoice.checkout.page', $invoice->id)->with(['success' => 'Invoice settled successfully']);
 

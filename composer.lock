@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a0684e9212dd62a1e08782f60f7188f7",
+    "content-hash": "476ef0c85ff962f2af7feb4d3cb08c37",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3251,16 +3251,16 @@
         },
         {
             "name": "spatie/enum",
-            "version": "3.9.0",
+            "version": "3.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/enum.git",
-                "reference": "5870275f3811dc63c08200b1536ab2f8618b6a52"
+                "reference": "c0180f1de7c5d06e4b84efbc751ea19167140173"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/enum/zipball/5870275f3811dc63c08200b1536ab2f8618b6a52",
-                "reference": "5870275f3811dc63c08200b1536ab2f8618b6a52",
+                "url": "https://api.github.com/repos/spatie/enum/zipball/c0180f1de7c5d06e4b84efbc751ea19167140173",
+                "reference": "c0180f1de7c5d06e4b84efbc751ea19167140173",
                 "shasum": ""
             },
             "require": {
@@ -3323,7 +3323,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-05-10T09:27:50+00:00"
+            "time": "2022-02-05T09:44:52+00:00"
         },
         {
             "name": "spatie/laravel-enum",
