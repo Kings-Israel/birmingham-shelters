@@ -8,7 +8,7 @@
             <div class="form-submit">
                 <h3>Property Documents</h3>
                 <p>Step 3 of 4</p>
-                <h6>* Upload documents if available</h6>
+                <h6>* Upload documents if available. This is an optional step.</h6>
                 @error('listing_documents')
                 <div class="alert alert-danger alert-dismissible">
                     <p>{{ $message }}</p>
