@@ -48,7 +48,6 @@ class CheckoutController extends Controller
 
     public function checkout(Invoice $invoice, Request $request)
     {
-        // dd($request->all());
         abort_if($invoice->payment()->exists(), 403, "Invoice has already been settled");
 
         $rules = [

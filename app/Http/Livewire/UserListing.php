@@ -21,7 +21,7 @@ class UserListing extends Component
     {
         $listingLocation = '%'.$this->listingLocation.'%';
         $listingTitle = '%'.$this->listingTitle.'%';
-        $listings = Listing::where([
+        $listings = Listing::with('user', 'invoices', 'bookings')->where([
                 ['is_available', '=', true],
                 ['status', '!=', ListingStatusEnum::draft()],
                 ['name', 'like', $listingTitle],
